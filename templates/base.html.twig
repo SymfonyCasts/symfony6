@@ -12,8 +12,37 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
+        <!-- Main Navigation -->
+        <nav class="navbar navbar-dark mb-5" style="background-color: transparent;">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-record-vinyl"></i>
+                    Mixed Vinyl
+                </a>
+                
+                <a href="#" style="color: #fff;">
+                    <i class="fas fa-user-astronaut p-1" style="border: solid 1px #fff; border-radius: 50px;"></i>
+                </a>
+            </div>
+        </nav>
+        <!-- End Main Navigation -->
+        
         {% block body %}{% endblock %}
+        
+        <!-- Footer -->
+        
+        <!-- End Footer -->
+        
     </body>
 </html>
