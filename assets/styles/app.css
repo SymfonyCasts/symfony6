@@ -6,3 +6,14 @@ body {
     color: #fff;
     font-family: 'Roboto Condensed', sans-serif;
 }
+
+.song-list i {
+    margin-top: 7px;
+}
+
+.song-details {
+    background-color: #404347;
+    border-radius: 5px;
+    padding: 5px;
+}
+

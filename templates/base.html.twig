@@ -30,10 +30,14 @@
                     <i class="fas fa-record-vinyl"></i>
                     Mixed Vinyl
                 </a>
-                
-                <a href="#" style="color: #fff;">
-                    <i class="fas fa-user-astronaut p-1" style="border: solid 1px #fff; border-radius: 50px;"></i>
-                </a>
+                <div>
+                    <a href="#" class="me-3" style="color: #fff; text-decoration: none;">
+                        All Mixes
+                    </a>
+                    <a href="#" style="color: #fff;">
+                        <i class="fas fa-user-astronaut p-2" style="border: solid 1px #fff; border-radius: 50px; font-size: 40px;"></i>
+                    </a>
+                </div>
             </div>
         </nav>
         <!-- End Main Navigation -->
@@ -41,7 +45,22 @@
         {% block body %}{% endblock %}
         
         <!-- Footer -->
-        
+        <div class="container mt-5">
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="me-1" style="color: red;"><i class="fas fa-heart"></i></span>
+                <span class="text-muted me-1">The guys and gals at</span>
+              <a target="_blank" href="https://symfonycasts.com/" style="color: #25a1dd" class="mb-3 me-2 mb-md-0 text-decoration-none lh-1">
+                 SymfonyCasts
+              </a>
+              
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-muted" target="_blank" href="https://github.com/SymfonyCasts/symfony6"><i class="fab fa-github"></i></a></li>
+            </ul>
+          </footer>
+        </div>
         <!-- End Footer -->
         
     </body>
