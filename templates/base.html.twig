@@ -23,30 +23,40 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
+        
         <!-- Main Navigation -->
-        <nav class="navbar navbar-dark mb-5" style="background-color: transparent;">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <i class="fas fa-record-vinyl"></i>
-                    Mixed Vinyl
-                </a>
-                <div>
-                    <a href="#" class="me-3" style="color: #fff; text-decoration: none;">
-                        All Mixes
-                    </a>
-                    <!-- Not Authenticated -->
-                        <!-- <button href="#" class="btn btn-primary btn-sm">
-                            Login
-                        </button> -->
-                    <!-- End Not Authenticated -->
-                    
-                    <!-- If Authenticated -->
-                        <a href="#" style="color: #fff;">
-                            <i class="fas fa-user-astronaut p-2" style="border: solid 1px #fff; border-radius: 50px; font-size: 40px;"></i>
-                        </a>
-                    <!-- End Authenticated -->
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-dark  mb-5" style="background-color: #27333A;">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                  <i class="fas fa-record-vinyl"></i>
+                  Mixed Vinyl
+              </a>   
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" style="margin-top: 20px;" href="#">Browse Mixes</a>
+                </li>
+                <!-- Not Authenticated -->
+                    <!-- <li class="nav-item"><button href="#" class="btn btn-primary btn-sm">Login</button></li> -->
+                <!-- End Not Authenticated -->
+
+                <!-- If Authenticated -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-astronaut p-2" style="border: solid 1px #fff; border-radius: 50px; font-size: 40px;"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">My Mixes</a></li>
+                    <li><a class="dropdown-item" href="#">Signout</a></li>
+                  </ul>
+                </li>
+                <!-- End If Authenticated -->
+              </ul>
             </div>
+          </div>
         </nav>
         <!-- End Main Navigation -->
         

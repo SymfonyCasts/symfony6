@@ -2,7 +2,7 @@
 @import '@fortawesome/fontawesome-free/css/all.css';
 
 body {
-    background-color: #36393E;
+    background-color: #17242C;
     color: #fff;
     font-family: 'Roboto Condensed', sans-serif;
 }
@@ -12,7 +12,7 @@ body {
 }
 
 .song-details {
-    background-color: #404347;
+    background-color: #222F36;
     border-radius: 5px;
     padding: 5px;
 }
