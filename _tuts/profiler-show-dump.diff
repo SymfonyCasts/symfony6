@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 84d10fc..eda4ea7 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -20,7 +20,7 @@ class VinylController extends AbstractController
+             ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
+             ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
+         ];
+-        dd($tracks);
++        dump($tracks);
+ 
+         return $this->render('vinyl/homepage.html.twig', [
+             'title' => 'PB & Jams',

@@ -1,0 +1,42 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index daca1f4..a9511e2 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -12,8 +12,18 @@ class VinylController extends AbstractController
+     #[Route('/')]
+     public function homepage(): Response
+     {
++        $tracks = [
++            'Gangsta\'s Paradise - Coolio',
++            'Waterfalls - TLC',
++            'Creep - Radiohead',
++            'Kiss from a Rose - Seal',
++            'On Bended Knee - Boyz II Men',
++            'Fantasy - Mariah Carey',
++        ];
++
+         return $this->render('vinyl/homepage.html.twig', [
+             'title' => 'PB & Jams',
++            'tracks' => $tracks,
+         ]);
+     }
+ 
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 8cf431e..144d942 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -3,5 +3,13 @@
+ {# TODO: add an image of the record #}
+ 
+ <div>
+-    Our schweet track list: TODO
++    Tracks:
++
++    <ul>
++        {% for track in tracks %}
++            <li>
++                {{ track }}
++            </li>
++        {% endfor %}
++    </ul>
+ </div>

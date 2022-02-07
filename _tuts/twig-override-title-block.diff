@@ -1,0 +1,12 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 184ff86..7cd9388 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -1,5 +1,7 @@
+ {% extends 'base.html.twig' %}
+ 
++{% block title %}Create a new Record{% endblock %}
++
+ {% block body %}
+ <h1>{{ title }}</h1>
+ 

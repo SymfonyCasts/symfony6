@@ -1,0 +1,16 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 24bebe7..184ff86 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -1,5 +1,6 @@
+ {% extends 'base.html.twig' %}
+ 
++{% block body %}
+ <h1>{{ title }}</h1>
+ 
+ {# TODO: add an image of the record #}
+@@ -15,3 +16,4 @@
+         {% endfor %}
+     </ul>
+ </div>
++{% endblock %}

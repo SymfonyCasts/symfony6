@@ -74,7 +74,77 @@
             "id": "twig-add-comment-syntax",
             "name": "Twig: add {# comment syntax #}",
             "description": null
+        },
+        {
+            "id": "twig-loop-with-for",
+            "name": "Twig: loop with for",
+            "description": null
+        },
+        {
+            "id": "twig-restructure-array",
+            "name": "Twig: restructure array",
+            "description": null
+        },
+        {
+            "id": "twig-update-for-new-structure",
+            "name": "Twig: update for new structure",
+            "description": null
+        },
+        {
+            "id": "twig-use-upper",
+            "name": "Twig: Use |upper",
+            "description": null
+        },
+        {
+            "id": "twig-remove-upper-filter",
+            "name": "Twig: Remove |upper filter",
+            "description": null
+        },
+        {
+            "id": "twig-add-extends",
+            "name": "Twig: add extends",
+            "description": null
+        },
+        {
+            "id": "twig-add-block-body",
+            "name": "Twig: add block body",
+            "description": null
+        },
+        {
+            "id": "twig-customize-title-block",
+            "name": "Twig: customize title block",
+            "description": null
+        },
+        {
+            "id": "twig-override-title-block",
+            "name": "Twig: override title block",
+            "description": null
+        },
+        {
+            "id": "profiler-install-debug",
+            "name": "Profiler: install debug",
+            "description": null
+        },
+        {
+            "id": "profiler-show-dd",
+            "name": "Profiler: show dd()",
+            "description": null
+        },
+        {
+            "id": "profiler-show-dump",
+            "name": "Profiler: show dump()",
+            "description": null
+        },
+        {
+            "id": "profiler-show-dump-in-twig",
+            "name": "Profiler: show dump() in Twig",
+            "description": null
+        },
+        {
+            "id": "profiler-show-dump-with-no-args",
+            "name": "Profiler: show dump() with no args",
+            "description": null
         }
     ],
-    "sha": "af19c81525d24c7b9a1a7edc822639c055ba8743"
+    "sha": "ffc0f531ab69b2a835bcde22406ba54f77640635"
 }

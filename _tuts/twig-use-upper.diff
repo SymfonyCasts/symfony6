@@ -1,0 +1,13 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 9a073e7..4143b61 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -8,7 +8,7 @@
+     <ul>
+         {% for track in tracks %}
+             <li>
+-                {{ track.song }} - {{ track.artist }}
++                {{ track.song }} - {{ track.artist|upper }}
+             </li>
+         {% endfor %}
+     </ul>

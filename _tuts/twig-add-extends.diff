@@ -1,0 +1,10 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 9a073e7..24bebe7 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -1,3 +1,5 @@
++{% extends 'base.html.twig' %}
++
+ <h1>{{ title }}</h1>
+ 
+ {# TODO: add an image of the record #}
