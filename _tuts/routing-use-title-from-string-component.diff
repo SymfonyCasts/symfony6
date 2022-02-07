@@ -1,0 +1,21 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c7a04d4..2fb0310 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -4,6 +4,7 @@ namespace App\Controller;
+ 
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
++use function Symfony\Component\String\u;
+ 
+ class VinylController
+ {
+@@ -16,7 +17,7 @@ class VinylController
+     #[Route('/browse/{slug}')]
+     public function browse($slug): Response
+     {
+-        $title = str_replace('-', ' ', $slug);
++        $title = u(str_replace('-', ' ', $slug))->title(true);
+ 
+         return new Response('Genre: '.$title);
+ 

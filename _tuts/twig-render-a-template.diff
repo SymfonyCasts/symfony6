@@ -1,0 +1,37 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 2fb0310..daca1f4 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -2,16 +2,19 @@
+ 
+ namespace App\Controller;
+ 
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+ use function Symfony\Component\String\u;
+ 
+-class VinylController
++class VinylController extends AbstractController
+ {
+     #[Route('/')]
+     public function homepage(): Response
+     {
+-        return new Response('Title: "PB and Jams"');
++        return $this->render('vinyl/homepage.html.twig', [
++            'title' => 'PB & Jams',
++        ]);
+     }
+ 
+     #[Route('/browse/{slug}')]
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+new file mode 100644
+index 0000000..69cb608
+--- /dev/null
++++ b/templates/vinyl/homepage.html.twig
+@@ -0,0 +1,5 @@
++<h1>{{ title }}</h1>
++
++<div>
++    Our schweet track list: TODO
++</div>

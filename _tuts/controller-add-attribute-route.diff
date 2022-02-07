@@ -1,0 +1,16 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c2e7dd1..d2910d8 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -2,8 +2,11 @@
+ 
+ namespace App\Controller;
+ 
++use Symfony\Component\Routing\Annotation\Route;
++
+ class VinylController
+ {
++    #[Route('/')]
+     public function homepage()
+     {
+         die('Vinyl: Definitely NOT a fancy-looking frisbee!');

@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 13af3b1..048e645 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class VinylController
+ {
+     #[Route('/')]
+-    public function homepage()
++    public function homepage(): Response
+     {
+         return new Response('Title: "PB and Jams"');
+     }

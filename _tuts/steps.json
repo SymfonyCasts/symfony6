@@ -1,0 +1,80 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "controller-create-vinylcontroller",
+            "name": "Controller: create VinylController",
+            "description": null
+        },
+        {
+            "id": "controller-add-homepage-action",
+            "name": "Controller: add homepage action",
+            "description": null
+        },
+        {
+            "id": "controller-add-attribute-route",
+            "name": "Controller: add attribute route",
+            "description": null
+        },
+        {
+            "id": "controller-return-a-response",
+            "name": "Controller: return a Response",
+            "description": null
+        },
+        {
+            "id": "controller-add-response-return-type",
+            "name": "Controller: Add response return type",
+            "description": null
+        },
+        {
+            "id": "routing-add-browse-route-controller",
+            "name": "Routing: Add \/browse route + controller",
+            "description": null
+        },
+        {
+            "id": "routing-change-to-browse-death-metal",
+            "name": "Routing: Change to \/browse\/death-metal",
+            "description": null
+        },
+        {
+            "id": "routing-add-slug-wildcard",
+            "name": "Routing: Add {slug} wildcard",
+            "description": null
+        },
+        {
+            "id": "routing-add-slug-argument",
+            "name": "Routing: add $slug argument",
+            "description": null
+        },
+        {
+            "id": "routing-clean-up-slug-for-title",
+            "name": "Routing: clean up $slug for $title",
+            "description": null
+        },
+        {
+            "id": "routing-use-title-from-string-component",
+            "name": "Routing: use title from String component",
+            "description": null
+        },
+        {
+            "id": "recipes-composer-require-templates",
+            "name": "Recipes: composer require templates",
+            "description": null
+        },
+        {
+            "id": "twig-render-a-template",
+            "name": "Twig: render a template",
+            "description": null
+        },
+        {
+            "id": "twig-add-comment-syntax",
+            "name": "Twig: add {# comment syntax #}",
+            "description": null
+        }
+    ],
+    "sha": "af19c81525d24c7b9a1a7edc822639c055ba8743"
+}

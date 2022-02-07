@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+new file mode 100644
+index 0000000..d8f9331
+--- /dev/null
++++ b/src/Controller/VinylController.php
+@@ -0,0 +1,7 @@
++<?php
++
++namespace App\Controller;
++
++class VinylController
++{
++}

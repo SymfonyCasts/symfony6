@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index d8f9331..c2e7dd1 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -4,4 +4,8 @@ namespace App\Controller;
+ 
+ class VinylController
+ {
++    public function homepage()
++    {
++        die('Vinyl: Definitely NOT a fancy-looking frisbee!');
++    }
+ }

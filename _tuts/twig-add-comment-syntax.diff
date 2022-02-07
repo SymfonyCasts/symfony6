@@ -1,0 +1,12 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 69cb608..8cf431e 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -1,5 +1,7 @@
+ <h1>{{ title }}</h1>
+ 
++{# TODO: add an image of the record #}
++
+ <div>
+     Our schweet track list: TODO
+ </div>

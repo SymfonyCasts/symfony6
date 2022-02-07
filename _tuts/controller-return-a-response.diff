@@ -1,0 +1,20 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index d2910d8..13af3b1 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\Controller;
+ 
++use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class VinylController
+@@ -9,6 +10,6 @@ class VinylController
+     #[Route('/')]
+     public function homepage()
+     {
+-        die('Vinyl: Definitely NOT a fancy-looking frisbee!');
++        return new Response('Title: "PB and Jams"');
+     }
+ }

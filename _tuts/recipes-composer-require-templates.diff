@@ -1,0 +1,575 @@
+diff --git a/composer.json b/composer.json
+index 2747cef..8de8e04 100644
+--- a/composer.json
++++ b/composer.json
+@@ -12,9 +12,10 @@
+         "symfony/flex": "^2",
+         "symfony/framework-bundle": "6.0.*",
+         "symfony/runtime": "6.0.*",
+-        "symfony/yaml": "6.0.*"
+-    },
+-    "require-dev": {
++        "symfony/twig-bundle": "6.0.*",
++        "symfony/yaml": "6.0.*",
++        "twig/extra-bundle": "^2.12|^3.0",
++        "twig/twig": "^2.12|^3.0"
+     },
+     "config": {
+         "allow-plugins": {
+diff --git a/composer.lock b/composer.lock
+index 3fffcb9..c65aec8 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "224e86bcdb3d2766370592e1333c8cdb",
++    "content-hash": "6ed890e3ebab84d4f4e5adf63adecdc0",
+     "packages": [
+         {
+             "name": "psr/cache",
+@@ -2189,6 +2189,291 @@
+             ],
+             "time": "2022-01-02T09:55:41+00:00"
+         },
++        {
++            "name": "symfony/translation-contracts",
++            "version": "v3.0.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/translation-contracts.git",
++                "reference": "1b6ea5a7442af5a12dba3dbd6d71034b5b234e77"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/1b6ea5a7442af5a12dba3dbd6d71034b5b234e77",
++                "reference": "1b6ea5a7442af5a12dba3dbd6d71034b5b234e77",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.0.2"
++            },
++            "suggest": {
++                "symfony/translation-implementation": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-main": "3.0-dev"
++                },
++                "thanks": {
++                    "name": "symfony/contracts",
++                    "url": "https://github.com/symfony/contracts"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Contracts\\Translation\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Generic abstractions related to translation",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "abstractions",
++                "contracts",
++                "decoupling",
++                "interfaces",
++                "interoperability",
++                "standards"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/translation-contracts/tree/v3.0.0"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2021-09-07T12:43:40+00:00"
++        },
++        {
++            "name": "symfony/twig-bridge",
++            "version": "v6.0.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/twig-bridge.git",
++                "reference": "31a4ec953c20299cc828eb6a1ccdf86d7ecbe22c"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/31a4ec953c20299cc828eb6a1ccdf86d7ecbe22c",
++                "reference": "31a4ec953c20299cc828eb6a1ccdf86d7ecbe22c",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.0.2",
++                "symfony/translation-contracts": "^1.1|^2|^3",
++                "twig/twig": "^2.13|^3.0.4"
++            },
++            "conflict": {
++                "phpdocumentor/reflection-docblock": "<3.2.2",
++                "phpdocumentor/type-resolver": "<1.4.0",
++                "symfony/console": "<5.4",
++                "symfony/form": "<5.4",
++                "symfony/http-foundation": "<5.4",
++                "symfony/http-kernel": "<5.4",
++                "symfony/translation": "<5.4",
++                "symfony/workflow": "<5.4"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.12",
++                "egulias/email-validator": "^2.1.10|^3",
++                "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
++                "symfony/asset": "^5.4|^6.0",
++                "symfony/console": "^5.4|^6.0",
++                "symfony/dependency-injection": "^5.4|^6.0",
++                "symfony/expression-language": "^5.4|^6.0",
++                "symfony/finder": "^5.4|^6.0",
++                "symfony/form": "^5.4|^6.0",
++                "symfony/http-foundation": "^5.4|^6.0",
++                "symfony/http-kernel": "^5.4|^6.0",
++                "symfony/intl": "^5.4|^6.0",
++                "symfony/mime": "^5.4|^6.0",
++                "symfony/polyfill-intl-icu": "~1.0",
++                "symfony/property-info": "^5.4|^6.0",
++                "symfony/routing": "^5.4|^6.0",
++                "symfony/security-acl": "^2.8|^3.0",
++                "symfony/security-core": "^5.4|^6.0",
++                "symfony/security-csrf": "^5.4|^6.0",
++                "symfony/security-http": "^5.4|^6.0",
++                "symfony/serializer": "^5.4|^6.0",
++                "symfony/stopwatch": "^5.4|^6.0",
++                "symfony/translation": "^5.4|^6.0",
++                "symfony/web-link": "^5.4|^6.0",
++                "symfony/workflow": "^5.4|^6.0",
++                "symfony/yaml": "^5.4|^6.0",
++                "twig/cssinliner-extra": "^2.12|^3",
++                "twig/inky-extra": "^2.12|^3",
++                "twig/markdown-extra": "^2.12|^3"
++            },
++            "suggest": {
++                "symfony/asset": "For using the AssetExtension",
++                "symfony/expression-language": "For using the ExpressionExtension",
++                "symfony/finder": "",
++                "symfony/form": "For using the FormExtension",
++                "symfony/http-kernel": "For using the HttpKernelExtension",
++                "symfony/routing": "For using the RoutingExtension",
++                "symfony/security-core": "For using the SecurityExtension",
++                "symfony/security-csrf": "For using the CsrfExtension",
++                "symfony/security-http": "For using the LogoutUrlExtension",
++                "symfony/stopwatch": "For using the StopwatchExtension",
++                "symfony/translation": "For using the TranslationExtension",
++                "symfony/var-dumper": "For using the DumpExtension",
++                "symfony/web-link": "For using the WebLinkExtension",
++                "symfony/yaml": "For using the YamlExtension"
++            },
++            "type": "symfony-bridge",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Bridge\\Twig\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides integration for Twig with various Symfony components",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/twig-bridge/tree/v6.0.3"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-01-02T09:55:41+00:00"
++        },
++        {
++            "name": "symfony/twig-bundle",
++            "version": "v6.0.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/twig-bundle.git",
++                "reference": "bee311f9b10c05262536ff954fe7a1c3f7e8d497"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/bee311f9b10c05262536ff954fe7a1c3f7e8d497",
++                "reference": "bee311f9b10c05262536ff954fe7a1c3f7e8d497",
++                "shasum": ""
++            },
++            "require": {
++                "composer-runtime-api": ">=2.1",
++                "php": ">=8.0.2",
++                "symfony/config": "^5.4|^6.0",
++                "symfony/http-foundation": "^5.4|^6.0",
++                "symfony/http-kernel": "^5.4|^6.0",
++                "symfony/polyfill-ctype": "~1.8",
++                "symfony/twig-bridge": "^5.4|^6.0",
++                "twig/twig": "^2.13|^3.0.4"
++            },
++            "conflict": {
++                "symfony/dependency-injection": "<5.4",
++                "symfony/framework-bundle": "<5.4",
++                "symfony/translation": "<5.4"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.10.4",
++                "symfony/asset": "^5.4|^6.0",
++                "symfony/dependency-injection": "^5.4|^6.0",
++                "symfony/expression-language": "^5.4|^6.0",
++                "symfony/finder": "^5.4|^6.0",
++                "symfony/form": "^5.4|^6.0",
++                "symfony/framework-bundle": "^5.4|^6.0",
++                "symfony/routing": "^5.4|^6.0",
++                "symfony/stopwatch": "^5.4|^6.0",
++                "symfony/translation": "^5.4|^6.0",
++                "symfony/web-link": "^5.4|^6.0",
++                "symfony/yaml": "^5.4|^6.0"
++            },
++            "type": "symfony-bundle",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Bundle\\TwigBundle\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides a tight integration of Twig into the Symfony full-stack framework",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/twig-bundle/tree/v6.0.3"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-01-02T09:55:41+00:00"
++        },
+         {
+             "name": "symfony/var-dumper",
+             "version": "v6.0.3",
+@@ -2422,6 +2707,161 @@
+                 }
+             ],
+             "time": "2022-01-26T17:23:29+00:00"
++        },
++        {
++            "name": "twig/extra-bundle",
++            "version": "v3.3.8",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/twigphp/twig-extra-bundle.git",
++                "reference": "2e58256b0e9fe52f30149347c0547e4633304765"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/2e58256b0e9fe52f30149347c0547e4633304765",
++                "reference": "2e58256b0e9fe52f30149347c0547e4633304765",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
++                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
++                "twig/twig": "^2.7|^3.0"
++            },
++            "require-dev": {
++                "league/commonmark": "^1.0|^2.0",
++                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
++                "twig/cache-extra": "^3.0",
++                "twig/cssinliner-extra": "^2.12|^3.0",
++                "twig/html-extra": "^2.12|^3.0",
++                "twig/inky-extra": "^2.12|^3.0",
++                "twig/intl-extra": "^2.12|^3.0",
++                "twig/markdown-extra": "^2.12|^3.0",
++                "twig/string-extra": "^2.12|^3.0"
++            },
++            "type": "symfony-bundle",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "3.2-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Twig\\Extra\\TwigExtraBundle\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com",
++                    "homepage": "http://fabien.potencier.org",
++                    "role": "Lead Developer"
++                }
++            ],
++            "description": "A Symfony bundle for extra Twig extensions",
++            "homepage": "https://twig.symfony.com",
++            "keywords": [
++                "bundle",
++                "extra",
++                "twig"
++            ],
++            "support": {
++                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.3.8"
++            },
++            "funding": [
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-01-04T13:58:53+00:00"
++        },
++        {
++            "name": "twig/twig",
++            "version": "v3.3.8",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/twigphp/Twig.git",
++                "reference": "972d8604a92b7054828b539f2febb0211dd5945c"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/twigphp/Twig/zipball/972d8604a92b7054828b539f2febb0211dd5945c",
++                "reference": "972d8604a92b7054828b539f2febb0211dd5945c",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=7.2.5",
++                "symfony/polyfill-ctype": "^1.8",
++                "symfony/polyfill-mbstring": "^1.3"
++            },
++            "require-dev": {
++                "psr/container": "^1.0",
++                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-master": "3.3-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Twig\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "BSD-3-Clause"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com",
++                    "homepage": "http://fabien.potencier.org",
++                    "role": "Lead Developer"
++                },
++                {
++                    "name": "Twig Team",
++                    "role": "Contributors"
++                },
++                {
++                    "name": "Armin Ronacher",
++                    "email": "armin.ronacher@active-4.com",
++                    "role": "Project Founder"
++                }
++            ],
++            "description": "Twig, the flexible, fast, and secure template language for PHP",
++            "homepage": "https://twig.symfony.com",
++            "keywords": [
++                "templating"
++            ],
++            "support": {
++                "issues": "https://github.com/twigphp/Twig/issues",
++                "source": "https://github.com/twigphp/Twig/tree/v3.3.8"
++            },
++            "funding": [
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-02-04T06:59:48+00:00"
+         }
+     ],
+     "packages-dev": [],
+diff --git a/config/bundles.php b/config/bundles.php
+index 49d3fb6..4ce0d70 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -2,4 +2,6 @@
+ 
+ return [
+     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
++    Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
++    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+ ];
+diff --git a/config/packages/twig.yaml b/config/packages/twig.yaml
+new file mode 100644
+index 0000000..f9f4cc5
+--- /dev/null
++++ b/config/packages/twig.yaml
+@@ -0,0 +1,6 @@
++twig:
++    default_path: '%kernel.project_dir%/templates'
++
++when@test:
++    twig:
++        strict_variables: true
+diff --git a/symfony.lock b/symfony.lock
+index fc6b0a5..e0820cc 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -127,6 +127,25 @@
+     "symfony/string": {
+         "version": "v6.0.2"
+     },
++    "symfony/translation-contracts": {
++        "version": "v3.0.0"
++    },
++    "symfony/twig-bridge": {
++        "version": "v6.0.3"
++    },
++    "symfony/twig-bundle": {
++        "version": "6.0",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "master",
++            "version": "5.4",
++            "ref": "bffbb8f1a849736e64006735afae730cb428b6ff"
++        },
++        "files": [
++            "config/packages/twig.yaml",
++            "templates/base.html.twig"
++        ]
++    },
+     "symfony/var-dumper": {
+         "version": "v6.0.2"
+     },
+@@ -135,5 +154,11 @@
+     },
+     "symfony/yaml": {
+         "version": "v6.0.2"
++    },
++    "twig/extra-bundle": {
++        "version": "v3.3.8"
++    },
++    "twig/twig": {
++        "version": "v3.3.8"
+     }
+ }
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+new file mode 100644
+index 0000000..d4f83f7
+--- /dev/null
++++ b/templates/base.html.twig
+@@ -0,0 +1,19 @@
++<!DOCTYPE html>
++<html>
++    <head>
++        <meta charset="UTF-8">
++        <title>{% block title %}Welcome!{% endblock %}</title>
++        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
++        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
++        {% block stylesheets %}
++            {{ encore_entry_link_tags('app') }}
++        {% endblock %}
++
++        {% block javascripts %}
++            {{ encore_entry_script_tags('app') }}
++        {% endblock %}
++    </head>
++    <body>
++        {% block body %}{% endblock %}
++    </body>
++</html>

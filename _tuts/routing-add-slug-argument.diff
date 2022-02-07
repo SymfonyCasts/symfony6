@@ -1,0 +1,17 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index e8a6bb1..aea18c5 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -14,8 +14,10 @@ class VinylController
+     }
+ 
+     #[Route('/browse/{slug}')]
+-    public function browse(): Response
++    public function browse($slug): Response
+     {
+-        return new Response('Breakup vinyl? Angsty 90s rock? Browse the collection!');
++        return new Response('Genre: '.$slug);
++
++        //return new Response('Breakup vinyl? Angsty 90s rock? Browse the collection!');
+     }
+ }

@@ -1,0 +1,15 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 048e645..6bf5a4f 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -12,4 +12,10 @@ class VinylController
+     {
+         return new Response('Title: "PB and Jams"');
+     }
++
++    #[Route('/browse')]
++    public function browse(): Response
++    {
++        return new Response('Breakup vinyl? Angsty 90s rock? Browse the collection!');
++    }
+ }
