@@ -1,5 +1,5 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 2fb0310..daca1f4 100644
+index 0e5bdb4..9b10431 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
 @@ -2,16 +2,19 @@

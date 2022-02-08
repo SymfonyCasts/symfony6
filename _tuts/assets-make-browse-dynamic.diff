@@ -1,0 +1,34 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index bf69489..1c77644 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -30,12 +30,10 @@ class VinylController extends AbstractController
+     #[Route('/browse/{slug}')]
+     public function browse(string $slug = null): Response
+     {
+-        if ($slug) {
+-            $title = 'Genre: '.u(str_replace('-', ' ', $slug))->title(true);
+-        } else {
+-            $title = 'All Genres';
+-        }
++        $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        return $this->render('vinyl/browse.html.twig');
++        return $this->render('vinyl/browse.html.twig', [
++            'genre' => $genre
++        ]);
+     }
+ }
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 0ebd0bb..176fdf0 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -2,7 +2,7 @@
+ 
+ {% block body %}
+ <div class="container">
+-    <h1 class="d-inline me-3">Browse</h1>
++    <h1 class="d-inline me-3">Browse {{ genre ? genre : 'All Genres' }}</h1>
+     <div class="row mt-5">
+         <div class="col-12 col-md-4">
+ 

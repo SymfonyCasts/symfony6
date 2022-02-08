@@ -1,10 +1,10 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index aea18c5..c7a04d4 100644
+index 07c5607..f66dc1f 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
 @@ -16,7 +16,9 @@ class VinylController
      #[Route('/browse/{slug}')]
-     public function browse($slug): Response
+     public function browse(string $slug): Response
      {
 -        return new Response('Genre: '.$slug);
 +        $title = str_replace('-', ' ', $slug);

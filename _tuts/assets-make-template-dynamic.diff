@@ -1,0 +1,71 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 629023c..7067a11 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -2,7 +2,7 @@
+ 
+ {% block body %}
+ <div class="container">
+-    <h1 class="d-inline me-3">PB & Jams</h1> <i class="fas fa-edit"></i>
++    <h1 class="d-inline me-3">{{ title }}</h1> <i class="fas fa-edit"></i>
+     <div class="row mt-5">
+         <div class="col-12 col-md-4">
+ 
+@@ -32,54 +32,14 @@
+         </div>
+         <div class="col-12 col-md-8 ps-5">
+             <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
++            {% for track in tracks %}
+             <div class="song-list d-flex mb-3">
+                 <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Gangsta's Paradise - Coolio</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Waterfalls - TLC</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Creep - TLC</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Kiss from a Rose - Seal</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">On Bended Knee - Boyz II Men</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Another Night - Real McCoy</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Fantasy - Mariah Carey</span>
+-                <i class="fas fa-bars mx-3"></i>
+-                <i class="fas fa-times"></i>
+-            </div>
+-            <div class="song-list d-flex mb-3">
+-                <i class="fas fa-play me-3"></i>
+-                <span class="song-details">Take a Bow - Madonna</span>
++                <span class="song-details">{{ track.song }} - {{ track.artist }}</span>
+                 <i class="fas fa-bars mx-3"></i>
+                 <i class="fas fa-times"></i>
+             </div>
++            {% endfor %}
+             <button type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add a song</button>
+         </div>
+     </div>

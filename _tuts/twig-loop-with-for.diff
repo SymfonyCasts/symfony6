@@ -1,5 +1,5 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index daca1f4..a9511e2 100644
+index 9b10431..487781c 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
 @@ -12,8 +12,18 @@ class VinylController extends AbstractController

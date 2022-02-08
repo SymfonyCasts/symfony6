@@ -1,0 +1,13 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index c9785ed..9331fbe 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -21,7 +21,7 @@
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+-        <link rel="stylesheet" href="/styles/app.css">
++        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+     </head>
+     <body>
+ 

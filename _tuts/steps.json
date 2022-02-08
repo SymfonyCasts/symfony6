@@ -51,6 +51,11 @@
             "description": null
         },
         {
+            "id": "routing-type-hint-slug",
+            "name": "Routing: type-hint $slug",
+            "description": null
+        },
+        {
             "id": "routing-clean-up-slug-for-title",
             "name": "Routing: clean up $slug for $title",
             "description": null
@@ -58,6 +63,16 @@
         {
             "id": "routing-use-title-from-string-component",
             "name": "Routing: use title from String component",
+            "description": null
+        },
+        {
+            "id": "routing-allow-slug-to-be-optional",
+            "name": "Routing: allow {slug} to be optional",
+            "description": null
+        },
+        {
+            "id": "routing-make-controller-smart-for-missing-slug",
+            "name": "Routing: make controller smart for missing $slug",
             "description": null
         },
         {
@@ -144,7 +159,62 @@
             "id": "profiler-show-dump-with-no-args",
             "name": "Profiler: show dump() with no args",
             "description": null
+        },
+        {
+            "id": "profiler-remove-dump",
+            "name": "Profiler: remove dump()",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-base-layout",
+            "name": "Assets: copy in base layout",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-images",
+            "name": "Assets: copy in images",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-app-css",
+            "name": "Assets: copy in app.css",
+            "description": null
+        },
+        {
+            "id": "assets-use-asset-function",
+            "name": "Assets: use asset() function",
+            "description": null
+        },
+        {
+            "id": "assets-install-symfony-assets",
+            "name": "Assets: install symfony\/assets",
+            "description": null
+        },
+        {
+            "id": "assets-using-asset-in-more-places",
+            "name": "Assets: using asset() in more places",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-show-template",
+            "name": "Assets: copy in show template",
+            "description": null
+        },
+        {
+            "id": "assets-make-template-dynamic",
+            "name": "Assets: make template dynamic",
+            "description": null
+        },
+        {
+            "id": "assets-copy-in-browse-template",
+            "name": "Assets: copy in browse template",
+            "description": null
+        },
+        {
+            "id": "assets-make-browse-dynamic",
+            "name": "Assets: make browse dynamic",
+            "description": null
         }
     ],
-    "sha": "ffc0f531ab69b2a835bcde22406ba54f77640635"
+    "sha": "bf6d67d4b0f7f92311dc4624320bab349c564691"
 }

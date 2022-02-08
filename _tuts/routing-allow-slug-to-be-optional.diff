@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 09553fe..c1dd0b8 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -15,7 +15,7 @@ class VinylController
+     }
+ 
+     #[Route('/browse/{slug}')]
+-    public function browse(string $slug): Response
++    public function browse(string $slug = null): Response
+     {
+         $title = u(str_replace('-', ' ', $slug))->title(true);
+ 

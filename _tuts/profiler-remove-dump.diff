@@ -1,0 +1,12 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 238511c..7cd9388 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -10,7 +10,6 @@
+ <div>
+     Tracks:
+ 
+-    {{ dump() }}
+     <ul>
+         {% for track in tracks %}
+             <li>

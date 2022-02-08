@@ -1,0 +1,33 @@
+diff --git a/public/styles/app.css b/public/styles/app.css
+new file mode 100644
+index 0000000..9409f57
+--- /dev/null
++++ b/public/styles/app.css
+@@ -0,0 +1,15 @@
++body {
++    background-color: #17242C;
++    color: #fff;
++    font-family: 'Roboto Condensed', sans-serif;
++}
++
++.song-list i {
++    margin-top: 7px;
++}
++
++.song-details {
++    background-color: #222F36;
++    border-radius: 5px;
++    padding: 5px;
++}
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 553982c..c9785ed 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -21,6 +21,7 @@
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
++        <link rel="stylesheet" href="/styles/app.css">
+     </head>
+     <body>
+ 

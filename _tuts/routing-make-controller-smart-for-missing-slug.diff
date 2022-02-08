@@ -1,0 +1,20 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c1dd0b8..0e5bdb4 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -17,9 +17,13 @@ class VinylController
+     #[Route('/browse/{slug}')]
+     public function browse(string $slug = null): Response
+     {
+-        $title = u(str_replace('-', ' ', $slug))->title(true);
++        if ($slug) {
++            $title = 'Genre: '.u(str_replace('-', ' ', $slug))->title(true);
++        } else {
++            $title = 'All Genres';
++        }
+ 
+-        return new Response('Genre: '.$title);
++        return new Response($title);
+ 
+         //return new Response('Breakup vinyl? Angsty 90s rock? Browse the collection!');
+     }
