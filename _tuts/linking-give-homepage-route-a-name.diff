@@ -1,0 +1,13 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 1c77644..b5c184e 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -9,7 +9,7 @@ use function Symfony\Component\String\u;
+ 
+ class VinylController extends AbstractController
+ {
+-    #[Route('/')]
++    #[Route('/', name: 'app_homepage')]
+     public function homepage(): Response
+     {
+         $tracks = [

@@ -1,0 +1,13 @@
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index a57f580..11ed50a 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -29,7 +29,7 @@
+         <!-- Main Navigation -->
+         <nav class="navbar navbar-expand-lg navbar-dark  mb-5" style="background-color: #27333A;">
+             <div class="container-fluid">
+-                <a class="navbar-brand" href="#">
++                <a class="navbar-brand" href="{{ path('app_homepage') }}">
+                     <i class="fas fa-record-vinyl"></i>
+                     Mixed Vinyl
+                 </a>

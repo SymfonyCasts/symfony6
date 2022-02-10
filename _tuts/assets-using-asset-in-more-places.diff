@@ -1,10 +1,10 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 9331fbe..b56480a 100644
+index a9dd883..a57f580 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -12,9 +12,9 @@
-             {{ encore_entry_script_tags('app') }}
-         {% endblock %}
+@@ -4,9 +4,9 @@
+         <meta charset="UTF-8">
+         <title>{% block title %}Mixed Vinyl{% endblock %}</title>
  
 -        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 -        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">

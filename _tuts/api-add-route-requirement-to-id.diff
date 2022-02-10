@@ -1,0 +1,13 @@
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+index 49c78fd..de2646d 100644
+--- a/src/Controller/SongController.php
++++ b/src/Controller/SongController.php
+@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class SongController extends AbstractController
+ {
+-    #[Route('/api/songs/{id}', methods: ['GET'])]
++    #[Route('/api/songs/{id<\d+>}', methods: ['GET'])]
+     public function getSong(int $id)
+     {
+         // TODO query the database

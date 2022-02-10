@@ -1,0 +1,31 @@
+diff --git a/assets/controllers/hello_controller.js b/assets/controllers/song-controls_controller.js
+similarity index 79%
+rename from assets/controllers/hello_controller.js
+rename to assets/controllers/song-controls_controller.js
+index e847027..8560c6a 100644
+--- a/assets/controllers/hello_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -11,6 +11,6 @@ import { Controller } from '@hotwired/stimulus';
+  */
+ export default class extends Controller {
+     connect() {
+-        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
++        console.log('I just appeared into existence!');
+     }
+ }
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 19b3aea..5c95e3f 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -31,10 +31,9 @@
+             </svg>
+         </div>
+         <div class="col-12 col-md-8 ps-5">
+-            <div {{ stimulus_controller('hello') }}></div>
+             <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
+             {% for track in tracks %}
+-            <div class="song-list">
++            <div class="song-list" {{ stimulus_controller('song-controls') }}>
+                 <div class="d-flex mb-3">
+                     <a href="#">
+                         <i class="fas fa-play me-3"></i>

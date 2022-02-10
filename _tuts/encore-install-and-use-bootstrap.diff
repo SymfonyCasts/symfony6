@@ -1,0 +1,78 @@
+diff --git a/assets/styles/app.css b/assets/styles/app.css
+index 4973e9b..ec48fc6 100644
+--- a/assets/styles/app.css
++++ b/assets/styles/app.css
+@@ -1,3 +1,7 @@
++@import '~bootstrap';
++@import '~@fortawesome/fontawesome-free';
++@import '~@fontsource/roboto-condensed';
++
+ body {
+     background-color: #17242C;
+     color: #fff;
+diff --git a/package.json b/package.json
+index 813010a..434f65a 100644
+--- a/package.json
++++ b/package.json
+@@ -1,8 +1,11 @@
+ {
+     "devDependencies": {
++        "@fontsource/roboto-condensed": "^4.5.2",
++        "@fortawesome/fontawesome-free": "^6.0.0",
+         "@hotwired/stimulus": "^3.0.0",
+         "@symfony/stimulus-bridge": "^3.0.0",
+         "@symfony/webpack-encore": "^1.7.0",
++        "bootstrap": "^5.1.3",
+         "core-js": "^3.0.0",
+         "regenerator-runtime": "^0.13.2",
+         "webpack-notifier": "^1.6.0"
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index c2f1d9d..27ae052 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -8,12 +8,6 @@
+         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+ 
+-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+-        <link rel="preconnect" href="https://fonts.googleapis.com">
+-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+-
+         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+         {% block stylesheets %}
+             {{ encore_entry_link_tags('app') }}
+diff --git a/yarn.lock b/yarn.lock
+index 563d2d6..c49d06b 100644
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -900,6 +900,16 @@
+   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.6.tgz#d5e0706cf8c6acd8c6032f8d54070af261bbbb2f"
+   integrity sha512-ws57AidsDvREKrZKYffXddNkyaF14iHNHm8VQnZH6t99E8gczjNN0GpvcGny0imC80yQ0tHz1xVUKk/KFQSUyA==
+ 
++"@fontsource/roboto-condensed@^4.5.2":
++  version "4.5.2"
++  resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-4.5.2.tgz#0cae8afa8320140070ad3f0c05b811d40c51c637"
++  integrity sha512-E0pNlTmICvhhV3100aNKsgUJBvoEeAADjPEtYX8Uy6FgkbJy0z5HTil67f0I7OUsP18LufWYwq8h6L4x9lyQwA==
++
++"@fortawesome/fontawesome-free@^6.0.0":
++  version "6.0.0"
++  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.0.0.tgz#6f3bd8e42997c7d536a1246877ed8bcd4f005a54"
++  integrity sha512-6LB4PYBST1Rx40klypw1SmSDArjFOcfBf2LeX9Zg5EKJT2eXiyiJq+CyBYKeXyK0sXS2FsCJWSPr/luyhuvh0Q==
++
+ "@hotwired/stimulus-webpack-helpers@^1.0.1":
+   version "1.0.1"
+   resolved "https://registry.yarnpkg.com/@hotwired/stimulus-webpack-helpers/-/stimulus-webpack-helpers-1.0.1.tgz#4cd74487adeca576c9865ac2b9fe5cb20cef16dd"
+@@ -1607,6 +1617,11 @@ boolbase@^1.0.0:
+   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
+   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+ 
++bootstrap@^5.1.3:
++  version "5.1.3"
++  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.1.3.tgz#ba081b0c130f810fa70900acbc1c6d3c28fa8f34"
++  integrity sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==
++
+ brace-expansion@^1.1.7:
+   version "1.1.11"
+   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"

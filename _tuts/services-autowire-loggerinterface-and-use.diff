@@ -1,0 +1,30 @@
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+index de2646d..38792d5 100644
+--- a/src/Controller/SongController.php
++++ b/src/Controller/SongController.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\Controller;
+ 
++use Psr\Log\LoggerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\JsonResponse;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -9,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class SongController extends AbstractController
+ {
+     #[Route('/api/songs/{id<\d+>}', methods: ['GET'])]
+-    public function getSong(int $id)
++    public function getSong(int $id, LoggerInterface $logger)
+     {
+         // TODO query the database
+         $song = [
+@@ -18,6 +19,8 @@ class SongController extends AbstractController
+             'url' => 'https://symfonycasts.s3.amazonaws.com/sample.mp3',
+         ];
+ 
++        $logger->info('Returning API response for song '.$id);
++
+         return $this->json($song);
+     }
+ }

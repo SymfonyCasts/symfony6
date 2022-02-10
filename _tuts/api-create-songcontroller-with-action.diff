@@ -1,0 +1,21 @@
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+new file mode 100644
+index 0000000..543fc5d
+--- /dev/null
++++ b/src/Controller/SongController.php
+@@ -0,0 +1,15 @@
++<?php
++
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\Routing\Annotation\Route;
++
++class SongController extends AbstractController
++{
++    #[Route('/api/songs/{id}')]
++    public function getSong($id)
++    {
++        dd($id);
++    }
++}

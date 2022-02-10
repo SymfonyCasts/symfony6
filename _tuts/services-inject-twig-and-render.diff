@@ -1,0 +1,32 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 166fe58..3fe9976 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -5,12 +5,13 @@ namespace App\Controller;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
++use Twig\Environment;
+ use function Symfony\Component\String\u;
+ 
+ class VinylController extends AbstractController
+ {
+     #[Route('/', name: 'app_homepage')]
+-    public function homepage(): Response
++    public function homepage(Environment $twig): Response
+     {
+         $tracks = [
+             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+@@ -21,10 +22,11 @@ class VinylController extends AbstractController
+             ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
+         ];
+ 
+-        return $this->render('vinyl/homepage.html.twig', [
++        $html = $twig->render('vinyl/homepage.html.twig', [
+             'title' => 'PB & Jams',
+             'tracks' => $tracks,
+         ]);
++        dd($html);
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]

@@ -196,8 +196,8 @@
             "description": null
         },
         {
-            "id": "assets-copy-in-show-template",
-            "name": "Assets: copy in show template",
+            "id": "assets-copy-in-homepage-template",
+            "name": "Assets: Copy in homepage template",
             "description": null
         },
         {
@@ -214,7 +214,162 @@
             "id": "assets-make-browse-dynamic",
             "name": "Assets: make browse dynamic",
             "description": null
+        },
+        {
+            "id": "linking-give-homepage-route-a-name",
+            "name": "Linking: give homepage route a name",
+            "description": null
+        },
+        {
+            "id": "linking-link-to-homepage",
+            "name": "Linking: link to homepage",
+            "description": null
+        },
+        {
+            "id": "linking-link-to-browse-page",
+            "name": "Linking: link to browse page",
+            "description": null
+        },
+        {
+            "id": "linking-link-with-slug",
+            "name": "Linking: link with {slug}",
+            "description": null
+        },
+        {
+            "id": "api-create-songcontroller-with-action",
+            "name": "API: Create SongController with action",
+            "description": null
+        },
+        {
+            "id": "api-return-jsonresponse",
+            "name": "API: return JsonResponse",
+            "description": null
+        },
+        {
+            "id": "api-use-json",
+            "name": "API: use ->json()",
+            "description": null
+        },
+        {
+            "id": "api-restrict-method-to-get",
+            "name": "API: restrict method to GET",
+            "description": null
+        },
+        {
+            "id": "api-type-hint-id-arg",
+            "name": "API: type-hint $id arg",
+            "description": null
+        },
+        {
+            "id": "api-add-route-requirement-to-id",
+            "name": "API: add route requirement to id",
+            "description": null
+        },
+        {
+            "id": "services-autowire-loggerinterface-and-use",
+            "name": "Services: Autowire LoggerInterface and use",
+            "description": null
+        },
+        {
+            "id": "services-leverage-logger-context",
+            "name": "Services: leverage logger context",
+            "description": null
+        },
+        {
+            "id": "services-inject-twig-and-render",
+            "name": "Services: Inject Twig and render",
+            "description": null
+        },
+        {
+            "id": "services-return-response",
+            "name": "Services: Return Response",
+            "description": null
+        },
+        {
+            "id": "services-revert-twig-change",
+            "name": "Services: revert Twig change",
+            "description": null
+        },
+        {
+            "id": "encore-install-it",
+            "name": "Encore: install it",
+            "description": null
+        },
+        {
+            "id": "encore-yarn-install",
+            "name": "Encore: yarn install",
+            "description": null
+        },
+        {
+            "id": "encore-log-in-app-js",
+            "name": "Encore: log in app.js",
+            "description": null
+        },
+        {
+            "id": "encore-tweak-app-css",
+            "name": "Encore: tweak app.css",
+            "description": null
+        },
+        {
+            "id": "encore-move-css-into-new-app-css",
+            "name": "Encore: move CSS into new app.css",
+            "description": null
+        },
+        {
+            "id": "encore-install-and-use-bootstrap",
+            "name": "Encore: Install and use bootstrap",
+            "description": null
+        },
+        {
+            "id": "encore-point-to-all-in-font-awesome",
+            "name": "Encore: point to all in font awesome",
+            "description": null
+        },
+        {
+            "id": "stimulus-add-data-controller-element",
+            "name": "Stimulus: Add data-controller element",
+            "description": null
+        },
+        {
+            "id": "stimulus-use-stimulus-controller",
+            "name": "Stimulus: use stimulus_controller()",
+            "description": null
+        },
+        {
+            "id": "stimulus-rename-to-song-controllers-controller",
+            "name": "Stimulus: Rename to song-controllers_controller",
+            "description": null
+        },
+        {
+            "id": "stimulus-add-stimulus-action",
+            "name": "Stimulus: Add stimulus_action",
+            "description": null
+        },
+        {
+            "id": "stimulus-install-axios",
+            "name": "Stimulus: install axios",
+            "description": null
+        },
+        {
+            "id": "stimulus-import-axios",
+            "name": "Stimulus: import axios",
+            "description": null
+        },
+        {
+            "id": "stimulus-add-value",
+            "name": "Stimulus: add value",
+            "description": null
+        },
+        {
+            "id": "stimulus-pass-in-value",
+            "name": "Stimulus: Pass in value",
+            "description": null
+        },
+        {
+            "id": "stimulus-make-ajax-call",
+            "name": "Stimulus: Make ajax call",
+            "description": null
         }
     ],
-    "sha": "bf6d67d4b0f7f92311dc4624320bab349c564691"
+    "sha": "8a3670f93e99234b22596887a0cb4c57cf18ba8e"
 }

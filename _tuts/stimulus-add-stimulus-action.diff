@@ -1,0 +1,29 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index 8560c6a..af58a41 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -10,7 +10,9 @@ import { Controller } from '@hotwired/stimulus';
+  * Delete this file or adapt it for your use!
+  */
+ export default class extends Controller {
+-    connect() {
+-        console.log('I just appeared into existence!');
++    play(event) {
++        event.preventDefault();
++
++        console.log('Playing!');
+     }
+ }
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 5c95e3f..18f11f7 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -35,7 +35,7 @@
+             {% for track in tracks %}
+             <div class="song-list" {{ stimulus_controller('song-controls') }}>
+                 <div class="d-flex mb-3">
+-                    <a href="#">
++                    <a href="#" {{ stimulus_action('song-controls', 'play') }}>
+                         <i class="fas fa-play me-3"></i>
+                     </a>
+                     <span class="song-details">{{ track.song }} - {{ track.artist }}</span>

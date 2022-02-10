@@ -1,0 +1,16 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index b6967a3..e558bc4 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -19,7 +19,9 @@ export default class extends Controller {
+     play(event) {
+         event.preventDefault();
+ 
+-        console.log(this.infoUrlValue);
+-        //axios.get()
++        axios.get(this.infoUrlValue)
++            .then((response) => {
++                console.log(response);
++            });
+     }
+ }

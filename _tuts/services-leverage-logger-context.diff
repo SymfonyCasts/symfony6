@@ -1,0 +1,15 @@
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+index 38792d5..b2ad37f 100644
+--- a/src/Controller/SongController.php
++++ b/src/Controller/SongController.php
+@@ -19,7 +19,9 @@ class SongController extends AbstractController
+             'url' => 'https://symfonycasts.s3.amazonaws.com/sample.mp3',
+         ];
+ 
+-        $logger->info('Returning API response for song '.$id);
++        $logger->info('Returning API response for song {song}', [
++            'song' => $id,
++        ]);
+ 
+         return $this->json($song);
+     }

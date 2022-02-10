@@ -1,0 +1,13 @@
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 3ecbd45..19b3aea 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -31,7 +31,7 @@
+             </svg>
+         </div>
+         <div class="col-12 col-md-8 ps-5">
+-            <div data-controller="hello"></div>
++            <div {{ stimulus_controller('hello') }}></div>
+             <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
+             {% for track in tracks %}
+             <div class="song-list">

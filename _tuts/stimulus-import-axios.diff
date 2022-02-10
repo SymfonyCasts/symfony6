@@ -1,0 +1,18 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index af58a41..7c6959d 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -9,10 +9,12 @@ import { Controller } from '@hotwired/stimulus';
+  *
+  * Delete this file or adapt it for your use!
+  */
++import axios from 'axios';
++
+ export default class extends Controller {
+     play(event) {
+         event.preventDefault();
+ 
+-        console.log('Playing!');
++        axios.get()
+     }
+ }

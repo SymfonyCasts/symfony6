@@ -1,19 +1,12 @@
 diff --git a/templates/base.html.twig b/templates/base.html.twig
-index 52e9b7b..553982c 100644
+index 52e9b7b..3e4ed68 100644
 --- a/templates/base.html.twig
 +++ b/templates/base.html.twig
-@@ -3,7 +3,6 @@
+@@ -3,7 +3,17 @@
      <head>
          <meta charset="UTF-8">
          <title>{% block title %}Mixed Vinyl{% endblock %}</title>
 -        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-         {% block stylesheets %}
-             {{ encore_entry_link_tags('app') }}
-@@ -12,8 +11,74 @@
-         {% block javascripts %}
-             {{ encore_entry_script_tags('app') }}
-         {% endblock %}
 +
 +        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 +        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,6 +17,12 @@ index 52e9b7b..553982c 100644
 +        <link rel="preconnect" href="https://fonts.googleapis.com">
 +        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 +        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
++
+         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+         {% block stylesheets %}
+             {{ encore_entry_link_tags('app') }}
+@@ -14,6 +24,62 @@
+         {% endblock %}
      </head>
      <body>
 +

@@ -1,0 +1,26 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index b5c184e..166fe58 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -27,7 +27,7 @@ class VinylController extends AbstractController
+         ]);
+     }
+ 
+-    #[Route('/browse/{slug}')]
++    #[Route('/browse/{slug}', name: 'app_browse')]
+     public function browse(string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 11ed50a..1cc9e38 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -39,7 +39,7 @@
+                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+                     <ul class="navbar-nav">
+                         <li class="nav-item">
+-                            <a class="nav-link" style="margin-top: 20px;" href="#">Browse Mixes</a>
++                            <a class="nav-link" style="margin-top: 20px;" href="{{ path('app_browse') }}">Browse Mixes</a>
+                         </li>
+                         <!-- Not Authenticated -->
+                             <!-- <li class="nav-item"><button href="#" class="btn btn-primary btn-sm">Login</button></li> -->

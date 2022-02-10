@@ -1,0 +1,11 @@
+diff --git a/assets/styles/app.css b/assets/styles/app.css
+index ec48fc6..305333c 100644
+--- a/assets/styles/app.css
++++ b/assets/styles/app.css
+@@ -1,5 +1,5 @@
+ @import '~bootstrap';
+-@import '~@fortawesome/fontawesome-free';
++@import '~@fortawesome/fontawesome-free/css/all.css';
+ @import '~@fontsource/roboto-condensed';
+ 
+ body {

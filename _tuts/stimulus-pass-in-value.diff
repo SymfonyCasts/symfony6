@@ -1,0 +1,28 @@
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+index b2ad37f..011bd77 100644
+--- a/src/Controller/SongController.php
++++ b/src/Controller/SongController.php
+@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class SongController extends AbstractController
+ {
+-    #[Route('/api/songs/{id<\d+>}', methods: ['GET'])]
++    #[Route('/api/songs/{id<\d+>}', methods: ['GET'], name: 'api_songs_get_one')]
+     public function getSong(int $id, LoggerInterface $logger)
+     {
+         // TODO query the database
+diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
+index 18f11f7..80e7809 100644
+--- a/templates/vinyl/homepage.html.twig
++++ b/templates/vinyl/homepage.html.twig
+@@ -33,7 +33,9 @@
+         <div class="col-12 col-md-8 ps-5">
+             <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
+             {% for track in tracks %}
+-            <div class="song-list" {{ stimulus_controller('song-controls') }}>
++            <div class="song-list" {{ stimulus_controller('song-controls', {
++                infoUrl: path('api_songs_get_one', { id: loop.index })
++            }) }}>
+                 <div class="d-flex mb-3">
+                     <a href="#" {{ stimulus_action('song-controls', 'play') }}>
+                         <i class="fas fa-play me-3"></i>

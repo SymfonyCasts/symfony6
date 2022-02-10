@@ -1,0 +1,14 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 3fe9976..4c667c4 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -26,7 +26,8 @@ class VinylController extends AbstractController
+             'title' => 'PB & Jams',
+             'tracks' => $tracks,
+         ]);
+-        dd($html);
++
++        return new Response($html);
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
