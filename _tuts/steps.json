@@ -369,7 +369,17 @@
             "id": "stimulus-make-ajax-call",
             "name": "Stimulus: Make ajax call",
             "description": null
+        },
+        {
+            "id": "stimulus-play-audio-on-click",
+            "name": "Stimulus: Play audio on click",
+            "description": null
+        },
+        {
+            "id": "ux-install-turbo",
+            "name": "UX: Install turbo",
+            "description": null
         }
     ],
-    "sha": "8a3670f93e99234b22596887a0cb4c57cf18ba8e"
+    "sha": "3aaaa0b931a160165d3989701006f9dd6bf8c684"
 }

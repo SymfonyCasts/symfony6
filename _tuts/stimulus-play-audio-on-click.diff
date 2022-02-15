@@ -1,0 +1,14 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index e558bc4..b7c97f3 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -21,7 +21,8 @@ export default class extends Controller {
+ 
+         axios.get(this.infoUrlValue)
+             .then((response) => {
+-                console.log(response);
++                const audio = new Audio(response.data.url);
++                audio.play();
+             });
+     }
+ }
