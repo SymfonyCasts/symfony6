@@ -169,10 +169,10 @@ index 8dedb56..af8dd42 100644
          "axios": "^0.25.0",
          "bootstrap": "^5.1.3",
 diff --git a/symfony.lock b/symfony.lock
-index 6fdc83c..7ebb071 100644
+index 6acd03e..9387b64 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -185,6 +185,9 @@
+@@ -182,6 +182,9 @@
              "templates/base.html.twig"
          ]
      },

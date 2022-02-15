@@ -103,7 +103,7 @@ index 50e329d..ad27dcf 100644
              "name": "symfony/cache",
              "version": "v6.0.3",
 diff --git a/symfony.lock b/symfony.lock
-index 55f2614..59bfad0 100644
+index 6d739a3..3b39c2e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -14,6 +14,9 @@
