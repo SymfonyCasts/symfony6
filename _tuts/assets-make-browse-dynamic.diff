@@ -20,15 +20,15 @@ index bf69489..1c77644 100644
      }
  }
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 0ebd0bb..176fdf0 100644
+index 1a79e24..160992d 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -2,7 +2,7 @@
  
  {% block body %}
  <div class="container">
--    <h1 class="d-inline me-3">Browse</h1>
-+    <h1 class="d-inline me-3">Browse {{ genre ? genre : 'All Genres' }}</h1>
-     <div class="row mt-5">
-         <div class="col-12 col-md-4">
+-    <h1>Browse Vinyl Mixes</h1>
++    <h1>Browse {{ genre ? genre : 'All Genres' }}</h1>
  
+     <h2 class="mt-5 mb-4">Filter by Genre</h2>
+     <ul class="genre-list ps-0 mt-2 mb-3">

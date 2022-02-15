@@ -1,9 +1,9 @@
 diff --git a/public/styles/app.css b/public/styles/app.css
 new file mode 100644
-index 0000000..4973e9b
+index 0000000..1a4790b
 --- /dev/null
 +++ b/public/styles/app.css
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,29 @@
 +body {
 +    background-color: #17242C;
 +    color: #fff;
@@ -22,6 +22,16 @@ index 0000000..4973e9b
 +    background-color: #222F36;
 +    border-radius: 5px;
 +    padding: 5px;
++}
++
++.genre-list li {
++    margin-right: 5px;
++}
++
++.mixed-vinyl-container {
++    background: rgb(23,36,44);
++    background: linear-gradient(180deg, rgba(23,36,44,1) 1%, rgba(34,47,54,1) 97%);
++    border-radius: 5px;
 +}
 diff --git a/templates/base.html.twig b/templates/base.html.twig
 index 3e4ed68..cca65a2 100644

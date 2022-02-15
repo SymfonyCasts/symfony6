@@ -1,19 +1,27 @@
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 176fdf0..2d43673 100644
+index 160992d..0b64729 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
-@@ -6,6 +6,14 @@
-     <div class="row mt-5">
-         <div class="col-12 col-md-4">
+@@ -7,13 +7,19 @@
+     <h2 class="mt-5 mb-4">Filter by Genre</h2>
+     <ul class="genre-list ps-0 mt-2 mb-3">
+         <li class="d-inline">
+-            <a class="btn btn-primary btn-sm" href="#">Pop</a>
++            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
++                slug: 'pop'
++            }) }}">Pop</a>
+         </li>
+         <li class="d-inline">
+-            <a class="btn btn-primary btn-sm" href="#">Rock</a>
++            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
++                slug: 'rock'
++            }) }}">Rock</a>
+         </li>
+         <li class="d-inline">
+-            <a class="btn btn-primary btn-sm" href="#">Heavy Metal</a>
++            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
++                slug: 'all-accordion'
++            }) }}">All Accordion</a>
+         </li>
+     </ul>
  
-+            <a href="{{ path('app_browse', {
-+                slug: 'death-metal'
-+            }) }}">Death Metal</a>
-+            |
-+            <a href="{{ path('app_browse', {
-+                slug: 'emo'
-+            }) }}">Emo</a>
-+
-             <svg width="100%" height="auto" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                 <defs>
-                     <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
