@@ -90,7 +90,7 @@ index 0000000..cb33b13
 +    background-color: lightgray;
 +}
 diff --git a/composer.json b/composer.json
-index 73912c3..9740145 100644
+index dde9bcd..1234b20 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -14,6 +14,7 @@
@@ -102,15 +102,15 @@ index 73912c3..9740145 100644
          "twig/extra-bundle": "^2.12|^3.0",
          "twig/twig": "^2.12|^3.0"
 diff --git a/composer.lock b/composer.lock
-index ad27dcf..57bf6d3 100644
+index b048e10..3951e5a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "c31761421e48e67c26416f39583be0c9",
-+    "content-hash": "433139b53784a6d5b4d34d5756357a36",
+-    "content-hash": "6075263689534d1295fc971d91268022",
++    "content-hash": "9fa238acafc6c5bc9e14cdc65e3bb89e",
      "packages": [
          {
              "name": "psr/cache",

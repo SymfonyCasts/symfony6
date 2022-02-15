@@ -1,8 +1,8 @@
 diff --git a/composer.json b/composer.json
-index 8de8e04..f64520d 100644
+index 8f15859..bdb1ac7 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -67,5 +67,11 @@
+@@ -70,5 +70,11 @@
              "allow-contrib": false,
              "require": "6.0.*"
          }
@@ -15,15 +15,15 @@ index 8de8e04..f64520d 100644
      }
  }
 diff --git a/composer.lock b/composer.lock
-index c65aec8..50e329d 100644
+index 85844c9..a59a41e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "6ed890e3ebab84d4f4e5adf63adecdc0",
-+    "content-hash": "d02eec395f774aab79c893785c13f4af",
+-    "content-hash": "00eb016a809987112ba78e7ea70374a4",
++    "content-hash": "7174254e2d82f980b18567f77a6f75a2",
      "packages": [
          {
              "name": "psr/cache",

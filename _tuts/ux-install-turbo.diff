@@ -16,7 +16,7 @@ index a1c6e90..7ba2551 100644
      "entrypoints": []
  }
 diff --git a/composer.json b/composer.json
-index 9740145..313ebc3 100644
+index 1234b20..d49ed0f 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -14,6 +14,7 @@
@@ -28,15 +28,15 @@ index 9740145..313ebc3 100644
          "symfony/yaml": "6.0.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 57bf6d3..cfdb2be 100644
+index 3951e5a..9f39039 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "433139b53784a6d5b4d34d5756357a36",
-+    "content-hash": "dad88afac5d2fc8fb2561c5f184ef54a",
+-    "content-hash": "9fa238acafc6c5bc9e14cdc65e3bb89e",
++    "content-hash": "f9fed899013c0f011b38a660ea7b0dff",
      "packages": [
          {
              "name": "psr/cache",

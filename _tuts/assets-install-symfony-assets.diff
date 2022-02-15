@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index f64520d..73912c3 100644
+index bdb1ac7..dde9bcd 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -11,15 +11,15 @@ index f64520d..73912c3 100644
          "symfony/dotenv": "6.0.*",
          "symfony/flex": "^2",
 diff --git a/composer.lock b/composer.lock
-index 50e329d..ad27dcf 100644
+index a59a41e..b048e10 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "d02eec395f774aab79c893785c13f4af",
-+    "content-hash": "c31761421e48e67c26416f39583be0c9",
+-    "content-hash": "7174254e2d82f980b18567f77a6f75a2",
++    "content-hash": "6075263689534d1295fc971d91268022",
      "packages": [
          {
              "name": "psr/cache",
