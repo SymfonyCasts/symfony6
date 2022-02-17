@@ -1,38 +1,37 @@
 diff --git a/composer.json b/composer.json
-index 8f15859..bdb1ac7 100644
+index 8f15859..e004e1d 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -70,5 +70,11 @@
+@@ -11,6 +11,7 @@
+         "symfony/dotenv": "6.0.*",
+         "symfony/flex": "^2",
+         "symfony/framework-bundle": "6.0.*",
++        "symfony/monolog-bundle": "^3.0",
+         "symfony/runtime": "6.0.*",
+         "symfony/twig-bundle": "6.0.*",
+         "symfony/yaml": "6.0.*",
+@@ -70,5 +71,10 @@
              "allow-contrib": false,
              "require": "6.0.*"
          }
 +    },
 +    "require-dev": {
 +        "symfony/debug-bundle": "6.0.*",
-+        "symfony/monolog-bundle": "^3.0",
 +        "symfony/stopwatch": "6.0.*",
 +        "symfony/web-profiler-bundle": "6.0.*"
      }
  }
 diff --git a/composer.lock b/composer.lock
-index 85844c9..a59a41e 100644
+index 85844c9..2850642 100644
 --- a/composer.lock
 +++ b/composer.lock
-@@ -4,7 +4,7 @@
+@@ -4,8 +4,107 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
 -    "content-hash": "00eb016a809987112ba78e7ea70374a4",
-+    "content-hash": "7174254e2d82f980b18567f77a6f75a2",
++    "content-hash": "7be1842348513919c0b69fe3a4bc5740",
      "packages": [
-         {
-             "name": "psr/cache",
-@@ -2864,7 +2864,490 @@
-             "time": "2022-02-04T06:59:48+00:00"
-         }
-     ],
--    "packages-dev": [],
-+    "packages-dev": [
 +        {
 +            "name": "monolog/monolog",
 +            "version": "2.3.5",
@@ -132,84 +131,13 @@ index 85844c9..a59a41e 100644
 +            ],
 +            "time": "2021-10-01T21:08:31+00:00"
 +        },
-+        {
-+            "name": "symfony/debug-bundle",
-+            "version": "v6.0.3",
-+            "source": {
-+                "type": "git",
-+                "url": "https://github.com/symfony/debug-bundle.git",
-+                "reference": "880317aa3b2962cc2e7af67b8a6ed69db84ed848"
-+            },
-+            "dist": {
-+                "type": "zip",
-+                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/880317aa3b2962cc2e7af67b8a6ed69db84ed848",
-+                "reference": "880317aa3b2962cc2e7af67b8a6ed69db84ed848",
-+                "shasum": ""
-+            },
-+            "require": {
-+                "ext-xml": "*",
-+                "php": ">=8.0.2",
-+                "symfony/http-kernel": "^5.4|^6.0",
-+                "symfony/twig-bridge": "^5.4|^6.0",
-+                "symfony/var-dumper": "^5.4|^6.0"
-+            },
-+            "conflict": {
-+                "symfony/config": "<5.4",
-+                "symfony/dependency-injection": "<5.4"
-+            },
-+            "require-dev": {
-+                "symfony/config": "^5.4|^6.0",
-+                "symfony/dependency-injection": "^5.4|^6.0",
-+                "symfony/web-profiler-bundle": "^5.4|^6.0"
-+            },
-+            "suggest": {
-+                "symfony/config": "For service container configuration",
-+                "symfony/dependency-injection": "For using as a service from the container"
-+            },
-+            "type": "symfony-bundle",
-+            "autoload": {
-+                "psr-4": {
-+                    "Symfony\\Bundle\\DebugBundle\\": ""
-+                },
-+                "exclude-from-classmap": [
-+                    "/Tests/"
-+                ]
-+            },
-+            "notification-url": "https://packagist.org/downloads/",
-+            "license": [
-+                "MIT"
-+            ],
-+            "authors": [
-+                {
-+                    "name": "Fabien Potencier",
-+                    "email": "fabien@symfony.com"
-+                },
-+                {
-+                    "name": "Symfony Community",
-+                    "homepage": "https://symfony.com/contributors"
-+                }
-+            ],
-+            "description": "Provides a tight integration of the Symfony VarDumper component and the ServerLogCommand from MonologBridge into the Symfony full-stack framework",
-+            "homepage": "https://symfony.com",
-+            "support": {
-+                "source": "https://github.com/symfony/debug-bundle/tree/v6.0.3"
-+            },
-+            "funding": [
-+                {
-+                    "url": "https://symfony.com/sponsor",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://github.com/fabpot",
-+                    "type": "github"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-+                    "type": "tidelift"
-+                }
-+            ],
-+            "time": "2022-01-02T09:55:41+00:00"
-+        },
+         {
+             "name": "psr/cache",
+             "version": "3.0.0",
+@@ -1531,6 +1630,170 @@
+             ],
+             "time": "2022-01-29T18:12:46+00:00"
+         },
 +        {
 +            "name": "symfony/monolog-bridge",
 +            "version": "v6.0.3",
@@ -373,6 +301,93 @@ index 85844c9..a59a41e 100644
 +                }
 +            ],
 +            "time": "2021-11-05T10:34:29+00:00"
++        },
+         {
+             "name": "symfony/polyfill-intl-grapheme",
+             "version": "v1.24.0",
+@@ -2864,7 +3127,227 @@
+             "time": "2022-02-04T06:59:48+00:00"
+         }
+     ],
+-    "packages-dev": [],
++    "packages-dev": [
++        {
++            "name": "symfony/debug-bundle",
++            "version": "v6.0.3",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/debug-bundle.git",
++                "reference": "880317aa3b2962cc2e7af67b8a6ed69db84ed848"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/debug-bundle/zipball/880317aa3b2962cc2e7af67b8a6ed69db84ed848",
++                "reference": "880317aa3b2962cc2e7af67b8a6ed69db84ed848",
++                "shasum": ""
++            },
++            "require": {
++                "ext-xml": "*",
++                "php": ">=8.0.2",
++                "symfony/http-kernel": "^5.4|^6.0",
++                "symfony/twig-bridge": "^5.4|^6.0",
++                "symfony/var-dumper": "^5.4|^6.0"
++            },
++            "conflict": {
++                "symfony/config": "<5.4",
++                "symfony/dependency-injection": "<5.4"
++            },
++            "require-dev": {
++                "symfony/config": "^5.4|^6.0",
++                "symfony/dependency-injection": "^5.4|^6.0",
++                "symfony/web-profiler-bundle": "^5.4|^6.0"
++            },
++            "suggest": {
++                "symfony/config": "For service container configuration",
++                "symfony/dependency-injection": "For using as a service from the container"
++            },
++            "type": "symfony-bundle",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Bundle\\DebugBundle\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides a tight integration of the Symfony VarDumper component and the ServerLogCommand from MonologBridge into the Symfony full-stack framework",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/debug-bundle/tree/v6.0.3"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-01-02T09:55:41+00:00"
 +        },
 +        {
 +            "name": "symfony/stopwatch",
@@ -541,18 +556,6 @@ index 0000000..26d4e53
 +    # Forwards VarDumper Data clones to a centralized server allowing to inspect dumps on CLI or in your browser.
 +    # See the "server:dump" command to start a new server.
 +    dump_destination: "tcp://%env(VAR_DUMPER_SERVER)%"
-diff --git a/config/packages/dev/web_profiler.yaml b/config/packages/dev/web_profiler.yaml
-new file mode 100644
-index 0000000..e92166a
---- /dev/null
-+++ b/config/packages/dev/web_profiler.yaml
-@@ -0,0 +1,6 @@
-+web_profiler:
-+    toolbar: true
-+    intercept_redirects: false
-+
-+framework:
-+    profiler: { only_exceptions: false }
 diff --git a/config/packages/monolog.yaml b/config/packages/monolog.yaml
 new file mode 100644
 index 0000000..8c9efa9
@@ -620,33 +623,43 @@ index 0000000..8c9efa9
 +                type: stream
 +                channels: [deprecation]
 +                path: php://stderr
-diff --git a/config/packages/test/web_profiler.yaml b/config/packages/test/web_profiler.yaml
+diff --git a/config/packages/web_profiler.yaml b/config/packages/web_profiler.yaml
 new file mode 100644
-index 0000000..03752de
+index 0000000..17893da
 --- /dev/null
-+++ b/config/packages/test/web_profiler.yaml
-@@ -0,0 +1,6 @@
-+web_profiler:
-+    toolbar: false
-+    intercept_redirects: false
++++ b/config/packages/web_profiler.yaml
+@@ -0,0 +1,15 @@
++when@dev:
++    web_profiler:
++        toolbar: true
++        intercept_redirects: false
 +
-+framework:
-+    profiler: { collect: false }
-diff --git a/config/routes/dev/web_profiler.yaml b/config/routes/dev/web_profiler.yaml
++    framework:
++        profiler: { only_exceptions: false }
++
++when@test:
++    web_profiler:
++        toolbar: false
++        intercept_redirects: false
++
++    framework:
++        profiler: { collect: false }
+diff --git a/config/routes/web_profiler.yaml b/config/routes/web_profiler.yaml
 new file mode 100644
-index 0000000..c82beff
+index 0000000..8d85319
 --- /dev/null
-+++ b/config/routes/dev/web_profiler.yaml
-@@ -0,0 +1,7 @@
-+web_profiler_wdt:
-+    resource: '@WebProfilerBundle/Resources/config/routing/wdt.xml'
-+    prefix: /_wdt
++++ b/config/routes/web_profiler.yaml
+@@ -0,0 +1,8 @@
++when@dev:
++    web_profiler_wdt:
++        resource: '@WebProfilerBundle/Resources/config/routing/wdt.xml'
++        prefix: /_wdt
 +
-+web_profiler_profiler:
-+    resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'
-+    prefix: /_profiler
++    web_profiler_profiler:
++        resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'
++        prefix: /_profiler
 diff --git a/symfony.lock b/symfony.lock
-index 9ebd100..6d739a3 100644
+index 9ebd100..604f6d6 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@
@@ -708,7 +721,7 @@ index 9ebd100..6d739a3 100644
      "symfony/string": {
          "version": "v6.0.2"
      },
-@@ -152,6 +185,20 @@
+@@ -152,6 +185,19 @@
      "symfony/var-exporter": {
          "version": "v6.0.0"
      },
@@ -717,13 +730,12 @@ index 9ebd100..6d739a3 100644
 +        "recipe": {
 +            "repo": "github.com/symfony/recipes",
 +            "branch": "master",
-+            "version": "3.3",
-+            "ref": "6bdfa1a95f6b2e677ab985cd1af2eae35d62e0f6"
++            "version": "5.3",
++            "ref": "24bbc3d84ef2f427f82104f766014e799eefcc3e"
 +        },
 +        "files": [
-+            "config/packages/dev/web_profiler.yaml",
-+            "config/packages/test/web_profiler.yaml",
-+            "config/routes/dev/web_profiler.yaml"
++            "config/packages/web_profiler.yaml",
++            "config/routes/web_profiler.yaml"
 +        ]
 +    },
      "symfony/yaml": {

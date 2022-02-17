@@ -16,11 +16,11 @@ index a1c6e90..7ba2551 100644
      "entrypoints": []
  }
 diff --git a/composer.json b/composer.json
-index 1234b20..d49ed0f 100644
+index df91ca8..0d344b9 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -14,6 +14,7 @@
-         "symfony/framework-bundle": "6.0.*",
+@@ -15,6 +15,7 @@
+         "symfony/monolog-bundle": "^3.0",
          "symfony/runtime": "6.0.*",
          "symfony/twig-bundle": "6.0.*",
 +        "symfony/ux-turbo": "^2.0",
@@ -28,19 +28,19 @@ index 1234b20..d49ed0f 100644
          "symfony/yaml": "6.0.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 3951e5a..9f39039 100644
+index 068bf86..5595f83 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "9fa238acafc6c5bc9e14cdc65e3bb89e",
-+    "content-hash": "f9fed899013c0f011b38a660ea7b0dff",
+-    "content-hash": "2b351819c5e92217dd11facae2dd7232",
++    "content-hash": "043cabbabcabb407237f37ba52308800",
      "packages": [
          {
-             "name": "psr/cache",
-@@ -2546,6 +2546,103 @@
+             "name": "monolog/monolog",
+@@ -2809,6 +2809,103 @@
              ],
              "time": "2022-01-02T09:55:41+00:00"
          },
@@ -169,7 +169,7 @@ index 8dedb56..af8dd42 100644
          "axios": "^0.25.0",
          "bootstrap": "^5.1.3",
 diff --git a/symfony.lock b/symfony.lock
-index 6acd03e..9387b64 100644
+index df78041..5e58bf5 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -182,6 +182,9 @@

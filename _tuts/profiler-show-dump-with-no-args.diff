@@ -1,5 +1,5 @@
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index 361f5d6..238511c 100644
+index 2fc8535..260a296 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
 @@ -10,7 +10,7 @@

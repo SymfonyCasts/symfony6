@@ -1,8 +1,8 @@
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index aaa0329..0b97e5d 100644
+index 69234e6..74f6ce8 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
-@@ -2,7 +2,7 @@
+@@ -4,7 +4,7 @@
  
  {% block body %}
  <div class="container">
@@ -11,7 +11,7 @@ index aaa0329..0b97e5d 100644
      <div class="row mt-5">
          <div class="col-12 col-md-4">
  
-@@ -32,110 +32,13 @@
+@@ -34,110 +34,13 @@
          </div>
          <div class="col-12 col-md-8 ps-5">
              <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
@@ -124,7 +124,7 @@ index aaa0329..0b97e5d 100644
                      <a href="#">
                          <i class="fas fa-bars mx-3"></i>
                      </a>
-@@ -144,6 +47,7 @@
+@@ -146,6 +49,7 @@
                      </a>
                  </div>
              </div>

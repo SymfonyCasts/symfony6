@@ -11,7 +11,7 @@ index 97a69bf..04a4634 100644
          return $this->render('vinyl/homepage.html.twig', [
              'title' => 'PB & Jams',
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index 7cd9388..361f5d6 100644
+index b622baf..2fc8535 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
 @@ -10,6 +10,7 @@

@@ -1,8 +1,8 @@
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index 3ecbd45..19b3aea 100644
+index 75e3c52..55e2357 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
-@@ -31,7 +31,7 @@
+@@ -33,7 +33,7 @@
              </svg>
          </div>
          <div class="col-12 col-md-8 ps-5">

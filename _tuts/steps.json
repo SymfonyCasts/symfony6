@@ -111,6 +111,11 @@
             "description": null
         },
         {
+            "id": "twig-upper-lower",
+            "name": "Twig: upper|lower",
+            "description": null
+        },
+        {
             "id": "twig-remove-upper-filter",
             "name": "Twig: Remove |upper filter",
             "description": null
@@ -133,6 +138,11 @@
         {
             "id": "twig-override-title-block",
             "name": "Twig: override title block",
+            "description": null
+        },
+        {
+            "id": "twig-use-parent",
+            "name": "Twig: Use parent()",
             "description": null
         },
         {
@@ -381,5 +391,5 @@
             "description": null
         }
     ],
-    "sha": "64b20f6f4ec9bba3908e5c486a3a808102826f29"
+    "sha": "e2b8c8894a84593bd4393604238a71318c34c3b3"
 }

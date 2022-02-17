@@ -1,24 +1,22 @@
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index 7cd9388..aaa0329 100644
+index b622baf..69234e6 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
-@@ -1,21 +1,151 @@
- {% extends 'base.html.twig' %}
+@@ -3,19 +3,151 @@
+ {% block title %}Create a new Record | {{ parent() }}{% endblock %}
  
--{% block title %}Create a new Record{% endblock %}
--
  {% block body %}
 -<h1>{{ title }}</h1>
--
--{# TODO: add an image of the record #}
--
--<div>
--    Tracks:
 +<div class="container">
 +    <h1 class="d-inline me-3">PB & Jams</h1> <i class="fas fa-edit"></i>
 +    <div class="row mt-5">
 +        <div class="col-12 col-md-4">
  
+-{# TODO: add an image of the record #}
+-
+-<div>
+-    Tracks:
+-
 -    <ul>
 -        {% for track in tracks %}
 -            <li>

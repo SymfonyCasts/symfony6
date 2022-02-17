@@ -15,10 +15,10 @@ index 8560c6a..af58a41 100644
      }
  }
 diff --git a/templates/vinyl/homepage.html.twig b/templates/vinyl/homepage.html.twig
-index 5c95e3f..18f11f7 100644
+index 935fcea..fc500af 100644
 --- a/templates/vinyl/homepage.html.twig
 +++ b/templates/vinyl/homepage.html.twig
-@@ -35,7 +35,7 @@
+@@ -37,7 +37,7 @@
              {% for track in tracks %}
              <div class="song-list" {{ stimulus_controller('song-controls') }}>
                  <div class="d-flex mb-3">

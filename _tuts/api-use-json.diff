@@ -1,8 +1,8 @@
 diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
-index 27274c4..1d62550 100644
+index ef15be1..07c1dcc 100644
 --- a/src/Controller/SongController.php
 +++ b/src/Controller/SongController.php
-@@ -18,6 +18,6 @@ class SongController extends AbstractController
+@@ -19,6 +19,6 @@ class SongController extends AbstractController
              'url' => 'https://symfonycasts.s3.amazonaws.com/sample.mp3',
          ];
  
