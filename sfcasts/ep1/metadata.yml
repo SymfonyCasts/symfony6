@@ -1,1 +1,17 @@
-chapters: []
+chapters:
+    - setup
+    - directories
+    - route-controller
+    - wildcard-route
+    - flex
+    - flex-recipes
+    - twig
+    - profiler
+    - assets
+    - generate-urls
+    - json-api
+    - services
+    - webpack-encore
+    - webpack-encore-usage
+    - stimulus
+    - turbo
