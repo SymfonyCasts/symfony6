@@ -36,7 +36,7 @@ that we ran secretly used "composer" - that's PHP's package manager - to install
 these libraries... which is really just a way of saying that Composer downloaded
 these libraries into the `vendor/` directory.
 
-Symfony itself is actually a collection of a bunch small libraries that each
+Symfony itself is actually a collection of a bunch of small libraries that each
 solve a specific problem. In the `vendor/symfony/` directory, it looks like we
 already have about 25 of these. *Technically* our app only requires these
 six packages, but some of *those* packages require *other* packages... and Composer

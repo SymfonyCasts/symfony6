@@ -10,7 +10,7 @@ stuff.
 
 The secret sauce of Symfony is that it starts *tiny*, which makes it easy to learn.
 But then, it scales up its features automatically through a unique recipe system.
-In Symfony 6, those features include new JavaScript tools and na ew security system...
+In Symfony 6, those features include new JavaScript tools and a new security system...
 just to name two of the many new things.
 
 Symfony is also lightning fast with a huge focus on creating a joyful developer
