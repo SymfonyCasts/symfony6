@@ -1,81 +1,110 @@
-# Wildcard Route
-
-Coming soon...
+# Wildcard Routes
 
 The homepage will eventually be the place where a user can design and build their
-next sweet mix tape. But in addition to creating mix tapes, Users will also be able
-to browse other people's mix tape to do that. Let's create a second page with URL
-/browse out by adding a second controller function To public function. How about
-browse? That name doesn't really matter. And to be responsible, I'll put a response
-return type on that. And above this, we need our route. So we're looking exactly the
-same, Except that this time we'll make the route /browse Inside. What do we always
-return from a controller, a response object to return new, and then I'll just put a
-message in there. All right. Let's check it. I'm selling the homepage. So if I
-refresh nothing changes there now at head to /browse, and yes, we're crushing it a
-second page in under a minute On this page, we'll eventually list, mix tapes from
-other users, but to help find something we'd like, I, I want users to also be able to
-browse by genre. So like if I go to /browse /death metal,
+next sweet mix tape. But in addition to creating mix tapes, users will also be able
+to browse *other* people's creations.
 
-That would let me see. Only death metal mix tapes. Um, pretty hardcore right now. If
-we do this, we get this no route found. This is basically the 4 0 4 page, Which makes
-sense. This does not match any of the routes in our system. By the way, what you're
-seeing here is Symfony's fancy error, exception page, because we're currently
-developing. It gives us lots of details. Whenever something goes wrong. Anyways, the
-simplest way to make this URL war is just to change the URL to /browse /Death metal.
-That does work, but that's not very flexible, right? We would need one route for
-every single genre And which could be hundreds. And we just killed these /browse URL,
-which is now a 4 0 4. What we really wanna do is match /browse /anything. And we can
-do that with a wild card. So replace the hard coded death metal with open curly,
-close curly, and inside SLU. Slug is just a technical word for a URL safe. And we
-could have called this anything like genre or cool music category. It makes no
-difference, but whatever we put inside of this wild card, we are then allowed to have
-an argument with that same slug.
+## Creating a Second Page
 
-The matching here is done by name. So whatever, if we go to /browse /death metal, it
-should pass as that death metal string right here To see if that's working, let's
-return a different response, I'll say is your on rock. And then we'll just pass the
-slug. All right, let's try that. I'm gonna head back to /browse /death metal And yes,
-Try /brows /emo. That works too. Oh, and if you want to, it's optional, you can add a
-string type to the Sug argument that does not change anything. It's just a nice way
-to program. The slug will always be a will, will always be a string regardless of
-this, um, type Later, we'll learn how you could turn number wild card, like the
-number five Into an in. If you want to Anyways, let's make this page a bit fancier
-instead of just printing out the slog wheel, kind of convert this to a title. So I'll
-say title = S St. Replace let's replace any dashes with Spaces. And then down here, I
-will use the title in a future tutorial. We're going to query the database
+Let's create a second page for that. How? By adding a second controller: public
+function, how about browse: the name doesn't really matter. And to be responsible,
+I'll add `Response` return type.
 
-For these genres, but, But right now we'll just kind of manually convert this slog
-into a nicer looking title. Can you try this? Eh, it doesn't look any different
-formo. If we go to death metal, it at least adds the space between, But to make that
-even fancier, check this out, let's add another line, say title = and then you, and
-that will auto complete a function literally called you. This is from the, the U
-function. We don't use a lot of functions in Symfony. This is a rare case. This comes
-from a com string component inside of Symfony. As I mentioned, Symfony is many
-different libraries and you're gonna be leveraging those libraries all the time. This
-is a library that helps you make string transformations. So what we can do in here,
-actually let me move. My S St. Replacement here is we pass it a string as the first
-argument, and this returns an object that we can then do operations on. So one of the
-methods on that object is call title. You can convert things to title case, and we'll
-have that apply to all words. So I'll pass true.
+And above this, we need our route. This will look exactly the same, except that this
+set the URL to `/browse`. Inside the method, what do we *always* return from a controller?
+That's right: a `Response` object. Return a new `Response`... with a short message
+to start.
 
-Now we try it. Sweet. It uppercases the letters, the string component isn't
-particularly important. I just wanted to show you how you leverage different parts of
-Symfony. As you are trying to get your job done, Symfony, just a bunch of tools to
-help you do your work. All right, one last challenge Going to /brows /emo or death
-metal works, but just going to /browse does not work. It's broken a wild card can
-match anything, but by default wild card is required. We have to go to /brows
-/something. So how can we make a wild card optional? The answer is delightfully
-simple. Make the corresponding argument optional. As soon as we do that, it tells
-Symfony's routing layer that the slug does not need to be in the URL. So now when I
-refresh It works though, that's not a great message for this page. So let's do a
-little bit more work here. We'll say if there's a slug, then we will create the title
-the way we were else. We'll set title to genres. Oh, wait. And, and up here in the
-first part, let's say genre, colon. There we go. And now down here in the response,
-well, just pass the title.
+Ok, let's try it! If we refresh the homepage, nothing changes here. But if we go
+to `/browse`... we're crushing it! A second page in under a minute! Dang!
 
-Awesome. Let's try that on /brows, all genres over on email, page genre, emo. Okay.
-Next putting text like this into a controller. Isn't very scalable. Especially if we
-start, uh, including HTML, we need to be able to render templates to do that. We are
-going to install our first third party package and witness the massively important
-recipe system, Symfony recipe system in action.
+On this page, we'll eventually list mix tapes from other users. But to help find
+something we like, I want users to *also* be able to browse by *genre*. For example,
+if I go to `/browse/death-metal`, that would show me all the death metal mix takes.
+That's hardcore.
 
+Of course, we if try this URL right now, we see:
+
+> Not Route found
+
+No matching routes were found, so it shows us a 404 page. By the way, what you're
+seeing here is Symfony's fancy exception page, because we're currently *developing*.
+It gives us lots of details whenever something goes wrong.
+
+## {Wildcard} Routes
+
+Anyways, the simplest way to make this URL work is just... to change the URL to
+`/browse/death-metal`. But... that's not very flexible? We would need one route for
+*every* genre which could be hundreds! And also, we just killed the `/browse`
+URL! It now is a 404.
+
+What we *really* want is a route that match `/browse/{ANYTHING}`. And we can do that
+with a *wildcard*. Replace the hard-coded `death-metal` with `{}` and, inside,
+`slug`. Slug is just a technical word for a "URL safe name". And we could have put
+anything inside the curly-braces, like `{genre}` or `{coolMusicCategory}`: it
+makes no difference. But *whatever* we put inside of this wildcard, we are then
+*allowed* to have an argument with that same name: `$slug`.
+
+Yup, if we go to `/browse/death-metal`, it will match this route and pass the string
+`death-metal` to that argument. The matching is done by name.
+
+To see if it's working, let's return a different response: `Genre` then the `$slug`.
+
+Testing time! Head back to `/browse/death-metal` and... yes! Try `/browse/emo` and
+that works too!
+
+Oh, and  it's optional, but you can add a `string` type to the `$slug` argument.
+That does not change anything, it's just a nice way to program: the `$slug` was
+*already* always going to be a string. A bit later, we'll learn how you could turn
+a *number* wildcard - like the number 5 into an integer if you want to.
+
+## Using Symfony's String Component
+
+Let's make this page a bit fancier. Instead of printing out the slug exactly,
+let's convert this to a title. Say title = `str_replace()` and replace any dashes
+with spaces. Then down here, use title in the response. In a future tutorial,
+we're going to query the database for these genres, but, for right now, we can
+at least make it look nicer.
+
+If we try it, Emo doesn't look any different... but the death metal page *does*.
+But I want *more* fancy! Check this out: add another line with `$title =` then
+type `u` and then auto-complete a function that's literally called... `u`.
+
+We don't use many functions from Symfony, but this is a rare example. This comes
+from a Symfony called `symfony/string`. As I mentioned, Symfony is many different
+libraries - also called components - and we're going to leverage those libraries
+all the time. This library helps you make string transformations and it happens
+to already be installed.
+
+Let's move the `str_replace()` to the first argument of `u()`. This function
+returns an object that we can then do string operations on. One method is
+called `title()`. Say `->title(true)` to convert all words to title case.
+
+Now when we try it... sweet! It uppercases the letters! The string component isn't
+particularly important, I just you to see how we can already leverage other parts
+of Symfony to get your job done. Symfony is just a bunch of tools there to help.
+
+## Making the Wildcard Optional
+
+Ok: one last challenge. Going to `/browse/emo` or `/browse/death-metal` works.
+But just going to `/browse`... does *not* work. It's broken! A wild card can
+match anything, but, by default, a wild card is *required*. We have to go to
+`/browse/<something>`.
+
+Can we make a wildcard optional? Absolutely! And it's delightfully simple: make the
+corresponding argument optional.
+
+As soon as we do that, it tells Symfony's routing layer that the `{slug}` does not
+need to be in the URL. So now when we refresh... it works. Though, that's not a great
+message for this page.
+
+Let's do a bit more work here. If there's a slug, then we will set the title the
+way we were. Else,  set title to "All genres". Oh, and move the "Genre:" up here...
+so that down in the `Response` we can just pass `$title`.
+
+Try that. On `/browse`... "All Genres". Over `/browse/emo`... "Genre: Emo"
+
+Next: putting text like this into a controller.... isn't very clean or scalable,
+Especially if we start including HTML. Nope, we need to render a template.
+To do *that*, we're going to install our first third-party package and witness the
+massively important Symfony recipe system in action.
