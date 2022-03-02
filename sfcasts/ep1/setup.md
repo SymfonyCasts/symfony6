@@ -1,70 +1,140 @@
-# Setup
+# Hello Symfony
 
-Coming soon...
+Welcome. Hello. Hi, my name is Ryan and I have *the* absolute pleasure to introduce
+you to the beautiful and fascinating and productive world of Symfony 6. Seriously,
+I feel like Willie Wonka inviting you into my chcocolate factory, except with
+hopefully less sugar-related injuries. Anyways, if you're new to Symfony, I'm...
+honestly a bit jealous! You're going to *love* the journey... and hopefully become
+an even better developer along the way: you're *definitely* going to build some cool
+stuff.
 
-Welcome. Hello. Hi, my name is Ryan and I have the absolute pleasure to introduce you
-to the beautiful and fascinating and productive world of Symfony six. Seriously. I
-feel like Willie Wonka inviting you into my factory, except with hopefully less sugar
-related injuries. Anyways, if you're new to Symfony, I'm honestly a bit jealous.
-You're gonna love the journey and hopefully become an even better developer along the
-way. You're definitely going. You are definitely going to build some cool stuff. The
-secret diss Symfony is that it starts tiny, which makes it easy to learn, but it
-scales up its features automatically through a unique recipe system in 6.0, those
-features include new JavaScript tools on new security system. And more Symfony is
-also lightning fast with a huge focus on creating a joyful developer experience, but
-without sacrificing programming and fast practices, you get to love coding and love
-your code. I know that sounded cheesy, but it's true. So come with me and you'll be
-in a world of pure elucidation. Nevermind. Let's just get started head over to
-Symfony.com/download On this page. You're gonna have some instructions based on your
-operating system to download something called the Symfony binary. This is not
-actually Symfony. It's just a command line tool. That's going to help us start new
-Symfony projects and give us some nice local development tools. I already have one
-once you've installed this, I already have find a terminal
+The secret sauce of Symfony is that it starts *tiny*, which makes it easy to learn.
+But then, it scales up its features automatically through a unique recipe system.
+In Symfony 6, those features include new JavaScript tools and new security system...
+just to name two of the many new things.
 
-And you can run the command with just Symfony or to see a list of all the commands
-Symfony list. There's a lot of stuff in here. The things that start with local colon
-generally help with the wire developing locally. And there's also support for
-deploying to the cloud. If you want to use platform DOH to deploy, but that's totally
-optional what we're gonna need for this command. Most we'll learn some many of those
-commands along the way. What we've written need right now is the Symfony new command.
-So let's create a new project in a new directory called mixed vinyl. The name of our
-project We're on that Behind the scenes. This uses composer to create the new project
-more on that later. And the result is that we can move into that mixed vinyl. We can
-move into that mixed vinyl directory. Cool. All right, let's open up this up in an
-editor. Open this directory up in your favorite editor. I'm using PHP storm and I
-highly recommend it. So what did that Symfony new command do? It boots wrapped our
-very own new shiny Symfony project. Ooh. And we already have a get repository. I run
-GI status. Yep. On branch main, nothing to commit.
+Symfony is also lightning fast with a huge focus on creating a joyful developer
+experience, but without sacrificing programming best practices. Yea: you get to love
+coding *and* love your code. I know... that sounded cheesy, but it's true.
 
-And if I do Git log awesome. So when it started the new project, it committed all the
-original files for us automatically. So I do wish we had a little bit more of an epic
-commit message like OMG starting my Symfony project. What I really wanna show you
-here is that the project that we just started with is super small. We can use
-another, get command, get show dash name dash only to show us all the files that were
-committed. And there's only about 17 here. We're gonna learn about all these files
-along the way, but I really want you to feel comfortable. Like there's not a lot of
-code here. Most of these are just some YAML files that we'll learn about later. We
-will add more feature as we go, and it's super easy. Oh, if you did wanna start with
-a bigger, more fully featured project out of the box, you can do that by rerunning.
-Uh, whenever you run the Symfony new command, you can pass dash web app. That'll
-install a lot more dependencies. You'll get a lot more tools. We're gonna start tiny
-and add those as we go little by little by little.
+So come with me and you'll be in a world of pure elucidation.
 
-All right. So before we start coding on this, let's make sure our system is set up.
-One of the other commands that you have on that Symfony command is check co rec for
-requirements. So hit that. If you have any problems with your setup missing PHP
-extensions, that's gonna to let you know, looks like I'm good. So the final thing is
-we need a web server. We have this Symfony project over here and we need to serve it
-through a web server. We could have set up something like engine X, Apache, or
-something cool like Cady, but for local development, this Symfony binary can help us.
-You can set up a local office server with Symfony serve dash D the dash D stands for
-Damon so that it will run in the background. The first time you run this, it might
-ask you to run a different command, to set up an SSL certificate, which is nice
-because it will then start up web server on HTTPS. All right. So let's try this. I'm
-gonna copy this URL here, Spin over my browser, hold my brow and woo. This Symfony
-six welcome page complete with fancy color to whenever we reload. Ooh.
+That's my first time singing in these tutorials... and maybe my last. Let's get started.
 
-So we have a Symfony six project. We have a web server that's serving it. So next
-let's meet the code inside of here and demystify what this stuff does. Then we are
-gonna start coding.
+## Installing the "symfony" Binary
 
+Head over to https://symfony.com/download. On this page, you'll find have some
+instructions - which will differ based on your operating system - on how to download
+something called the Symfony binary.
+
+This is... not actually Symfony. It's just a command line tool that will help us
+*start* new Symfony projects and give us some nice local development tools. It's
+optional, but I highly recommend it!
+
+Once you've installed this - I already have - open up your favorite terminal app:
+I'm using iTerm for mac, but it doesn't matter. If you got everything set up
+correctly, you should be able to run:
+
+```terminal
+symfony
+```
+
+Or even better:
+
+```terminal
+symfony list
+```
+
+to see a list of all the "things" that this symfony binary can do. There's a lot
+of stuff in here: things that help with "local" development... and also some
+optional services for deployment. We'll walk through the stuff *you* need to know
+along the way.
+
+## Let's Start a Symfony App!
+
+Ok, so *we* want to start a brand new shiny Symfony app. To do *that* run:
+
+```terminal
+symfony new mixed_vinyl
+```
+
+Where "mixed_vinyl" is the directory the new app will be downloaded into. That's
+the name of the project we'll be working on: more on that later.
+
+Behind the scenes, this uses *composer* - that's PHP's package manager - to
+create the new project. More on the later.
+
+The end-result is that we can move into our new `mixed_vinyl` directory. Open
+this folder up in your favorite editor. I'm using PhpStorm and I *highly* recommend
+it.
+
+## Meeting our new Project
+
+So what did that `symfony new` command do? It bootsrapped a new Symfony project!
+Ooh. And we already have a git repository. Run:
+
+```terminal
+git status
+```
+
+Yep: on branch main, nothing to commit. Try:
+
+```terminal
+git log
+```
+
+Cool. After starting the new project, the command committed all of the original files
+for automatically... which was *very* nice... though I do wish I had a more epic
+first commit message.
+
+What I *really* want to show you is that our new project is super small! Try
+this command:
+
+```terminal
+git show --name-only
+```
+
+Yup! Our entire project is... about 17 files. And we'll learn about all of these
+along the way. But I want you to feel comfortable: there's not a lot of code here.
+
+We're going to add features little-by-little along the way. But if you *did* want
+to start with a bigger, fully-featured project, you can do that by running
+that `symfony new` command with `--webapp`.
+
+***TIP
+If you want a fully-dockerized new Symfony app, check out
+https://github.com/dunglas/symfony-docker
+***
+
+## Checking System Requirements
+
+Before we jump into coding, let's make sure our system is ready. Run another
+command from the symfony binary:
+
+```terminal
+symfony check:req
+```
+
+Looks good! If your PHP install is missing any PHP extension... or there are
+any other problems, this will let you know.
+
+## Starting the Dev Web Server
+
+So: we have a new Symfony app over here... and our system is ready! All we need now
+is a web server! You *can* set up a real web server like Nginx or something cool
+like Caddy. But for local development, the Symfony binary can help us. Run:
+
+```terminal
+symfony serve -d
+```
+
+And... we have a web server running! The first time you run this, it might ask you
+to run a different command to set up an SSL certificate, which is nice because
+then the server supports https.
+
+Moment of truth! Copy the URL, spin over to your browser, hold your breath and woo!
+Hello Symfony 6 welcome page... complete with fancy color changes whenever we reload.
+
+
+Next: let's meet - and become friends with - the code inside our app so we can
+demystify what each part does. Then we'll code.
