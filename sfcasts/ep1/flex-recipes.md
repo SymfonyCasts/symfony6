@@ -1,95 +1,164 @@
 # Flex Recipes
 
-Coming soon...
+We just installed a new package by running `composer require templates`. *Normally*
+when you do that, Composer will update the `composer.json` and `composer.lock` files,
+but nothing else.
 
-We just installed a new package. Normally When you do that, it will update composer
-dot JSUN and composer dot lock, but nothing else. Well, when I ran the at status,
-there are other changes. This is thanks to Flex's recipe system. Each time it
-installs a new package, it checks a central repository to see if that package has a
-recipe. And if it does it installs it, Where do these recipes live? The cloud, or
-more specifically GitHub Check this out, run composer recipes, Which is a command
-added to composer by Symfony flex. This lists all of the recipes that we have
-installed in our system. And if you wanna get more information on one, you can say
-composer, recipes, twig Symfony /twig bundle. This is one of the recipes that was
-just executed When I hit it. You see a couple cool things. First is a nice little
-tree that actually shows you which files it added to the project. It also shows you
-the URL to the recipe that's installed. I'm going to click to open that. Yep. The
-recipes, Symfony recipes live on a special repository called Symfony /recipes and
-inside of the recipe, which is just a big directory that is organized by the
-different package names I like at Symfony here, all the recipes for different Symfony
-packages. So the one we were just looking at down here is twig bundle and that has
-different versions of them. We're using
+But when I run:
 
-The latest 5.4 version. Every recipe has a manifest that JSUN file, which controls,
-what it can do. The recipe system is Can only do, Can do a specific set of
-operations. It can add new files to your project. And then there are various files
-that it can modify. For example, this bundle section here tells Symfony flex to add
-this line to our bundles dot PHP file. Lemme show you if I run get status. One of the
-files that was modified was config /bundles dot PHP.
+```terminal
+git status
+```
 
-And if I look, do get dip on that file, you and see it actually added two lines
-inside of here. One for each of the recipes, this config /bundles dot peach file is
-not one that you need to think about much. A bundle is basically Symfony plugin. So
-if you're gonna install a new bundle into your application, that gives you a bunch of
-new Symfony features in order to activate that bundle, it needs to live in this line.
-So the first thing that the recipe did for twig bundle thinks to this line up here is
-it added this line to our bundles dot peach file, just so that we don't have to you
-Two big recipes are almost like a, an automated installation readme. The second
-section here is called copy from recipe. This basically says to copy the config and
-templates directories from the recipe into the project. So if you look up here, uh,
-those recipe, it contains a config packages, twit Yael file, And it also contains a
-template /Baset H twig file Back at our terminal. If I run get status, These files,
-these are the two files that you see down here. Config packages, twig, Yael,
+There are *other* changes. This is thanks to Flex's recipe system. Each time we
+install a new package, Flex checks a central repository to see if that package has
+a recipe. And if it does, it installs it,
 
-And templates /based H two twig. And this is really, really cool. If you think about
-it, when you install, Oh, I should have already said earlier that twig is a PHP ING
-engine and the best choice in Symfony for rendering templates.
+## Where do Recipes Live?
 
-If you install a ING tool into your application, there's gonna have to be some
-configuration somewhere that tells you what directory your templates should live in.
-This is really cool. Let's go check out that config packages, twig Yamo file. We're
-gonna talk about all of these Yamo files more in the next tutorial, but on a high
-level, all you need to know is that configuration, this configuration file controls,
-how twig behaves and check out the key in here, default path set to kernel dot
-project or /templates. Now don't worry about this fancy percent syntax yet. That
-basically is just a shortcut to point to the root of our project. So on a high level,
-what this, it says, Hey twig, when you look for templates, you should look in the
-templates directory. So in a few minutes, we're gonna start rendering templates. And
-twig is going to know to look in this new templates directory and the recipe also
-nicely created this directory and even gave us a new layout file, which we're gonna
-use in a few minutes. So again, The point of these recipes is to give us all the code
-we need so that we can immediately start using this library. The last of unexplained
-file that was modified as Symfony dot lock. This is not that important. It just keeps
-track of which recipes have been installed.
+Where do these recipes live? In the cloud... or more specifically GitHub. Check
+it out. Run:
 
-And you should just commit it. In fact, we wanna commit all of this stuff. So I'm
-gonna say, get, add, dot, Get status. And then let's commit this Beautiful,
+```terminal
+composer recipes
+```
 
-Further down the road. You can also update recipes. So if you're ever six months down
-the road, there might be changes to those recipes. And if there are, you'll see a
-little thing here that says updated available, and you can run a composer recipes,
-update that package name, and it'll upgrade your code to the latest version of that
-recipe. And also if you're ever playing with the library, you can also, and you
-decide you don't like it. If you composer remove that library like Symfony /TWI
-bundle, that's actually going to uninstall the recipe and take away all of the
-configuration file that it added Pretty awesome. In fact, the recipe system is so
-powerful That every single file in our project came was added via a recipe. And I'll
-prove it go to github.com. Oh, nevermind. Let's back up. The other place that recipes
-exist are recipes Can trip. There's not really a difference between these two. The
-recipes can trip. It's a little, little bit easier to get changes into it. So it's
-watched a little bit less closely. Um, but they come from both places. Yeah. Anyways,
-the recipe system is so powerful that every single file on our project was originally
-added via a recipe. And I'll prove it go to get up, not to /Symfony /skeleton. When
-we originally ran that Symfony new command to start a project, what that really did
-was clone this repository and then run composer install inside of it.
+This is a command *added* to composer by Flex. It lists all of the recipes that
+have been installed. And if you more information about one, just run:
 
-Yes, that's right. It means that our project, the one that you see right here was
-originally just a composer. That JSUN file. Then when it was installing the libraries
-that are inside of here, The recipes for those added everything else that you see
-watch, let's go to compos. I around composer recipes again, and let's say composer
-recipes. One of the libraries is called Symfony console. The recipe for Symfony
-console added the bin /console file. The recipe for Symfony framework bundle. One of
-the other packages that was originally installed, added almost everything else we
-see, including the public /index dot PHP file. How cool is that? Okay, next we
-installed twig. Let's use it to render some templates.
+```terminal
+composer recipes symfony/twig-bundle
+```
 
+This is one of the recipes that was just executed. And... cool! This shows us
+a couple of nice things! The first is a tree that shows you which files it *added*
+to our project. And second, it shows the URL to the recipe that was installed.
+I'll click to open that.
+
+Yep! Symfony recipes live in a special repository called `symfony/recipes`. This
+repository is a big directory organized by package name. There's a `symfony`
+directory that holds recipes for all packages starting with `symfony/`. The one
+we were just looking at is way down here: `twig-bundle`. And then there are different
+versions of the recipe based on your version of the package. We're using the latest
+5.4 version.
+
+Every recipe has a `manifest.json` file, which controls what it does. The recipe
+system can only do a specific set of operations, including adding new files
+to your project and modify a few *specific* files. For example, this `bundles` section
+tells flex to add this line to our `config/bundles.php` file.
+
+If we run `git status` again... yup! That file *was* modified. If we diff it:
+
+```terminal-silent
+git diff config/bundles.php
+```
+
+It added *two* lines, probably one for each of the *two* recipes.
+
+## Symfony Bundles?
+
+By the way, this `config/bundles.php` file is not one that you need to think about
+much. A bundle, in Symfony land, is basically a plugin. So if you install a new bundle
+into your app, that gives you some new Symfony features. In order to *activate* that
+bundle, it needs to live in this file.
+
+So the first thing that the recipe did for twig-bundle, thanks to this line up here,
+was to activate itself inside `bundles.php`... so that we don't have to do it manually.
+Recipes are like automated installation.
+
+The *second* section in the manifest is called `copy-from-recipe`. This is simple:
+it says to copy the `config/` and `templates/` directories from the recipe into the
+project. If we look... the recipe contains a `config/packages/twig.yaml` file...
+and also a `templates/base.html.twig` file.
+
+Back at the terminal, run `git status` again. We see these two files at the bottom:
+`config/packages/twig.yaml`... and inside of `templates/`, `base.html.twig`.
+
+I *love* this. Think about it: if you install a templating tool into your app,
+we're going to need some configuration *somewhere* that tells that templating tool
+what directory to look inside of to find your templates. Whelp, go check out that
+`config/packages/twig.yaml` file. We're going talk about all of these Yaml files
+in the next tutorial. But on a high level, this file controls how Twig - the name
+of the templating engine - behaves. And check out the key: `default_path` set
+to `%kernel.project_dir%/templates`. Don't worry about this fancy percent syntax:
+that's a fancy way to point to the root of our project.
+
+The point is, this config says:
+
+> Hey Twig! When you look for templates, you should look in the `templates/` directory.
+
+And then the recipe even *created* that directory with a layout file inside. We'll
+use this in a few minutes.
+
+## symfony.lock & Committing Files
+
+The *last* unexplained file that was modified is `symfony.lock`. This is *not*
+important: it just keeps track of which recipes have been installed... and you
+*should* commit it.
+
+And you should just commit it. In fact, we should commit *all* of this stuff. The
+recipe might give us files, but they are *our's* to modify. Run:
+
+```terminal
+git add .
+```
+
+Then:
+
+```terminal
+git status
+```
+
+Let's commit!
+
+```terminal
+git commit -m "Adding Twig and its beautiful recipe"
+```
+
+## Updating Recipes
+
+Done! By the way, a few months down the road, there might be changes to some
+recipes that you've installed. And if there *are*, when you run
+
+```terminal
+composer recipes
+```
+
+You'll see a little "update available" next to them. Run `composer recipes:update`
+to upgrade to the latest version. Oh, and by the way, in addition to `symfony/recipes`,
+there is also a `symfony/recipes-contrib` repository. So recipes can live in
+*either* of these two places. The recipes in `symfony/recipes` are approved by
+Symfony's core team, so they're a bit more vetted for quality. Other than that,
+there's no difference.
+
+## Our Project Started as One File
+
+Now, the recipe system is *so* powerful that *every* single file in our project was
+added via a recipe! I can prove it. Go to https://github.com/symfony/skeleton.
+
+When we originally ran that `symfony new` command to start our project, what that
+*really* did was *clone* this repository... and then ran `composer install` inside
+of it, which downloads everything into the `vendor/` directory.
+
+Yup! Our project - the one that you see right here - was originally *just* a
+`composer.json` file. But then, when the packages were installed, the *recipes*
+for those packages added *everything* else that you see. Run:
+
+```terminal
+composer recipes
+```
+
+again. One recipe is for something called `symfony/console`. Check out *its*
+recipe's details:
+
+```terminal
+composer recipes symfony/console
+```
+
+And... es! The recipe for `symfony/console` added the `bin/console`. The recipe
+for `symfony/framework-bundle` - one of the other packages that was originally
+installed - added almost everything else we see, including the `public/index.php`
+file. How cool is that?
+
+Okay, next we installed twig. Let's get back to work and use it to render some
+templates!

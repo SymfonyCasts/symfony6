@@ -68,7 +68,7 @@ about now! Why? Because in Composer, package names are *always* `something/somet
 It is literally *not* possible to have a package just named `templates`.
 
 But watch: when we run this, it works! And up on the top, it says using version 1
-for `symfony/twig-pack`.
+for `symfony/twig-pack`. Twig is the name of the templating engine for Symfony.
 
 ## Flex Aliases
 
