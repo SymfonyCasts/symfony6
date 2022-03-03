@@ -6,6 +6,7 @@ chapters:
     - flex
     - flex-recipes
     - twig
+    - twig-inheritance
     - profiler
     - assets
     - generate-urls
