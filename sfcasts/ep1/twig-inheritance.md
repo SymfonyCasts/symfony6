@@ -1,97 +1,135 @@
 # Twig Inheritance
 
-Coming soon...
+Head to https://twig.symfony.com... and then click to check its documentation. There's
+lots of good stuff here. But what I want you to do is scroll down to the Twig
+reference. Yea!
 
+## Tags
 
+The first things to look at, on the left, are these things called tags. This
+list represents *every* possible thing you can use with the do something tag. Yup,
+it will always be `{%` and then *one* of these things, like `for` or `if`. And
+honestly, you're only going to use about 5 of these on an everyday basis. And if
+you need to know the syntax for one of these, just click to see its documentation
 
-gets our list working again. All right. So I want you to head to twig.Symfony.com to
-check out and then click to check its documentation. There's lots of good
-documentation on here, but what I want you to do is scroll down to the twig
-reference. First thing you see over on the left here is this thing called tags. This
-list here is 100% of everything that you can use with the, do something tag. So you
-can see four here. And if here, so if you start, if you're using curl race percent,
-this next word here is always going to be one of these things from this list. And
-honestly, you're only gonna use about five of these, um, on an everyday basis.
+## Filters
 
-And if you ever need to know how to use something, you're just gonna check its
-documentation. And it's gonna show you how in if statement looks In addition to 20
-tags, twig also has something called filters. These are sweet filters are basically
-functions with a more hipster. Syntax. TWI also has functions, but you see there are
-fewer than them. Twig really prefer filters. Cause they just look cooler. For
-example, there is a filter called upper the way the filters work. It's like using a,
-um, command line. You have a string and then you use pipe and then use the filter
-name, cause this would take this string and send it into the upper filter. So we can
-actually see this. We'll say track to artist, but then we'll say upper. And when we
-try that, we get upper. If you wanna start really messing around things, you're gonna
-then pipe that into lower and really confuse your coworkers as to why you're doing
-that. And it will go down to lower. So filters, there are many filters in this list.
-You should check them out so you can remember what's there. They are one of the
-coolest parts of TWI. And as mentioned, there are also functions. And then there are
-a couple other fancy things called tests, which are handy in if statements and
-operators, but for the most part you've seen it all.
+In addition to the 20 tags, Twig also has something called *filters*. These are sweet.
+Filters are basically functions, but with a more hipster syntax. Twig *does* also
+have functions, but there are fewer: Twig really prefer filters... cause they
+look cooler!
 
-All right, for the last part of twig, I want you to act view the page source of our
-page. Notice that there is no HTL structure. There's no HTL tag or head tag or body
-tag. Literally the HTML we have inside of here is the HTML from our, our template. So
-is there some sort of layout system in twig where we can add a base layout around us?
-Absolutely. And it's incredible. It's called template inheritance. So if you have a
-template where that, and you wanted to use a layout, the very top of template, you
-were use the do something tag called extends. And then you're gonna say base dot H
-channel twig that is actually pointing at this template right here. Now, before we
-look at that template, If we had to over and refresh, we are gonna see a giant air.
-It says a template that extends another one cannot include content outside twig
-blocks To figure out what that means. Open up base dot H team on that twig. This is
-your base layout file for twig. And you're free to customize this. How however you
-want. This is your template. What I want you to notice here is that
+For example, there is a filter called `upper`. Using a filter is like using the
+`|` key on the command line. You have some string - then you "pipe it" into
+the filter you want, like `upper`.
 
-It's mostly just boring HTML, except it has a number of blocks in it. Blocks are
-basically holes into which a child template can place content. Let me explain that a
-different way. When we say extends based do HT twig up here, that basically says, Hey
-twig. When, when I, when you render me, when you render this template, I want you to
-use base HG twig as my base lab. The reason twig gives us this giant air over here is
-that it says, okay, cool. I can do that. But where do you want me to put all of this
-content? Do you want me to put it at the bottom of the pay page at the top of the
-page, somewhere in the middle of the page, twig doesn't know, we have to tell it the
-way we do that Is by overriding a block. So the reason that this based that H similar
-twig template comes the block called body, is that you're probably gonna wanna be
-able to put content right here. So to do that in our template, we can surround all of
-our content with block, body, And block. We are overriding that block with this new
-content.
+Let's try this! Print `track.artist|upper`.
 
-So now when it renders based that HT twig, And it gets to this block body part, it's
-going to use our block body content and print it out right here. Watch let's refresh
-air is gone. And if you view the page source, we have a full HTML page. By the way,
-the names of these blocks are not important. If you wanted to change this to block
-content, go for it, just make sure that you also update it to be called block content
-in your child template. Uh, and if you wanted to add more blocks, do it. You can add
-as many blocks as you want in here. Every block you added this template is just
-another override point. And you'll also notice that blocks can have default content.
-So if you look on a page right now, you can see that the title says welcome. That's
-because this block has default content and we are not overriding it in our template.
-So let's change this welcome to Mixed vinyl. So now by default, that will be the
-title of every page in our site. But if we wanna override it, we can, we just need to
-override the block called title.
+And now... it's uppercase! If you want to confuse your coworkers, you can pipe
+*that* to `lower`... which sends things *back* to lowercase. There's no *real*
+reason to do this, but filters *can* be chained like this.
 
-So either above block body or the order, these blocks doesn't matter, I'll say block
-title, End block. And then in between, I'll say, create a new record. Thanks to this.
-I'm gonna refresh. Now this page gets the custom title.
+Anyways, check out the filters list because there's probably something there you'll
+find useful.
 
-Oh. And if you're ever wondering, oh, when you might be wondering what if I don't
-want to replace a block entirely, but I want to add to the block. You can totally do
-that. So in this case, in base HW, we have kind of our, the name of our site and
-mixed vinyl up here. Let's say that we wanna just, prepend the custom title. So what
-we can do is we can say, create a new record. That'll put a nice little pipe icon,
-and then curly curly, use the, say something tag and call a function called parent
-that does exactly what you'd expect. It goes and grabs the parent templates, content
-for blah title, and then print it right here. We try it. That works. If you're ever
-confused about how template inheritance works, it's helpful to think about it. Like
-object oriented, inheritance,
+And... that's pretty much it! Beyond functions, there's also something called
+"tests", which are handy in if statements: you can say things like "if number is
+divisibleby".
 
-Where home page, our homepage template is like a class that extends based at each of
-tweaks class. And each of these blocks are like a method. So if we don't override a
-block, it's, it will use the default content. But if we do override a block, it will
-use our block. What we can also call the parent block if we want to. All right. So
-that's it for twig. You are basically a twig expert. You have your P D inside of
-twig. So let's move on. Next. One of the killer of Symfony are its debugging tools.
-Let's get these installed and check 'em out.
+## Template Inheritance
 
+So... that's pretty much it for Twig! Oh, except for one more part.
+
+View the HTML source of the page. Notice that there is *no* HTML structure: there's
+no `html` tag, `head` or `body` tag. Literally the HTML that we have inside of our
+template, is what we get.
+
+Is there... some sort of layout system in Twig where we can add a base layout around
+us? Absolutely. And it's incredible. It's called template inheritance. If you
+have a template and you want that to use some base layout, at the very top of
+file, use a do something tag called `extends`. Pass this the name of the layout
+file: `base.html.twig`.
+
+That's referring to this template right here. Before we check that out, if we
+try this now, yikes! Big error:
+
+> A template that extends another one cannot include content outside Twig blocks.
+
+To figure out what that means, open `base.html.twig`. This is your base layout file...
+and you're *totally* free to customize it however you want. Right now... it's
+mostly just boring HTML tags... except that is has a number of these "blocks" in
+it.
+
+Blocks are basically "holes" into which a child template can place content. Let
+me explain that in a different way. When we say `extends 'base.html.twig'`, that
+basically says:
+
+> Yo Twig! When render this template, I want you to *actually* render `base.html.twig`
+> ... and then put *my* content *inside* of it.
+
+Twig then politely replies.
+
+> Ok cool... I can do that. But *where* in `base.html.twig` do you want me to put
+> all of your content? Do you want me to put it at the bottom of the page? At the
+> top? Some random place in the middle?
+
+The way we tell Twig *where* to put our content within `base.html.twig` is by
+override a block. Notice that `base.html.twig` already has a block called `body`...
+and that's *right* where we want to put our template's HTML.
+
+To do that, in our template, surround all of the content with `{% block body %}`...
+and then `{% endblock %}`.
+
+This is called template inheritance because we are *overriding* that `body` block
+with this new content. So now, when Twig renders `base.html.twig`... nd it gets to
+this `block body` part, it's going to print the `block body` HTML from *our* template
+
+Watch: refresh and... the error is gone. And if you view the page source, we have a
+full HTML page!
+
+## Block Names
+
+Oh, and the *names* of these blocks aren't important. If you want to rename them
+after your favorite 90's sitcom character, do it. Just make to *also* update its
+name in your child template. You can also add *more* blocks. Every block you added
+is just another potential override point.
+
+## Default Block Content
+
+Oh, and you may have also noticed that blocks *can* have default content. Look
+at the page right now: the title says "Welcome". That's because the `title` block
+has default content and we're not overriding. Let's change the default title to
+"Mixed Vinyl".
+
+So now *that* will be the title of every page in our site... unless we override
+that on a page. In our template, either above block body or below, the order of blocks
+doesn't matter, add `{% block title %}`, `{% endblock %}` and, in between
+"Create a new Record".
+
+And now... yes! *This* page has a custom title.
+
+## Adding to (Instead of Replacing) the Parent Block
+
+Oh, and you might be asking:
+
+> What if I don't want to *replace* a block entirely. But instead, I want to *add*
+> to the contents of a block.
+
+We can totally do that. In `base.html.twig`, the `title` block is set to "Mixed Vinyl".
+If we wanted to *prepend* that custom title, we can say "Create a new Record" then
+use the say something tag to print a function called `parent()`.
+
+That does exactly what you'd expect: it finds the parent template's content for
+this block.. and prints it. Refresh and... that's *so* nice.
+
+If you're ever confused about how template inheritance works, it's useful to think
+about it like object-oriented inheritance. Each template is like a class and each
+block is like a method. So the homepage class extends the `base.html.twig` class
+but overrides two of its methods. If that only confused you, don't worry
+about it.
+
+So... that's it for Twig. You're basically a Twig expert, which I'm told is a
+popular topic at parties.
+
+Next: one of the *killer* features of Symfony is its debugging tools. Let's get
+these installed and check 'em out.
