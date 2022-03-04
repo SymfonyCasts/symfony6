@@ -1,126 +1,159 @@
-# Assets
+# Assets, CSS, Images, etc
 
-Coming soon...
+If you download the course code from this page where you're watching this video,
+after unzipping, you'll find a `start/` directory that contains these same brand
+new Symfony 6 app that we created earlier. You don't actually need this code, but
+it it *does* contain one extra directory called `tutorial/`. Like I have here. This
+holds some files that we are about to use.
 
-If you download the course code from the tutorial page After UN zipping, it you'll
-find a start directory that contains these same brand new Symfony six app that we
-created. You don't actually need this code, but it'll contain an extra tutorial
-directory. Like I have here with some extra files that we are going to use. The goal
-right now is to make this site look like a real site. Instead of looking like
-something I designed myself And that means we need a true HTML layout that rings in
-some CSS. So we know that our layout file templates based on each, and there's also a
-base H TWA in the tutorial directory. And I copy that, put it in templates, Override
-it and override it Before we look at that also want go ahead and also copy the three
-PNG files and put those into your public directory. Beautiful. All right. Let's open
-up the new base that HT twig file. There's nothing special here. We bring in some
-external C SS files from some CDNs for bootstrap and font. Awesome. By the end of the
-tutorial, we're actually going to use something A fancier way of bringing CSS into
-our app. But for right now, this is gonna work great,
+So let's talk about our next goal: to make this site look like a *real* site...
+instead of looking like something I designed myself. And *that* means that we need
+a true HTML layout that brings in some CSS.
 
-But otherwise, everything is still hard. Coded. We have a hard coded navigation area.
-We still have our same block body and a hard coded footer, But let's go see what it
-looks like. Refresh and woo, Not perfect, but better. The tutorial directory also
-holds an app at CSS with some custom CSS to make this publicly available so that our
-users browser can download it. It needs to live somewhere in the public directory,
-which is our doc, but it doesn't matter where or how you organize things inside of
-there. How about let's create a Styles directory, and then I'll copy that at that CSS
-And paste it in there. Now back in, based on age to wick, I'll head back up to the
-top. And right after I bring in all the external CSS files, let's add a link tag for
-this. So link for rail = scholarship a equals. And then because the public directory
-is our document route. Whenever we refer to paths, CSS, pads, or image pads, it's
-going to be with respect to that directory. So the public path that this watch
-/styles /app CSS, All right, refresh now, and even better.
+## Adding a Layout & CSS Files
 
-Now, I want you to notice something so far, Symfony is not involved at all in how we
-organize or use our images or CSS files. Nope. Our setup is dead simple. We put
-things in the public directory. Then we refer to them with their paths, But does
-Symfony have some cool features to help work with CSS and JavaScript? Absolutely.
-It's called Webpac Encore And stimulus. And we'll talk about both of those towards
-the end of the tutorial, But even in this simple setup where we just put files in
-public and refer to them and point to them, there is one minor feed. Sure. That
-Symfony offers it's called the asset function And works like this. Instead of using
-/style /app CSS, we're gonna say curly curly to do, to print something with twig and
-then use the asset function. And then inside quotes, move our path there. But without
-the opening /so it's still relatively the public directory. You just don't include
-the opening /Before we talk about that, let's just go see if it works, refresh and it
-doesn't in air, but what in air unknown function did you forget to run composed
-requires Symfony /asset unknown function asset. I keep telling you that Symfony
-starts small and then you install things as you need them. Apparently this asset
-function comes from a part of Symfony. We don't have yet, but getting it is easy.
-Copy this come pose required. Command, spin over to your terminal and run it.
+We know that our layout file is `base.html.twig`... and there's *also* a
+`base.html.twig` file in the new `tutorial/` directory. Copy that... paste it
+in templates, and override the original.
 
-This is a pretty simple install. You can see it installed one package. There was no
-recipes that, and there was no recipes that it added, But when we try it again, it
-works. Check out the HTML source for this page. If you look at that Style sheet link,
-it's HR is literally /style /app CSS. So when it finally prints the HTML here, this
-is the exact same thing that we had hard coded in our template a second ago. So what
-the heck is this asset function doing the answer is not much, but it is still
-important. The asset function gives you two features. First, if you deploy to imagine
-you deploy to a sub directory. So your Symfony app actually lives at
-example.com/mixed Vinyl.
+Before we look at that, *also* copy the three `.png` files and put those into
+the `public/` directory so that our users can access them.
 
-So that would, I should be our homepage. If that were the case. Then in order for our
-CSS to work, the path actually has to be /mixed vinyl /style /app CSS. Anyways, if
-you have the situation, the asset function will detect that automatically and add
-that prefix for you without you needing to do anything, you probably don't have this
-situation, but if you ever do the asset function, has you covered the second and more
-important thing that the asset function does is it allows you to easily switch to a
-CDN later. If you have one, Basically, Because this path is now going through the
-asset function, there's a central place that we can go to with just a little bit of
-configuration. We can say, Hey, Symfony, when you output this path here, I want you
-to prefix it with the URL to my CDN. So then when you refresh the page instead of
-/style /app CSS, it would say something like HTTPS //my cdn.com/style/app CSS. So the
-asset function is really not that important, but at the same time, it gives you some
-nice features. So you sh should use it.
+Beautiful. Open up the new `base.html.twig` file. There's nothing special here. We
+bring in some *external* CSS files from some CDNs for Bootstrap and FontAwesome.
+By the end of this tutorial, we'll refactor this into a *fancier* way of handling
+CSS. But for right now, this will work great.
 
-In fact, you should use the asset function. Anytime you reference any static file,
-whether it's a CSS file, job script file image, file, whatever. So for example, up
-here, I'm referencing these three images. Let's use the asset function here. So I'll
-say curly, curly Asset, And then I'll actually get auto completion for that. Thanks
-to the Symfony plugin. We'll do the same thing down here, asset, And then one more
-Early, early asset. Awesome. Of course we know that's not gonna make any difference.
-And in fact, if I refresh this view source page, it will still output the exact same
-pads as before. So the layout now looks good, but the content for our homepage is
-just kind of kind hanging out there, looking weird. So in the tutorial directory,
-let's copy the homepage.ht template and put that into our template /vinyl directory
-and override it. I'll open that up once again, This new contents still extends based
-on H month week. It still overrides the body block. And then it just has a bunch of
-completely hard coded H team out. There's nothing dynamic in here yet. Let's go see
-what it looks like on the page.
+But otherwise, everything is still hardcoded. We have some hardcoded navigation,
+we still have the same block body... and a hardcoded footer. Let's go see what it
+looks like. Refresh and woo! Well, not perfect, but better.
 
-Wanna refresh. Whoa, that looks awesome. By the way, for some reason, refreshing
-still showed you the old template. Just make a one character change to your template
-and save, and then come back copying the file. The way that we copy the new file can
-sometimes confuse Symfony's cache. All right. So this looks great. The only problem
-is that it's 100% hard coded. So let's go fix that all the way up on top. Here is the
-name of our record. We know that we have a title variable in here, And then also down
-here for the song list, we have a bunch of just hard coded song list. Diss, let's
-turn this into a loop. So right before this dip, I'm gonna say four Track and tracks
-just like we had before. And then at the end of this end of track, Oh, end four. And
-then for song details. And remember I'm getting all of this. This tracks variable
-comes from right here in our controller. So we have a song key and an artist key. So
-say curly curly track Do song A curly curly track dot artist. Beautiful. And then we
-can remove all of these other song list devs all the way to the bottom.
+## Adding a Custom CSS File
 
-Sweet. Let's try that. And now it's coming to life. All right, one more page to go.
-Our /brows page, copy the brows dot H two month template Into the vinyl directory
-into the vinyl directory. This looks a lot like our homepage. It extends based do H
-two month and overrides block body. And it has a bunch of hard coded content over in
-vinyl controller. We actually weren't rendering a template yet in this controller. So
-let's do that now, Return this error render Final /browse that H him up twig And
-let's pass in the genre. Remember we so nice if we go to /browse, we're browsing all
-genres. If we put something in the wild card, we're browsing a specific genre. So I'm
-going to kind of create a new genre variable That equals. If we have a slug, Then I'm
-going to use This fancy code we had before Else. I'm gonna return null, And then I'll
-delete the title stuff. Now we can pass this genre Into tweak Back and browse that
-I'm just gonna use this on the H one. So we're either gonna be browsing a specific
-genre or we're going to be browsing all genres.
+The `tutorial/` directory also holds `app.css` file with some custom CSS. To make
+this publicly available so that our user's browser can download it, it needs to live
+*somewhere* in the `public/` directory. But it doesn't matter where or how you
+organize things inside.
 
-So I'm gonna print something here and we actually need an if statement, you can use
-that same Ary syntax to basically say if genre then use the genre else, print all
-genres. All right, let's try it head over to /browse Browse. All genres looks
-awesome. And then add /death model browse, death metal friends. This is starting to
-feel like a real site, but right now these links up here go absolutely nowhere. Let's
-fix that next by learning how to generate URLs. We're also gonna see the mega
-powerful bin console command line tool.
+Let's create a `styles/` directory... and then copy `app.css`... and paste it
+there.
 
+Back in, `base.html.twig`, head back to the top. After I bring in all the external
+CSS files, let's add a link tag for *our* `app.css`. So `<link rel="stylesheet"`
+and `href=""`. Because the `public/` directory is our document root, to refer to
+a CSS or image file there, the path will be with respect to *that* directory.
+So this will be `/styles/app.css`.
+
+Let's check it. Refresh now and... even better!
+
+## The asset() Function
+
+Now, I want you to notice something. So far, Symfony is *not* involved at *all* in
+how we organize or use images or CSS files. Nope. Our setup is dead simple: we
+put things in the `public/` directory... then refer to them with their paths.
+
+But *does* Symfony have any cool features to help work with CSS and JavaScript?
+Absolutely. It's called Webpack Encore and stimulus. And we'll talk about both of
+those towards the end of the tutorial.
+
+But even in this simple setup - where we just put files in `public/` and point to
+them, there is one *minor* feature: the `asset()` function.
+
+It works like this: instead of using `/styles/app.css`, `{{ asset() }}` and then,
+inside quotes, move our path there... but *without* the opening "/".
+
+So the path is still relative to the `public/` directory... you just don't need
+to include the opening "/".
+
+Before we talk about what this does... let's go see if it works. Refresh and...
+it doesn't! Error:
+
+> Unknown function: did you forget to run `composer require symfony/asset`.
+
+I keep saying that Symfony starts small... and then you install things *as* you need
+them. Apparently, this `asset()` function comes from a part of Symfony that we don't
+have yet! But getting it is easy. Copy this comeposer require command, spin over
+to your terminal and run it:
+
+```terminal-silent
+composer require symfony/asset
+```
+
+This is a pretty simple install: it downloaded just this one package... and there
+were no recipes.
+
+But when we try the page now... it works! Check out the HTML source for this page.
+hmm. The `link` tag's `href` is still, literally `/styles/app.css`: that's *exactly*
+what we had before! So what the heck is this `asset()` function doing?
+
+The answer is... not much. But it's still a good idea to use. The `asset()` function
+gives you two features. First, imagine you deploy to a sub-directory or a domain.
+Like, our homepage lives at example.com/mixed-vinyl.
+
+If that were the case, then in order for our CSS to work, the `href` would need
+to be `/mixed-vinyl/styles/app.css`. *If* you have the situation, the `asset()`
+function will detect the sub-directory automatically and add that prefix for you.
+
+The second - and more important thing that the `asset()` function does - is allow
+you to easily switch to a CDN later. Because this path is now going through the
+`asset()` function, we could, via a configuration file, say:
+
+> Hey Symfony! When you output this path here, please prefix it with the URK
+> to my CDN.
+
+This means that, when we load the the page, instead of `href="/styles/app.css`, it
+would say be something like `https://mycdn.com/styles/app.css`.
+
+So the `asset()` function might not be doing anything you need *today*, but anytime
+you reference a static file - whether it's a CSS file, JavaScript file, image, whatever,
+use this function.
+
+For example up here, I'm referencing these three images. Let's use the asset:
+`{{ asset()`... and then it auto-completes the paths! thanks Symfony plugin! Repeat
+this for the second image... and the third.
+
+We know this won't make any difference today... we can refresh the HTML source page...
+but we're ready for a CDN in the future.
+
+## Homepage And Browse Page HTML
+
+So the layout now looks great! But the content for our homepage is... just kind of
+kind hanging out... looking weird, like me in middle school. Back in the `tutorial/`
+directory, copy the homepage template... and overwrite our original file.
+
+Open that up. This still extends `base.html.twig`... and it still overrides the
+`body` block. And then, has a bunch of completely hard coded HTML. Lets' go see
+what that looks like. Refresh and... that looks awesome!
+
+The only problem is that it's 100% hard coded. Let's fix that. All the way on top,
+Here's the name of our record, print the `title` variable.
+
+And then down here for the song list.. we have a long list of hardcoded HTML.
+Let's turn this into a loop. Add `{% for track in tracks %}` like we had before.
+And... at the end, `endfor`.
+
+For the song details, use `track.song`... and `track.artist`. And now we can
+remove *all* other other hardcoded songs.
+
+Sweet! Let's try that. And now... it's coming to life!
+
+One more page to go: our `/browse` page. You know the drill: copy `browse.html.twig`,
+and overwrite the original. This looks a lot like the homepage, extending
+`base.html.twig` and overriding block `body`.
+
+Over in `VinylController`, we weren't rendering a template yet... so let's do that
+now: `return $this->render('vinyl/browse.html.twig')` and pass in the genre. Add
+a variable for that: `$genre =` and if we have a slug... use our fancy title
+title case code, else set this to null. Then delete the `$title` stuff. Pass
+`genre` into Twig.
+
+Back in the template, use this in the `h1`. In Twig, we can *also* use fancy
+syntax. So *if* we have a `genre`, print `genre`, else print `All Genres`.
+
+Testing time. Head over to `/browse`: "Browse all genres" And then
+`/browse/death-metal`: Browse Death Metal. Friends, this is starting to feel like
+a real site!
+
+Except that these links up in the nav... go absolutely nowhere! Let's fix that
+next by learning how to generate URLs next. We're also going to meet the mega powerful
+`bin/console` command line tool.
