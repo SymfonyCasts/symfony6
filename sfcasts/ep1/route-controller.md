@@ -39,6 +39,11 @@ matter how you organize things inside `src/`: you can usually put things into wh
 directory you want and name the *classes* whatever you want. So flex your
 creativity.
 
+***TIP
+Controllers actually *do* need to live in `src/Controller/`, unless you change
+some config. Most PHP classes can live anywhere in `src/`.
+***
+
 But there *are* two important rules. First, notice the namespace that
 PhpStorm added on top of the class: `App\Controller`. *However* you decide to organize
 your `src/` directory, the namespace of a class *must* match the directory structure...
