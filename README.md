@@ -51,6 +51,21 @@ If you have suggestions or questions, please feel free to
 open an issue on this repository or comment on the course
 itself. We're watching both :).
 
+## SymfonyCasts Team Mix Tapes
+
+Want to listen to *our* mixtapes? 
+
+* Diego: https://tidal.com/browse/playlist/4b0dd1f6-c3d4-4886-8e31-c59455596528
+* Victor: https://tidal.com/browse/playlist/e2473e0d-e4df-407e-b12c-f40765d1dd4b
+* Danielle: https://tidal.com/browse/playlist/acd3fae7-10ea-43a4-be89-56a3f6f3040c
+* Ryan: https://tidal.com/browse/playlist/96d88543-e1bb-4457-b38a-3afd7d71d1da
+* Matias: https://tidal.com/browse/playlist/9f914493-5844-4fbc-8029-a828ee4d090d
+* Leanna: https://tidal.com/browse/playlist/fb01a86a-802e-4861-9a20-a0d37244b696
+* Vladimir: https://tidal.com/browse/playlist/0e78bb9e-a6ce-4548-9521-3e6779875978
+
+... or for countries where Tidal isn't available:
+https://open.spotify.com/user/31smny3k6o3kbqmmyzwebplayhda?si=8kq-n_8aRNOieXAOQJoleQ
+
 ## Rock 'N' Roll Band
 
 If we were a rock 'n' roll band,
