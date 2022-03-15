@@ -136,5 +136,7 @@ just getting started. Oh, and because our controllers always return a `Response`
 object, it's optional, but you can add a return type to this function if you want
 to. But that doesn't change anything: it's just a nice way to code.
 
+[[[ code('32c60928e5') ]]]
+
 Next I'm feeling pretty confident. So let's create *another* page, but with a much
 fancier route that matches a wildcard pattern.
