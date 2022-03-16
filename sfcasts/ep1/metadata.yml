@@ -13,6 +13,7 @@ chapters:
     - json-api
     - route-requirements
     - services
+    - twig-service
     - webpack-encore
     - webpack-encore-usage
     - stimulus
