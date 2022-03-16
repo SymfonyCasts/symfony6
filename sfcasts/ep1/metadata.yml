@@ -16,5 +16,6 @@ chapters:
     - twig-service
     - webpack-encore
     - webpack-encore-usage
+    - js-vendor-libs
     - stimulus
     - turbo
