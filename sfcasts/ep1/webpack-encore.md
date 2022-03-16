@@ -1,58 +1,136 @@
-# Webpack Encore
+# Webpack Encore Setup
 
-Coming soon...
+Our CSS setup is fine. We put files into the `public/` directory and then...
+we point to them from inside of our templates. We can add JavaScript files the
+exact same way.
 
-Our CSF se CSS setup is fine. We put files into the public directory And then we,
-Then when, and then we point to them From inside of our templates, We can add some
-JavaScript files the exact same way, but if you wanna get truly serious about writing
-professional CSS and JavaScript, we need to take this to the next level. And even if
-you consider yourself a mostly backend developer, the tools we are about to talk
-about out are going to allow you to write CSS and JavaScript that feels easier And is
-less error prone than you're probably used to. The key to taking our setup to the
-next level is Leveraging a node library called Webpac. This is the industry standard
-tool for packaging minifying and parsing your frontend, CSS, JavaScript, and other
-files, though. It can do a lot more, but setting up Webpac can be a bit tricky. And
-so in the Symfony world, we use a, A lightweight tool, Which you can find in the docs
-called Webpack Encore. It's still Webpack, but it just makes it easier. We have a
-free tutorial About it. If you wanna take it, if you want to dive deeper,
+But if we want get truly serious about writing CSS and JavaScript, we need to take
+this to the next level. And even if you consider yourself a mostly backend developer,
+the tools we're about to talk about will allow you to write CSS and JavaScript that
+feels easier and is less error-prone than what you're probably used to.
 
-Let's do a crash course right now, first at your command line, make sure you have
-node installed. You'll also need either NPM, which comes with node automatically or
-yarn. Both NPM and yarn are very similar node package managers. They're the composer
-for the node world. If you use yarn, just make sure you have version one. Like I do.
-All right. We're about to install a new install, a new package. So I want to kind of
-clean up things. We done a lot of work, So I'm gonna say, get, add dot That looks
-good. And then we'll commit everything To install Webpac Encore. It's just composer
-require Encore. This installs Webpac Encore bundle. Remember bundles are like Symfony
-plugins. One of the most interesting things about what we just did is the recipe that
-was just installed. I'm going to run, get status. Ooh, for the first time, the recipe
-modified the dot get ignore file. Let's go check that out. I'll open dot get ignore.
-And you see up here is what we originally had. And down here is the new stuff added
-by Webpac Encore bundle. It's ignoring this node modules directory, as you'll see in
-a second node modules is basically the vendor directory for node. So if you install
-some node package into your application, they go into a node modules directory, but
-you don't wanna commit that
+The key to taking our setup to the next level is leveraging a node library called
+Webpack. Webpack is the industry standard tool for packaging, minifying and parsing
+your frontend CSS, JavaScript,and other files. But don't worry: Node is just JavaScript.
+And its role in our app will be pretty limited.
 
-The package also added a package dot JSON file. This is nodes `composer.json`. So any
-libraries that you, that you know, libraries that you need go into here. Most
-importantly, we have Webpac Encore itself, which is a node library, as well as a few
-other things that are gonna help us get our job done. The recipe also added an assets
-directory and a configuration file to control. Webpac Encore the assets director.
-We're gonna talk about in a little while, but it kind of has a bootstrapped structure
-That we're going to put our code into. All right. Just like when we use composer With
-composer, If you didn't have this vendor directory, you could run composer install
-and it would recompose it at JSUN and download all this stuff into the vendor
-directory. The same thing happens with N PM. We have a package that JSUN file to
-actually download this. We can run yarn install or NPM install. This will take a few
-moments to run as it downloads as it downloads. And you might get a couple warnings
-like this, which you can ignore. Awesome. This did two things. This has downloaded a
-bunch of files into the node modules, directory, the vendor directory for node. It
-also created a yarn dot lock file, which is like composer dot Locke, both of these,
-um, store, the exact versions of the PHP dependencies or no dependencies that were in
-your application. It's not something you need to worry about, but both of these files
-you should commit. So let's go ahead and actually do that. I'll run and get status,
+Setting up Webpack *can* be tricky. And so, in the Symfony world, we use a lightweight
+tool called Webpack Encore. It's still Webpack, it just makes it easier! And we have
+a free tutorial about it if you want to dive deeper.
 
-Get, add dot And beautiful. Okay. Web Encore is now installed in our application, but
-it's not doing anything yet. So next let's use it to take our JavaScript up to the
-next level.
+## Installing Encore
 
+But let's do a crash course right now. First, at your command line, make sure you
+have node installed:
+
+```terminal-silent
+node -v
+```
+
+You'll also need either `npm` - which comes with Node automatically - or `yarn`:
+
+```terminal-silent
+yarn --version
+```
+
+Npm and yarn are Node package managers: they're the Composer for the Node world.
+If you decide to use yarn - thats what I'll use - make sure to install version 1.
+
+Ok, we're about to install a new package... so let's commit everything:
+
+```terminal
+git add .
+```
+
+And... looks good:
+
+```terminal-silent
+git status
+```
+
+So commit everything:
+
+```terminal-silent
+git commit -m "Look mom! A real app"
+```
+
+To install Webpack Encore, run:
+
+```terminal
+composer require encore
+```
+
+This installs WebpackEncoreBundle... where a bundle is a Symfony plugin. And *this*
+package has a recipe: a very important recipe. Run:
+
+```terminal
+git status
+```
+
+Ooh! For the first time, the recipe modified the `.gitignore` file. Let's go check
+that out. Open `.gitignore`. The stuff on top is what we originally had... and
+down here is the new stuff added by WebpackEncoreBundle. It's ignoring this
+`node_modules/` directory, which is basically the `vendor/` directory for Node.
+We don't need to commit that because those vendor libraries are described in
+another new file from the recipe: `package.json`. This is Node's `composer.json`
+file: it describes the Node packages that our app needs. The most important one
+is Webpacl Encore itself, which *is* a Node library. It also has a few other
+package that will help us get our job done.
+
+The recipe also added an `assets/` directory... and a configuration file to control
+Webpack: `webpack.config.js`. The `assets/` directory already holds a small set of
+files to get us started.
+
+## Installing Node Dependencies
+
+Ok, with Composer, if we didn't have this `vendor/`, we could run `composer install`
+which would tell it to read the `composer.json` file and re-download all the packages
+into `vendor/`. The same thing happens with Node: we have a `package.json` file.
+To *download* this stuff, run:
+
+```terminal
+yarn install
+```
+
+Or:
+
+```terminal skip-ci
+npm install
+```
+
+Go node go! This will take a few moments as it downloads everything. You'll probably
+get a few warnings like this, which are safe to ignore.
+
+Awesome! this did two things. First, it downloaded a *bunch* of files into the
+`node_modules/` directory: the "vendor" directory for Node. It also created a
+`yarn.lock` file... or `package-lock.json` if you're using npm. This serves the
+same purpose of `composer.lock`: it stores the *exact* versions of all the packages
+so that you get the *same* versions next time you install your dependencies.
+
+For the most part, you don't need to worry about these lock files.. except that
+you *should* commit them. Let's do that. Run:
+
+```terminal
+git status
+```
+
+Then:
+
+```terminal
+git add .
+```
+
+Beautiful:
+
+```terminal-silent
+git status
+```
+
+And commit:
+
+```terminal-silent
+git commit -m "Adding Webpack Encore"
+```
+
+Hey! Webpack Encore is now installed! But... it's not doing anything yet. Freeloader.
+So next, let's use it to take our JavaScript up to the next level.
