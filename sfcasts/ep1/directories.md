@@ -12,7 +12,11 @@ words, if you need a file to be publicly accessible - like an image file or a CS
 file - it needs to live inside `public/`.
 
 Right now, this holds exactly one file: `index.php`, which is called the "front
-controller". Ooo. That's a fancy word that means that - no matter what URL the
+controller". 
+
+[[[code('f3303a0b1f')]]]
+
+Ooo. That's a fancy word that means that - no matter what URL the
 user goes to - *this* is the script that's always executed first. Its job is to
 boot up Symfony and run our app. And now that we've looked at it, we'll probably
 never need to think about or open it ever again.

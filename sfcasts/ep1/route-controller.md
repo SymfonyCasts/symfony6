@@ -33,6 +33,8 @@ the controller function. In Symfony, the controller function is always a *method
 inside of a PHP class. I'll show you: in the `src/Controller/` directory, create
 a new PHP class. Let's call it `VinylController`, but the name could be anything.
 
+[[[ code('6709e819e9') ]]]
+
 And, congrats! It's our first PHP class! And guess where it lives? In the `src/`
 directory, where *all* PHP classes will live. And for the most part, it doesn't
 matter how you organize things inside `src/`: you can usually put things into whatever
@@ -65,6 +67,8 @@ either: try naming it after your cat: it'll work!
 
 For now, I'm just going to put a `die()` statement with a message.
 
+[[[ code('66d737c13c') ]]]
+
 ## Creating the Route
 
 Good start! Now that we have a controller function, let's create a route,
@@ -81,6 +85,8 @@ a `use` statement up on top. Whenever you use an attribute, you *must* have a
 corresponding `use` statement for it at the top of the file.
 
 Inside `Route`, pass `/`, which will be the URL to our page.
+
+[[[ code('ffeff58236') ]]]
 
 And... done! This route defines the URL and points to this controller... simply
 because it's right *above* this controller.
@@ -119,6 +125,8 @@ Anyways, inside of `Response`, we can put whatever we want to return to the user
 HTML, JSON or, for now, a simple message, like the title of the Mixed vinyl we're
 working on: PB and jams.
 
+[[[ code('6750c9c02f') ]]]
+
 Ok team, let's see what happens! Refresh and... PB and Jams! It may not like much,
 but we just built our first fully-functional Symfony page! Route + controller =
 profit!
@@ -127,6 +135,8 @@ And you've just learned the most *foundational* part of Symfony... and we're
 just getting started. Oh, and because our controllers always return a `Response`
 object, it's optional, but you can add a return type to this function if you want
 to. But that doesn't change anything: it's just a nice way to code.
+
+[[[ code('32c60928e5') ]]]
 
 Next I'm feeling pretty confident. So let's create *another* page, but with a much
 fancier route that matches a wildcard pattern.

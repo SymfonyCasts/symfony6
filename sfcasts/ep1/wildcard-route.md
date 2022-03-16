@@ -15,6 +15,8 @@ the URL to `/browse`. Inside the method, what do we *always* return from a
 controller? That's right: a `Response` object! Return a new `Response`... with a
 short message to start.
 
+[[[ code('00c844ab6c') ]]]
+
 Let's try it! If we refresh the homepage, nothing changes. But if we go
 to `/browse`... we're crushing it! A second page in under a minute! Dang!
 
@@ -36,7 +38,11 @@ your users would see.
 ## {Wildcard} Routes
 
 Anyways, the simplest way to make this URL work is just... to change the URL to
-`/browse/death-metal`. But... not super flexible, right? We would need one route
+`/browse/death-metal`. 
+
+[[[ code('7cf6861477') ]]]
+
+But... not super flexible, right? We would need one route
 for *every* genre... which could be hundreds! And also, we just killed the `/browse`
 URL! *It* now 404's.
 
@@ -47,19 +53,27 @@ put anything inside the curly-braces, like `{genre}` or `{coolMusicCategory}`: i
 makes no difference. But *whatever* we put inside this wildcard, we are then
 *allowed* to have an argument with that same name: `$slug`.
 
+[[[ code('5a1436e579') ]]]
+
 Yup, if we go to `/browse/death-metal`, it will match this route and pass the string
 `death-metal` to that argument. The matching is done by name: `{slug}` connects
 to `$slug`.
 
 To see if it's working, let's return a different response: `Genre` then the `$slug`.
 
+[[[ code('90a1e7b05e') ]]]
+
 Testing time! Head back to `/browse/death-metal` and... yes! Try `/browse/emo` and
 yea! I'm *that* much closer to my Dashboard Confessional mix tape!
 
 Oh, and it's optional, but you can add a `string` type to the `$slug` argument.
 That doesn't change anything... it's just a nice way to program: the `$slug` was
-*already* always going to be a string. A bit later, we'll learn how you could turn
-a *number* wildcard - like the number 5 - into an integer if you want to.
+*already* always going to be a string.
+
+[[[ code('dd04d150f1') ]]]
+
+A bit later, we'll learn how you could turn a *number* wildcard - like the 
+number 5 - into an integer if you want to.
 
 ## Using Symfony's String Component
 
@@ -68,6 +82,8 @@ let's convert it to a title. Say `$title = str_replace()` and replace any dashes
 with spaces. Then, down here, use title in the response. In a future tutorial,
 we're going to query the database for these genres, but, for right now, we can
 at least make it look nicer.
+
+[[[ code('2d1891ae08') ]]]
 
 If we try it, Emo doesn't look any different... but death metal *does*.
 But I want *more* fancy! Add another line with `$title =` then
@@ -83,7 +99,9 @@ Move the `str_replace()` to the first argument of `u()`. This function
 returns an object that we can then do string operations on. One method is
 called `title()`. Say `->title(true)` to convert all words to title case.
 
-Now when we try it... sweet! It uppercases the letters! The string component isn't
+[[[ code('7ef6fbf8e0') ]]]
+
+Now whe n we try it... sweet! It uppercases the letters! The string component isn't
 particularly important, I just want you to see how we can already leverage
 parts of Symfony to get our job done.
 
@@ -97,6 +115,8 @@ match anything, but, by default, a wild card is *required*. We *have* to go to
 Can we make a wildcard optional? Absolutely! And it's delightfully simple: make the
 corresponding argument optional.
 
+[[[ code('9ba3296dd1') ]]]
+
 As soon as we do that, it tells Symfony's routing layer that the `{slug}` does not
 need to be in the URL. So now when we refresh... it works. Though, that's not a great
 message for the page.
@@ -104,6 +124,8 @@ message for the page.
 Let's see. *If* there's a slug, then set the title the way we were. Else, set
 `$title` to "All genres". Oh, and move the "Genre:" up here... so that down in
 the `Response` we can just pass `$title`.
+
+[[[ code('8cef2cd6cb') ]]]
 
 Try that. On `/browse`... "All Genres". On `/browse/emo`... "Genre: Emo".
 
