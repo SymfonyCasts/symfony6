@@ -18,4 +18,5 @@ chapters:
     - webpack-encore-usage
     - js-vendor-libs
     - stimulus
+    - stimulus-example
     - turbo
