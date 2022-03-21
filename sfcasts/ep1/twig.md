@@ -19,6 +19,8 @@ but you can do whatever. The second argument is an array of any variables
 that you want to pass *into* the template. Let's pass in a variable called
 `title` and set it to our mix tape title: "PB and Jams".
 
+[[[ code('28e791440a') ]]]
+
 Done in here. Oh, but pop quiz! What do you think the `render()` method returns?
 Yea, it's the thing I *keep* repeating: a controller must always return a `Response`
 object. `render()` is just a shortcut to render a template, get that string and put
@@ -30,6 +32,8 @@ We know from earlier that when you render a template, Twig looks in the `templat
 directory. So create a new `vinyl/` sub-directory... and inside of that, a file
 called `homepage.html.twig`. To start, add an `h1` and then print the `title` variable
 with a special Twig syntax: `{{ title }}`. And... I'll add some hardcoded TODO text.
+
+[[[ code('285607e2a3') ]]]
 
 Let's... go see if this works! We were working on our homepage, so go there and...
 hello Twig!
@@ -51,6 +55,8 @@ So syntax #1 - the "say something" syntax - is `{{`
 The second syntax... doesn't really count. It's `{#` to create a comment... and
 that's it.
 
+[[[ code('285607e2a3') ]]]
+
 The *third* and final syntax I call the "do something" syntax. This is when you're
 not *printing*, your *doing* something in the language. Examples of "doing something"
 would be if statements, for loops or setting variables.
@@ -59,6 +65,8 @@ would be if statements, for loops or setting variables.
 
 Let's try a `for` loop. Go back to the controller. I'm going to paste in
 a tracks list... and then pass a `tracks` variable into the template set to that array.
+
+[[[ code('8123e02600') ]]]
 
 Now, unlike `title`, tracks is an array... so we can't just print it. But, we
 can try! Ha! That gives us an array to string conversion. Nope, we need to *loop*
@@ -73,6 +81,8 @@ will be the variable *inside* the loop.
 After this, add `{% endfor %}`: most "do something" tags have an end tag. *Inside*
 the loop, add an `li` and then use the say something syntax to print `track`.
 
+[[[ code('dc265ad487') ]]]
+
 ## Using Sub.keys
 
 When we try it... nice! Oh, but let's get *trickier*. Back in the controller,
@@ -80,12 +90,16 @@ instead of using a simple array, I'll restructure this to make each track an
 associative array with `song` and `artist` keys. I'll paste in that same change
 for the rest.
 
+[[[ code('647cdcfd7e') ]]]
+
 What happens if we try it? Ah, we're back to the "array to string" conversion.
 When we loop, each track *itself* is now an array. How can we read the `song`
 and `artist` keys?
 
 Remember when I said that Twig looks a lot like JavaScript? Well then, it shouldn't
 be a surprise that the answer is `track.song` and `track.artist`.
+
+[[[ code('fc54d0388b') ]]]
 
 And... *that* gets our list working.
 
