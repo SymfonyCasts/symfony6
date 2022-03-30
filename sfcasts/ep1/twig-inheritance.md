@@ -25,9 +25,13 @@ the filter you want, like `upper`.
 
 Let's try this! Print `track.artist|upper`.
 
+[[[ code('73974377cd') ]]]
+
 And now... it's uppercase! If you want to confuse your coworkers, you can pipe
 *that* to `lower`... which sends things *back* to lowercase. There's no *real*
 reason to do this, but filters *can* be chained like this.
+
+[[[ code('016bee2e4d') ]]]
 
 Anyways, check out the filters list because there's probably something you'll
 find useful.
@@ -49,6 +53,8 @@ around us? Absolutely. And it's incredible. It's called template inheritance. If
 you have a template and you want that to use some base layout, at the very top of
 the file, use a "do something" tag called `extends`. Pass this the name of the
 layout file: `base.html.twig`.
+
+[[[ code('48dc6d8fec') ]]]
 
 That's referring to this template right here. Before we check that out, if we
 try this now, yikes! Big error:
@@ -79,6 +85,8 @@ and that's *right* where we want to put our template's HTML.
 To put it there, in our template, surround all of the content with
 `{% block body %}`... and then `{% endblock %}`.
 
+[[ code('01d2fbf6f5') ]]
+
 This is called template inheritance because we are *overriding* that `body` block
 with this new content. So now, when Twig renders `base.html.twig`... and it gets to
 this `block body` part, it's going to print the `block body` HTML from *our* template
@@ -102,10 +110,14 @@ at the page right now: the title says "Welcome". That's because the `title` bloc
 has default content... and we're not overriding it. Let's change the default title
 to "Mixed Vinyl".
 
+[[[ code('086e2afb43') ]]]
+
 So now *that* will be the title of every page on our site... *unless* we override
 that. In our template, either above block body or below - the order of blocks
 doesn't matter - add `{% block title %}`, `{% endblock %}` and, in between
 "Create a new Record".
+
+[[[ code('4ebc00a77a') ]]]
 
 And now... yes! *This* page has a custom title.
 
@@ -119,6 +131,8 @@ Oh, and you might be wondering:
 That's totally possible. In `base.html.twig`, the `title` block is set to "Mixed
 Vinyl". If we wanted to *prepend* our custom title to that, we could say "Create
 a new Record" then use the "say something" tag to print a function called `parent()`.
+
+[[[ code('9729cce31f') ]]]
 
 That does exactly what you'd expect: it finds the parent template's content for
 this block.. and prints it. Refresh and... that's *so* nice.
