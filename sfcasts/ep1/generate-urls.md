@@ -80,6 +80,8 @@ To do this, find the route and add an argument: `name` set to, how about,
 `app_homepage`. I like using the `app_` prefix: it makes it easier to search
 for a route name later.
 
+[[[ code('25d040ab5a') ]]]
+
 By the way, PHP 8 attributes - like this `Route` attribute - are represented by
 actual, physical PHP classes. If you hold command or ctrl, you can open it and look
 inside. This is great: the `__construct()` method shows all of the different
@@ -103,13 +105,19 @@ to `base.html.twig`. To generate a URL inside of twig, say `{{` - because
 we're going to print something - and then use a Twig function called `path()`.
 Pass this the route name.
 
+[[[ code('8a471c3074') ]]]
+
 Done! Refresh... and the link up here works!
 
 One more link to go. We know step one: give the route a name. So `name:` and, how
 about, `app_browse`.
 
+[[[ code('c8ff1fc6dd') ]]]
+
 Copy that, and... scroll down a bit. Here it is: "Browse Mixes". Change that
 to `{{ path('app_browse') }}`.
+
+[[[ code('802a4800ee') ]]]
 
 And now... that link works too!
 
@@ -133,6 +141,8 @@ the "Pop" genre, set it to `pop`.
 Cool! Let's repeat this two more times: `{{ path('app_browse') }}`, pass curly
 braces for an associative array, with `slug` set to `rock`. And then one more time
 down here... which I'll do really quickly.
+
+[[[ code('4fa3d35edf') ]]]
 
 Let's see if it works! Refresh. Ah! Variable `rock` doesn't exist. I bet some of
 you saw me do that. I forgot my quotes, so this looks like a *variable*.
