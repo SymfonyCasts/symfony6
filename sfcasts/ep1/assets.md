@@ -44,6 +44,8 @@ and `href=""`. Because the `public/` directory is our document root, to refer to
 a CSS or image file there, the path should be with respect to *that* directory.
 So this will be `/styles/app.css`.
 
+[[[ code('fa46fd453e') ]]]
+
 Let's check it. Refresh now and... even better!
 
 ## The asset() Function
@@ -61,6 +63,8 @@ them - Symfony does have one *minor* feature: the `asset()` function.
 
 It works like this: instead of using `/styles/app.css`, say `{{ asset() }}` and then,
 inside quotes, move our path there... but *without* the opening "/".
+
+[[[ code('f3037ae679') ]]]
 
 So the path is still relative to the `public/` directory... you just don't need
 to include the first "/".
@@ -112,6 +116,8 @@ In fact, up here, I'm referencing three images. Let's use `asset`: `{{ asset()`.
 and then it auto-completes the path! Thanks Symfony plugin! Repeat this for the
 second image... and the third.
 
+[[[ code('e67894d6cf') ]]]
+
 We know this won't make any difference today... we can refresh the HTML source
 to see the same paths... but we're ready for a CDN in the future.
 
@@ -135,6 +141,8 @@ And... at the bottom, `endfor`.
 For the song details, use `track.song`... and `track.artist`. And now we can
 remove *all* the hardcoded songs.
 
+[[[ code('a04b980086') ]]]
+
 Sweet! Let's try that. Hey! It's coming to life people!
 
 One more page to go! The `/browse` page. You know the drill: copy `browse.html.twig`,
@@ -147,8 +155,12 @@ genre. Add a variable for that: `$genre =` and if we have a slug... use our fanc
 title-case code, else set this to null. Then delete the `$title` stuff... and pass
 `genre` into Twig.
 
+[[[ code('91a16480e7') ]]]
+
 Back in the template, use this in the `h1`. In Twig, we can *also* use fancy
 syntax. So *if* we have a `genre`, print `genre`, else print `All Genres`.
+
+[[[ code('49da07784d') ]]]
 
 Testing time. Head over to `/browse`: "Browse all genres"! And then
 `/browse/death-metal`: Browse Death Metal. Friends, this is starting to feel like
