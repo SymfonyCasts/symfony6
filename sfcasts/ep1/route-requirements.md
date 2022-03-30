@@ -1,4 +1,4 @@
-# Route Requirements
+# Smart Routes: GET-only & Validate {Wildcards}
 
 Now that we have a new page, at your terminal, run `debug:router` again.
 
