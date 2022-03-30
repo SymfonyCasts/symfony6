@@ -36,6 +36,8 @@ Make sure to auto-complete the one from Symfony's `HttpFoundation` component.
 Inside the method, to start, `dd($id)`... *just* to see if everything is
 working.
 
+[[[ code('ad23fa7738') ]]]
+
 Let's do this! Head over to `/api/songs/5` and... got it! *Another* new page.
 
 Back in that controller, I'm going to paste in some song data: eventually, this
@@ -44,6 +46,8 @@ Our job is to return this as JSON.
 
 So how *do* we return JSON in Symfony? By returning a new `JsonResponse` and passing
 it the data.
+
+[[[ code('3450058bee') ]]]
 
 I know... too easy! Refresh and... hello JSON! Now you *might* be thinking:
 
@@ -64,6 +68,8 @@ is nice because it automatically JSON encodes our data *and* sets the
 Oh, and back in our controller, we can be even *lazier* by saying
 `return $this->json($song)`... where `json()` is *another* shortcut method that
 comes from `AbstractController`.
+
+[[[ code('6499fe8656') ]]]
 
 Doing this makes absolutely *no* difference because this is just a shortcut to return
 ... a `JsonResponse`!
