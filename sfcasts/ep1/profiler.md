@@ -106,6 +106,8 @@ case, but sometimes you'll want to see what's inside a complex object.
 
 To do that, say `dd($tracks)` where "dd" stands for dump and die.
 
+[[[ code('841aecc2d1') ]]]
+
 So if we refresh... yup! That dumps the variable and kills the page. And this is
 a *lot* more powerful - and prettier - than using `var_dump()`: we can expand sections
 and see deep data really easily.
@@ -114,6 +116,8 @@ Instead of `dd()`, you can also use `dump()`.. to dump and *live*. But this migh
 not show up where you expect it to. Instead of printing in the middle of the page,
 it shows up down in the web debug toolbar, under the target icon.
 
+[[[ code('13b985bb4b') ]]]
+
 If that's a bit too small, click to see a bigger version in the profiler.
 
 ## Dumping in Twig
@@ -121,10 +125,15 @@ If that's a bit too small, click to see a bigger version in the profiler.
 You can *also* use this `dump()` in Twig. Remove the dump from the controller...
 and then in the template, right before the `ul`, `dump(tracks)`.
 
+[[[ code('ee2dc39650') ]]]
+
 And this... looks exactly the same. Except that when you dump in Twig, it
 *does* dump right into the middle of the page
 
 And even *more* useful, in Twig *only*, you can use `dump()` with no arguments.
+
+[[[ code('43c4067dd7') ]]]
+
 This will dump *all* variables that we have access to. So here's the `title` variable,
 `tracks` and, surprise! There's a third variable called `app`. This is a global
 variable that we have in *all* templates... and it gives us access to things like
