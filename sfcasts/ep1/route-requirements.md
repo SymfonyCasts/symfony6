@@ -21,6 +21,8 @@ GET, POST or PUT. Can we make this route somehow only match GET requests?
 Yep! By adding another option to the `Route`. In this case, it's called `methods`,
 it even auto-completes! Set this to an array and, put `GET`.
 
+[[[ code('cbd8c30440') ]]]
+
 I'm going to hold Command and click into the `Route` class again... so we can see
 that... yup! `methods` is one of the arguments.
 
@@ -61,6 +63,8 @@ matched our route.
 Let's do *one* more thing to tighten up our new endpoint. I'm going to add
 an `int` type-hint to the `$id` argument.
 
+[[[ code('eb386d1bd6') ]]]
+
 That... doesn't change anything, except that PHP will now take the string `id` from
 the URL that Symfony passes into this method and cast it into an `int`, which is...
 just nice because then we're dealing with a true integer in our code.
@@ -82,6 +86,8 @@ By default, when you have a wildcard, it matches anything. But you *can* change 
 match a custom *regular expression*. Inside of the curly braces, right after the
 name, add a `<` then `>` and, in between, `\d+`. That's a regular expression
 meaning "a digit of anything length".
+
+[[[ code('b28748cdaa') ]]]
 
 Try it! Refresh and... yes! A 404. No route found: it simply didn't match
 this route. A 404 is great... but a 500 error... that's something we want to
