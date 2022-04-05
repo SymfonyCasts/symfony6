@@ -84,11 +84,17 @@ I'm going to log something at an `info()` priority level. Let's say:
 
 > Returning API response for song
 
-And then the `$id`. Actually, we can do something even cooler with this logger
+And then the `$id`.
+
+[[[ code('77f869a1d1') ]]]
+    
+Actually, we can do something even cooler with this logger
 service. Add `{song}` to the message... and add a second argument, which
 is an array of extra information you want to attach to the log message. Pass `song`
 set to `$id`. In a minute, you'll see that the logger will print the *actual* id
 in place of `{song}`.
+
+[[[ code('c3b3132647') ]]]
 
 *Anyways*, this controller is for our API endpoint. So let's go over and refresh.
 Um... ok! So no error, that's good! But did it work? Where does the logger service...
