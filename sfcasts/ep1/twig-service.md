@@ -60,9 +60,13 @@ the same arguments that we were already passing.
 
 To see if this is working, `dd($html)`.
 
+[[[ code('9dd37843fc') ]]]
+
 Testing time! Head to the homepage... and yes! We just rendered a template manually!
 Seriously awesome! And we can finish this page by wrapping that in a response:
 `return new Response($html)`.
+
+[[[ code('a862fa6787') ]]]
 
 And now... the page works! And we understand that the *true* way to render a template
 is via the Twig service. Someday, you'll find yourself in a situation where you
