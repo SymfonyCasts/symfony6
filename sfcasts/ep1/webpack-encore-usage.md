@@ -15,9 +15,14 @@ really *anything* from another file. We're going to talk more about this
 This also imports a CSS file!? If you haven't seen this before, it might look...
 weird: JavaScript importing CSS?
 
-To see how this all works, in `app.js`, add a `console.log()`. And `app.css` already
-has a body background... but add an `!important` so that we can *definitely*
-see if this is being loaded.
+To see how this all works, in `app.js`, add a `console.log()`.
+
+[[[ code('37b4bd7997') ]]]
+
+And `app.css` already has a body background... but add an `!important` so that 
+we can *definitely* see if this is being loaded.
+
+[[[ code('28ba4bdd4d') ]]]
 
 Ok... so who *reads* these files? Because... they don't live in the `public/`
 directory... so we can't create `script` or `link` tags that point directly to them.
@@ -90,8 +95,12 @@ page!
 
 Oh, and because we ran `yarn watch`, Encore is still running in the background
 watching for changes. Check it out: go into `app.css`...  and change the background
-color. Save, move over and refresh. It instantly updated! That's because Encore
-*noticed* the change and recompiled the built file really quickly.
+color. Save, move over and refresh. 
+
+[[[ code('9947a18198') ]]]
+
+It instantly updated! That's because Encore *noticed* the change and recompiled 
+the built file really quickly.
 
 Next: let's move our *existing* CSS into the new system and learn how we can
 install and import *third party* libraries - look Bootstrap or FontAwesome - right
