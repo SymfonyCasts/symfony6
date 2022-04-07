@@ -364,19 +364,19 @@ aquí arriba... para que abajo en el
 Response podamos pasar simplemente
 
 00:07:13.176 --> 00:07:15.226 align:middle
-$title . Prueba a hacerlo. En
+$title. Intentalo. En /browse ... 
 
 00:07:16.276 --> 00:07:17.236 align:middle
-/browse ... "Todos los géneros".
+"Todos los géneros".
 
 00:07:17.916 --> 00:07:19.496 align:middle
-En
+En /browse/emo...
 
 00:07:19.806 --> 00:07:21.076 align:middle
-/browse/emo... "Género:
+"Género: Emo".
 
 00:07:22.156 --> 00:07:25.366 align:middle
-Emo". Siguiente: poner
+Siguiente: poner
 un texto como éste en un
 
 00:07:25.806 --> 00:07:31.086 align:middle
@@ -392,4 +392,4 @@ nuestro primer paquete de terceros
 
 00:07:40.186 --> 00:07:45.136 align:middle
 y seremos testigos del importantísimo
-sistema de recetas de Symfony en
+sistema de recetas de Symfony en acción
