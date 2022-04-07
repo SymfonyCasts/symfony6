@@ -1,0 +1,224 @@
+WEBVTT
+
+00:00:01.126 --> 00:00:06.836 align:middle
+Ahora que tenemos una nueva página, en tu
+terminal, ejecuta de nuevo debug:router.
+
+00:00:07.606 --> 00:00:10.046 align:middle
+Sí, ¡ahí está nuestra nueva ruta!
+
+00:00:10.886 --> 00:00:15.526 align:middle
+Observa que la tabla tiene una columna
+llamada "Método" que dice "cualquiera".
+
+00:00:16.206 --> 00:00:22.146 align:middle
+Esto significa que puedes hacer una petición
+a esta URL utilizando cualquier método HTTP
+
+00:00:22.226 --> 00:00:26.046 align:middle
+-como GET o POST- y coincidirá con esa ruta.
+
+00:00:26.566 --> 00:00:30.786 align:middle
+Pero el objetivo de nuestra nueva ruta API es
+permitir a los usuarios hacer una petición
+
+00:00:30.786 --> 00:00:34.326 align:middle
+GET para obtener datos de la canción.
+
+00:00:35.016 --> 00:00:40.016 align:middle
+Técnicamente, ahora mismo, también
+podrías hacer una petición POST a este...
+
+00:00:40.016 --> 00:00:41.596 align:middle
+y funcionaría perfectamente.
+
+00:00:42.146 --> 00:00:49.266 align:middle
+Puede que no nos importe, pero a menudo con las APIs,
+querrás restringir una ruta para que sólo funcione
+
+00:00:49.266 --> 00:00:52.906 align:middle
+con un método específico
+como GET, POST o PUT.
+
+00:00:53.836 --> 00:00:57.786 align:middle
+¿Podemos hacer que esta ruta, de alguna
+manera, sólo funcione con peticiones GET?
+
+00:00:58.256 --> 00:01:01.496 align:middle
+Sí, añadiendo otra opción a Route.
+
+00:01:01.496 --> 00:01:06.546 align:middle
+En este caso, se llama methods,
+¡incluso se autocompleta!
+
+00:01:06.976 --> 00:01:09.836 align:middle
+Establece esto como un array y, pon GET.
+
+00:01:09.906 --> 00:01:13.896 align:middle
+Voy a mantener pulsado Comando y hacer
+clic en la clase Route de nuevo...
+
+00:01:14.306 --> 00:01:15.866 align:middle
+para que podamos ver que...
+
+00:01:16.216 --> 00:01:18.976 align:middle
+yup! methods es uno de los argumentos.
+
+00:01:20.776 --> 00:01:24.636 align:middle
+Vuelve a poner debug:router: Bien.
+
+00:01:25.276 --> 00:01:27.926 align:middle
+Ahora la ruta sólo coincidirá
+con las peticiones GET. Es... un
+
+00:01:28.646 --> 00:01:31.196 align:middle
+poco difícil probar esto,
+
+00:01:31.376 --> 00:01:36.226 align:middle
+ya que un navegador siempre hace peticiones
+GET si vas directamente a una URL...
+
+00:01:36.796 --> 00:01:41.626 align:middle
+pero aquí es donde resulta útil otro
+comando de bin/console: router:match.
+
+00:01:42.256 --> 00:01:48.416 align:middle
+Si lo ejecutamos sin argumentos Nos da un
+error, ¡pero muestra cómo se utiliza!
+
+00:01:49.576 --> 00:01:56.156 align:middle
+Inténtalo: php bin/console
+router:match /api/songs/11 Y...
+
+00:01:56.486 --> 00:01:58.246 align:middle
+¡que coincide con nuestra nueva ruta!
+
+00:01:59.356 --> 00:02:05.556 align:middle
+Pero ahora pregúntate qué pasaría si
+hiciéramos una petición POST a esa URL con
+
+00:02:05.896 --> 00:02:12.596 align:middle
+--method=post : ¡Ninguna ruta
+coincide con esta ruta con ese método!
+
+00:02:12.996 --> 00:02:17.376 align:middle
+Pero dice que casi coincide con nuestra ruta.
+
+00:02:17.506 --> 00:02:20.716 align:middle
+Vamos a hacer una cosa más para
+ajustar nuestro nuevo punto final.
+
+00:02:20.716 --> 00:02:24.976 align:middle
+Voy a añadir una pista de
+tipo int al argumento $id.
+
+00:02:26.316 --> 00:02:33.436 align:middle
+Eso... no cambia nada, excepto que
+ahora PHP tomará la cadena id de la URL
+
+00:02:33.546 --> 00:02:39.826 align:middle
+que Symfony pasa a este método y la
+convertirá en un int, lo cual es...
+
+00:02:39.976 --> 00:02:44.336 align:middle
+simplemente agradable porque entonces estamos tratando
+con un verdadero número entero en nuestro código.
+
+00:02:45.276 --> 00:02:47.966 align:middle
+Puedes ver la sutil diferencia en la respuesta.
+
+00:02:48.816 --> 00:02:51.536 align:middle
+Ahora mismo, el campo id es una cadena.
+
+00:02:52.516 --> 00:02:57.326 align:middle
+Cuando actualizamos, id es ahora
+un número verdadero en JSON.
+
+00:02:58.046 --> 00:03:00.906 align:middle
+Pero... si alguien se hiciera el remolón...
+
+00:03:01.036 --> 00:03:05.116 align:middle
+y fuera a /api/songs/apple...
+
+00:03:06.166 --> 00:03:13.626 align:middle
+¡vaya! ¡Un error PHP, que, en producción,
+sería una página de error 500!
+
+00:03:14.046 --> 00:03:15.356 align:middle
+Eso no me gusta.
+
+00:03:16.316 --> 00:03:18.016 align:middle
+Pero... ¿qué podemos hacer?
+
+00:03:18.556 --> 00:03:24.666 align:middle
+El error se produce cuando Symfony intenta llamar
+a nuestro controlador y le pasa ese argumento.
+
+00:03:25.346 --> 00:03:29.736 align:middle
+Así que no podemos poner código
+en el controlador para comprobar
+
+00:03:29.736 --> 00:03:32.966 align:middle
+si $id es un número: ¡es demasiado tarde! ¿Y
+
+00:03:33.276 --> 00:03:37.896 align:middle
+si, en cambio, pudiéramos decirle a Symfony
+
+00:03:37.896 --> 00:03:44.586 align:middle
+que esta ruta sólo debe coincidir
+si el comodín id es un número?
+
+00:03:45.396 --> 00:03:46.516 align:middle
+¿Es posible?
+
+00:03:46.956 --> 00:03:52.536 align:middle
+Totalmente Por defecto, cuando tienes un
+comodín, coincide con cualquier cosa.
+
+00:03:53.146 --> 00:03:57.276 align:middle
+Pero puedes cambiarlo para que coincida
+con una expresión regular personalizada.
+
+00:03:58.136 --> 00:04:10.166 align:middle
+Dentro de las llaves, justo después del nombre,
+añade un <, luego > y, en medio, \d+.
+
+00:04:10.166 --> 00:04:14.756 align:middle
+Es una expresión regular que significa
+"un dígito de cualquier longitud".
+
+00:04:15.626 --> 00:04:17.826 align:middle
+¡Pruébalo! Actualiza y...
+
+00:04:18.286 --> 00:04:20.616 align:middle
+¡sí! A 404.
+
+00:04:21.176 --> 00:04:25.146 align:middle
+No se ha encontrado ninguna ruta:
+simplemente no ha coincidido con esta ruta.
+
+00:04:25.146 --> 00:04:27.136 align:middle
+Un 404 es genial...
+
+00:04:27.536 --> 00:04:29.156 align:middle
+pero un error 500...
+
+00:04:29.306 --> 00:04:31.176 align:middle
+es algo que queremos evitar.
+
+00:04:31.976 --> 00:04:35.906 align:middle
+Y si volvemos a /api/songs/5...
+
+00:04:36.146 --> 00:04:37.836 align:middle
+eso sigue funcionando.
+
+00:04:38.736 --> 00:04:44.336 align:middle
+A continuación: si me preguntaras cuál es
+la parte más central e importante de Symfony,
+
+00:04:44.746 --> 00:04:47.926 align:middle
+no lo dudaría: son los servicios.
+
+00:04:48.816 --> 00:04:54.966 align:middle
+Descubramos qué es un servicio y cómo es
+la clave para liberar el potencial de Symfony
