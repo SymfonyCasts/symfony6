@@ -36,9 +36,14 @@ And `src/` holds 100% of your PHP classes. We will spend 95% of our time inside 
 
 Okay... so where is "Symfony"? Our project started with a `composer.json` file. This
 lists all of the third party libraries that our app needs. The "symfony new" command
-that we ran secretly used "composer" - that's PHP's package manager - to install
+that we ran secretly used "Composer" - that's PHP's package manager - to install
 these libraries... which is really just a way of saying that Composer downloaded
 these libraries into the `vendor/` directory.
+
+***SEEALSO
+If you're not familiar with Composer package manager - check out our separate course
+called [Wonderful World of Composer](https://symfonycasts.com/screencast/composer).
+***
 
 Symfony itself is actually a collection of a bunch of small libraries that each
 solve a specific problem. In the `vendor/symfony/` directory, it looks like we
