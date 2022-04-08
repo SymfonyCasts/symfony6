@@ -119,7 +119,7 @@ we will need to add a `use` statement to the top of the file we're working in.
 By letting PhpStorm auto-complete that for me, it added the `use` statement
 automatically. I'll do that *every* time I reference a class. Oh, and if you're
 still a bit new to PHP namespaces and `use` statements, check out our short and
-free PHP namespaces tutorial.
+free [PHP namespaces](https://symfonycasts.com/screencast/php-namespaces) tutorial.
 
 Anyways, inside of `Response`, we can put whatever we want to return to the user:
 HTML, JSON or, for now, a simple message, like the title of the Mixed vinyl we're
