@@ -38,6 +38,8 @@ reference a file in the same directory with `./other-file.css`. *Or*, if you wan
 to import something from the `node_modules/` directory in CSS, there's a trick:
 a `~` and then the package name: `bootstrap`.
 
+[[[ code('43abc8b3a6') ]]]
+
 That's it! As *soon* as we did that, Encore's watch function rebuilt our `app.css`
 file... which now *includes* Bootstrap! Watch: refresh the page and... we're back!
 So cool!
@@ -63,6 +65,8 @@ Again, this downloaded the two libraries into our project... but doesn't automat
 `app.css` file and import them: `@import '~'` then `@fortawesome/fontawesome-free`.
 And `@import '~@fontsource/roboto-condensed'`.
 
+[[[ code('c72cdebd5f') ]]]
+
 The first package should fix this icon... and the second should cause the font to
 change on the whole page. Watch the font when we refresh... it *did* change! But,
 uh... the icons are still kind of broken.
@@ -81,6 +85,8 @@ doesn't work. What we want is this `all.css`.
 
 And we can import *that* by adding the path: `/css/all.css`. We don't need the
 minified file because Encore handles minifying for us.
+
+[[[ code('0e00a5819a') ]]]
 
 And now... we're back!
 
