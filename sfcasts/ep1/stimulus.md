@@ -44,6 +44,8 @@ Let's attach this to an element. Open up `templates/vinyl/homepage.html.twig`.
 Let's see... on the main part of the page, I'm going to add a div... and
 then to attach the controller to this element, add `data-controller="hello"`.
 
+[[[ code('a818d762b0') ]]]
+
 Let's try it! Refresh and... yes! It worked! Stimulus saw this element, instantiated
 the controller... and then our code changed the content of the element. The
 element that this controller is attached to is available as `this.element`.
@@ -71,6 +73,8 @@ Stimulus just solved that.
 When you use Stimulus inside of Symfony, we get a few helper functions to make
 life easier. So instead of writing `data-controller="hello"` by hand, we can say
 `{{ stimulus_controller('hello') }}`.
+
+[[[ code('108098d4bf') ]]]
 
 But that's just a shortcut to render that attribute *exactly* like it was before.
 
