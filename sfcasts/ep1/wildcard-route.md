@@ -99,7 +99,7 @@ Move the `str_replace()` to the first argument of `u()`. This function
 returns an object that we can then do string operations on. One method is
 called `title()`. Say `->title(true)` to convert all words to title case.
 
-[[[ code('7ef6fbf8e0') ]]]
+[[[ code('6cd92168f6') ]]]
 
 Now whe n we try it... sweet! It uppercases the letters! The string component isn't
 particularly important, I just want you to see how we can already leverage
