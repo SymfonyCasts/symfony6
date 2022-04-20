@@ -1,4 +1,6 @@
-Bienvenido. Hola. Hola, mi nombre es Ryan y tengo el absoluto placer de presentarte el hermoso, fascinante y productivo mundo de Symfony 6. En serio, me siento como Willie Wonka invitándote a mi fábrica de chocolate, excepto que, con suerte, con menos lesiones relacionadas con el azúcar. De todos modos, si eres nuevo en Symfony, estoy... ¡sinceramente un poco celoso! Te va a encantar el viaje... y espero que te conviertas en un desarrollador aún mejor por el camino: definitivamente vas a construir cosas geniales. 
+# Hola Symfony
+
+Bienvenido. Hola. Hola, mi nombre es Ryan y tengo el absoluto placer de presentarte el hermoso y fascinante y productivo mundo de Symfony 6. En serio, me siento como Willie Wonka invitándote a mi fábrica de chocolate, excepto que, con suerte, con menos lesiones relacionadas con el azúcar. De todos modos, si eres nuevo en Symfony, estoy... ¡sinceramente un poco celoso! Te va a encantar el viaje... y espero que te conviertas en un desarrollador aún mejor por el camino: definitivamente vas a construir cosas geniales.
 
 La salsa secreta de Symfony es que empieza siendo diminuto, lo que hace que sea fácil de aprender. Pero luego, amplía sus características automáticamente a través de un sistema de recetas único. En Symfony 6, esas características incluyen nuevas herramientas de JavaScript y un nuevo sistema de seguridad... sólo por nombrar dos de las muchas cosas nuevas.
 
@@ -36,7 +38,7 @@ Bien, queremos iniciar una nueva y brillante aplicación Symfony. Para ello, eje
 symfony new mixed_vinyl
 ```
 
-Donde "mixed_vinyl" es el directorio en el que se descargará la nueva app. Se trata de nuestro proyecto ultra secreto para combinar lo mejor de los años 90 -no, no el Internet de acceso telefónico, hablo de las cintas de mezcla- con el deleite auditivo de los discos. Más adelante hablaremos de ello.
+Donde "mixed_vinyl" es el directorio en el que se descargará la nueva app. Se trata de nuestro proyecto secreto para combinar la mejor parte de los años 90 -no, no el Internet de acceso telefónico, hablo de las cintas de mezcla- con el deleite auditivo de los discos. Más adelante hablaremos de ello.
 
 Entre bastidores, este comando utiliza Composer -el gestor de paquetes de PHP- para crear el nuevo proyecto. Más adelante hablaremos de ello.
 
@@ -50,7 +52,7 @@ El resultado final es que podemos pasar a nuestro nuevo directorio `mixed_vinyl`
 git status
 ```
 
-Sí: en la rama main, nada que confirmar. Prueba:
+Sí: en la rama principal, nada que confirmar. Prueba:
 
 ```terminal
 git log
@@ -58,7 +60,7 @@ git log
 
 Genial. Después de descargar el nuevo proyecto, el comando confirmó todos los archivos originales automáticamente... lo cual fue muy agradable. Aunque me gustaría que el primer mensaje de confirmación fuera un poco más rockero.
 
-Lo que realmente quiero mostrarte es que nuestro nuevo proyecto es súper pequeño Prueba este comando:
+¡Lo que realmente quiero mostrarte es que nuestro nuevo proyecto es súper pequeño! Prueba este comando:
 
 ```terminal
 git show --name-only
