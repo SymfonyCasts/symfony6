@@ -102,4 +102,4 @@ Y confirma:
 git commit -m "Adding Webpack Encore"
 ```
 
-¡Eh! ¡Ya está instalado Webpack Encore! Pero... ¡todavía no hace nada! Freeloader. A continuación, vamos a utilizarlo para llevar nuestro JavaScript al siguiente nivel.
+¡Hey! ¡Ya está instalado Webpack Encore! Pero... ¡todavía no hace nada! Aprovechado. A continuación, vamos a utilizarlo para llevar nuestro JavaScript al siguiente nivel.
