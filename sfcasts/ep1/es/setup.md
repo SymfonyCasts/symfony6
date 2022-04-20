@@ -1,6 +1,4 @@
-# Hola Symfony
-
-Bienvenido. Hola. Hola, mi nombre es Ryan y tengo el absoluto placer de presentarte el hermoso, fascinante y productivo mundo de Symfony 6. En serio, me siento como Willie Wonka invitándote a mi fábrica de chocolate, excepto que, con suerte, con menos lesiones relacionadas con el azúcar. De todos modos, si eres nuevo en Symfony, estoy... ¡sinceramente un poco celoso! Te va a encantar el viaje... y espero que te conviertas en un desarrollador aún mejor por el camino: definitivamente vas a construir cosas geniales.
+Bienvenido. Hola. Hola, mi nombre es Ryan y tengo el absoluto placer de presentarte el hermoso, fascinante y productivo mundo de Symfony 6. En serio, me siento como Willie Wonka invitándote a mi fábrica de chocolate, excepto que, con suerte, con menos lesiones relacionadas con el azúcar. De todos modos, si eres nuevo en Symfony, estoy... ¡sinceramente un poco celoso! Te va a encantar el viaje... y espero que te conviertas en un desarrollador aún mejor por el camino: definitivamente vas a construir cosas geniales. 
 
 La salsa secreta de Symfony es que empieza siendo diminuto, lo que hace que sea fácil de aprender. Pero luego, amplía sus características automáticamente a través de un sistema de recetas único. En Symfony 6, esas características incluyen nuevas herramientas de JavaScript y un nuevo sistema de seguridad... sólo por nombrar dos de las muchas cosas nuevas.
 
