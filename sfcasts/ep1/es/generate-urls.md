@@ -1,8 +1,8 @@
-# Generar Urls y bin/consola
+# Generar Urls y bin/console
 
 Hay dos formas diferentes de interactuar con nuestra aplicación. La primera es a través del servidor web... ¡y eso es lo que hemos hecho! Llegamos a una URL y... entre bastidores, se ejecuta `public/index.php`, que arranca Symfony, llama al enrutamiento y ejecuta nuestro controlador.
 
-## Hola bin/consola
+## Hola bin/console
 
 ¿Cuál es la segunda forma de interactuar con nuestra aplicación? Todavía no la hemos visto: es a través de una herramienta de línea de comandos llamada `bin/console`. En tu terminal ejecuta:
 
