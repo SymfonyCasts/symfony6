@@ -98,4 +98,4 @@ La primera vez que ejecutes esto, es posible que te pida que ejecutes otro coman
 
 ¡Momento de la verdad! Copia la URL, gira hacia tu navegador, aguanta la respiración y ¡woo! Hola página de bienvenida de Symfony 6... completa con extravagantes cambios de color cada vez que recargamos.
 
-A continuación: conozcamos -y hagámonos amigos- del código dentro de nuestra aplicación, para poder desmitificar lo que hace cada parte. Luego codificaremos.
+A continuación: conozcamos -y hagámonos amigos- del código dentro de nuestra aplicación, para poder desmitificar lo que hace cada parte. Luego codificaremos. 
