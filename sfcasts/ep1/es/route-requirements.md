@@ -1,4 +1,4 @@
-# Rutas inteligentes: Sólo GET y Validar {Tarjetas de crédito}
+# Rutas inteligentes: Sólo GET y Validar {Comodines}
 
 Ahora que tenemos una nueva página, en tu terminal, ejecuta de nuevo `debug:router`.
 
