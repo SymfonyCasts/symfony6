@@ -2,7 +2,7 @@
 
 Ahora tenemos un nuevo y bonito sistema de JavaScript y CSS que vive completamente dentro del directorio`assets/`. Vamos a trasladar nuestros estilos públicos a éste. Abre`public/styles/app.css`, copia todo esto, borra todo el directorio... y pégalo en el nuevo `app.css`. Gracias a `encore_entry_link_tags()` en`base.html.twig`, el nuevo CSS se está incluyendo... y ya no necesitamos la antigua etiqueta`link`.
 
-Ve a comprobarlo. Refresca y... ¡sigue teniendo un aspecto estupendo!
+Ve a comprobarlo. Refresca y... ¡todavía se ve muy bien!
 
 ## Instalación de bibliotecas JavaScript/CSS de terceros
 
