@@ -56,7 +56,7 @@ directory and our new app leverages that code to do its job. We're going to talk
 more about Composer and installing third party packages later. But for the most
 part, `vendor/` is yet another directory that... we don't need to worry about!
 
-# bin/ and var/
+## bin/ and var/
 
 So what's left? Well, `bin/` holds exactly one file... and will always hold just
 this one file. We'll talk about what `bin/console` does a bit later. And the `var/`
