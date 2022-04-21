@@ -1,0 +1,251 @@
+WEBVTT
+
+00:00:01.136 --> 00:00:03.046 align:middle
+Quiero hablar de Stimulus.
+
+00:00:03.346 --> 00:00:09.356 align:middle
+Stimulus es una pequeña, pero deliciosa
+biblioteca JavaScript que me encanta.
+
+00:00:09.626 --> 00:00:12.396 align:middle
+Y Symfony tiene un soporte
+de primera clase para ella.
+
+00:00:12.996 --> 00:00:16.536 align:middle
+También es muy utilizada por
+la comunidad de Ruby on Rails.
+
+00:00:17.526 --> 00:00:21.166 align:middle
+Así que hay una especie de dos
+filosofías en el desarrollo web.
+
+00:00:21.716 --> 00:00:25.246 align:middle
+La primera es que devuelves el HTML de tu sitio,
+
+00:00:25.516 --> 00:00:28.336 align:middle
+como hemos hecho en nuestra
+página de inicio y de navegación.
+
+00:00:28.986 --> 00:00:32.406 align:middle
+Y luego añades el comportamiento
+de JavaScript a ese HTML.
+
+00:00:33.586 --> 00:00:37.796 align:middle
+La segunda filosofía es utilizar un
+marco de trabajo de JavaScript para
+
+00:00:38.056 --> 00:00:40.836 align:middle
+construir todo tu HTML y JavaScript.
+
+00:00:41.506 --> 00:00:43.706 align:middle
+Eso es una aplicación de una sola página.
+
+00:00:44.636 --> 00:00:49.446 align:middle
+La solución correcta depende de tu aplicación,
+pero me gusta mucho el primer enfoque.
+
+00:00:49.906 --> 00:00:55.606 align:middle
+Y utilizando Stimulus -así como otra herramienta
+de la que hablaremos en unos minutos, llamada Turbo-
+
+00:00:55.906 --> 00:01:02.396 align:middle
+podemos crear aplicaciones altamente interactivas que se ven y se
+sienten tan responsivas como una aplicación de una sola página.
+
+00:01:03.296 --> 00:01:07.666 align:middle
+Tenemos un tutorial completo sobre
+Stimulus, pero vamos a probarlo.
+
+00:01:08.596 --> 00:01:11.596 align:middle
+Ya puedes ver cómo funciona en
+el ejemplo de su documentación.
+
+00:01:12.236 --> 00:01:15.606 align:middle
+Creas una pequeña clase
+JavaScript llamada controlador...
+
+00:01:15.906 --> 00:01:20.616 align:middle
+y luego adjuntas ese controlador a
+uno o varios elementos de la página.
+
+00:01:21.316 --> 00:01:22.506 align:middle
+Y ya está
+
+00:01:23.026 --> 00:01:28.356 align:middle
+Stimulus te permite adjuntar escuchas de eventos
+-como eventos de clic- y tiene otras cosas buenas.
+
+00:01:29.196 --> 00:01:33.956 align:middle
+En nuestra aplicación, cuando instalamos
+Encore, nos dio un directorio controllers/.
+
+00:01:34.116 --> 00:01:37.376 align:middle
+Aquí es donde vivirán
+nuestros controladores Stimulus.
+
+00:01:37.376 --> 00:01:41.776 align:middle
+Y en app.js, importamos bootstrap.js.
+
+00:01:42.436 --> 00:01:47.266 align:middle
+No es un archivo que necesites
+mirar mucho, pero es súper útil.
+
+00:01:47.866 --> 00:01:53.396 align:middle
+Esto inicia Stimulus -sí, ya está
+instalado- y registra todo lo que
+
+00:01:53.396 --> 00:01:56.546 align:middle
+hay en el directorio controllers/
+como un controlador Stimulus.
+
+00:01:57.186 --> 00:02:00.306 align:middle
+Esto significa que si quieres crear
+un nuevo controlador de Stimulus,
+
+00:02:00.756 --> 00:02:04.506 align:middle
+¡sólo tienes que añadir un archivo
+a este directorio controllers/!
+
+00:02:05.026 --> 00:02:09.206 align:middle
+Y obtenemos un controlador de Estímulos
+fuera de la caja llamado hello_controller.js.
+
+00:02:09.876 --> 00:02:13.836 align:middle
+Todos los controladores de Estímulos
+siguen la práctica de nombrar algo
+
+00:02:13.946 --> 00:02:18.596 align:middle
+con "guión bajo" controller.js
+o algo con guión controller.js.
+
+00:02:19.146 --> 00:02:25.046 align:middle
+La parte que precede a _controller -por tanto,
+hello - se convierte en el nombre del controlador.
+
+00:02:26.086 --> 00:02:27.786 align:middle
+Adjuntemos esto a un elemento.
+
+00:02:28.696 --> 00:02:31.886 align:middle
+Abre templates/vinyl/homepage.html.twig.
+
+00:02:32.956 --> 00:02:33.706 align:middle
+Veamos...
+
+00:02:33.706 --> 00:02:37.756 align:middle
+en la parte principal de la
+página, voy a añadir un div...
+
+00:02:38.136 --> 00:02:44.276 align:middle
+y luego para adjuntar el controlador a este
+elemento, añado data-controller="hello".
+
+00:02:46.616 --> 00:02:47.846 align:middle
+¡Vamos a probarlo!
+
+00:02:49.146 --> 00:02:50.346 align:middle
+Actualiza y...
+
+00:02:51.046 --> 00:02:52.746 align:middle
+¡sí! ¡Ha funcionado!
+
+00:02:52.986 --> 00:02:56.826 align:middle
+El estímulo vio este elemento,
+instanció el controlador...
+
+00:02:57.306 --> 00:03:00.256 align:middle
+y entonces nuestro código
+cambió el contenido del elemento.
+
+00:03:01.506 --> 00:03:07.296 align:middle
+El elemento al que está unido este
+controlador está disponible como this.element.
+
+00:03:08.076 --> 00:03:11.246 align:middle
+Así que... esto ya es muy bonito...
+
+00:03:11.536 --> 00:03:15.276 align:middle
+porque conseguimos trabajar dentro
+de un bonito objeto JavaScript...
+
+00:03:15.386 --> 00:03:17.876 align:middle
+que está vinculado a un elemento concreto.
+
+00:03:18.426 --> 00:03:24.116 align:middle
+Pero déjame que te muestre la parte más genial
+de Stimulus: lo que hace que cambie el juego.
+
+00:03:25.136 --> 00:03:28.236 align:middle
+Inspecciona el elemento en las herramientas
+de tu navegador cerca del elemento.
+
+00:03:28.386 --> 00:03:32.656 align:middle
+Voy a modificar el HTML del elemento padre.
+
+00:03:34.136 --> 00:03:36.796 align:middle
+Justo encima de éste
+-aunque no importa dónde-
+
+00:03:37.146 --> 00:03:41.526 align:middle
+añade otro elemento con
+data-controller="hello".
+
+00:03:44.776 --> 00:03:46.726 align:middle
+Y... ¡boom!
+
+00:03:47.046 --> 00:03:48.546 align:middle
+¡Vemos el mensaje!
+
+00:03:48.866 --> 00:03:51.516 align:middle
+Esta es la función asesina de Stimulus:
+
+00:03:52.226 --> 00:03:57.996 align:middle
+puedes añadir estos elementos de
+data-controller en la página cuando quieras.
+
+00:03:58.696 --> 00:04:01.736 align:middle
+Por ejemplo, si haces una llamada Ajax...
+
+00:04:01.976 --> 00:04:09.406 align:middle
+que añada nuevo HTML a tu página, Stimulus se
+dará cuenta de ello y ejecutará los controladores
+
+00:04:09.406 --> 00:04:12.506 align:middle
+a los que se deba adjuntar el nuevo HTML.
+
+00:04:13.316 --> 00:04:18.576 align:middle
+Si alguna vez has tenido problemas al
+añadir HTML a tu página mediante Ajax...
+
+00:04:18.726 --> 00:04:22.426 align:middle
+pero el JavaScript de ese nuevo HTML está roto
+
+00:04:22.776 --> 00:04:27.726 align:middle
+porque le faltan algunos escuchadores de
+eventos, pues bien, Stimulus acaba de resolverlo.
+
+00:04:29.026 --> 00:04:34.046 align:middle
+Cuando se utiliza Stimulus dentro de Symfony, se obtienen
+unas cuantas funciones de ayuda para facilitar la vida.
+
+00:04:34.496 --> 00:04:38.746 align:middle
+Así, en lugar de escribir
+data-controller="hello" a mano,
+
+00:04:39.106 --> 00:04:42.456 align:middle
+podemos decir {{
+stimulus_controller('hello') }}.
+
+00:04:43.626 --> 00:04:48.446 align:middle
+Pero eso es sólo un atajo para renderizar
+ese atributo exactamente igual que antes.
+
+00:04:49.396 --> 00:04:54.846 align:middle
+Bien, ahora que tenemos los fundamentos de
+Stimulus, usémoslo para hacer algo real,
+
+00:04:55.306 --> 00:04:59.186 align:middle
+como hacer una petición Ajax cuando
+hagamos clic en este icono de reproducción.
+
+00:04:59.706 --> 00:05:00.706 align:middle
+Eso es lo siguiente.
