@@ -1,4 +1,4 @@
-# Conoce nuestra Tiny App
+# Conoce nuestra Diminuta App
 
 Vamos a conocer nuestro nuevo proyecto porque mi objetivo final es que entiendas realmente cómo funcionan las cosas. Como he mencionado, no hay mucho aquí todavía... unos 15 archivos. Y realmente sólo hay tres directorios en los que tengamos que pensar o preocuparnos.
 
