@@ -86,4 +86,4 @@ Y ahora... cuando le demos al play... ¡por fin! Música para mis oídos.
 
 Si quieres aprender más sobre Stimulus - esto ha sido un poco rápido - tenemos un tutorial entero sobre ello... y es genial.
 
-Para terminar este tutorial, vamos a instalar otra biblioteca de JavaScript. Ésta hará que nuestra aplicación se sienta instantáneamente como una aplicación de una sola página. Es la siguiente.
+Para terminar este tutorial, vamos a instalar otra biblioteca de JavaScript. Ésta hará que nuestra aplicación se sienta instantáneamente como una aplicación de una sola página. Eso a continuación.
