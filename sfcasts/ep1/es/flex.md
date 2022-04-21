@@ -1,4 +1,4 @@
-# Symfony Flex: Aliases, Packs y Recetas
+# Symfony Flex: Aliases, Paquetes y Recetas
 
 Symfony es un conjunto de librerías que nos proporciona toneladas de herramientas: herramientas para registrar, hacer consultas a la base de datos, enviar correos electrónicos, renderizar plantillas y hacer llamadas a la API, por nombrar algunas. Si las cuentas, como hice yo, Symfony consta de unas 100 bibliotecas distintas. ¡Vaya!
 
