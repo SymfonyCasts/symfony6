@@ -13,6 +13,32 @@ index a67f91e..7fdcc07 100644
 +npm-debug.log
 +yarn-error.log
 +###< symfony/webpack-encore-bundle ###
+diff --git a/README.md b/README.md
+index 6043c15..ad2508f 100644
+--- a/README.md
++++ b/README.md
+@@ -21,6 +21,21 @@ composer install
+ You may alternatively need to run `php composer.phar install`, depending
+ on how you installed Composer.
+ 
++**Webpack Encore Assets**
++
++This app uses Webpack Encore for the CSS, JS and image files.
++Make sure you have [yarn](https://yarnpkg.com/lang/en/)
++or `npm` installed (`npm` comes with Node) and then run:
++
++```
++yarn install
++yarn encore dev --watch
++
++# or
++npm install
++npm run watch
++```
++
+ **Start the Symfony web server**
+ 
+ You can use Nginx or Apache, but Symfony's local web server
 diff --git a/assets/app.js b/assets/app.js
 new file mode 100644
 index 0000000..bb0a6aa
