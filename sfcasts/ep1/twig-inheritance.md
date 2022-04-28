@@ -85,7 +85,7 @@ and that's *right* where we want to put our template's HTML.
 To put it there, in our template, surround all of the content with
 `{% block body %}`... and then `{% endblock %}`.
 
-[[ code('01d2fbf6f5') ]]
+[[[ code('01d2fbf6f5') ]]]
 
 This is called template inheritance because we are *overriding* that `body` block
 with this new content. So now, when Twig renders `base.html.twig`... and it gets to
