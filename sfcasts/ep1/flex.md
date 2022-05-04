@@ -77,6 +77,11 @@ To understand this, let's take a tiny step backwards. Our project started with a
 `symfony/flex`. Flex is a composer *plugin*. So it *adds* more features to composer.
 Actually, it adds *three* superpowers to composer.
 
+***TIP
+The flex.symfony.com server was shut down in favor of a new system. But you can still
+see a list of all of the available recipes at https://bit.ly/flex-recipes!
+***
+
 The first, which we just saw, is called Flex aliases. Head to https://flex.symfony.com
 to see a *giant* page full of packages. Search for "templates". Here it is.
 Under `symfony/twig-pack`, it says Aliases: template, templates, twig, and twig-pack.
