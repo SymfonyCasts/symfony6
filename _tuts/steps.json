@@ -389,7 +389,22 @@
             "id": "ux-install-turbo",
             "name": "UX: Install turbo",
             "description": null
+        },
+        {
+            "id": "pre-ep2-upgrade-deps",
+            "name": "PRE_EP2: Upgrade deps",
+            "description": null
+        },
+        {
+            "id": "pre-ep2-upgrade-npm-assets",
+            "name": "PRE_EP2: Upgrade npm assets",
+            "description": null
+        },
+        {
+            "id": "pre-ep2-commit-encore-assets",
+            "name": "PRE_EP2: commit Encore assets",
+            "description": null
         }
     ],
-    "sha": "51c523f0918acbb9c35e4f6e1b992bc673267ee3"
+    "sha": "3783b3a6b8c5ea8bbbd093e5e0e658eb69d85004"
 }
