@@ -1,0 +1,39 @@
+diff --git a/config/secrets/dev/dev.GITHUB_TOKEN.28bd2f.php b/config/secrets/dev/dev.GITHUB_TOKEN.28bd2f.php
+new file mode 100644
+index 0000000..92174d2
+--- /dev/null
++++ b/config/secrets/dev/dev.GITHUB_TOKEN.28bd2f.php
+@@ -0,0 +1,3 @@
++<?php // dev.GITHUB_TOKEN.28bd2f on Mon, 09 May 2022 18:38:36 +0000
++
++return "\x01\x08\x23\x2Cbgf\x88\xB5\xC1\xBF\x23s\x98\x1E\xE6\x00KG\xAAIt\xA8\xB3\xC0\xD4\xFE\xCF\x8CQZa\x92\x13\x14\xA7\x9C\x3C\x1B\x8C\xC83\x7F\x23\x10uF\xA7G\x0F\x02\xE8T\xBD\x18\xC6";
+diff --git a/config/secrets/dev/dev.decrypt.private.php b/config/secrets/dev/dev.decrypt.private.php
+new file mode 100644
+index 0000000..d6a9cfb
+--- /dev/null
++++ b/config/secrets/dev/dev.decrypt.private.php
+@@ -0,0 +1,4 @@
++<?php // dev.decrypt.private on Mon, 09 May 2022 18:30:35 +0000
++
++// SYMFONY_DECRYPTION_SECRET=zs5bHi2obHbz7qji92YVyvCRtjlbAe4XXf2CQGxegJ3jcrU7dz+YlX0kNRn5VQcuguKoY+6EJ/QLHUYrURZAZA==
++return "\xCE\xCE\x5B\x1E-\xA8lv\xF3\xEE\xA8\xE2\xF7f\x15\xCA\xF0\x91\xB69\x5B\x01\xEE\x17\x5D\xFD\x82\x40l\x5E\x80\x9D\xE3r\xB5\x3Bw\x3F\x98\x95\x7D\x245\x19\xF9U\x07.\x82\xE2\xA8c\xEE\x84\x27\xF4\x0B\x1DF\x2BQ\x16\x40d";
+diff --git a/config/secrets/dev/dev.encrypt.public.php b/config/secrets/dev/dev.encrypt.public.php
+new file mode 100644
+index 0000000..a4b0ec0
+--- /dev/null
++++ b/config/secrets/dev/dev.encrypt.public.php
+@@ -0,0 +1,3 @@
++<?php // dev.encrypt.public on Mon, 09 May 2022 18:30:35 +0000
++
++return "\xE3r\xB5\x3Bw\x3F\x98\x95\x7D\x245\x19\xF9U\x07.\x82\xE2\xA8c\xEE\x84\x27\xF4\x0B\x1DF\x2BQ\x16\x40d";
+diff --git a/config/secrets/dev/dev.list.php b/config/secrets/dev/dev.list.php
+new file mode 100644
+index 0000000..d2f5bed
+--- /dev/null
++++ b/config/secrets/dev/dev.list.php
+@@ -0,0 +1,5 @@
++<?php
++
++return [
++    'GITHUB_TOKEN' => null,
++];

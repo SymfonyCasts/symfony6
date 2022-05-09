@@ -1,0 +1,12 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index d0e87cc..5cf9616 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -16,6 +16,7 @@ class MixRepository
+         private CacheInterface $cache,
+         #[Autowire('%kernel.debug%')]
+         private bool $isDebug,
++        #[Autowire(service: 'twig.command.debug')]
+         private DebugCommand $twigDebugCommand,
+     ) {}
+ 

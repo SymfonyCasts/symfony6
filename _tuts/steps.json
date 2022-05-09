@@ -476,6 +476,11 @@
             "description": null
         },
         {
+            "id": "environments-swap-to-use-when-at-dev",
+            "name": "Environments: swap to use when@dev",
+            "description": null
+        },
+        {
             "id": "environments-remove-dump",
             "name": "Environments: remove dump()",
             "description": null
@@ -519,7 +524,157 @@
             "id": "ourservice-use-property-promotion",
             "name": "OurService: use property promotion",
             "description": null
+        },
+        {
+            "id": "parameters-add-cache-adapter-param",
+            "name": "Parameters: add cache_adapter param",
+            "description": null
+        },
+        {
+            "id": "parameters-reference-it-with-syntax",
+            "name": "Parameters: reference it with %syntax%",
+            "description": null
+        },
+        {
+            "id": "parameters-override-parameter-in-dev",
+            "name": "Parameters: override parameter in dev",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-add-isdebug-arg",
+            "name": "Non-Autowireable: add $isDebug arg",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-add-bind-to-service",
+            "name": "Non-Autowireable: Add bind to service",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-global-bind",
+            "name": "Non-Autowireable: global bind",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-bind-with-type",
+            "name": "Non-Autowireable: bind with type",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-show-autowire-attribute",
+            "name": "Non-Autowireable: Show Autowire attribute",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-configure-scoped-client",
+            "name": "NamedAutowiring: configure scoped client",
+            "description": null
+        },
+        {
+            "id": "namedautowiring-use-named-autowiring",
+            "name": "NamedAutowiring: use named autowiring",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-add-twigfilesystem-arg",
+            "name": "ExplicitWiring: add twigFilesystem arg",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-adding-type",
+            "name": "ExplicitWiring: adding type",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-wire-with-autowire-attribute",
+            "name": "ExplicitWiring: Wire with Autowire attribute",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-use-command",
+            "name": "ExplicitWiring: Use command",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-comment-out",
+            "name": "ExplicitWiring: comment-out",
+            "description": null
+        },
+        {
+            "id": "controllers-add-isdebug-controller-arg",
+            "name": "Controllers: add isDebug controller arg",
+            "description": null
+        },
+        {
+            "id": "controllers-add-constructor",
+            "name": "Controllers: add constructor",
+            "description": null
+        },
+        {
+            "id": "controllers-remove-dump",
+            "name": "Controllers: remove dump",
+            "description": null
+        },
+        {
+            "id": "envvars-pass-fake-token-to-api-request",
+            "name": "EnvVars: pass fake token to API request",
+            "description": null
+        },
+        {
+            "id": "envvars-pass-in-real-token",
+            "name": "EnvVars: pass in real token",
+            "description": null
+        },
+        {
+            "id": "envvars-move-token-to-config",
+            "name": "EnvVars: move token to config",
+            "description": null
+        },
+        {
+            "id": "envvars-use-real-token",
+            "name": "EnvVars: use real token",
+            "description": null
+        },
+        {
+            "id": "envvars-use-env-syntax",
+            "name": "EnvVars: use %env()% syntax",
+            "description": null
+        },
+        {
+            "id": "envvars-put-into-env",
+            "name": "EnvVars: put into .env",
+            "description": null
+        },
+        {
+            "id": "envvars-move-into-env-local",
+            "name": "EnvVars: move into .env.local",
+            "description": null
+        },
+        {
+            "id": "vault-create-dev-vault",
+            "name": "Vault: Create dev vault",
+            "description": null
+        },
+        {
+            "id": "vault-create-prod-vault",
+            "name": "Vault: Create prod vault",
+            "description": null
+        },
+        {
+            "id": "vault-dump-http-client",
+            "name": "Vault: dump http client",
+            "description": null
+        },
+        {
+            "id": "vault-remove-env-var-completely",
+            "name": "Vault: remove env var completely",
+            "description": null
+        },
+        {
+            "id": "vault-remove-dump",
+            "name": "Vault: remove dump",
+            "description": null
         }
     ],
-    "sha": "dc9c2988cb09dc60f7d69035eda6158b5c53d248"
+    "sha": "b72a925bd6f72264d82c68d754ee797dafa92c6b"
 }

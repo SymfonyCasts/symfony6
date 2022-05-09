@@ -1,0 +1,14 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index fb71bfe..86340f8 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -13,7 +13,8 @@ class MixRepository
+         private HttpClientInterface $githubContentClient,
+         private CacheInterface $cache,
+         #[Autowire('%kernel.debug%')]
+-        private bool $isDebug
++        private bool $isDebug,
++        private $twigDebugCommand,
+     ) {}
+ 
+     public function findAll(): array

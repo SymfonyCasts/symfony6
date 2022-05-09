@@ -1,0 +1,13 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 99599c6..e652a2b 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -34,7 +34,7 @@ class MixRepository
+             $cacheItem->expiresAfter($this->isDebug ? 5 : 60);
+             $response = $this->githubContentClient->request('GET', '/SymfonyCasts/vinyl-mixes/main/mixes.json', [
+                 'headers' => [
+-                    'Authorization' => 'Token ghp_foo_bar',
++                    'Authorization' => 'Token ghp_S3FL295zDE3otNWiCFP48l7kSzSC6H0GlZZZ',
+                 ]
+             ]);
+ 

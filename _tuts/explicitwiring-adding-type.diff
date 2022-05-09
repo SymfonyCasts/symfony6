@@ -1,0 +1,25 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 86340f8..d0e87cc 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -3,9 +3,11 @@
+ namespace App\Service;
+ 
+ use Psr\Cache\CacheItemInterface;
++use Symfony\Bridge\Twig\Command\DebugCommand;
+ use Symfony\Contracts\Cache\CacheInterface;
+ use Symfony\Component\DependencyInjection\Attribute\Autowire;
+ use Symfony\Contracts\HttpClient\HttpClientInterface;
++use Twig\Loader\FilesystemLoader;
+ 
+ class MixRepository
+ {
+@@ -14,7 +16,7 @@ class MixRepository
+         private CacheInterface $cache,
+         #[Autowire('%kernel.debug%')]
+         private bool $isDebug,
+-        private $twigDebugCommand,
++        private DebugCommand $twigDebugCommand,
+     ) {}
+ 
+     public function findAll(): array

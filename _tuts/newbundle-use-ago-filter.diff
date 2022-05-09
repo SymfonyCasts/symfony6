@@ -1,8 +1,16 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 04220b4..d75d09d 100644
+index 04220b4..6e5a397 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -29,15 +29,11 @@ class VinylController extends AbstractController
+@@ -2,7 +2,6 @@
+ 
+ namespace App\Controller;
+ 
+-use Knp\Bundle\TimeBundle\DateTimeFormatter;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -29,15 +28,11 @@ class VinylController extends AbstractController
      }
  
      #[Route('/browse/{slug}', name: 'app_browse')]

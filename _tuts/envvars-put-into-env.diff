@@ -1,0 +1,10 @@
+diff --git a/.env b/.env
+index 38d10b0..ad43079 100644
+--- a/.env
++++ b/.env
+@@ -17,3 +17,5 @@
+ APP_ENV=dev
+ APP_SECRET=4777a99cd6c61ce84969bd1338737c38
+ ###< symfony/framework-bundle ###
++
++GITHUB_TOKEN=ghp_S3FL295zDE3otNWiCFP48l7kSzSC6H0GlZZZ

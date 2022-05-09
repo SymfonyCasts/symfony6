@@ -1,0 +1,35 @@
+diff --git a/config/services.yaml b/config/services.yaml
+index f103ab4..d09ab54 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -10,8 +10,8 @@ services:
+     _defaults:
+         autowire: true      # Automatically injects dependencies in your services.
+         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+-        bind:
+-            'bool $isDebug': '%kernel.debug%'
++#        bind:
++#            'bool $isDebug': '%kernel.debug%'
+ 
+     # makes classes in src/ available to be used as services
+     # this creates a service per class whose id is the fully-qualified class name
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 4a8e639..23c8b9f 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -4,6 +4,7 @@ namespace App\Service;
+ 
+ use Psr\Cache\CacheItemInterface;
+ use Symfony\Contracts\Cache\CacheInterface;
++use Symfony\Component\DependencyInjection\Attribute\Autowire;
+ use Symfony\Contracts\HttpClient\HttpClientInterface;
+ 
+ class MixRepository
+@@ -11,6 +12,7 @@ class MixRepository
+     public function __construct(
+         private HttpClientInterface $httpClient,
+         private CacheInterface $cache,
++        #[Autowire('%kernel.debug%')]
+         private bool $isDebug
+     ) {}
+ 

@@ -1,8 +1,8 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 8358f99..c7e968a 100644
+index 2e844f8..95d1465 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -41,29 +41,4 @@ class VinylController extends AbstractController
+@@ -40,29 +40,4 @@ class VinylController extends AbstractController
              'mixes' => $mixes,
          ]);
      }

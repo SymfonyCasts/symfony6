@@ -1,0 +1,13 @@
+diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
+index fd71e4b..f98ad71 100644
+--- a/config/packages/framework.yaml
++++ b/config/packages/framework.yaml
+@@ -22,7 +22,7 @@ framework:
+             githubContentClient:
+                 base_uri: https://raw.githubusercontent.com
+                 headers:
+-                    Authorization: 'Token ghp_FAKE'
++                    Authorization: 'Token ghp_S3FL295zDE3otNWiCFP48l7kSzSC6H0GlZZZ'
+ 
+ when@test:
+     framework:

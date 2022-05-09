@@ -1,0 +1,17 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index e0839a8..87ee9d6 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -24,9 +24,12 @@ class MixRepository
+ 
+     public function findAll(): array
+     {
++        /*
+         $output = new BufferedOutput();
+         $this->twigDebugCommand->run(new ArrayInput([]), $output);
+         dd($output);
++        */
++
+         return $this->cache->get('mixes_data', function(CacheItemInterface $cacheItem) {
+             $cacheItem->expiresAfter($this->isDebug ? 5 : 60);
+             $response = $this->githubContentClient->request('GET', '/SymfonyCasts/vinyl-mixes/main/mixes.json');
