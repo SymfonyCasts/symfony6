@@ -1,0 +1,30 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 6e5a397..4d3bf74 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\Controller;
+ 
++use Knp\Bundle\TimeBundle\DateTimeFormatter;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -28,11 +29,16 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(string $slug = null): Response
++    public function browse(DateTimeFormatter $timeFormatter, string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+         $mixes = $this->getMixes();
+ 
++        foreach ($mixes as $key => $mix) {
++            $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt'], new \DateTime('now'));
++        }
++        dd($mixes);
++
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+             'mixes' => $mixes,

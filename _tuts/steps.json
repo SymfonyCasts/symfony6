@@ -404,7 +404,97 @@
             "id": "pre-ep2-commit-encore-assets",
             "name": "PRE_EP2: commit Encore assets",
             "description": null
+        },
+        {
+            "id": "pre-ep2-make-browse-page-dynamic",
+            "name": "PRE_EP2: make browse page dynamic",
+            "description": null
+        },
+        {
+            "id": "newbundle-render-createdat-on-browse",
+            "name": "NewBundle: render createdAt on browse",
+            "description": null
+        },
+        {
+            "id": "newbundle-install-knp-time-bundle",
+            "name": "NewBundle: install knp-time-bundle",
+            "description": null
+        },
+        {
+            "id": "newbundle-use-new-service-in-controller",
+            "name": "NewBundle: Use new service in controller",
+            "description": null
+        },
+        {
+            "id": "newbundle-render-ago-in-template",
+            "name": "NewBundle: Render ago in template",
+            "description": null
+        },
+        {
+            "id": "newbundle-use-ago-filter",
+            "name": "NewBundle: Use |ago filter",
+            "description": null
+        },
+        {
+            "id": "apirequest-install-http-client",
+            "name": "ApiRequest: install http-client",
+            "description": null
+        },
+        {
+            "id": "apirequest-make-request-in-controller",
+            "name": "ApiRequest: Make request in controller",
+            "description": null
+        },
+        {
+            "id": "apirequest-cleanup-old-method",
+            "name": "ApiRequest: cleanup old method",
+            "description": null
+        },
+        {
+            "id": "apirequest-use-cache-service-in-controller",
+            "name": "ApiRequest: use cache service in controller",
+            "description": null
+        },
+        {
+            "id": "apirequest-set-expiration",
+            "name": "ApiRequest: Set expiration",
+            "description": null
+        },
+        {
+            "id": "config-dump-cache",
+            "name": "Config: dump $cache",
+            "description": null
+        },
+        {
+            "id": "config-change-to-array-cache-adapter",
+            "name": "Config: change to array cache adapter",
+            "description": null
+        },
+        {
+            "id": "delete-me-2",
+            "name": "delete me 2",
+            "description": null
+        },
+        {
+            "id": "delete-me-1",
+            "name": "delete me 1",
+            "description": null
+        },
+        {
+            "id": "delete-me-3",
+            "name": "delete me 3",
+            "description": null
+        },
+        {
+            "id": "environments-change-cache-in-prod-only",
+            "name": "Environments: change cache in prod only",
+            "description": null
+        },
+        {
+            "id": "environments-remove-dump",
+            "name": "Environments: remove dump()",
+            "description": null
         }
     ],
-    "sha": "3783b3a6b8c5ea8bbbd093e5e0e658eb69d85004"
+    "sha": "7da83e08228d9449942c62031104accbe9894a4a"
 }

@@ -1,0 +1,80 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 166fe58..6e5a397 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -31,9 +31,36 @@ class VinylController extends AbstractController
+     public function browse(string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
++        $mixes = $this->getMixes();
+ 
+         return $this->render('vinyl/browse.html.twig', [
+-            'genre' => $genre
++            'genre' => $genre,
++            'mixes' => $mixes,
+         ]);
+     }
++
++    private function getMixes(): array
++    {
++        // temporary fake "mixes" data
++        return [
++            [
++                'title' => 'PB & Jams',
++                'trackCount' => 14,
++                'genre' => 'Rock',
++                'createdAt' => new \DateTime('2021-10-02'),
++            ],
++            [
++                'title' => 'Put a Hex on your Ex',
++                'trackCount' => 8,
++                'genre' => 'Heavy Metal',
++                'createdAt' => new \DateTime('2022-04-28'),
++            ],
++            [
++                'title' => 'Spice Grills - Summer Tunes',
++                'trackCount' => 10,
++                'genre' => 'Pop',
++                'createdAt' => new \DateTime('2019-06-20'),
++            ],
++        ];
++    }
+ }
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 0b64729..7339247 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -26,27 +26,17 @@
+     <div>
+         <h2 class="mt-5">Mixes</h2>
+         <div class="row">
++            {% for mix in mixes %}
+             <div class="col col-md-4">
+                 <div class="mixed-vinyl-container p-3 text-center">
+                     <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
+-                    <p class="mt-2"><strong>PB & Jams</strong></p>
+-                    <span>14 Tracks</span> | <span>Rock</span>
+-                </div>
+-            </div>
+-            <div class="col col-md-4">
+-                <div class="mixed-vinyl-container p-3 text-center">
+-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
+-                    <p class="mt-2"><strong>Put a Hex on your Ex</strong></p>
+-                    <span>8 Tracks</span> | <span>Heavy Metal</span>
+-                </div>
+-            </div>
+-            <div class="col col-md-4">
+-                <div class="mixed-vinyl-container p-3 text-center">
+-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
+-                    <p class="mt-2"><strong>Spice Grills - Summer Tunes</strong></p>
+-                    <span>10 Tracks</span> | <span>Pop</span>
++                    <p class="mt-2"><strong>{{ mix.title }}</strong></p>
++                    <span>{{ mix.trackCount }} Tracks</span>
++                    |
++                    <span>{{ mix.genre }}</span>
+                 </div>
+             </div>
++            {% endfor %}
+         </div>
+     </div>
+ </div>

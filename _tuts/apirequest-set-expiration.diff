@@ -1,0 +1,22 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 632decc..2099700 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
+ 
+ use Knp\Bundle\TimeBundle\DateTimeFormatter;
++use Psr\Cache\CacheItemInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -35,7 +36,8 @@ class VinylController extends AbstractController
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $cache->get('mixes_data', function() use ($httpClient) {
++        $mixes = $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
++            $cacheItem->expiresAfter(5);
+             $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
+ 
+             return $response->toArray();

@@ -1,0 +1,211 @@
+diff --git a/composer.json b/composer.json
+index 07054d7..6f80cb1 100644
+--- a/composer.json
++++ b/composer.json
+@@ -13,6 +13,7 @@
+         "symfony/dotenv": "6.1.*",
+         "symfony/flex": "^2",
+         "symfony/framework-bundle": "6.1.*",
++        "symfony/http-client": "6.1.*",
+         "symfony/monolog-bundle": "^3.0",
+         "symfony/runtime": "6.1.*",
+         "symfony/twig-bundle": "6.1.*",
+diff --git a/composer.lock b/composer.lock
+index d13d3c3..bd5a328 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "b38626f466b064e9ec5af58c7f2bca8c",
++    "content-hash": "de7a123aa220cdcbbf324c401ffd1cde",
+     "packages": [
+         {
+             "name": "knplabs/knp-time-bundle",
+@@ -1603,6 +1603,168 @@
+             ],
+             "time": "2022-04-26T13:36:19+00:00"
+         },
++        {
++            "name": "symfony/http-client",
++            "version": "v6.1.0-BETA2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/http-client.git",
++                "reference": "da3338541435c14d6c7b77f9677bf74088984c7b"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/http-client/zipball/da3338541435c14d6c7b77f9677bf74088984c7b",
++                "reference": "da3338541435c14d6c7b77f9677bf74088984c7b",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.1",
++                "psr/log": "^1|^2|^3",
++                "symfony/http-client-contracts": "^3",
++                "symfony/service-contracts": "^1.0|^2|^3"
++            },
++            "provide": {
++                "php-http/async-client-implementation": "*",
++                "php-http/client-implementation": "*",
++                "psr/http-client-implementation": "1.0",
++                "symfony/http-client-implementation": "3.0"
++            },
++            "require-dev": {
++                "amphp/amp": "^2.5",
++                "amphp/http-client": "^4.2.1",
++                "amphp/http-tunnel": "^1.0",
++                "amphp/socket": "^1.1",
++                "guzzlehttp/promises": "^1.4",
++                "nyholm/psr7": "^1.0",
++                "php-http/httplug": "^1.0|^2.0",
++                "psr/http-client": "^1.0",
++                "symfony/dependency-injection": "^5.4|^6.0",
++                "symfony/http-kernel": "^5.4|^6.0",
++                "symfony/process": "^5.4|^6.0",
++                "symfony/stopwatch": "^5.4|^6.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\HttpClient\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/http-client/tree/v6.1.0-BETA2"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-04-20T06:22:07+00:00"
++        },
++        {
++            "name": "symfony/http-client-contracts",
++            "version": "v3.0.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/http-client-contracts.git",
++                "reference": "f7525778c712be78ad5b6ca31f47fdcfd404c280"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/f7525778c712be78ad5b6ca31f47fdcfd404c280",
++                "reference": "f7525778c712be78ad5b6ca31f47fdcfd404c280",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.0.2"
++            },
++            "suggest": {
++                "symfony/http-client-implementation": ""
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-main": "3.0-dev"
++                },
++                "thanks": {
++                    "name": "symfony/contracts",
++                    "url": "https://github.com/symfony/contracts"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Contracts\\HttpClient\\": ""
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Generic abstractions related to HTTP clients",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "abstractions",
++                "contracts",
++                "decoupling",
++                "interfaces",
++                "interoperability",
++                "standards"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/http-client-contracts/tree/v3.0.1"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-03-13T20:10:05+00:00"
++        },
+         {
+             "name": "symfony/http-foundation",
+             "version": "v6.1.0-BETA2",
+diff --git a/symfony.lock b/symfony.lock
+index 6c58f24..67d6769 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -108,6 +108,12 @@
+             "src/Kernel.php"
+         ]
+     },
++    "symfony/http-client": {
++        "version": "v6.1.0-BETA2"
++    },
++    "symfony/http-client-contracts": {
++        "version": "v3.0.1"
++    },
+     "symfony/http-foundation": {
+         "version": "v6.0.2"
+     },

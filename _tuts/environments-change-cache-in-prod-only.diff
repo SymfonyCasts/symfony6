@@ -1,0 +1,13 @@
+diff --git a/config/packages/cache.yaml b/config/packages/cache.yaml
+index f0bd083..1be0878 100644
+--- a/config/packages/cache.yaml
++++ b/config/packages/cache.yaml
+@@ -17,3 +17,8 @@ framework:
+         # Namespaced pools use the above "app" backend by default
+         #pools:
+             #my.dedicated.cache: null
++
++when@prod:
++    framework:
++        cache:
++            app: cache.adapter.filesystem

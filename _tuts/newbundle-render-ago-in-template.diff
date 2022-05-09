@@ -1,0 +1,25 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 4d3bf74..04220b4 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -37,7 +37,6 @@ class VinylController extends AbstractController
+         foreach ($mixes as $key => $mix) {
+             $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt'], new \DateTime('now'));
+         }
+-        dd($mixes);
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 4b88c8b..66b9faa 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -35,7 +35,7 @@
+                     |
+                     <span>{{ mix.genre }}</span>
+                     |
+-                    <span>{{ mix.createdAt|date('Y-m-d') }}</span>
++                    <span>{{ mix.ago }}</span>
+                 </div>
+             </div>
+             {% endfor %}

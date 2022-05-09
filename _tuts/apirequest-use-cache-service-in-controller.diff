@@ -1,0 +1,31 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c7e968a..632decc 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -6,6 +6,7 @@ use Knp\Bundle\TimeBundle\DateTimeFormatter;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Contracts\Cache\CacheInterface;
+ use Symfony\Contracts\HttpClient\HttpClientInterface;
+ use function Symfony\Component\String\u;
+ 
+@@ -30,11 +31,15 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(HttpClientInterface $httpClient, string $slug = null): Response
++    public function browse(HttpClientInterface $httpClient, CacheInterface $cache, string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+-        $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
+-        $mixes = $response->toArray();
++
++        $mixes = $cache->get('mixes_data', function() use ($httpClient) {
++            $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
++
++            return $response->toArray();
++        });
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,

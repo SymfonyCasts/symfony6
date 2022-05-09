@@ -1,0 +1,13 @@
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 7339247..4b88c8b 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -34,6 +34,8 @@
+                     <span>{{ mix.trackCount }} Tracks</span>
+                     |
+                     <span>{{ mix.genre }}</span>
++                    |
++                    <span>{{ mix.createdAt|date('Y-m-d') }}</span>
+                 </div>
+             </div>
+             {% endfor %}

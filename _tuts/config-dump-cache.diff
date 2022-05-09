@@ -1,0 +1,12 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 2099700..7f7f441 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -36,6 +36,7 @@ class VinylController extends AbstractController
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
++        dump($cache);
+         $mixes = $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
+             $cacheItem->expiresAfter(5);
+             $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');

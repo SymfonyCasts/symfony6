@@ -1,0 +1,34 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 04220b4..d75d09d 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -29,15 +29,11 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(DateTimeFormatter $timeFormatter, string $slug = null): Response
++    public function browse(string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+         $mixes = $this->getMixes();
+ 
+-        foreach ($mixes as $key => $mix) {
+-            $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt'], new \DateTime('now'));
+-        }
+-
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+             'mixes' => $mixes,
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 66b9faa..4963013 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -35,7 +35,7 @@
+                     |
+                     <span>{{ mix.genre }}</span>
+                     |
+-                    <span>{{ mix.ago }}</span>
++                    <span>{{ mix.createdAt|ago }}</span>
+                 </div>
+             </div>
+             {% endfor %}
