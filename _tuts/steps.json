@@ -471,21 +471,6 @@
             "description": null
         },
         {
-            "id": "delete-me-2",
-            "name": "delete me 2",
-            "description": null
-        },
-        {
-            "id": "delete-me-1",
-            "name": "delete me 1",
-            "description": null
-        },
-        {
-            "id": "delete-me-3",
-            "name": "delete me 3",
-            "description": null
-        },
-        {
             "id": "environments-change-cache-in-prod-only",
             "name": "Environments: change cache in prod only",
             "description": null
