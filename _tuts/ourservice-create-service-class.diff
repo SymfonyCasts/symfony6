@@ -1,0 +1,24 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+new file mode 100644
+index 0000000..340ad58
+--- /dev/null
++++ b/src/Service/MixRepository.php
+@@ -0,0 +1,18 @@
++<?php
++
++namespace App\Service;
++
++use Psr\Cache\CacheItemInterface;
++
++class MixRepository
++{
++    public function findAll(): array
++    {
++        $mixes = $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
++            $cacheItem->expiresAfter(5);
++            $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
++
++            return $response->toArray();
++        });
++    }
++}

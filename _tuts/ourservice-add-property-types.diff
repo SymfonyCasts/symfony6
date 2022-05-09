@@ -1,0 +1,15 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index d7bae56..9b9ba58 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -8,8 +8,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
+ 
+ class MixRepository
+ {
+-    private $httpClient;
+-    private $cache;
++    private HttpClientInterface $httpClient;
++    private CacheInterface $cache;
+ 
+     public function __construct(HttpClientInterface $httpClient, CacheInterface $cache)
+     {

@@ -1,0 +1,18 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 89e9d5d..9c4592b 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -3,10 +3,12 @@
+ namespace App\Service;
+ 
+ use Psr\Cache\CacheItemInterface;
++use Symfony\Contracts\Cache\CacheInterface;
++use Symfony\Contracts\HttpClient\HttpClientInterface;
+ 
+ class MixRepository
+ {
+-    public function findAll(): array
++    public function findAll(HttpClientInterface $httpClient, CacheInterface $cache): array
+     {
+         return $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
+             $cacheItem->expiresAfter(5);

@@ -479,7 +479,47 @@
             "id": "environments-remove-dump",
             "name": "Environments: remove dump()",
             "description": null
+        },
+        {
+            "id": "ourservice-create-service-class",
+            "name": "OurService: Create service class",
+            "description": null
+        },
+        {
+            "id": "ourservice-add-return",
+            "name": "OurService: add return",
+            "description": null
+        },
+        {
+            "id": "ourservice-autowire-and-use",
+            "name": "OurService: autowire & use",
+            "description": null
+        },
+        {
+            "id": "ourservice-add-services-as-method-aargs",
+            "name": "OurService: add services as method aargs",
+            "description": null
+        },
+        {
+            "id": "ourservice-pass-services-to-method",
+            "name": "OurService: Pass services to method",
+            "description": null
+        },
+        {
+            "id": "ourservice-proper-di",
+            "name": "OurService: Proper DI",
+            "description": null
+        },
+        {
+            "id": "ourservice-add-property-types",
+            "name": "OurService: Add property types",
+            "description": null
+        },
+        {
+            "id": "ourservice-use-property-promotion",
+            "name": "OurService: use property promotion",
+            "description": null
         }
     ],
-    "sha": "7da83e08228d9449942c62031104accbe9894a4a"
+    "sha": "dc9c2988cb09dc60f7d69035eda6158b5c53d248"
 }

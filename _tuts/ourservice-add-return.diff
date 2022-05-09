@@ -1,0 +1,13 @@
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 340ad58..89e9d5d 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -8,7 +8,7 @@ class MixRepository
+ {
+     public function findAll(): array
+     {
+-        $mixes = $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
++        return $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
+             $cacheItem->expiresAfter(5);
+             $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
+ 

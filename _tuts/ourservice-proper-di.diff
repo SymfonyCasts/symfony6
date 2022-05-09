@@ -1,0 +1,46 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 85a7860..50eacb7 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -32,11 +32,11 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(HttpClientInterface $httpClient, CacheInterface $cache, MixRepository $mixRepository, string $slug = null): Response
++    public function browse(MixRepository $mixRepository, string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $mixRepository->findAll($httpClient, $cache);
++        $mixes = $mixRepository->findAll();
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+diff --git a/src/Service/MixRepository.php b/src/Service/MixRepository.php
+index 9c4592b..d7bae56 100644
+--- a/src/Service/MixRepository.php
++++ b/src/Service/MixRepository.php
+@@ -8,11 +8,20 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
+ 
+ class MixRepository
+ {
+-    public function findAll(HttpClientInterface $httpClient, CacheInterface $cache): array
++    private $httpClient;
++    private $cache;
++
++    public function __construct(HttpClientInterface $httpClient, CacheInterface $cache)
++    {
++        $this->httpClient = $httpClient;
++        $this->cache = $cache;
++    }
++
++    public function findAll(): array
+     {
+-        return $cache->get('mixes_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
++        return $this->cache->get('mixes_data', function(CacheItemInterface $cacheItem) {
+             $cacheItem->expiresAfter(5);
+-            $response = $httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
++            $response = $this->httpClient->request('GET', 'https://raw.githubusercontent.com/SymfonyCasts/vinyl-mixes/main/mixes.json');
+ 
+             return $response->toArray();
+         });
