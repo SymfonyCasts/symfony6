@@ -1,0 +1,39 @@
+diff --git a/src/Command/TalkToMeCommand.php b/src/Command/TalkToMeCommand.php
+index 6512283..0b346b1 100644
+--- a/src/Command/TalkToMeCommand.php
++++ b/src/Command/TalkToMeCommand.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\Command;
+ 
++use App\Service\MixRepository;
+ use Symfony\Component\Console\Attribute\AsCommand;
+ use Symfony\Component\Console\Command\Command;
+ use Symfony\Component\Console\Input\InputArgument;
+@@ -16,6 +17,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
+ )]
+ class TalkToMeCommand extends Command
+ {
++    public function __construct(
++        private MixRepository $mixRepository
++    )
++    {
++        parent::__construct();
++    }
++
+     protected function configure(): void
+     {
+         $this
+@@ -37,6 +45,12 @@ class TalkToMeCommand extends Command
+ 
+         $io->success($message);
+ 
++        if ($io->confirm('Do you want a mix recommendation?')) {
++            $mixes = $this->mixRepository->findAll();
++            $mix = $mixes[array_rand($mixes)];
++            $io->note('I recommend the mix: ' . $mix['title']);
++        }
++
+         return Command::SUCCESS;
+     }
+ }

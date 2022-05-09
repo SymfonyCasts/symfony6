@@ -674,7 +674,32 @@
             "id": "vault-remove-dump",
             "name": "Vault: remove dump",
             "description": null
+        },
+        {
+            "id": "maker-install-it",
+            "name": "Maker: install it",
+            "description": null
+        },
+        {
+            "id": "maker-make-command",
+            "name": "Maker: make:command",
+            "description": null
+        },
+        {
+            "id": "maker-customize-arg-option",
+            "name": "Maker: customize arg\/option",
+            "description": null
+        },
+        {
+            "id": "maker-add-output-logic",
+            "name": "Maker: add output logic",
+            "description": null
+        },
+        {
+            "id": "maker-inject-and-use-service",
+            "name": "Maker: inject and use service",
+            "description": null
         }
     ],
-    "sha": "b72a925bd6f72264d82c68d754ee797dafa92c6b"
+    "sha": "30265cff3bc28872e37cd41379aa1ce049757872"
 }
