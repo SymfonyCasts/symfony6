@@ -52,6 +52,11 @@ Pero mira: cuando ejecutamos esto, ¡funciona! Y arriba dice que está usando la
 
 Para entender esto, vamos a dar un pequeño paso atrás. Nuestro proyecto comenzó con un archivo`composer.json` que contiene varias bibliotecas de Symfony. Una de ellas se llama`symfony/flex`. Flex es un plugin de Composer. En realidad, añade tres superpoderes a Composer.
 
+***TIP
+El servidor flex.symfony.com se cerró a favor de un nuevo sistema. ¡Pero aún puede ver una lista de todas las recetas 
+disponibles en ¡ https://bit.ly/flex-recipes!
+***
+
 El primero, que acabamos de ver, se llama aliases de Flex. Dirígete a https://flex.symfony.com para ver una página gigante llena de paquetes. Busca "plantillas". Aquí está. En `symfony/twig-pack`, dice Aliases: template, templates, twig y twig-pack.
 
 La idea que hay detrás de los alias de Flex es muy sencilla. Escribimos`composer require templates`. Y luego, internamente, Flex lo cambia por`symfony/twig-pack`. En última instancia, ése es el paquete que Composer instala.
