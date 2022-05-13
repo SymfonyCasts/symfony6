@@ -52,7 +52,7 @@ And... that matches our new route! But *now* ask what would happen if we made
 a POST request to that URL with `--method=post`:
 
 ```terminal-silent
-php bin/console router:match /api/songs/11
+php bin/console router:match --method=post /api/songs/11
 ```
 
 No routes match this path with that method! But it *does* say that it *almost*
