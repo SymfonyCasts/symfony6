@@ -49,7 +49,7 @@ php bin/console router:match /api/songs/11
 ```
 
 And... that matches our new route! But *now* ask what would happen if we made
-a POST request to that URL with `--method=post`:
+a POST request to that URL with `--method=POST`:
 
 ```terminal-silent
 php bin/console router:match /api/songs/11 --method=POST
