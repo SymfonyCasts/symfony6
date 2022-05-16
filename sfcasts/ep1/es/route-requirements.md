@@ -38,10 +38,10 @@ Nos da un error, ¡pero muestra cómo se utiliza! Inténtalo:
 php bin/console router:match /api/songs/11
 ```
 
-Y... ¡eso coincide con nuestra nueva ruta! Pero ahora pregúntate qué pasaría si hiciéramos una petición POST a esa URL con `--method=post`:
+Y... ¡eso coincide con nuestra nueva ruta! Pero ahora pregúntate qué pasaría si hiciéramos una petición POST a esa URL con `--method=POST`:
 
 ```terminal-silent
-php bin/console router:match /api/songs/11
+php bin/console router:match /api/songs/11 --method=POST
 ```
 
 ¡Ninguna ruta coincide con esta ruta con ese método! Pero dice que casi coincide con nuestra ruta.
