@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 6f80cb1..55038a4 100644
+index a7b8516..08e5621 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -79,6 +79,7 @@
@@ -11,19 +11,19 @@ index 6f80cb1..55038a4 100644
          "symfony/web-profiler-bundle": "6.1.*"
      }
 diff --git a/composer.lock b/composer.lock
-index bd5a328..1dd83b9 100644
+index 366ae4d..2c22325 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "de7a123aa220cdcbbf324c401ffd1cde",
-+    "content-hash": "f5919e4c6d5f78d6cd98dbd4768ed958",
+-    "content-hash": "e034994c8c1346235b0323f4d9de58f3",
++    "content-hash": "e6e9b43436efa04b9f28fa19a017aea8",
      "packages": [
          {
              "name": "knplabs/knp-time-bundle",
-@@ -3629,6 +3629,153 @@
+@@ -3635,6 +3635,153 @@
          }
      ],
      "packages-dev": [
@@ -176,23 +176,23 @@ index bd5a328..1dd83b9 100644
 +        },
          {
              "name": "symfony/debug-bundle",
-             "version": "v6.1.0-BETA2",
-@@ -3707,6 +3854,97 @@
+             "version": "v6.1.0-RC1",
+@@ -3713,6 +3860,97 @@
              ],
              "time": "2022-04-15T14:25:02+00:00"
          },
 +        {
 +            "name": "symfony/maker-bundle",
-+            "version": "v1.41.0",
++            "version": "v1.42.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/symfony/maker-bundle.git",
-+                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532"
++                "reference": "fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
-+                "reference": "4b994dfdd0196dcb3d333fdd6a1d72d5955a9532",
++                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11",
++                "reference": "fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11",
 +                "shasum": ""
 +            },
 +            "require": {
@@ -254,7 +254,7 @@ index bd5a328..1dd83b9 100644
 +            ],
 +            "support": {
 +                "issues": "https://github.com/symfony/maker-bundle/issues",
-+                "source": "https://github.com/symfony/maker-bundle/tree/v1.41.0"
++                "source": "https://github.com/symfony/maker-bundle/tree/v1.42.0"
 +            },
 +            "funding": [
 +                {
@@ -270,11 +270,11 @@ index bd5a328..1dd83b9 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2022-05-04T16:32:52+00:00"
++            "time": "2022-05-09T19:36:10+00:00"
 +        },
          {
              "name": "symfony/stopwatch",
-             "version": "v6.1.0-BETA1",
+             "version": "v6.1.0-RC1",
 diff --git a/config/bundles.php b/config/bundles.php
 index 303e72d..e383274 100644
 --- a/config/bundles.php

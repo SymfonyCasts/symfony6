@@ -1,10 +1,10 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 4d3bf74..04220b4 100644
+index 1f8b237..f7aab52 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
 @@ -37,7 +37,6 @@ class VinylController extends AbstractController
          foreach ($mixes as $key => $mix) {
-             $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt'], new \DateTime('now'));
+             $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt']);
          }
 -        dd($mixes);
  

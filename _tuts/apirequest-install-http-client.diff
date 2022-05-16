@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 07054d7..6f80cb1 100644
+index 6d72b5d..a7b8516 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -13,6 +13,7 @@
@@ -11,34 +11,34 @@ index 07054d7..6f80cb1 100644
          "symfony/runtime": "6.1.*",
          "symfony/twig-bundle": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index d13d3c3..bd5a328 100644
+index b8c7f7e..366ae4d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "b38626f466b064e9ec5af58c7f2bca8c",
-+    "content-hash": "de7a123aa220cdcbbf324c401ffd1cde",
+-    "content-hash": "266a00c27062de83bcfd89e1e6009ea8",
++    "content-hash": "e034994c8c1346235b0323f4d9de58f3",
      "packages": [
          {
              "name": "knplabs/knp-time-bundle",
-@@ -1603,6 +1603,168 @@
+@@ -1607,6 +1607,168 @@
              ],
-             "time": "2022-04-26T13:36:19+00:00"
+             "time": "2022-05-14T17:09:39+00:00"
          },
 +        {
 +            "name": "symfony/http-client",
-+            "version": "v6.1.0-BETA2",
++            "version": "v6.1.0-RC1",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/symfony/http-client.git",
-+                "reference": "da3338541435c14d6c7b77f9677bf74088984c7b"
++                "reference": "29a0e184c584045bc95b4ebdc93a9ab012dd5194"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/symfony/http-client/zipball/da3338541435c14d6c7b77f9677bf74088984c7b",
-+                "reference": "da3338541435c14d6c7b77f9677bf74088984c7b",
++                "url": "https://api.github.com/repos/symfony/http-client/zipball/29a0e184c584045bc95b4ebdc93a9ab012dd5194",
++                "reference": "29a0e184c584045bc95b4ebdc93a9ab012dd5194",
 +                "shasum": ""
 +            },
 +            "require": {
@@ -93,7 +93,7 @@ index d13d3c3..bd5a328 100644
 +            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
 +            "homepage": "https://symfony.com",
 +            "support": {
-+                "source": "https://github.com/symfony/http-client/tree/v6.1.0-BETA2"
++                "source": "https://github.com/symfony/http-client/tree/v6.1.0-RC1"
 +            },
 +            "funding": [
 +                {
@@ -109,7 +109,7 @@ index d13d3c3..bd5a328 100644
 +                    "type": "tidelift"
 +                }
 +            ],
-+            "time": "2022-04-20T06:22:07+00:00"
++            "time": "2022-05-11T12:12:29+00:00"
 +        },
 +        {
 +            "name": "symfony/http-client-contracts",
@@ -191,7 +191,7 @@ index d13d3c3..bd5a328 100644
 +        },
          {
              "name": "symfony/http-foundation",
-             "version": "v6.1.0-BETA2",
+             "version": "v6.1.0-RC1",
 diff --git a/symfony.lock b/symfony.lock
 index 6c58f24..67d6769 100644
 --- a/symfony.lock

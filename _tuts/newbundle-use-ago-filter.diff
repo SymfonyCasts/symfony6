@@ -1,5 +1,5 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 04220b4..6e5a397 100644
+index f7aab52..6e5a397 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
 @@ -2,7 +2,6 @@
@@ -21,7 +21,7 @@ index 04220b4..6e5a397 100644
          $mixes = $this->getMixes();
  
 -        foreach ($mixes as $key => $mix) {
--            $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt'], new \DateTime('now'));
+-            $mixes[$key]['ago'] = $timeFormatter->formatDiff($mix['createdAt']);
 -        }
 -
          return $this->render('vinyl/browse.html.twig', [
