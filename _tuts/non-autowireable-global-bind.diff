@@ -1,8 +1,8 @@
 diff --git a/config/services.yaml b/config/services.yaml
-index 1dae484..dd896bb 100644
+index 26b907e..31c43a4 100644
 --- a/config/services.yaml
 +++ b/config/services.yaml
-@@ -10,6 +10,8 @@ services:
+@@ -15,6 +15,8 @@ services:
      _defaults:
          autowire: true      # Automatically injects dependencies in your services.
          autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
@@ -11,7 +11,7 @@ index 1dae484..dd896bb 100644
  
      # makes classes in src/ available to be used as services
      # this creates a service per class whose id is the fully-qualified class name
-@@ -22,7 +24,3 @@ services:
+@@ -27,7 +29,3 @@ services:
  
      # add more service definitions when explicit configuration is needed
      # please note that last definitions always *replace* previous ones

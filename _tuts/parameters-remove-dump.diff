@@ -1,0 +1,12 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index cb36b6f..f014c3c 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -31,7 +31,6 @@ class VinylController extends AbstractController
+     #[Route('/browse/{slug}', name: 'app_browse')]
+     public function browse(MixRepository $mixRepository, string $slug = null): Response
+     {
+-        dd($this->getParameter('kernel.project_dir'));
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+         $mixes = $mixRepository->findAll();

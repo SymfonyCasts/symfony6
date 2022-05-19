@@ -1,8 +1,8 @@
 diff --git a/config/services.yaml b/config/services.yaml
-index f103ab4..d09ab54 100644
+index c6d06ad..11bead9 100644
 --- a/config/services.yaml
 +++ b/config/services.yaml
-@@ -10,8 +10,8 @@ services:
+@@ -15,8 +15,8 @@ services:
      _defaults:
          autowire: true      # Automatically injects dependencies in your services.
          autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

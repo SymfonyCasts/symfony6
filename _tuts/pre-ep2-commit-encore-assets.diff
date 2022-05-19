@@ -1,5 +1,5 @@
 diff --git a/README.md b/README.md
-index ad2508f..69accae 100644
+index ad2508f..b0b2b84 100644
 --- a/README.md
 +++ b/README.md
 @@ -21,21 +21,6 @@ composer install
@@ -28,7 +28,7 @@ index ad2508f..69accae 100644
  
  Have fun!
  
-+**OPTIONA: Webpack Encore Assets**
++**OPTIONAL: Webpack Encore Assets**
 +
 +This app uses Webpack Encore for the CSS, JS and image files.
 +But, the built files are already included... so you don't need

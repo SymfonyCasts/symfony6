@@ -1,0 +1,12 @@
+diff --git a/.env b/.env
+index f0453ad..38d10b0 100644
+--- a/.env
++++ b/.env
+@@ -14,6 +14,6 @@
+ # https://symfony.com/doc/current/best_practices.html#use-environment-variables-for-infrastructure-configuration
+ 
+ ###> symfony/framework-bundle ###
+-APP_ENV=prod
++APP_ENV=dev
+ APP_SECRET=4777a99cd6c61ce84969bd1338737c38
+ ###< symfony/framework-bundle ###

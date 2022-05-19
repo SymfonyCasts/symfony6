@@ -406,6 +406,11 @@
             "description": null
         },
         {
+            "id": "pre-ep2-cleaning-out-tutorial",
+            "name": "PRE_EP2: cleaning out tutorial\/",
+            "description": null
+        },
+        {
             "id": "pre-ep2-make-browse-page-dynamic",
             "name": "PRE_EP2: make browse page dynamic",
             "description": null
@@ -471,6 +476,11 @@
             "description": null
         },
         {
+            "id": "environments-change-to-prod-environment",
+            "name": "Environments: change to prod environment",
+            "description": null
+        },
+        {
             "id": "environments-change-cache-in-prod-only",
             "name": "Environments: change cache in prod only",
             "description": null
@@ -483,6 +493,11 @@
         {
             "id": "environments-remove-dump",
             "name": "Environments: remove dump()",
+            "description": null
+        },
+        {
+            "id": "environments-back-to-dev-environment",
+            "name": "Environments: back to dev environment",
             "description": null
         },
         {
@@ -526,6 +541,16 @@
             "description": null
         },
         {
+            "id": "parameters-dump-in-controller",
+            "name": "Parameters: dump in controller",
+            "description": null
+        },
+        {
+            "id": "parameters-remove-dump",
+            "name": "Parameters: remove dump",
+            "description": null
+        },
+        {
             "id": "parameters-add-cache-adapter-param",
             "name": "Parameters: add cache_adapter param",
             "description": null
@@ -548,6 +573,11 @@
         {
             "id": "non-autowireable-add-bind-to-service",
             "name": "Non-Autowireable: Add bind to service",
+            "description": null
+        },
+        {
+            "id": "non-autowireable-move-parameter-to-services-yaml",
+            "name": "Non-Autowireable: Move parameter to services.yaml",
             "description": null
         },
         {
@@ -583,6 +613,16 @@
         {
             "id": "explicitwiring-adding-type",
             "name": "ExplicitWiring: adding type",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-wire-in-services-yaml",
+            "name": "ExplicitWiring: wire in services.yaml",
+            "description": null
+        },
+        {
+            "id": "explicitwiring-remove-yaml-service",
+            "name": "ExplicitWiring: remove YAML service",
             "description": null
         },
         {
@@ -701,5 +741,5 @@
             "description": null
         }
     ],
-    "sha": "cfd1ffaab48f712dbf2662db7369645d2db39881"
+    "sha": "05bbf331ec60e7a2782a9330bada9723558f05f0"
 }
