@@ -14,7 +14,7 @@ template. So return `$this->render()` and pass it two things. The first
 is the name of the template. How about `vinyl/homepage.html.twig`.
 
 It's not required, but it's common to have a directory with the same
-know as your controller class and filename that's the same as your method,
+name as your controller class and filename that's the same as your method,
 but you can do whatever. The second argument is an array of any variables
 that you want to pass *into* the template. Let's pass in a variable called
 `title` and set it to our mix tape title: "PB and Jams".
