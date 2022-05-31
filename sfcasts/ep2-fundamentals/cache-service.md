@@ -1,94 +1,45 @@
 # Cache Service
 
-Coming soon...
+When we refresh the `browse` page, the mixes you see here are currently coming from a HTTP request that we're making over to the GitHub API. We make a request to the GitHub API, which fetches this file right here, and then `$response->$toArray()` *decodes* the JSON into a `$mixes` array we can *then* render in a template. So this file up on GitHub is basically acting like our fake database.
 
-Right now when we refresh the brows page, these mixes are actually coming from an
-HTTP request that we're making over to the GitHub API. So we make a request, the Git
-up API, which fetches this file right here. And then response error. Two array turns
-decodes.json into our mixes array and we render them in a template. So this file up
-on GitHub is basically acting like our fake database. Now, one practical problem with
-this is that every single page load is now making an HTTP request and HTTP requests
-can be slow. And if I actually deployed this to production, we would pretty quickly,
-our site would be so popular that we'd pretty quickly hit our GitHub API limit. And
-this page would explode. So what if we cache the result of this? Like we make this
-HTTP request, but then we cache the result for 10 minutes or one hour. So how do we
-cache things in Symfony? Well, the answer is of course a service. So the real
-question is, do we already have a cacheing service? And you know my answer, I don't
-know. Let's go find out. So let's run bin console, debug auto wiring, and I will
-search for cache. And yes, there are. In fact, there are several inside of here. So
-you can see there's this thing called cache item, pool, interface, store interface.
+One practical problem with this is that *every single* page load is now making a HTTP request, and HTTP requests can be *slow*. If I actually deployed this to production, our site would be so popular that we'd pretty quickly hit our GitHub API limit, and this page would *explode*. So... what if we cache the result instead? We could make this HTTP request, but then cache the result for 10 minutes, or even an hour. That just *might* work! We cache things in Symfony with - you guessed it - a service. But which one? I have no idea! Let's go find out.
 
-Uh, not all these are cacheing things, but the cache I pool interface, cache
-interface, and tag away cache interface are all different services that you can use
-for cacheing. They all effectively do the same thing. The one you're going to want to
-use is cache interface.
+Run:
 
-<affirmative>
+```terminal
+php bin/console debug:autowiring cache
+```
 
-So let's use it once again. We don't know how to cache, how to use this service, but
-if we add a second argument called with cache interface, make sure you get the one
-from Symfony contracts, cache, and I'll call it cache. And then to use the cache
-service, it's kind of cool. I'm going to copy these two lines I had before and delete
-them and replace them with mixes equals. And then you say cache Arrow. Get as if
-you're going to fetch the key outta the cache, and then we'll just make up some cache
-key here. How about mixes,_data? And then Symfony's cache object kind of works in a
-unique way. You call cache, get, and you pass it this key. If that exists in cache,
-if that results already exists in the cache, it but will be returned immediately. If
-it doesn't exist in the cache yet, then it will call our second argument, which is a
-function. And in here, our job is to return the data that should be cacheed. So I'm
-going to paste in those two lines of code that we had before. Uh, HTB client is
-undefined. I need to add a little used hang here to bring it into scope. There we go.
-And instead of setting a mixes variable, we'll just return that
+This will search for services dealing with "cache". And... yes! There are, in fact, *several* inside of here. You can see here that there's something called `CacheItemPoolInterface`, and another called `StoreInterface`. Some of these services don't actually cache things, but the `CacheItemPoolInterface`, `CacheInterface`, and `TagAwareCacheInterface` are all different services that you can use for cacheing. They all effectively do the same thing, but he one you'll want to use is `CacheInterface`. So let's grab that.
 
-If we haven't used Symfony's Cing service before this might look a little strange at
-first, but I love this. This is all that we need. The first time we refresh the page,
-there won't be any mixes,_data in the cache yet. So we'll call our function. We
-return the result and that will store that into the cache. The next time we refresh
-the page, it will be in the cache and this will return immediately. So we don't need
-any if statements or we don't need to check if anything is in the cache. All right.
-So let's try this move over, refresh and beautiful. So this first request here, you
-can see still made the HTP request.
+Once again, we don't know *how* to use this service, but we can add another argument to our function called `CacheInterface` (make sure you get the one from `Symfony\Contracts\Cache`) and call it `$cache`. Then, to *implement* the `$cache` service, I'm going to copy these two lines from before, delete them, and then replace them with `$mixes = $cache->get()`, as if you're going to fetch the key out of the cache, and then we'll just make up some cache key here. How about `mixes_data`. Done!
 
-And over here, you can see that there was three cache calls and one cache, right? So
-I'm going to open this in a new tab. And this is really cool. This is the cache
-section of WebView toolbar. And you can see here that there was one call to the cache
-for mixes data. And there was one, right? And one miss, this was a cache miss. And so
-it called or function. And it wrote that to the cache on the next refresh. Watch this
-icon here, that disappears because there was no HTP request. And if I opened this
-cache thing in the web D web to a bar, again, you can say there was one read, one hit
-that hit from the cache that loaded from the cache. It didn't make an HTTP request.
-All right. So how long is it cache for forever right now? Because we didn't add an
-expiration. So to make this a little easier to use, let's add an expiration the way
-you do that. If you look at the cache documentation is that this function receives a
-cache item, interface argument, make sure, Hey, you hit tab to add that use statement
-and we'll call that cache item.
+Symfony's cache object works in a unique way. We're calling `$cache->get()` and then we pass it this key. If that result already exists in the cache, it will be returned *immediately*. If it *doesn't* exist in the cache yet, then it will call our *second* argument, which is a function. In here, our job is to return the data that *should* be cached. So I'm going to paste in those two lines of code that we copied earlier. This `$httpClient` is undefined, so I need to add `use ($httpClient)` up here to bring it into scope. There we go! And instead of setting the `$mixes` variable, we'll just `return` this `$response` line.
 
-And then what you can do with this cache item is you can say cache item->expires
-after, and to make it easy, I'm just going to put 10 seconds or five seconds there
-actually. So this says that the item will store in cache for five seconds.
-Unfortunately, if we try this, the item that's already in the cache is scheduled is
-set to never expire. So this will not work until we actually clear the cache. Where
-is the cache being stored? That's a great question. And we're going to talk more
-about that in a second, but the cache by default is actually stored in the VAR cache
-directory, Along with a bunch of other cache files that help Symfony do its job. So
-we could delete this, uh, directory manually to clear the cache, but Symfony has a
-better way to clear things that of course is a bin console command. So if you're on
-bin console, Symfony has a bunch of different, uh, kind of categories of cache, um,
-called cache pools. If you're on bin console cache pool list, you'll get a list of
-them. Most of these are meant for Symfony to use the cache pool that we are using is
-called cache.app.
+If you haven't used Symfony's cacheing service before, this might look a little strange at first, but don't worry. *This* is all that we need. The first time we refresh the page, there won't be any `mixes_data` in the cache yet. So it will call our function, return the result, and store *that* in the cache. The *next* time we refresh the page, that will already be in the cache, and this will return *immediately*. So we don't need "if" statements and we don't need to check for anything in the cache.
 
-To clear that you can run bin console, cache
+That might sound good in theory, but let's go see if it works. Move over, refresh and... beautiful! You can see that our first refresh still made the HTTP request like normal. And over here, you can see that there were *three* cache calls and *one* cache write. I'll click this to open it in a new tab and... this is really cool! This is the Cache section of the web debug toolbar, and here, you can see that there was one call to the cache for `mixes_data`, one cache *write*, and one cache *miss*. A cache "miss" means that it called our function and wrote that to the cache.
 
-Pool clear and pass that. And that will clear that cache pool. This is not something
-that you need to do very often, but that's how you do it. All right. So check this
-out. When I refresh cache missed, you can see it made an HTP call, but if I refresh
-again real fast, it's gone refresh again. It's back because the five seconds just
-expired. Phew. So this is awesome. We have a service to make HTTP requests. We have a
-service to cache stuff and Symfony, well, the bundles handle preparing and creating
-those services for us with zero effort. We just use them. But I do have one question.
-What if we need to control these services? Like how could we tell the cache service
-that instead of saving things into the filesystem, in this directory that we want to
-store things maybe in Redis, let's explore the idea of controlling our services
-through configuration next.
+On the next refresh, watch this icon here. It disappears! That's because there was no HTTP request. If I open the Cache page again, you can see that there was one read and one hit. That hit was loaded from the cache and it *didn't* make a HTTP request. Nice!
 
+You might be wondering how long this information is cached. Right now, it's *forever* because we didn't add an expiration. So to make this a little easier to use, let's add one. If you look at the cache documentation, you'll see that this function receives a `CacheItemInterface` argument (make sure to hit "tab" to add that use statement), and we'll call that `$cacheItem`. Then, down here, we can say `$cacheItem->expiresAfter()`, and to make it easy, I'll say `5` seconds. So this basically says that the item will store in cache for five seconds.
+
+Unfortunately, if we try this, the item that's *already* in the cache is set to *never* expire. So this won't actually work until we clear the cache. Where is the cache being stored? Another great question! And we'll talk more about that in a second. But the cache, by default, is stored in the `/var/cache/dev` directory, along with a bunch of other cache files that help Symfony do its job. We *could* delete this directory manually to clear the cache, but Symfony has a better way to clear things. That, of course, is a `bin/console` command. Symfony has a bunch of different categories of cache called "cache pools". If you run
+
+```terminal
+php bin/console cache:pool:list
+```
+
+you'll get a list of them. Most of these are meant for Symfony to use, but the cache pool that we're using is called `cache.app` (no, it's not *that* "CashApp"). To clear that cache, you can run:
+
+```terminal
+php bin/console cache:pool:clear cache.app
+```
+
+That will clear our `cache.app` pool. This isn't something you'll need to do very often, but it's good to know how to do it, just in case.
+
+Okay, check this out. When I refresh... I get a cache *miss* and you can see that it made an HTTP call. But if I refresh again really quick... it's gone! Refresh again and... it's back! That's because the five seconds just expired. Phew!
+
+This is awesome! We have a service to make HTTP requests! And we have a service to cache stuff. The bundles handle preparing and creating those services for us with *zero* effort. We just toss them in our project and we're good to go!
+
+But, I do have one question. What if we need to control these services? How could we tell the cache service that, instead of saving things into the file system in this directory, we want to store things in something like Redis? Let's explore the idea of *controlling* our services through configuration next.
