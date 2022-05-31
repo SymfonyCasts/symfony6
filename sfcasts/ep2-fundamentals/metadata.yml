@@ -1,6 +1,7 @@
 chapters:
     - bundles
     - time-bundle
+    - bundle-services
     - http-client
     - cache-service
     - cache-config
