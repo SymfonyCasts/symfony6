@@ -1,122 +1,44 @@
 # Cache Config
 
-Coming soon...
+We're now using the `HttpClientInterface` and `CacheInterface` services. Yay! *But* we aren't actually responsible for *creating* these services. They're created by something else (we'll talk about that in a few minutes), and then they're just passed to us. This is great because we can just use them without thinking too hard about it. They come ready to use, right out of the box. But if something else is responsible for *instantiating* these service objects, how can we control them? For example, I mentioned that the `$cache` object stores its files in the `/var/cache/dev` directory. How could we tell the cache service to cache somewhere else? *Introducing* bundle configuration!
 
-We're now using the HTTP client interface and cache interface, uh, services. Yay.
-But, But we aren't actually responsible for creating these services. They're created
-by something else That we're going to talk about in a few minutes. And then they're
-just past to us. This is great because we can just use them without thinking about
-anything. They come pre fully ready for us. But if something else is responsible for
-instantiating, these service objects, how can we control them? Like for example, I
-mentioned that the cache object stores, its files in the VAR cache via cache
-directory. How could we tell the cache service to cache somewhere else? Introducing
-bundle configuration, Go check out the config packages directory. This has a number
-of different YAML files in it. All of which are loaded automatically by Symfony. When
-it first boots up, let's look at one of them. And the entire purpose of all of these
-files is to configure these services in the system. For example, open up twig.YAML.
-And for now you can ignore this when at test, we're going to talk about that in a few
-minutes. This file has a root key called twig. And the entire purpose of this file is
-to control twig bundle.
+Go check out the `/config/packages` directory. This has a number of different .yaml files in it, all of which are loaded *automatically* by Symfony when it first boots up. And the entire purpose of each of these files is to configure these services in the system. Open up `twig.yaml`. For now, you can ignore this `when@test`. We're going to talk about that in a few minutes. This file has a root key called `twig`, and the entire purpose of this file is to control Twig bundle. And it's not the file name, `twig.yaml` - that's important. I could rename this to "ryanlovespizza.yaml", and it would work *exactly* the same. The key is that when Symfony loads this file, it sees this root key, `twig`, and it says:
 
-And it's not the file name. That's important. Twig.YAML. I could rename this to Ryan
-loves pizza.YAML, and it would work exactly the same. The key thing is that when
-Symfony loads his file, it sees this root key twig and it says, oh, okay, I'm going
-to pass. Whatever configuration is below this to twig bundle. Now, remember what do
-bundles give us bundles, give us services. Thanks to this config. When twig bundle is
-preparing these services for us, Symfony passes at this configuration and twig bundle
-uses that to help instantiate its services. If we change this default path to
-something like kernel that project or /views, The result is that the twig service
-that renders templates would now be preconfigured to look in this new directory. The
-point is these files, the purpose of these files are 100% about controlling these
-services that the different bundles give us In every single one of these files
-controls a different service. For example, framework Dimo. If you look at route key
-framework, this is all configuration that is passed. Two framework bundle and helps
-framework bundle, configure its services. Now, as I mentioned, the name file names
-don't matter. They often match the root key framework, YAML framework, but not
-always. There's also a cache.YAML, which actually is just more configuration for
-framework bundle. It just happens to be that we put it in its own file, just so that
-it's easier to configure the cache system.
+`Oh, okay. I'm going to pass whatever
+configuration is below this to Twig bundle.`
 
-All right. So one question you might be thinking is like, what configuration can you
-put under here? Cuz you, you can't just Can't just make up keys. That would actually,
-this would give you an air inside of Symfony. This is one of my favorite things about
-Symfony configuration system. If you want to know what configuration you can pass to
-twig bundle, there's two bin console commands to help you Bin console. The first is
-debug config, and then you pass it that route key. What this is going to print out Is
-all of your current configuration under the twig key, including any default values
-that the bun that the bundle's adding. So you can see our default_path here, Which is
-set to our templates directory
+Now, remember: Bundles give us *services*. Thanks to this config, when Twig bundle is preparing these services for us, Symfony passes us this configuration, and Twig bundle uses that to help instantiate its services. If we change this default path to something like `%kernel.project_dir%/views`, the result is that the Twig service that renders templates would now be preconfigured to look in this new directory. These files are meant for controlling services that the different bundles give us. And *every* single one of these files controls a different service. This `framework.yaml`, for example, if you look at root key `framework`, is all configuration that is passed to FrameworkBundle and helps configure its services.
 
-That is coming from our configuration file. This Nel project or presenting is just a
-fancy way to point at the root of our project. So watch, if I change this to views,
-Henry ran that command. You would see that it changes to views. Let me go ahead and
-change that back. So debugging fig is going to show us all the configuration we can
-have under the twig key plus whatever the current defaults are. So all this other
-stuff is just other default values that the bundle's adding. So it's a really great
-way to see what other things that you can do. What other things you can configure
-about a bundle like for example, in the real world, you would read the documentation
-to find out how to configure stuff. But just by looking in here, for example, it
-looks like we could probably set some global variables in twig by using the globals
-key. So that's the debug config command. There's another one that's very similar to
-this instead of debug:config, it's config,:dump, debug config shows you your current
-configuration dump shows you a giant tree of example, configuration, but this
-includes everything that's possible. So here you can see globals and even has some
-examples of some global values that you could configure.
+As I mentioned, the file names don't matter. They often match the root keym like `framework` and `framework.yaml`, but not *always*. There's also `cache.yaml`, which is actually just more configuration for FrameworkBundle. We just happened to put it in its own file so it's easier to configure the cache system.
 
-So this is a great way to find out every single potential option that you can pass to
-a bundle to help twig bundle configure its services PH. So I want to know how I can
-configure the cache service us. So of course, in the real world, you can just Google,
-how do I configure, uh, Symfony's um, cache service, but we can also just get it help
-from these commands. So we kinda already noticed there's a cache.YAML service. So it
-looks like the framework bundle is responsible for creating the cache service. And it
-has a Subash key, which we can pass different values to, to help control it. All of
-this right now is commented out. So to give more information about the framework
-bundle, let's run bin console, config, dump framework Framework, bundle's the main
-bundle inside of Symfony. So you can see that this dumps, wow, a lot of different
-things that you can use to configure lots of different services that framework bundle
-gives you. So to zoom in a little bit, let's actually pass at the argument's
-framework, then cache that will show us just the cache sub key under framework
+One question you might be thinking is: "What configuration can you put under this?" Because you can't just make up keys. That would give you an error inside of Symfony. Well, this is one of my favorite things about Symfony's configuration system. If you want to know what configuration you can pass to Twig bundle, there are two `bin/console` commands to help you. The first is
 
-And cool. These still aren't always super understandable, but they're great starting
-point, like for example, Why does the cache system store into the cache directory?
-Because there's actually a directory key that defaults to kernel.cacher. That's a
-fancy way of pointing at the VAR cache dev directory And then /pools /app. So /pools
-/app. So this is actually the directory that's holding our current cache right now.
+```terminal
+php bin/console debug:config twig
+```
 
-And then it has a number of other different configuration options below now the
-option. All right. So here's my goal. Instead of cacheing things to the filesystem, I
-want to change the cache system to cache somewhere else. So before we do that, go
-into vinyl controller and just so we can see what change this is going to make, I'm
-going to dump the cache service we've been using D D so far that's dump and die and
-dump just dumps the variable, but doesn't kill the page. So check this out. I refresh
-when you use dump, you won't actually see it on the page. It's hiding down here on
-the web debug toolbar. But if you look here, there's some sort of traceable adapter,
-but inside of there, there's something called a filesystem adapter. That's the cache
-system saving to the filesystem.
+where we are passing the route key, `twig`. This is going to print out all of your current configuration under the `twig` key, including any default values that the bundle's adding. You can see our `default_path` here, which is set to our `/templates` directory. That's coming from our configuration file. This `%kernel.project_dir%` is just a fancy way to point at the root of our project. Watch this. If I change this to `views`, and re-run that command, you'll see that this changes to `views`. Let me go ahead and change that back.
 
-Now, if we wanted to have that cache somewhere else, we can go into cache.YAML. And
-the key we need to change is this app key. And the way you would know this is you'd
-look at the documentation, it would help help you guide through this. And then over
-here, we have a number of different adapters that we can use. So if we wanted to
-store in Redis, we we'd use cache, adapter.Redis, just to make things really easy.
-I'm going to use cache. Adapter array array is kind of a fake cache where it cachees
-it like during the request, but then at the end of the request, it, it, it forgets
-it. So it's kind of a fake cache, but it's enough so that we can see that changing
-this key here will change the cache service itself. So just by changing this one
-little thing here, watch what happens. And I refresh currently we have a filesystem
-adapter. When I refresh now, the cache is an array adapter. And since the array
-adapter forgets its cache. At the end of a request, you can see that every single
-request now make makes an HT V HTP request. So if you're getting a little confused,
-let me clarify here. The point of this chapter was not to teach you how to change
-the, this specific key in the cache file.
+So `debug:config` is going to show us all of the configuration we can have under the `twig` key, plus whatever the current defaults are. So it's a great way to see what you can configure about a bundle. Normally, you would just read the documentation to find out how to configure stuff. But just by looking at this, we know we could likely set some global variables in Twig by using the `globals` key. Pretty cool stuff!
 
-Ultimately, if you need to configure something in Symfony, you are going to search
-how to do it. And it's, documentation's going to tell you exactly like which key you
-need to change. The big takeaway here is that the purpose purpose of these files, the
-purpose of these files 100% is to configure these services in our application.
-Anytime you change any key in any of these files, the end result of that is one of
-these services Is now ha has been changed. It's still all about the services. All
-right, next, sometimes you want some configuration to be Different based on whether
-you're developing locally versus running on production. Symfony is a system for this
-called environments. Let's learn about that.
+There's another command that's very similar to this. Instead of `debug:config`, it's `config:dump`. The `debug:config` command shows you your *current* configuration, but `config:dump` shows you a giant tree of *example* configuration, which includes *everything* that's possible. Here you can see `globals` and it even has some examples of global values that you could configure. So this is a great way to see every potential option that you can pass to a bundle to help Twig bundle configure its services.
 
+So... I want to know how I can configure the cache service. In the real world, you can just Google "How do I configure Symfony's cache service?" but we can also just get help from these commands.
+
+We already noticed there's a `cache.yaml` service. It looks like FrameworkBundle is responsible for creating the cache service. And it has a sub `cache` key, which we can pass different values to, to help control it. All of this is commented out at the moment.
+
+To get more information about FrameworkBundle, let's run:
+
+```terminal
+php bin/console config:dump framework
+```
+
+FrameworkBundle is the main bundle inside of Symfony. So you can see that this dumps... wow... a *ton* of different things you can use to configure lots of different services in FrameworkBundle gives you. I'll zoom in a little bit, then let's actually pass at the argument's `framework`, and then `cache`. That will show us the `cache` sub key under `framework`. And... cool! This may not always be super understandable, but it's a great starting point. It helps us answer questions like "Why does the cache system store into the cache directory?" If we look down here, we can see that's because there's a `directory` key that defaults to `%kernel.cache_dir%`. That's a fancy way of pointing at the `/var/cache/dev` directory. And then we see `/pools/app`, which is actually the directory that's holding our cache right now. It has a number of other different configuration options below as well.
+
+All right, here's my goal. Instead of cacheing things to the file system, I want to change the cache system to cache somewhere else. Before we do that, go into `VinylController.php` and, just so we can see what change this is going to make, I'm going to `dump($cache)`. We've been using `dd` so far, which stands for "dump and die". But `dump` just dumps the variable without killing the page. Check this out. I'll refresh... and when you use dump, you won't actually see it on the page. It's hiding down here on the web debug toolbar. But if you look here, there's some sort of `TraceableAdapter`. And inside of *that*, there's something called a `FilesystemAdapter`. That's the cache system *saving* to the filesystem.
+
+If we wanted to have that cache somewhere else, we can go into `cache.yaml` and change this `app` key. You can figure this out by looking at the documentation, and it would help guide you through this. Then, over here, we have a number of different adapters that we can use. So if we wanted to store our cache in Redis, we we'd use `cache.adapter.redis`. Just to make things really easy, I'm going to use `cache.adapter.array`. The `array` is a fake cache where we can cache stuff during the request. But at the *end* of the request, it forgets it. So... it's *kind of* a fake cache, but it's enough to see that changing this key here will change the cache service itself. Watch what happens. Currently, we have a filesystem adapter. When I refresh... the cache is an `ArrayAdapter`! And since the `ArrayAdapter` forgets its cache at the end of a request, you can see that every single request now makes a HTTP request.
+
+If you're a little confused by this, let me try to clear things up. The point of this chapter was *not* to teach you how to change this specific key in the cache file. Ultimately, if you need to configure something in Symfony, you'll just search for the documentation, which will tell you exactly what to do, such as which key you need to change. The big takeaway here is that the *sole* purpose of these files is to *configure* these services in our application. Any time you change a key in any of these files, the end result it a change to one of these services. It's still *all* about the services.
+
+Next, sometimes you want some configuration to be different based on whether you're developing locally versus running on production. Symfony has a system for this called "environments". Let's learn more about that.
