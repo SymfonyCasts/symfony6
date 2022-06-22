@@ -33,8 +33,14 @@ actually done by a *service*. And that the word "service" is a fancy term for a
 simple concept: a service is an object that does work.
 
 For example, in `src/Controller/SongController.php`, we leveraged Symfony's Logger
-service to log a message. And, though we don't have the code in `VinylController`
-anymore, we briefly used the Twig service to directly render a Twig template.
+service to log a message:
+
+[[[ code('0d6d809ebb') ]]]
+
+And, though we don't have the code in `VinylController` anymore, we briefly used 
+the Twig service to directly render a Twig template:
+
+[[[ code('f65f8310e4') ]]]
 
 So a service is just an object that does work... and *every* bit of work that's done
 in Symfony is done by a service. Heck, even the core code that figures which route
@@ -45,8 +51,12 @@ matches the current URL is a service, called the "router" service.
 So the next question is: where do these services come from? The answer to that is
 mordor. I mean *bundles*... services come from bundles.
 
-Open up `config/bundles.php`. This isn't a file that you need to look at
-or worry about much, but this is where your bundles are *activated*.
+Open up `config/bundles.php`:
+
+[[[ code('796e719451') ]]]
+
+This isn't a file that you need to look at or worry about much, but this is where 
+your bundles are *activated*.
 
 Very simply: bundles are Symfony plugins. They're just PHP code... but they hook
 *into* Symfony. And thanks to the recipe system, when we install a new bundle, that

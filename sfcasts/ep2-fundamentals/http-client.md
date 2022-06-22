@@ -53,7 +53,11 @@ And... here it is! Right at the bottom: `HttpClientInterface`, which
 
 Woo! We just got a new service! *That* means that we must have just installed a
 new bundle, right? Because... bundles give us services? Well... go check out
-`config/bundles.php`. Woh! There's *no* new bundle here! Try running
+`config/bundles.php`:
+
+[[[ code('31a0dbdbc7') ]]]
+
+Woh! There's *no* new bundle here! Try running
 
 ```terminal
 git status
@@ -61,6 +65,8 @@ git status
 
 Yea... that *only* installed a normal PHP package. Inside `composer.json`, here's
 the new package... But it's *just* a "library": not a *bundle*.
+
+[[[ code('d946582375') ]]]
 
 So, *normally*, if you install "just" a PHP library, it gives you PHP classes, but
 it doesn't hook into Symfony to give you new *services*. What we just saw is a
@@ -77,16 +83,24 @@ detects that the `http-client` package is installed.
 
 Anyways, time to use the new service. The type we need is `HttpClientInterface`.
 Head over to `VinylController.php` and, up here in the `browse()` action,
-autowire `HttpClientInterface` and let's name it `$httpClient`. Then, instead of
-calling `$this->getMixes()`, say `$response = $httpClient->`. This lists all of
-its methods... we *probably* want `request()`. Pass this `GET`... and then I'll
-paste the URL: you can copy this from the code block on this page. It's a direct
-link to the content of the `mixes.json` file.
+autowire `HttpClientInterface` and let's name it `$httpClient`:
+
+[[[ code('f67b91f6c3') ]]]
+
+Then, instead of calling `$this->getMixes()`, say `$response = $httpClient->`. 
+This lists all of its methods... we *probably* want `request()`. Pass this `GET`... 
+and then I'll paste the URL: you can copy this from the code block on this page. 
+It's a direct link to the content of the `mixes.json` file:
+
+[[[ code('f33fdc893f') ]]]
 
 Cool! So we make the request and it returns a response containing the `mixes.json`
 data that we see here. Fortunately, this data has all of the same keys as the
 old data we were using down here... so we should be able to swap it in super easily.
 To get the mix data from the response, we can say `$mixes = $response->toArray()`:
+
+[[[ code('b6660098c4') ]]]
+
 a handy method that JSON decodes the data for us!
 
 Moment of truth! Move over, refresh and... it works! We now have *six* mixes on
@@ -96,7 +110,9 @@ this, which is pretty awesome. If we click it, we can see info about the request
 and the response. I *love* that.
 
 To celebrate this working, spin back over and remove the hardcoded `getMixes()`
-method.
+method:
+
+[[[ code('fe38cc18e5') ]]]
 
 The only problem I can think of now is that, every single time someone visits our
 page, we're making an HTTP request to GitHub's API... and HTTP requests are slow!

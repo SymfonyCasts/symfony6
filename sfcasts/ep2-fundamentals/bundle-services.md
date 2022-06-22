@@ -42,27 +42,40 @@ need your optional arguments at the *end* of the list. So I'll add `DateTimeForm
 right here and hit "tab" to add the `use` statement on top.
 
 We can *name* the argument anything we want, like `$sherlockHolmes` or
-`$timeFormatter`.
+`$timeFormatter`:
 
-To use this, loop over the mixes - `foreach ($mixes as $key => $mix)` - then, on
-each, add a new `ago` key: `$mixes[$key]['ago'] =`... and this is where we
+[[[ code('616397799e') ]]]
+
+To use this, loop over the mixes - `foreach ($mixes as $key => $mix)`: 
+
+[[[ code('7da483ab67') ]]]
+
+then, on each, add a new `ago` key: `$mixes[$key]['ago'] =`... and this is where we
 need the new service. How do we *use* the `DateTimeFormatter`? I have no idea! But
 we used its type, so PhpStorm should tell us what methods it has. Type
 `$timeFormatter->`... and ok! It has 4 public methods.
 
 The one *we* want is `formatDiff()`. Pass it the "from" time... which is
-`$mix['createdAt']`.
+`$mix['createdAt']`:
+
+[[[ code('85dac5f608') ]]]
 
 That's *all* we need! We're looping over these `$mixes`, taking the `createdAt`
 key, which is a `DateTime` object, passing it to the `formatDiff()` method, which
 should return a string in the "ago" format. To see if this is working, below,
-`dd($mixes)`.
+`dd($mixes)`:
+
+[[[ code('ec67d50981') ]]]
 
 Let's try it! Spin over, refresh... and let's open it up. Yes! Look at that: `"ago"
-=> "7 months ago"`... `"ago" => "18 days ago"`... It *works*. So remove that dump.
+=> "7 months ago"`... `"ago" => "18 days ago"`... It *works*. So remove that dump:
+
+[[[ code('07e24f0499') ]]]
 
 And now that each mix has a new `ago` field, in `browse.html.twig`, replace the
-`mix.createdAt|date` code with `mix.ago`.
+`mix.createdAt|date` code with `mix.ago`:
+
+[[[ code('47f88f8537') ]]]
 
 And now... *much* better.
 
@@ -95,10 +108,14 @@ one called "ago"! That was *not* there before we installed `KnpTimeBundle`.
 So, all of the work we did in our controller is perfectly fine ... but it turns
 out that there's an easier way to do all of this. Delete the `foreach`...
 remove the `DateTimeFormatter` service... and, though it's optional, clean up
-the extra `use` statement on top.
+the extra `use` statement on top:
+
+[[[ code('c1f3df9471') ]]]
 
 In `browse.html.twig`, we don't have an `ago` field anymore... but we still have a
-`createdAt` field. Instead of piping this into the `date` filter, pipe it to `ago`.
+`createdAt` field. Instead of piping this into the `date` filter, pipe it to `ago`:
+
+[[[ code('754b969c0e') ]]]
 
 That's all we need! Back over on the site refresh and... we get the *exact*
 same result.

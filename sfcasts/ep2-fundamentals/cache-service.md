@@ -33,10 +33,14 @@ thing... but the easiest to use is `CacheInterface`.
 
 So let's grab that.... by doing our fancy autowiring trick! Add another argument
 to our method typed with `CacheInterface` (make sure you get the one from
-`Symfony\Contracts\Cache`) and call it, how about, `$cache`. To *use* the `$cache`
-service, copy these two lines from before, delete them, and replace them with
-`$mixes = $cache->get()`, as if you're going to fetch some key out of the cache.
-We can invent whatever cache key we want: how about `mixes_data`.
+`Symfony\Contracts\Cache`) and call it, how about, `$cache`:
+
+[[[ code('6b4b596a2d') ]]]
+
+To *use* the `$cache` service, copy these two lines from before, delete them, 
+and replace them with `$mixes = $cache->get()`, as if you're going to fetch 
+some key out of the cache. We can invent whatever cache key we want: 
+how about `mixes_data`.
 
 Symfony's cache object works in a unique way. We call `$cache->get()` and pass
 it this key. If that result already exists in the cache, it will be returned
@@ -46,7 +50,9 @@ be cached. Paste in the two lines of code that we copied earlier. This `$httpCli
 is undefined, so we need to add `use ($httpClient)` to bring it into scope.
 
 There we go! And instead of setting the `$mixes` variable, just `return` this
-`$response->toArray()` line.
+`$response->toArray()` line:
+
+[[[ code('c6c78aea17') ]]]
 
 If you haven't used Symfony's caching service before, this might look strange!
 But I love it! The first time we refresh the page, there won't be any `mixes_data`
@@ -80,7 +86,9 @@ Right now... *forever*. Ooooh. That's the default.
 To make it expire *sooner* than forever, give the function a `CacheItemInterface`
 argument - make sure to hit "tab" to add that use statement - and call it
 `$cacheItem`. Now we can say `$cacheItem->expiresAfter()` and, to make it easy,
-say `5`.
+say `5`:
+
+[[[ code('205124d7cf') ]]]
 
 The item will expire after 5 seconds.
 
