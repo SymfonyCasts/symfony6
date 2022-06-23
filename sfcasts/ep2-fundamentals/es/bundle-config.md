@@ -1,4 +1,4 @@
-# Bundle Config (para controlar los servicios de bundle)
+# Configuración del Bundle (para controlar servicios del bundle)
 
 Ahora utilizamos los servicios `HttpClientInterface` y `CacheInterface`. ¡Sí! Pero en realidad no somos responsables de instanciar estos objetos de servicio. No, los crea otra cosa (hablaremos de ello en unos minutos), y luego nos los pasa.
 
