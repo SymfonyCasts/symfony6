@@ -1,0 +1,302 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:02.726 align:middle
+Todavía no tenemos una base de datos...
+
+00:00:03.086 --> 00:00:05.786 align:middle
+y lo dejaremos para un futuro tutorial.
+
+00:00:06.386 --> 00:00:10.236 align:middle
+Pero para hacer las cosas un poco más
+divertidas, he creado un repositorio de GitHub -
+
+00:00:10.486 --> 00:00:15.656 align:middle
+https://github.com/SymfonyCasts/vinyl-mixes
+- con un archivo mixes.json
+
+00:00:15.776 --> 00:00:19.016 align:middle
+que contiene una base de datos
+falsa de mezclas de vinilos.
+
+00:00:19.586 --> 00:00:24.856 align:middle
+Hagamos una petición HTTP desde nuestra
+aplicación Symfony a este archivo
+
+00:00:25.176 --> 00:00:28.226 align:middle
+y usémoslo como nuestra
+base de datos temporal.
+
+00:00:29.186 --> 00:00:33.226 align:middle
+Entonces... ¿cómo podemos
+hacer peticiones HTTP en Symfony?
+
+00:00:33.806 --> 00:00:42.596 align:middle
+Bueno, hacer una petición HTTP es un trabajo, y
+-dilo conmigo ahora- "El trabajo lo hace un servicio".
+
+00:00:43.416 --> 00:00:51.236 align:middle
+Así que la siguiente pregunta es: ¿Existe ya un servicio
+en nuestra aplicación que pueda hacer peticiones HTTP?
+
+00:00:51.966 --> 00:00:52.736 align:middle
+¡Averigüémoslo!
+
+00:00:53.146 --> 00:00:58.276 align:middle
+Dirígete a tu terminal y ejecuta
+php bin/console debug:autowiring http
+
+00:00:58.666 --> 00:01:01.266 align:middle
+para buscar "http" en los servicios.
+
+00:01:02.076 --> 00:01:04.676 align:middle
+Obtenemos un montón de resultados, pero...
+
+00:01:04.816 --> 00:01:08.236 align:middle
+nada que parezca un cliente HTTP.
+
+00:01:08.746 --> 00:01:10.386 align:middle
+Y, eso es correcto.
+
+00:01:10.876 --> 00:01:16.516 align:middle
+Actualmente no hay ningún servicio en nuestra
+aplicación que pueda hacer peticiones HTTP.
+
+00:01:17.276 --> 00:01:20.876 align:middle
+Pero podemos instalar otro
+paquete que nos proporcione uno.
+
+00:01:21.696 --> 00:01:29.416 align:middle
+En tu terminal, escribe: composer require
+symfony/http-client Pero, antes de ejecutarlo,
+
+00:01:29.776 --> 00:01:32.686 align:middle
+quiero mostrarte de dónde viene este comando.
+
+00:01:33.166 --> 00:01:35.706 align:middle
+Busca "symfony http client".
+
+00:01:36.386 --> 00:01:40.056 align:middle
+Uno de los primeros resultados es
+la documentación de Symfony.com
+
+00:01:40.346 --> 00:01:44.176 align:middle
+que enseña el componente Cliente HTTP.
+
+00:01:44.686 --> 00:01:50.866 align:middle
+Recuerda: Symfony es una colección de muchas
+bibliotecas diferentes, llamadas componentes.
+
+00:01:51.406 --> 00:01:55.006 align:middle
+¡Y éste nos ayuda a realizar peticiones HTTP!
+
+00:01:55.786 --> 00:01:59.186 align:middle
+Cerca de la parte superior, verás
+una sección llamada "Instalación",
+
+00:01:59.556 --> 00:02:02.226 align:middle
+¡y ahí está la línea de nuestro terminal!
+
+00:02:02.866 --> 00:02:05.186 align:middle
+De todos modos, si ejecutamos eso...
+
+00:02:05.836 --> 00:02:12.626 align:middle
+¡genial! Una vez que termine, prueba de
+nuevo el comando debug:autowiring: Y...
+
+00:02:13.046 --> 00:02:13.806 align:middle
+¡aquí está!
+
+00:02:14.106 --> 00:02:20.136 align:middle
+Justo en la parte inferior: HttpClientInterface
+que proporciona métodos flexibles
+
+00:02:20.136 --> 00:02:24.986 align:middle
+para solicitar recursos HTTP de
+forma sincrónica o asincrónica.
+
+00:02:25.776 --> 00:02:28.246 align:middle
+¡Vaya! ¡Acabamos de
+conseguir un nuevo servicio!
+
+00:02:28.616 --> 00:02:33.686 align:middle
+Eso significa que debemos haber
+instalado un nuevo bundle, ¿no?
+
+00:02:34.326 --> 00:02:35.036 align:middle
+Porque...
+
+00:02:35.186 --> 00:02:36.996 align:middle
+¿los bundles nos dan servicios?
+
+00:02:37.676 --> 00:02:41.346 align:middle
+Bueno... ve a ver config/bundles.php:
+
+00:02:42.346 --> 00:02:45.486 align:middle
+¡Woh! ¡Aquí no hay ningún bundle nuevo!
+
+00:02:46.416 --> 00:02:49.116 align:middle
+Prueba a ejecutar git status Sí...
+
+00:02:49.506 --> 00:02:53.136 align:middle
+que sólo ha instalado un paquete PHP normal.
+
+00:02:53.696 --> 00:02:57.566 align:middle
+Dentro de composer.json, aquí
+está el nuevo pa quete...
+
+00:02:58.096 --> 00:03:01.756 align:middle
+Pero es sólo una "biblioteca": no un bundle.
+
+00:03:02.616 --> 00:03:09.826 align:middle
+Así que, normalmente, si instalas "sólo"
+una biblioteca PHP, te da clases PHP,
+
+00:03:10.216 --> 00:03:14.356 align:middle
+pero no se engancha a Symfony
+para darte nuevos servicios.
+
+00:03:14.356 --> 00:03:20.116 align:middle
+Lo que acabamos de ver es un truco especial que
+utilizan muchos de los componentes de Symfony.
+
+00:03:20.806 --> 00:03:23.596 align:middle
+El bundle principal de nuestra
+aplicación es framework-bundle.
+
+00:03:24.076 --> 00:03:29.266 align:middle
+De hecho, cuando empezamos nuestro proyecto,
+éste era el único bundle que teníamos.
+
+00:03:29.916 --> 00:03:31.856 align:middle
+framework-bundle es inteligente.
+
+00:03:32.376 --> 00:03:37.206 align:middle
+Cuando instalas un nuevo componente de
+Symfony -como el componente Cliente HTTP-
+
+00:03:37.746 --> 00:03:43.956 align:middle
+ese bundle se da cuenta de la nueva biblioteca y
+añade automáticamente los servicios para ella.
+
+00:03:44.616 --> 00:03:47.786 align:middle
+Así que el nuevo servicio
+viene de framework-bundle...
+
+00:03:48.236 --> 00:03:53.926 align:middle
+que lo añade en cuanto detecta que el
+paquete http-client está instalado.
+
+00:03:54.776 --> 00:03:57.256 align:middle
+De todos modos, es hora de
+utilizar el nuevo servicio.
+
+00:03:57.946 --> 00:04:00.886 align:middle
+El tipo que necesitamos es
+HttpClientInterface. Dirígete
+
+00:04:01.546 --> 00:04:06.606 align:middle
+a VinylController.php y, aquí
+arriba, en la acción browse(),
+
+00:04:06.916 --> 00:04:12.656 align:middle
+autocablea HttpClientInterface
+y llamémosla $httpClient:
+
+00:04:13.446 --> 00:04:20.006 align:middle
+Entonces, en lugar de llamar a $this->getMixes(),
+di $response = $httpClient->.
+
+00:04:20.776 --> 00:04:22.946 align:middle
+Esto hace que aparezcan todos sus métodos...
+
+00:04:22.946 --> 00:04:25.156 align:middle
+probablemente queramos request().
+
+00:04:25.916 --> 00:04:26.996 align:middle
+Pasa este GET...
+
+00:04:27.606 --> 00:04:33.036 align:middle
+y luego pegaré la URL: puedes copiarla
+del bloque de código de esta página.
+
+00:04:33.746 --> 00:04:37.786 align:middle
+Es un enlace directo al
+contenido del archivo mixes.json:
+
+00:04:38.746 --> 00:04:44.886 align:middle
+¡Genial! Así que hacemos la petición y nos devuelve
+una respuesta que contiene los datos de mixes.json
+
+00:04:44.916 --> 00:04:46.086 align:middle
+que vemos aquí.
+
+00:04:46.906 --> 00:04:52.916 align:middle
+Afortunadamente, estos datos tienen todas las mismas claves
+que los antiguos datos que estábamos utilizando aquí abajo...
+
+00:04:53.386 --> 00:04:56.916 align:middle
+así que deberíamos poder
+intercambiarlos con mucha facilidad.
+
+00:04:57.746 --> 00:05:04.086 align:middle
+Para obtener los datos mixtos de la respuesta,
+podemos decir $mixes = $response->toArray():
+
+00:05:04.686 --> 00:05:08.346 align:middle
+¡un práctico método que decodifica
+los datos en JSON por nosotros!
+
+00:05:09.046 --> 00:05:10.596 align:middle
+¡Momento de la verdad!
+
+00:05:11.106 --> 00:05:13.486 align:middle
+Muévete, refresca y...
+
+00:05:14.026 --> 00:05:18.436 align:middle
+¡funciona! Ahora tenemos
+seis mezclas en la página.
+
+00:05:19.086 --> 00:05:20.716 align:middle
+Y... ¡superguay!
+
+00:05:21.036 --> 00:05:26.856 align:middle
+Apareció un nuevo icono en la barra de herramientas
+de depuración de la web: "Total de peticiones: 1".
+
+00:05:27.486 --> 00:05:34.686 align:middle
+El servicio Cliente HTTP se engancha a la barra de herramientas de
+depuración web para añadir esto, lo cual es bastante impresionante.
+
+00:05:35.416 --> 00:05:40.096 align:middle
+Si hacemos clic en él, podemos ver
+información sobre la petición y la respuesta.
+
+00:05:40.406 --> 00:05:41.616 align:middle
+Eso me encanta.
+
+00:05:42.776 --> 00:05:49.376 align:middle
+Para celebrar que esto funciona, vuelve a girar
+y elimina el método getMixes() codificado:
+
+00:05:51.536 --> 00:05:57.196 align:middle
+El único problema que se me ocurre ahora es
+que, cada vez que alguien visita nuestra página,
+
+00:05:57.486 --> 00:06:02.516 align:middle
+estamos haciendo una petición
+HTTP a la API de GitHub...
+
+00:06:02.516 --> 00:06:04.726 align:middle
+¡y las peticiones HTTP son lentas! Para
+
+00:06:05.446 --> 00:06:11.316 align:middle
+empeorar las cosas, una vez que nuestro sitio se
+vuelva superpopular -lo que no tardará mucho-
+
+00:06:11.836 --> 00:06:15.256 align:middle
+la API de GitHub probablemente
+empezará a limitarnos la tasa.
+
+00:06:16.076 --> 00:06:21.906 align:middle
+Para solucionar esto, vamos a aprovechar otro
+servicio de Symfony: el servicio de caché
