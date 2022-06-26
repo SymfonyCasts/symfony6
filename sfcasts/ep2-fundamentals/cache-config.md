@@ -5,7 +5,7 @@ cache somewhere else. In the real world, we can just search for "How do I config
 Symfony's cache service". But... we can *also* figure this out on our own, by
 using the commands we just learned.
 
-We already noticed there's a `cache.yaml` service. It looks like FrameworkBundle is
+We already noticed there's a `cache.yaml` file. It looks like FrameworkBundle is
 responsible for creating the cache service... and it has a sub `cache` key where
 we can pass *some* values to control it. All of this is commented-out at the moment.
 
