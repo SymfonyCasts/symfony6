@@ -105,7 +105,7 @@ the `cache.app` service is what's *actually* being passed to us.
 
 If you're feeling unsure, here are the three big takeaways. One: there are a *ton*
 of service objects floating around and they all live inside something called the
-"container" Each service has a unique id.
+"container". Each service has a unique id.
 
 Two, only a *small* percentage of these are useful to us... and those are set up
 so that we can autowire them. Autowiring works by looking in the container for a
