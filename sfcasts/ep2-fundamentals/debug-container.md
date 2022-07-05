@@ -1,93 +1,125 @@
-# Debug Container
+# debug:container & How Autowiring Works
 
-Coming soon...
+Ok, I lied. *Before* we talk about environments, I need to come clean about
+something: I have *not* been showing you all of the services in Symfony. Not
+even close.
 
-Head of your terminal and run our favorite Bin console, Debug auto wiring. We know
-that there are all these services are just floating around in Symfony, waiting for us
-to ask for them. And we know that bundles give us services. The twig service down
-here comes from twig bundle, but these services are objects. This is an HTP client
-object. This is a cache object. So something somewhere must be responsible for
-instantiating these objects. The question is who And the answer is the service
-container. So I keep saying, Symfony has a bunch of services floating around. Well,
-it turns out these services all live inside. Something called the container And it
-turns out there are way more services in the container than debug auto wiring has
-been telling us about, Ooh, secrets run a different command instead of debug auto
-wiring run debug container And whoa. This prints out a huge list. In fact, it's so
-big. It's hard for me to see, Let me make the, my font smaller here. This Is the full
-list of all of these services currently in the container. So the container is
-basically a giant key value pair where each service has a unique name
+Head over your terminal and run our *favorite* command:
 
-That then points to that service object for. So for example, down here, let me scroll
-up. There we go. You can see that there is a service whose machine name is twig, and
-that is the twig service egg service. Knowing that the machine name of the twig
-service is twig is not usually important, but it is useful to understand that each
-service has a unique name. And you can see that inside this debug container command,
-And really the container is better described as a big array of instructions on how to
-instant services, if, and when something asks for them. So for example, the container
-knows exactly how to instantiate this twig service. It knows that its class is twig
-/environment. And even though you can't see it on this list, it knows the exact
-arguments to pass to the constructor to twig environment. It knows the first
-argument, second argument, and third argument to pass. It knows everything about how
-to in create that object. And the moment that someone needs this service, the
-container creates it and returns. It. That's what happens when we auto a wire. This
-is actually a way to say, Hey container, can you please give me the HTTP client
-service? If nothing in our code has asked for that service yet during this request,
-the container will create it. But if something has already asked for this service
-during the request, then the container will simply return the one it already created.
-So a super nice feature of the container is we can just ask for the HDB client
-service.
+```terminal
+php bin/console debug:autowiring
+```
 
-If we ask for the HDB client service in 10 different places, it will only create one
-instance, need to explain that better. Anyways, debug container shows us all of these
-services and the container, all the services that the container knows how to
-instantiate, But debug on a wiring only shows us a fraction of those services. Why?
-Well, it turns out that not all services are auto wearable. Many of these services
-inside of here are just super low level services that exist just to help other
-services do their job. And for those low level services, you'll probably never need
-to use them directly. You could use them, but you'll probably never need to. And for
-those low level services, those low level services, you cannot fetch them via auto
-wiring. So lemme back up and explain how Symfony's auto wiring system works. It's
-beautifully simple. As we've seen the container is really a key value pair where
-every service has in a machine name that points to that service object. When Symfony
-sees this HTTP client interface type hint For auto wiring, The full thanks to our use
-statement. That's the full type that it sees when Symfony sees this type end in order
-to figure out which service in the container to get to, to pass you. It simply looks
-for a service whose ID exactly matches this string.
+We know that all of these services are floating around in Symfony, waiting for
+us to ask for them. *And* we know that bundles give us services. The Twig service
+down here comes from TwigBundle.
 
-Now that probably won't let me show you. So if I scroll towards the top of this list,
-You will actually see a service whose ID is Symfony contracts, HTP client HTP, client
-interface. The vast majority of the services in the container use this like snake
-case naming strategy. But if a service is meant for you to use in your code, Symfony
-will add an additional service inside of here that matches the class or interface
-name. So we type in HD client interface, Symfony looks in the container for a service
-that matches this ID. It finds this service and it passes us to, it passes it to us.
-Now you notice over here to the right, it says that this is an alias for a different
-service ID. And that's just a, An alias is almost like a symbolic link. What it means
-is that when somebody asks for the HTB client interface service, Symfony's actually
-going to pass us whatever this service is here, Which is one of the services in this
-list. We can do the same thing down here for the cache interface type end. So we're
-type in with cache interface And you can find that service ID right here, and that is
-an alias for the service ID called cache.app. So when we auto wire cache interface,
-that's cache.app service is actually what's passed to us. So down here, you can see
-that cache.app service is actually an instance of this traceable adapter.
+And since each service is an *object*, something *somewhere* must be responsible
+for *instantiating* these objects. The question is: "Who?" And the answer is...
+the service container!
 
-All right. So I know that this was a little bit heavy, but here are the takeaways.
-There are actually a ton of service objects floating around and they all live inside
-something called the container, but only a small percentage of these are actually
-useful to us. And the most useful ones are set ups that we can auto wire them. So
-effectively when we run debug auto wiring, it just shows us the services from this
-list that start with a class or interface name. Watch I run again, kind of see that
-same list here in a more user friendly way. And you can even see in this list, which
-makes a little bit more, more sense. Let me make my font bigger again. If I do debug
-auto wiring and search for cache, you can see that the cache interface that we are
-auto wiring into our controller, it actually shows you that that is an alias to the
-service whose ID is cache.app. So again, it's not that important to understand that,
-but now you can understand that this is the type you use, and this is actually the ID
-of the service that you're going to get. If you use that type end.
+## Hello Service Container
 
-Now, if you're wondering how we can use how we could use a non auto wire service in
-our code, that's a great question. And we'll talk about that later, but that's pretty
-rare. Most of the time you're going to be using one of the services from debug auto
-wiring. All next. Let's talk about, um, different configuration locally versus
-production. Let's talk about environments.
+It turns out that all of the services aren't really... "floating around": they
+all live inside something called the "container". And there are *way* more services
+in the container than `debug:autowiring` has been telling us about. Ooh... secrets!
+This time, run:
 
+```terminal
+php bin/console debug:container
+```
+
+And... whoa! This prints out a *huge* list. It's so big, it's hard to see everything.
+Let me make my font smaller. Much better!
+
+*This* is the full list of all of the services in our app... or in the
+"container". The container is basically a giant "array" where each service
+has a unique name that points to its service object. For example, down here... there
+we go... we can see that there's a service whose unique name - or "id" is `twig`.
+
+Knowing that the id of the Twig service is `twig` is not *usually* important, but
+it *is* useful to understand that each service has a unique id... and that you can
+see all of them inside the `debug:container` command.
+
+## The Container Creates Objects
+
+And really, the container might be better-described as a big array of *instructions*
+on how to instantiate services, *if* and *when* something asks for them. For instance,
+the container knows *exactly* how to instantiate this Twig service. It knows that
+its class is `Twig\Environment`. And even though you can't see it on this list, it
+knows the *exact* arguments to pass to its constructor. The moment someone
+*needs* the Twig service, the container instantiates it and returns it.
+
+Yup, when we autowire a service, we're basically saying:
+
+> Hey container, can you please give me the HTTP Client service?
+
+If nothing in our code has asked for that service yet during this request, the
+container will create it. But if something *has* already asked for it, then the
+container will simply return the one it *already* created. This means that if we
+ask for the HTTP Client service in *ten* different places, the container will only
+create and return the same *one* instance. Pretty cool!
+
+## How Autowiring Works
+
+Anyway, `debug:container` shows us *all* of the services that the container knows
+how to instantiate. *But* `debug:autowiring` only shows us a *fraction* of those
+services. Why?
+
+Well, it turns out that not *all* services are autowireable. Many of the items in
+this list are low-level services that just exist to help *other* services do their
+job. You'll probably never need to use these low-level services directly... and
+you actually *cannot* fetch them via autowiring.
+
+But, let's back up a minute. Now that we know a bit more, we can now learn exactly
+*how* Symfony's autowiring system works. It's beautifully simple.
+
+As we've seen, the container is really an array where every service has an
+id that points to that service object. When Symfony sees this `HttpClientInterface`
+type - this is the full type that it sees, thanks to our `use` statement - in order
+to figure out *which* service in the container it needs to pass us, it simply looks
+for a service whose *ID* matches this string *exactly*. Let me show you!
+
+Scroll towards the top of this list to find... a service whose ID is
+`Symfony\Contracts\HttpClient\HttpClientInterface`! The *vast* majority of the
+services in the container use the "snake case" naming strategy. But if a service
+is intended for *us* to use in our code, Symfony will add an *additional* service
+inside that matches its class or interface name.
+
+Thanks to that, when we type-hint `HttpClientInterface`, Symfony looks in the
+container for a service whose id is
+`Symfony\Contracts\HttpClient\HttpClientInterface`, it finds it and passes it
+to us.
+
+## Service Aliases
+
+But look over on the right side: it says that this is an alias for
+a different service ID. An "alias" is like a symbolic link. It means that
+when someone asks for the `HttpClientInterface` service, Symfony will *actually*
+pass us this *other* service.
+
+We can use the same logic down here for the `CacheInterface` type. If we check
+the list, here's the service whose id matches that type. But, in reality, it's
+just an alias for a service called `cache.app`. So when we autowire `CacheInterface`,
+the `cache.app` service is what's *actually* being passed to us.
+
+If you're feeling unsure, here are the three big takeaways. One: there are a *ton*
+of service objects floating around and they all live inside something called the
+"container". Each service has a unique id.
+
+Two, only a *small* percentage of these are useful to us... and those are set up
+so that we can autowire them. Autowiring works by looking in the container for a
+service whose id exactly matches the type. When we run `debug:autowiring`, it's
+basically just showing us the services from this list whose id is a class or
+interface name. Those are the "autowireable services".
+
+The third and final takeaway is that services also have an alias system... which
+just means that when we ask for the `CacheInterface` service, what it will *really*
+give us is the service whose id is `cache.app`.
+
+If you're wondering how we could ever use a *non-autowireable* service in our code,
+that's a great question! It's somewhat rare, but we *will* learn how to do that
+later.
+
+Next, let's talk about using different configuration locally versus production.
+Let's talk about *environments*.

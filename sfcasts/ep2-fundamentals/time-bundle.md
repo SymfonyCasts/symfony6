@@ -11,12 +11,19 @@ If you don't remember *where* in our code this page was built, you can use a tri
 Down on the web debug toolbar, hover over the 200 status code. Ah, ha! This shows
 us that the controller behind this page is `VinylController::browse`.
 
-Cool! Go open up `src/Controller/VinylController.php`. *Here* is the `browse` action.
+Cool! Go open up `src/Controller/VinylController.php`. *Here* is the `browse` action:
+
+[[[ code('1d9b35c7dc') ]]]
+
 By the way, I *did* update the code a *little* bit since episode one... so make sure
 you've got a fresh copy if you're coding along with me.
 
 This method calls `$this->getMixes()`... which is a private function I created down
-at the bottom. This returns a *big* array of fake data that represents the mixes
+at the bottom:
+
+[[[ code('12af057d07') ]]]
+
+This returns a *big* array of fake data that represents the mixes
 we're going to render on the page. Eventually, we'll get this from a *dynamic* source,
 like a database.
 
@@ -27,6 +34,8 @@ in `browse()`... and pass them as a `mixes` variable into `vinyl/browse.html.twi
 Let's jump into that template.
 
 Down here, we use Twig's `for` loop to loop over `mixes`. Simple enough!
+
+[[[ code('609c972403') ]]]
 
 Let's *also* now print the "created at" date. Add a `|`, another `<span>` and then
 say `{{ mix.createdAt }}`.
@@ -40,6 +49,8 @@ in the first episode: we using them by adding a `|` after some value and then th
 name of the filter. This *particular* filter also takes an argument, which is the
 *format* the date should be printed. To keep things simple, let's use `Y-m-d`, or
 "year-month-day".
+
+[[[ code('cc122a1e01') ]]]
 
 Head over and refresh and... okay! We can now see *when* each was created, though
 the format isn't very attractive. We *could* do more work to spruce this up...
@@ -77,11 +88,14 @@ git status
 
 Awesome! Any time you install a third party package, Composer will *always*
 modify your `composer.json` and `composer.lock` files. This *also* updated the
-`config/bundles.php` file. That's because we just installed a bundle -
-`KnpTimeBundle` - and its recipe handled that automatically. It also looks like
-the translation recipe added a config file and a `translations/` directory. The
-translator *is* needed to use KnpTimeBundle... but we won't need to work with it
-directly.
+`config/bundles.php` file:
+
+[[[ code('35747b5619') ]]]
+
+That's because we just installed a bundle - `KnpTimeBundle` - and its recipe 
+handled that automatically. It also looks like the translation recipe added 
+a config file and a `translations/` directory. The translator *is* needed 
+to use KnpTimeBundle... but we won't need to work with it directly.
 
 So... what did installing this new bundle give us? Services of course! Let's
 find and use those next!
