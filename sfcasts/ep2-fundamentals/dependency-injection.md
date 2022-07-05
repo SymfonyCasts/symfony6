@@ -1,39 +1,151 @@
 # Dependency Injection
 
-Our `MixRepository` is *sort of* working. We can autowire it into our controller, and the container is *instantiating* that and passing it to us. We *prove* that over here, because when we run that code, it's successful calling the `findAll()` method, but then it's exploding inside. That's because, inside `MixRepository`, in order to do our work, we need two services: The `$cache` service and the `$httpClient` service.
+Our `MixRepository` service is *sort of* working. We can autowire it into our
+controller and the container is *instantiating* the object and passing it to us.
+We *prove* that over here because, when we run the code, it successfully calls
+the `findAll()` method.
 
-I keep saying that there are many services floating around inside of Symfony, waiting for us to use them. That's *true*, but you can't just grab them out of thin air from anywhere in your code. There's no `Cache::get()` static method that you can call anywhere in your code to get the `$cache` object. Nothing like that exists in Symfony. And that's good! Allowing us to grab objects out of thin air is a recipe for writing bad code. So how *can* we get access to these services? Currently, we only know one way: By autowiring them into our controller. *But* that won't work here. Autowiring services is a superpower that *only* works for controller methods.
+But.... then it explodes. That's because, inside `MixRepository` we have two
+undefined variables. In order our class to do its job, it needs two services: the
+`$cache` service and the `$httpClient` service.
 
-Watch this. If I said `CacheInterface` here, then went over and refreshed, you'd see:
+## Autowiring to Methods is a Controller-Only Superpower
 
-`Too few arguments to function [...]findAll(),
-0 passed [...] and exactly 1 expected.`
+I keep saying that there are many services floating around inside of Symfony, waiting
+for us to use them. That's *true*. *But*, you can't just grab them out of thin air
+from anywhere in your code. For example, there's no `Cache::get()` static method
+that you can call anywhere in your code that returns `$cache` service object. Nothing
+like that exists in Symfony. And that's good! Allowing us to grab objects out of
+thin air is a recipe for writing bad code.
 
-That's because *we* are calling `findAll()`, so if we're going to pass any arguments in, it's going to be *our* responsibility. The point is, autowiring works in controller methods, but don't expect it to work anywhere else.
+So how *can* we get access to these services? Currently, we only know one way: by
+autowiring them into our controller. *But* that *won't* work here. Autowiring services
+into a *method* of a class is a superpower that *only* works for controllers.
 
-*But* one way we might get this work is by passing *both* services to the `findAll()` method and then *manually* passing them into the controller ourselves. This won't be the final solution, but let's try it.
+Watch. If we added a `CacheInterface` argument... then went over and refreshed,
+we'd see:
 
-I already have a `CacheInterface` argument. Also going to add the `HttpClientInterface` argument, and call that `$httpClient`. Perfect! This method is now *happy*.
+> Too few arguments to function [...]findAll(), 0 passed [...] and exactly 1 expected.
 
-Back over in our controller, you can see that our `findAll()` method has two arguments. Let's pass `$httpClient` and `$cache`. And now... it works! So on a high level, this solution makes sense. We know that we can autowire services into our controller, so then we just pass them into `MixRepository`. But if you think about it, the `$httpClient` and `$cache` services aren't really input to the `findAll()` function.
+That's because *we* are calling `findAll()`. So if `findAll()` needs an argument,
+it is *our* responsibility to pass them: there's no Symfony magic here. My point
+is: autowiring works in controller methods, but don't expect it to work for any
+*other* methods.
 
-For example, pretend that we decide to change the `findAll()` method to accept a `string $genre` argument so this function will *only* return mixes for that genre. This argument makes perfect sense. We could call `findAll()` and control its behavior by passing it different genres. The argument controls how the method behaves. *But* the `$httpClient` and `$cache` arguments *don't* really control how the function behaves. In reality, you would pass these same two values every time you call the method. Instead of arguments, these are really more of *dependencies* that the service needs in order to do its work. They're just stuff that must be available so that `findAll()` can do its job. For dependencies like this, service objects, or configuration that your service needs to do its job, instead of passing them to the methods, we pass them into the constructor. So delete that, pretend it's a `$genre` argument, and then add a `public function __construct()` method. Then, copy the two arguments, delete them, and move them up here.
+## Manually Passing Services to a Method?
 
-Before I finish this, I need to tell you that autowiring works in *two* places. We already know that you can autowire arguments into your controller methods, but you can *also* autowire arguments into the `__construct()` method of your services. In fact, that's the main place where autowiring is meant to work. The fact that autowiring works for controller methods was kind of added later just to make life easier. And as we saw earlier, this is the only normal method where you can do that.
+*But* one way we *might* get this to work is by add both services to the
+`findAll()` method and then *manually* passing them in from the controller. This
+won't be the final solution, but let's try it.
 
-Anyway, autowiring works in the `__construct()` method of our services, so as long as we type hint the arguments (and we have), when symfony instantiates our service, it will pass us these two services. Yay! What do we *do* with these two arguments? We set them on the properties.
+I already have a `CacheInterface` argument... so now also add the
+`HttpClientInterface` argument and call it `$httpClient`.
 
-Create a `private $httpClient` property and a `private $cache` property. Then, down in the constructor, you just assign them `$this->httpClient = $httpClient`, and `$this->cache = $cache`. So when Symfony instantiates our `MixRepository`, it passes us these two arguments and we store them on a property so we can use them later. Watch! Down here, instead of `$cache`, we can say `$this->cache`. And then we don't need this `use ($httpClient)`over here because, inside of here, we can say `$this->httpClient`. *Now* this service is in perfect shape.
+Perfect! This code in this method is now happy.
 
-Back over in `VinylController.php`, we can simplify things. This `findAll()` doesn't need any arguments anymore. Woo! And we don't need to autowire `$httpClient` or `$cache` anymore. And I'm going to celebrate a little extra, even though I don't need to, by removing those `use` statements on top. Look how much easier that is! We autowire the *one* service we need, call the method on it, and... it even *works*! So this is a perfect way to write a service. We add our dependencies to the constructor, set them onto properties, and then *use* them. By the way, what we just did has a fancy schmmancy name: "Dependency injection". But don't run away! That may be a scary term, but it's a very simple concept.
+Back over in our controller, for `findAll()`, pass `$httpClient` and `$cache`.
 
-When you're inside of a service like `MixRepository` and you realize you need *another* service as a dependency (or maybe some configuration like an API key), to get the thing you need, you add a constructor, add an argument for the thing you need, set it under a property, and then use it down in your code. Yep! *That's* dependency injection. Put simply, this dependency injection says:
+And now... it works!
 
-`If you need something, instead of grabbing it out
-of thin air, force Symfony to pass it to you via the constructor.`
+## "Dependencies" Versus "Arguments"
 
-This is one of the most fundamentally important things that you will do over and over again in Symfony.
+So, on a high level, this solution makes sense. We know that we can autowire services
+into our controller... so then we just pass them into `MixRepository`. But if you
+think a bit deeper, the `$httpClient` and `$cache` services aren't really *input*
+to the `findAll()` function. They don't really make sense as arguments.
 
-Okay, unrelated to dependency injection and autowiring, there are two minor improvements that we can make to our service. The first is that we can add *types* to our properties: `HttpClientInterface` and `CacheInterface`. That doesn't change how any of our code works. It's just a nice, responsible way to do things. But we can go a little further! In PHP 8, there's a new, shorter syntax for creating a property and setting it in the constructor, like we've been doing. It looks like this. First, I'm going to put my arguments onto multiple lines. Then, we add `private` in front of each of the arguments. And *then*, I'll delete the properties as well as the inside of the method. That might look weird at first, but as soon as you add `private`, `protected`, or `public` in front of a `__construct()` argument, that actually creates a property with this name and sets this argument to that property. So it looks different, but it's the *exact* same as what we had before. And when we try it... it still works!
+Let me give you an example. Pretend that we decide to change the `findAll()` method
+to accept a `string $genre` argument so the method will *only* return mixes for
+*that* genre. This argument makes perfect sense: passing different genres changes
+what it does. The argument *controls* how the method *behaves*.
 
-Next: I keep saying that the container holds *services*. That's *true*, but it also holds one other thing - simple configuration called "parameters".
+*But* the `$httpClient` and `$cache` arguments *don't* control how the function
+behaves. In reality, we would pass these *same* two values *every* time we call the
+method... *just* so things work.
+
+Instead of arguments, these are really *dependencies* that the service *needs* in
+order to do its work. They're just stuff that *must* be available so that `findAll()`
+can do its job.
+
+## Dependency Injection & The Constructor
+
+For "dependencies" like this, whether they're service objects or configuration that
+your service needs to do its job, instead of passing them to the methods, we pass
+them into the *constructor*. Delete that pretend `$genre` argument... then add a
+`public function __construct()`. Copy the two arguments, delete them, and move them
+up here.
+
+Before we finish this, I need to tell you that autowiring works in *two* places. We
+already know that we can autowire arguments into our controller methods. But we
+can *also* autowire arguments into the `__construct()` method of any service. In
+fact, that's the *main* place that autowiring is meant to work! The fact that
+autowiring also works for controller methods is... kind of an "extra" just to make
+life nicer.
+
+Anyways, autowiring works in the `__construct()` method of our services. So as long
+as we type-hint the arguments (and we have), when Symfony instantiates our service,
+it will pass us these two services. Yay! What do we *do* with these two arguments?
+We set them onto properties.
+
+Create a `private $httpClient` property and a `private $cache` property. Then, down
+in the constructor, assign them: `$this->httpClient = $httpClient`, and
+`$this->cache = $cache`.
+
+So when Symfony instantiates our `MixRepository`, it passes us these two arguments
+and we store them on properties so we can use them later.
+
+Watch! Down here, instead of `$cache`, use `$this->cache`. And then we don't need
+this `use ($httpClient)`over here because we can say `$this->httpClient`.
+
+This service is now in *perfect* shape.
+
+Back over in `VinylController`, as a bonus, we can simplify things! The `findAll()`
+method doesn't need any arguments... and so we don't event need to autowire
+`$httpClient` or `$cache` anymore. I'm going to celebrate by removing those `use`
+statements on top.
+
+Look how much easier that is! We autowire the *one* service we need, call the method
+on it, and... it even *works*! *This* is how we write services. We add any
+dependencies to the constructor, set them onto properties, and then *use* them.
+
+## Hello Dependency Injection!
+
+By the way, what we just did has a fancy schmmancy name: "Dependency injection".
+But don't run away! That may be a scary... or at least "boring sounding" term, but
+it's a very simple concept.
+
+When you're inside of a service like `MixRepository` and you realize you need
+*another* service as a dependency (or maybe some config like an API key), to
+get it, cretae a constructor, add an argument for the thing you need, set it onto
+a property, and then use it down in your code. Yep! *That's* dependency injection.
+
+Put simply, dependency injection says:
+
+> If you need something, instead of grabbing it out of thin air, force Symfony to
+> pass it to you via the constructor.
+
+This is one of *the* most important concepts... and we'll do this over and over
+again in Symfony.
+
+## PHP 8 Property Promition
+
+Okay, *unrelated* to dependency injection and autowiring, there are two minor
+improvements that we can make to our service. The first is that we can add *types*
+to our properties: `HttpClientInterface` and `CacheInterface`. That doesn't change
+how our code works... it's just a nice, responsible way to do things.
+
+But we can go further! In PHP 8, there's a new, shorter syntax for creating
+a property and setting it in the constructor like we're doing. It looks like
+this. First, I'll move my arguments onto multiple lines... just to keep things
+organized. Now add the word `private` in front of each argument. Finish by
+deleting the properties... as well as the inside of the method.
+
+That might look weird at first, but as soon as you add `private`, `protected`, or
+`public` in front of a `__construct()` argument, that creates a property with this
+name and sets the argument *ont* to that property. So it looks different, but it's
+the *exact* same as what we had before.
+
+When we try it... yup! It still works.
+
+Next: I keep saying that the container holds *services*. That's *true*! But it also
+holds one other thing - simple configuration called "parameters".
