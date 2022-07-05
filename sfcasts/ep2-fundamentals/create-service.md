@@ -14,18 +14,19 @@ unit test that code if we want to.
 
 That sounds *amazing*, so let's do it! How do we create a service? In the `src/`
 directory, create a new PHP class *wherever* you want. It seriously doesn't matter
-what directories or subdirectories you create in `src/`: do whatever you want.
+what directories or subdirectories you create in `src/`: do whatever feels good
+for you.
 
-For this example, I'll create a `Service/` - thought again, you could call that
-`PizzaParty` or `Repository` if you want to - and inside of *that*, a new
+For this example, I'll create a `Service/` directory - though again, you could
+call that `PizzaParty` or `Repository` - and inside of *that*, a new
 PHP class. Let's call it... how about `MixRepository`. "Repository" is a pretty common
 name for a service that returns data. Notice that when I create this, PhpStorm
 *automatically* adds the correct namespace. It doesn't matter *how* we organize our
 classes inside of `src/`... as long as our namespace matches the directory.
 
 One important thing about service classes: they have *nothing* to do with Symfony.
-Our controller class is a Symfony concept. But `MixRepository` is a class we're
-*creating* to organize our *own* code. That means... there are no rules! We don't
+Our controller class is a Symfony concept. But `MixRepository` is a class *we're*
+creating to organize our *own* code. That means... there are no rules! We don't
 need to extend a base class or implement an interface. We can make this class look
 and feel however we want. The power!
 
@@ -43,7 +44,7 @@ But ignore them for a minute: I *first* want to see if we can *use* our shiny ne
 ## Is our Service already in the Container?
 
 Head into `VinylController`. Let's think: we somehow need to tell Symfony's service
-container about our new service so that we can then *autowire* in the same way
+container about our new service so that we can then *autowire* it in the same way
 we're autowiring core services like `HtttpClientInterface` and `CacheInterface`.
 
 Whelp, I have a surprise! Spin over to your terminal and run:

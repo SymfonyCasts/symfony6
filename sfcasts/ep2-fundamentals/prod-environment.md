@@ -3,7 +3,7 @@
 Our app is currently running in the `dev` environment. Let's switch it to `prod`...
 which is what you would use on production. Temporarily change `APP_ENV=dev` to
 `prod`... then head over and refresh. Whoa! The web debug toolbar is *gone*.
-That... makes! The entire web profiler bundle is *not* enabled in the `prod`
+That... makes sense! The entire web profiler bundle is *not* enabled in the `prod`
 environment.
 
 You'll also notice that the dump from our controller appears on the *top*
