@@ -1,22 +1,23 @@
 # Creating a Service
 
 We know that bundles give us services and services do work. Ok. But what if we need
-to write our *own* custom code that does work. Should we... put that into our *own*
-service class? Absolutely! And it's a great way to organize your code.
+to write our *own* custom code that does work? Should we... put that into our *own*
+service class? Absolutely! And it's a *great* way to organize your code.
 
-We *are* already doing some work in our app... in the `browse()` action: we make
+We *are* already doing some work in our app. In the `browse()` action: we make
 an HTTP request and cache the result. Putting this logic in our controller is *fine*.
-But by moving it into its own service class, it'll make the purpose of the code more
-clear, allow us to reuse it from multiple places... and even enable us to unit test
-that code if we want to.
+But by moving it into its own service class, it'll make the *purpose* of the code
+more clear, allow us to reuse it from multiple places... and even enable us to
+unit test that code if we want to.
 
 ## Creating the Service Class
 
 That sounds *amazing*, so let's do it! How do we create a service? In the `src/`
 directory, create a new PHP class *wherever* you want. It seriously doesn't matter
-how what directories or subdirectories you create: do whatever you want.
+what directories or subdirectories you create in `src/`: do whatever you want.
 
-For this example, let's create a `Service/` directory and inside of *that*, a new
+For this example, I'll create a `Service/` - thought again, you could call that
+`PizzaParty` or `Repository` if you want to - and inside of *that*, a new
 PHP class. Let's call it... how about `MixRepository`. "Repository" is a pretty common
 name for a service that returns data. Notice that when I create this, PhpStorm
 *automatically* adds the correct namespace. It doesn't matter *how* we organize our
@@ -24,7 +25,7 @@ classes inside of `src/`... as long as our namespace matches the directory.
 
 One important thing about service classes: they have *nothing* to do with Symfony.
 Our controller class is a Symfony concept. But `MixRepository` is a class we're
-*creating* to organize our *own* logic. That means... there are no rules! We don't
+*creating* to organize our *own* code. That means... there are no rules! We don't
 need to extend a base class or implement an interface. We can make this class look
 and feel however we want. The power!
 
@@ -33,7 +34,7 @@ With that in mind, let's create a new `public function` called, how about,
 in `VinylController`, copy all of the logic that fetches the mixes and paste that
 here. PhpStorm will ask if we want to add a `use` statement for the
 `CacheItemInterface`. We *totally* do! Then, instead of creating a `$mixes` variable,
-just `return` this.
+just `return`.
 
 There *are* some undefined variables in this class... and those *will* be a problem.
 But ignore them for a minute: I *first* want to see if we can *use* our shiny new
@@ -58,8 +59,8 @@ important. It *basically* tells this command to show you the core services like
 
 Second, the container... *somehow* already saw our repository class and recognized it
 as a service. We'll learn *how* that happened in a few minutes... but for now, it's
-enough to know that our new `MixRepository` *is* already inside the container and
-its service id is its full class name. *That* means we can autowire it!
+enough to know that our new `MixRepository` *is* already inside the container *and*
+its service *id* is the full class name. *That* means we can autowire it!
 
 ## Autowiring the new Service
 
@@ -68,14 +69,14 @@ hit tab to add the `use` statement - and call it... how about `$mixRepository`. 
 down here, we don't need any of this `$mixes` code anymore. Replace it with
 `$mixes = $mixRepository->findAll()`.
 
-How nice is that? Will it work? No idea! Let's find out! Refresh and... it *does*
-work! Ok, working in this case means that we get an `Undefined variable $cache`
-message coming from `MixRepository`. But the fact that our code got *here* means
+How nice is that? Will it work? Let's find out! Refresh and... it *does*! Ok,
+working in this case means that we get an `Undefined variable $cache` message
+coming from `MixRepository`. But the fact that our code *got* here means
 that autowiring `MixRepository` *worked*: the container saw this, *instantiated*
-`MixRepository` and passed it to us so that we could then use it.
+`MixRepository` and passed it to us so that we could use it.
 
 So, we created a service and made it available for autowiring! We are *so* cool!
 But our new service needs the `$httpClient` and `$cache` services in order to do
-its work. How do we get those? The answer is one of the *most* important concepts
+its job. How do we get those? The answer is one of the *most* important concepts
 in Symfony and object-oriented coding in general: dependency injection. Let's talk
 about that next.
