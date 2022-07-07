@@ -1,4 +1,4 @@
-# Named Autowiring & Scoped HttpClient
+# Named Autowiring & The Autowire Attribute
 
 In `MixRepository`, it would be cool if we didn't need to specify the host name
 when we make the HTTP request. Like, it'd be great if that were preconfigured
