@@ -1,42 +1,19 @@
 # Global Bind
 
-Coming soon...
+In practice, you rarely need to do anything inside of `services.yaml`. Most of the time, when you need an argument in a service, it's autowireable. So you add the argument with the type hint and *keep* coding. But the `$isDebug` argument *isn't* autowireable since it's not a service, and that forced us to completely override the service and specify that one argument with `bind`. It works but... *lame*.
 
-In practice, you rarely need to do anything inside of`"services.yaml` 99% of the time
-when you need an argument in a service it's Autowireable. So you add the argument
-with the type in and keep coding. But for the isDebug argument is Autowireable since
-it's not a service and that forced us To need to completely override the service and
-specify that one argument with bind. It works but lame. So here's another solution
-that I like Copy that buy and key delete the service entirely, And then head up under
-`_defaults` and paste. When we move over and try this, the page still works. And that
-makes sense. Think about it. This line down here is going to automatically register
-our mix repository as a service, then anything under `_default` is going to be
-automatically applied to that service. So the end result is exactly what we had
-before. I love doing this. It allows me to set up project wide conventions. Thanks to
-this. I can now add an isDebug argument to any, to the construction of any service in
-it will work By the way, if you want to, you can also include
+So here's a *different* solution. Copy that `bind` key, delete the service entirely, and up under `_defaults`, paste. When we move over and try this... the page *still* works. And that makes sense. If you think about it, this line down here is going to automatically register our `MixRepository` as a *service*, and then anything under `_default` will be applied to that service. So the end result is exactly what we had before. I love doing this! It allows me to set up project-wide conventions. And thanks to this, I can now add an `$isDebug` argument to the construction of any service in it will work.
 
-The type here. So this would now only work. If we use the `bool` Ah uh, type end
-inside of our argument. If I used string here, for example, it wouldn't try to pass
-in that value. Okay? So the global bind is awesome, but starting in symfony 6.1,
-there's another way to specify a non-autowireable argument. Comment out this global
-bind. I still like doing this, but let's try this other way. If we refresh right now,
-we get the error because symfony doesn't know what to pass to the isDebug argument.
-Two, fix that, go into our mix repository service and above the argument, or before
-the argument, if you're not using multiple lines, add a PHP eight attribute It's
-called Autowire. Now normally a Php eight attributes will auto-complete notice this
-isn't auto-completing for me. This is actually due to a bug and PHP storm currently.
-So I'm going to type out auto wire and then just go up and type autowire up here and
-hit tab to auto, complete to auto, complete that. And then if you want to make them
-alphabetical, you can,
+By the way, if you want to, you can also include the type here. So this would now *only* work if we use the `bool` type-hint inside of our argument. If I used `string` here, for example, it *wouldn't* try to pass in that value.
 
-Oh,
+Okay, the global bind is *awesome*, but starting in Symfony 6.1, there's *another* way to specify a non-autowireable argument. Comment out this global `bind`. I still like doing this, but let's try this new way.
 
-You can Into autowire. And you also notice that it's underlying it and says the
-attribute cannot be applied to a property. But Php storm is just confused, cuz this
-is both a property and in the argument to the method anyways, pass this
-`('%kernel.debug%')` Refresh now and got it pretty cool. Right. All right. So most of
-the time when we're, when you autowire an argument like HTTP client interface,
-there's only one service in a container that implements that interface. But what if
-there were multiple? What if there were multiple HTTP clients in our container and we
-needed to be able to choose the one we want. Let's talk about named autowiring next.
+If we refresh right now, we get an error because Symfony doesn't know what to pass to the `$isDebug` argument. To fix that, go into our `MixRepository` service and, above the argument (or before the argument if you're not using multiple lines), add a PHP 8 attribute called `Autowire()`. Normally, PHP 8 attributes will auto-complete, but this *isn't* auto-completing for me. That's actually due to a current bug in PhpStorm. To get around this, I'm going to type out `Autowire()` right here, then go to the top and start adding the `use` statement for `Autowire` which *does* give us an option to auto-complete. Hit "tab" and... *tah dah*! And if you want to make them alphabetical, you can just move this where you need it.
+
+You may also notice that it's underlined, and if you hover over this, it says:
+
+`Attribute cannot be applied to a property [...]`
+
+PhpStorm is just *confused* because this is both a property *and* an argument to the method. Anyway, go ahead and pass this `%kernel.debug%`. Refresh now and... got it! Pretty cool, right?
+
+Okay, most of the time, when you autowire an argument like `HttpClientInterface`, there's only one service in a container that implements that interface. But what if there were *multiple*? What if there were multiple HTTP clients in our container and we could *choose* the one we want? Let's talk about *named autowiring* next.
