@@ -1,29 +1,71 @@
-# Named Autowiring
+# Named Autowiring & Scoped HttpClient
 
-In `MixRepository`, it would be cool if we didn't need to specify the host name down here when we make the HTTP request, and that were, instead, just preconfigured.    Pretty soon, we're also going to configure an access token to be used when we make requests to the GitHub API. How convenient would it be if this HttpClient service came preconfigured to use that access token, instead of us needing to add that header manually? Does symfony have a way for us to preconfigure HttpClient? It *does*. It's called a "scoped client" - a feature of HttpClient where you can create multiple HttpClient services, each preconfigured *differently*.
+In `MixRepository`, it would be cool if we didn't need to specify the host name
+when we make the HTTP request. Like, it'd be great if that were preconfigured
+and we only needed to include the path. *Also*, pretty soon, we're going to configure
+an access token that will be used when we make requests to the GitHub API. We could
+pass that access token manually here in our service, but how cool would it be if
+the HttpClient service came preconfigured to always include the access token?
 
-Here's how it works. Open up `config/packages/framework.yaml`. We *could* put this config in any file like usual, but to create a *scoped* client, you need to put some code under the `framework` key. That's a pretty sensible place to put it. I'll add the config here - `http_client` - followed by `scoped_clients`. Then, give your scoped client a name. I'm going to call this `githubContentClient` because we're using an endpoint to get content for a file. Then we can say `base_uri`. I'll go copy the host name over here... and paste.
+So, *does* Symfony have a way for us to, sort of, "preconfigure" the HttpClient
+service?  It *does*! It's called "scoped clients": a feature of HttpClient where
+you can create multiple HttpClient services, each preconfigured *differently*.
 
-Remember, the purpose of these config files is to *change* the services in the container. The end result of this new code is that a second HttpClient service will be added to the container. We'll see that in a minute. And by the way, there's no way that you could just *guess* that you need `http_client` and `scoped_clients` to make this work. This is the kind of thing you'd look for in the documentation, and it would show you how to implement it.
+## Creating a Scoped Client
 
-Anyway, now that we've preconfigured this client, we should be able to go into `MixRepository` and make a request directly to the path. But if we head over and refresh... ah...
+Here's how it works. Open up `config/packages/framework.yaml`. To create a scoped
+client, under the `framework` key, add `http_client` followed by `scoped_clients`.
+Now, give your scoped client a name, like `githubContentClient`... since we're using
+a part of their API that returns the contents of files. Also add `base_uri`, go copy
+the host name over here... and paste.
 
-`Invalid URL: scheme is missing [...]. Did you
-forget to add "http(s)://"?`
+Remember: the purpose of these config files is to *change* the services in the
+container. The end result of this new code is that a *second* HttpClient service
+will be added to the container. We'll see that in a minute. And, by the way, there's
+no way that you could just *guess* that you need `http_client` and `scoped_clients`
+keys to make this work. Configuration is the kind of thing where you need to rely
+on the documentation to see what you need.
 
-I didn't *think* we forgot, but apparently we *did*. So this didn't work and you may have already guessed why. Find your terminal and run:
+Anyways, now that we've preconfigured this client, we should be able to go into
+`MixRepository` and make a request directly to the path. But if we head over and
+refresh... ah...
+
+> Invalid URL: scheme is missing [...]. Did you forget to add "http(s)://"?
+
+I didn't *think* we forgot... since we preconfigured it via the `base_uri` option...
+but apparently that didn't work. And you may have guessed why. Find your terminal
+and run:
 
 ```terminal
 php bin/console debug:autowiring client
 ```
 
-Whoa... There are now *two* HttpClient services in the container: The normal, non-configured one and the one that we *just* configured. And apparently, we're getting the *unconfigured* version. How can I be sure? Well, think back to how autowiring works. Symfony looks at the type-hint of our argument, which is `Symfony\Contracts\HttpClient\HttpClientInterface`, and then looks in the container to find a service whose ID is an exact match. It's *that* simple.
+Whoa! There are now *two* HttpClient services in the container: The normal,
+non-configured one and the one that *we* just configured. Apparently in our service,
+Symfony is still passing us the *unconfigured* HttpClient service.
 
-So if there are multiple services with the same type in our container, is only the *main* one autowireable? Surprisingly, no! We can use something called "named autowiring", and we can actually see it right here. If we type-hint an argument with `HttpClientInterface` and call it `$githubContentClient`, we'll get the second one. Check it out! Change the argument from `$httpClient` to `$githubContentClient`, and now... it doesn't work. Whoops...
+How can I be sure? Well, think back to how autowiring works. Symfony looks at the
+type-hint of our argument, which is
+`Symfony\Contracts\HttpClient\HttpClientInterface`, and then looks in the container
+to find a service whose ID is an exact match. It's *that* simple
 
-`Undefined property: App\Service\
-MixRepository::$httpClient`
+## Fetching the Named Version of a Service
 
-That's just me being careless. When I change the argument, I also need to change the property name. So let's change it down there as well. And now... it works!
+So... if there are multiple services with the same "type" in our container, is only
+the *main* one autowireable? Fortunately, no! We can use something called "named
+autowiring"... and it's already showing us how. If we type-hint an argument with
+`HttpClientInterface` *and* *name* the argument `$githubContentClient`, Symfony
+will pass us the second one.
 
-Next, let's tackle another tricky problem with autowiring by learning how to fetch one of the *many* services in our container that are *not* available for autowiring.
+Let's try it: change the argument from `$httpClient` to `$githubContentClient`, and
+now... it doesn't work. Whoops...
+
+> Undefined property: `App\Service\MixRepository::$httpClient`
+
+That's... just me being careless. When I changed the argument name, it changed
+the property name. So... we need to change it down here as well.
+
+And now... it's alive! We just autowired a *specific* HttpClientInterface service.
+
+Next, let's tackle another tricky problem with autowiring by learning how to fetch
+of the *many* services in our container that are totally *not* available for autowiring.
