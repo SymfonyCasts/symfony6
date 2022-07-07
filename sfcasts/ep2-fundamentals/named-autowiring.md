@@ -1,4 +1,4 @@
-# Named Autowiring & The Autowire Attribute
+# Named Autowiring & Scoped HTTP Clients
 
 In `MixRepository`, it would be cool if we didn't need to specify the host name
 when we make the HTTP request. Like, it'd be great if that were preconfigured
@@ -16,15 +16,15 @@ you can create multiple HttpClient services, each preconfigured *differently*.
 Here's how it works. Open up `config/packages/framework.yaml`. To create a scoped
 client, under the `framework` key, add `http_client` followed by `scoped_clients`.
 Now, give your scoped client a name, like `githubContentClient`... since we're using
-a part of their API that returns the contents of files. Also add `base_uri`, go copy
+a part of their API that returns the content of files. Also add `base_uri`, go copy
 the host name over here... and paste.
 
 Remember: the purpose of these config files is to *change* the services in the
 container. The end result of this new code is that a *second* HttpClient service
 will be added to the container. We'll see that in a minute. And, by the way, there's
 no way that you could just *guess* that you need `http_client` and `scoped_clients`
-keys to make this work. Configuration is the kind of thing where you need to rely
-on the documentation to see what you need.
+keys to make this work. Configuration is the kind of thing where you really need
+to rely on the documentation.
 
 Anyways, now that we've preconfigured this client, we should be able to go into
 `MixRepository` and make a request directly to the path. But if we head over and
@@ -32,7 +32,7 @@ refresh... ah...
 
 > Invalid URL: scheme is missing [...]. Did you forget to add "http(s)://"?
 
-I didn't *think* we forgot... since we preconfigured it via the `base_uri` option...
+I didn't *think* we forgot... since we configured it via the `base_uri` option...
 but apparently that didn't work. And you may have guessed why. Find your terminal
 and run:
 
@@ -40,9 +40,9 @@ and run:
 php bin/console debug:autowiring client
 ```
 
-Whoa! There are now *two* HttpClient services in the container: The normal,
-non-configured one and the one that *we* just configured. Apparently in our service,
-Symfony is still passing us the *unconfigured* HttpClient service.
+There are now *two* HttpClient services in the container: The normal,
+non-configured one and the one that *we* just configured. Apparently, in
+`MixRepository`, Symfony is still passing us the *unconfigured* HttpClient service.
 
 How can I be sure? Well, think back to how autowiring works. Symfony looks at the
 type-hint of our argument, which is
@@ -60,12 +60,13 @@ will pass us the second one.
 Let's try it: change the argument from `$httpClient` to `$githubContentClient`, and
 now... it doesn't work. Whoops...
 
-> Undefined property: `App\Service\MixRepository::$httpClient`
+> Undefined property: `MixRepository::$httpClient`
 
 That's... just me being careless. When I changed the argument name, it changed
-the property name. So... we need to change it down here as well.
+the property name. So... we need to adjust the code below.
 
-And now... it's alive! We just autowired a *specific* HttpClientInterface service.
+And now... it's alive! We just autowired a *specific* HttpClientInterface service!
 
 Next, let's tackle another tricky problem with autowiring by learning how to fetch
-of the *many* services in our container that are totally *not* available for autowiring.
+one of the *many* services in our container that is totally *not* available for
+autowiring.
