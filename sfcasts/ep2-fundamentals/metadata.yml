@@ -20,5 +20,6 @@ chapters:
     - controllers-services
     - environment-variables
     - secrets-vault
+    - secrets-usage
     - maker-command
     - custom-command
