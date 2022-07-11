@@ -1,33 +1,91 @@
-# Custom Command
+# Customizing a Command
 
-We have a new console command! *But* it doesn't do much yet, aside from printing out a message. Let's make it *fancier*. If you scroll to the top, this is where we have the name of our command, and there's also a description you can give it, which shows up next to the command. Let me change ours to `A self-aware the command that can do... only one thing.`. Our command is called `app:talk-to-me` because I want it to allow us to run the command, pass in our name, and then basically say `Hey Ryan!`. When you have something that's passed out of the command, that's known as an *argument*, and that's configured down in here in the `configure()` method. You may have noticed there's already an argument called `arg1`. Let's change that to `name`. This key is just *internal* so you'll never see the word `name` show up on the command line. We just use this when we *read out* that argument later. We can also give the argument a description, and if you want, you can change the argument to be *required*. I'll keep it as optional.
+We have a new console command! *But*... it doesn't do much yet, aside from printing
+out a message. Let's make it *fancier*.
 
-The next thing we have are *options*. These are things that have a flag on them. We want to have an optional flag where we can say `--yell`. And if we have that, then it will uppercase everything (like we're "YELLING"). In this case, the name of the option, `yell`, *is* important. And then here, `InputOption::VALUE_NONE` means that our flag will just be `--yell`. Sometimes, you'll want to have something like a `--yell=foo`. If your option accepts a value, then you would change this to `VALUE_REQUIRED`. And over here, let's give that a description. Beautiful! We're not using this argument and option down here yet, but we can already re-run our command with a `--help` option and... awesome! We can see our description up here. You can see `Your name`, it will document how to use it, and here's our `--yell` option.
+Scroll to the top. This is where we have the name of our command, and there's also
+a description... which shows up next to the command. Let me change ours to
 
-Okay, so once we call our command, very simply, Symfony's going to call `execute()` and we can just do *whatever* we want inside of here. It passes us two arguments, an `$input` and an `$output`. So if you want to read an input like the name or the option, use `$input`, and if you want to *output* something, use `$output`. But in Symfony, we normally go ahead and pop these two things into another object called `SymfonyStyle()`. This is a helper class that makes it really easy to read `$input` and `$output` values. So you'll see us use this `$io` variable along with input.
+> A self-aware the command that can do... only one thing..
 
-All right, let's start by saying `$name = $input->getArgument('name')`. If we don't have a name yet, I'll default this to `whoever you are`. Then, below this, I'm going to read out the option. I'll say `$shouldYell = $input->getOption('yell')`, and that will be a boolean. Okay, cool. Let's clear out this stuff down here and start our message: `$message = sprintf('Hey %s!', $name)`. Then if we want to yell, you guys know what to do: `$message = strtoupper($message)`. Down here, we'll use `$io->success()` and put the message there. This is one of the many helper methods on that class that will help format your output in some way. There's also `$io->warning`, `$io->note`, and several others that will format an output in a different way. If we spin over and say hello to *me*... it works! And if we yell... that works too! We can even yell at 'whoever I am'. Awesome!
+## Configuring Arguments and Options
 
-Okay, let's go a little further. What if we need a service from inside our command? For example, let's say that we want to use our `MixRepository` to give us a vinyl mix recommendation when we run our command. How can we do that? Well, we're inside of a service and we need access to *another* service, which means we need... *dependency injection*. We need to add `MixRepository` as a constructive argument. So let's add `public function __construct()`, and then I'll say `private MixRepository $mixRepository`. Beautiful! If you hover over `__construct()`, it says `Missing parent constructor call`. Inside of here, call `parent::__construct()`. This is a *super* rare situation. In fact, the only one I can think of in Symfony is where the base Symfony class has its own constructor and we need to call it. So don't forget that spot there.
+Our command is called `app:talk-to-me` because, when we run this, I want to make
+it possible to pass a name to the command - like Ryan - and then it'll reply with
+"Hey Ryan!". So, literally, we'll type `bin/console app:talk-to-me ryan` and it'll
+reply back.
 
-Down here, after we print out the success, let's print out a song recommendation, but let's make it even *cooler*. I want to interactively ask the user whether they want a mix recommendation or not. We can do that by leveraging this `$io` object. I'll say `if ($io->confirm('Do you want a mix recommendation?'))`. This will ask us if we want a recommendation interactively, and if we say "yes", this will return true. If we say "no", it won't. The `$io` is *full* of cool stuff like this. We can ask it a choice question or an open question, and we can even build a progress bar with this `$io` object. Cool stuff!
+When you want to pass a value to a command, that's known as an *argument*... and
+those are configured down in... the `configure()` method! There's already an argument
+called `arg1`... let's change that to `name`.
 
-All right, inside of here, let's get all of the mixes out by saying `$mixes = $this->mixRepository->findAll()`. Then I'll just add a little bit of ugly code here - `$mix = $mixes[array_rand($mixes)]` - to get a random mix. And then we'll use another method of `$io` called `note`. I'll say `(I recommend the mix)` and then we'll pop in `$mix` along with its ['title'] key. And... done! Oh, by the way, notice this `return Command::SUCCESS.` That controls the exit code of your command, so you'll always want to have `Command::SUCCESS` at the bottom of your command. If there was an error, you could `return Command::ERROR`.
+This key is completely *internal*: you'll never see the word `name` when you're
+*using* this command. But we *will* use this key to *read* the argument value in
+a minute. We can also give the argument a description and, if you want, you can
+make it *required*. I'll keep it as optional.
 
-Okay, let's try this! Head over to your terminal and run:
+The next thing we have are *options*. These are like arguments... except that
+they start with a `--` when use them. I want to have an optional flag where we can
+say `--yell` to make the command *yell* our name back.
+
+In this case, the name of the option, `yell`, *is* important... because we'll
+say `--yell` at the command line to use it. The `InputOption::VALUE_NONE` means
+that our flag will just be `--yell` and not `--yell=` some value. If your option
+accepts a value, you would change this to `VALUE_REQUIRED`. Finally, give this
+a description.
+
+Beautiful! We're not *using* this argument and option yet... but we can already re-run
+our command with a `--help` option:
 
 ```terminal
+php bin/console app:talk-to-me --help
+```
+
+And... awesome! We see our description up here... along with some details about
+how to use the argument and the `--yell` option.
+
+## Filling in execute()
+
+When we call our command, very simply, *Symfony* will call `execute()`... which
+is where the fun starts. Inside this, we can do *whatever* we want. It passes us
+two arguments: `$input` and `$output`. If you want to read some input - like the
+`name` argument or the `yell` option, use `$input`. And if you want to *output*
+something, use `$output`.
+
+But in Symfony, we normally go ahead and pop these two things into another object
+called `SymfonyStyle()`. This is a helper class that makes it really easy to read
+`$input` values and `$output` things in fancy ways.
+
+Ok: let's start by saying `$name = $input->getArgument('name')`. If we don't
+have a name yet, I'll default this to `whoever you are`. Below this, read the
+option: `$shouldYell = $input->getOption('yell')`.
+
+Cool. Let's clear out this stuff down here and start our message:
+`$message = sprintf('Hey %s!', $name)`. Then if we want to yell, you guys know what
+to do: `$message = strtoupper($message)`. Below, use `$io->success()` and
+put the message there.
+
+This is one of the many helper methods on the `SymfonyStyle` class that will help
+format your output. There's also `$io->warning()`, `$io->note()`, and several others.
+
+Ok, testing time! Spin over and run:
+
+```terminal
+php bin/console app:talk-to-me ryan
+```
+
+And... oh hello there! If we yell:
+
+```terminal-silent
+php bin/console app:talk-to-me ryan --yell
+```
+
+
+THAT WORKS TOO! We can even yell at 'whoever I am':
+
+```terminal-silent
 php bin/console app:talk-to-me --yell
 ```
 
-We get the output... and then we get:
-
-`Do you want a mix recommendation?`
-
-Why, `yes` we *do*. And what an *excellent* recommendation!
-
-All right, team! We did it! We finished what I think is the most important Symfony tutorial of all time. No matter what you need to build in Symfony, the concepts we've just learned will help you do it. If you need to add a custom function or filter to Twig, no problem! You can use MakerBundle for that! And even if you choose to do it by hand, the process will feel *really* familiar to what we saw with our command. You would create a new PHP class, call it anything you want, make it implement whatever interface or base class that Twig extension needs to implement (the documentation will tell you that), and then you just fill in the logic, which I won't actually show you here. And that's it! Behind the scenes, your Twig extension would *automatically* be seen as a service, and auto configuration would make sure it was integrated into Twig.
-
-In the next course, we'll put our new superpowers to work by adding a database to our app so that we can load real, dynamic data. And if you have any *real*, *dynamic* questions, we are here for you, as always, down in the comment section.
-
-All right, friends. Thanks so much for coding with me! See you next time.
+Awesome! But let's get crazier... by autowiring a service and interactively asking
+a question on the command line. That's next... and it's the last chapter!
