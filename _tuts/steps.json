@@ -739,7 +739,82 @@
             "id": "maker-inject-and-use-service",
             "name": "Maker: inject and use service",
             "description": null
+        },
+        {
+            "id": "pre-ep3-upgrading-dependencies",
+            "name": "PRE_EP3: Upgrading dependencies",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-update-debug-bundle-recipe",
+            "name": "PRE_EP3: UPDATE debug-bundle recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-update-flex-recipe",
+            "name": "PRE_EP3: UPDATE flex recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-update-routing-recipe",
+            "name": "PRE_EP3: UPDATE routing recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-update-web-profiler-bundle-recipe",
+            "name": "PRE_EP3: UPDATE web-profiler-bundle recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-update-encore-recipe",
+            "name": "PRE_EP3: UPDATE encore recipe",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-upgrade-node-deps",
+            "name": "PRE_EP3: Upgrade node deps",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-re-compiling-yarn-assets",
+            "name": "PRE_EP3: re-compiling yarn assets",
+            "description": null
+        },
+        {
+            "id": "install-install-doctrine",
+            "name": "Install: install Doctrine",
+            "description": null
+        },
+        {
+            "id": "install-set-server-version",
+            "name": "Install: Set server_version",
+            "description": null
+        },
+        {
+            "id": "entity-make-entity-vinylmix",
+            "name": "Entity: make:entity VinylMix",
+            "description": null
+        },
+        {
+            "id": "migration-make-migration",
+            "name": "Migration: make:migration",
+            "description": null
+        },
+        {
+            "id": "migration-add-votes-property",
+            "name": "Migration: Add votes property",
+            "description": null
+        },
+        {
+            "id": "migration-make-new-migration",
+            "name": "Migration: make new migration",
+            "description": null
+        },
+        {
+            "id": "migration-default-votes-to-0",
+            "name": "Migration: default votes to 0",
+            "description": null
         }
     ],
-    "sha": "05bbf331ec60e7a2782a9330bada9723558f05f0"
+    "sha": "7336bb844b81132723c92901ba09e92fb11d9fd3"
 }

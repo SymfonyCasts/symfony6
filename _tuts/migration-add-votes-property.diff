@@ -1,0 +1,31 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 9ee886b..983ced8 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -25,6 +25,9 @@ class VinylMix
+     #[ORM\Column(length: 255)]
+     private $genre;
+ 
++    #[ORM\Column]
++    private $votes;
++
+     public function getId(): ?int
+     {
+         return $this->id;
+@@ -77,4 +80,16 @@ class VinylMix
+ 
+         return $this;
+     }
++
++    public function getVotes(): ?int
++    {
++        return $this->votes;
++    }
++
++    public function setVotes(int $votes): self
++    {
++        $this->votes = $votes;
++
++        return $this;
++    }
+ }

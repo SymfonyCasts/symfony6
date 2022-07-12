@@ -1,0 +1,13 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 983ced8..5191252 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -26,7 +26,7 @@ class VinylMix
+     private $genre;
+ 
+     #[ORM\Column]
+-    private $votes;
++    private $votes = 0;
+ 
+     public function getId(): ?int
+     {

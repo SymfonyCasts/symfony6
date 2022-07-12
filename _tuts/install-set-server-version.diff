@@ -1,0 +1,13 @@
+diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
+index 8fe1dd4..9a18675 100644
+--- a/config/packages/doctrine.yaml
++++ b/config/packages/doctrine.yaml
+@@ -4,7 +4,7 @@ doctrine:
+ 
+         # IMPORTANT: You MUST configure your server version,
+         # either here or in the DATABASE_URL env var (see .env file)
+-        #server_version: '13'
++        server_version: '13'
+     orm:
+         auto_generate_proxy_classes: true
+         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

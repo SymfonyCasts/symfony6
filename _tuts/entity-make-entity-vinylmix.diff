@@ -1,0 +1,158 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+new file mode 100644
+index 0000000..9ee886b
+--- /dev/null
++++ b/src/Entity/VinylMix.php
+@@ -0,0 +1,80 @@
++<?php
++
++namespace App\Entity;
++
++use App\Repository\VinylMixRepository;
++use Doctrine\ORM\Mapping as ORM;
++
++#[ORM\Entity(repositoryClass: VinylMixRepository::class)]
++class VinylMix
++{
++    #[ORM\Id]
++    #[ORM\GeneratedValue]
++    #[ORM\Column(type: 'integer')]
++    private $id;
++
++    #[ORM\Column(length: 255)]
++    private $title;
++
++    #[ORM\Column(type: 'text', nullable: true)]
++    private $description;
++
++    #[ORM\Column]
++    private $trackCount;
++
++    #[ORM\Column(length: 255)]
++    private $genre;
++
++    public function getId(): ?int
++    {
++        return $this->id;
++    }
++
++    public function getTitle(): ?string
++    {
++        return $this->title;
++    }
++
++    public function setTitle(string $title): self
++    {
++        $this->title = $title;
++
++        return $this;
++    }
++
++    public function getDescription(): ?string
++    {
++        return $this->description;
++    }
++
++    public function setDescription(?string $description): self
++    {
++        $this->description = $description;
++
++        return $this;
++    }
++
++    public function getTrackCount(): ?int
++    {
++        return $this->trackCount;
++    }
++
++    public function setTrackCount(int $trackCount): self
++    {
++        $this->trackCount = $trackCount;
++
++        return $this;
++    }
++
++    public function getGenre(): ?string
++    {
++        return $this->genre;
++    }
++
++    public function setGenre(string $genre): self
++    {
++        $this->genre = $genre;
++
++        return $this;
++    }
++}
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+new file mode 100644
+index 0000000..5734452
+--- /dev/null
++++ b/src/Repository/VinylMixRepository.php
+@@ -0,0 +1,66 @@
++<?php
++
++namespace App\Repository;
++
++use App\Entity\VinylMix;
++use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
++use Doctrine\Persistence\ManagerRegistry;
++
++/**
++ * @extends ServiceEntityRepository<VinylMix>
++ *
++ * @method VinylMix|null find($id, $lockMode = null, $lockVersion = null)
++ * @method VinylMix|null findOneBy(array $criteria, array $orderBy = null)
++ * @method VinylMix[]    findAll()
++ * @method VinylMix[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
++ */
++class VinylMixRepository extends ServiceEntityRepository
++{
++    public function __construct(ManagerRegistry $registry)
++    {
++        parent::__construct($registry, VinylMix::class);
++    }
++
++    public function add(VinylMix $entity, bool $flush = false): void
++    {
++        $this->getEntityManager()->persist($entity);
++
++        if ($flush) {
++            $this->getEntityManager()->flush();
++        }
++    }
++
++    public function remove(VinylMix $entity, bool $flush = false): void
++    {
++        $this->getEntityManager()->remove($entity);
++
++        if ($flush) {
++            $this->getEntityManager()->flush();
++        }
++    }
++
++//    /**
++//     * @return VinylMix[] Returns an array of VinylMix objects
++//     */
++//    public function findByExampleField($value): array
++//    {
++//        return $this->createQueryBuilder('v')
++//            ->andWhere('v.exampleField = :val')
++//            ->setParameter('val', $value)
++//            ->orderBy('v.id', 'ASC')
++//            ->setMaxResults(10)
++//            ->getQuery()
++//            ->getResult()
++//        ;
++//    }
++
++//    public function findOneBySomeField($value): ?VinylMix
++//    {
++//        return $this->createQueryBuilder('v')
++//            ->andWhere('v.exampleField = :val')
++//            ->setParameter('val', $value)
++//            ->getQuery()
++//            ->getOneOrNullResult()
++//        ;
++//    }
++}
