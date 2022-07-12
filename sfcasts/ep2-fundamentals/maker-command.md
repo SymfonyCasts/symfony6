@@ -4,7 +4,7 @@ Congrats, team! We are *done* with the heavy stuff in this tutorial! So it's tim
 for a victory lap. Let's install one of my *favorite* Symfony bundles: MakerBundle.
 Find your terminal and run:
 
-```temrinal
+```terminal
 composer require maker --dev
 ```
 
