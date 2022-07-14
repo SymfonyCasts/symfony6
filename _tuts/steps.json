@@ -781,6 +781,11 @@
             "description": null
         },
         {
+            "id": "pre-ep3-removing-data-src-on-image",
+            "name": "PRE_EP3: removing data-src on image",
+            "description": null
+        },
+        {
             "id": "install-install-doctrine",
             "name": "Install: install Doctrine",
             "description": null
@@ -814,7 +819,87 @@
             "id": "migration-default-votes-to-0",
             "name": "Migration: default votes to 0",
             "description": null
+        },
+        {
+            "id": "migration-initiated-createdat-in-the-constructor",
+            "name": "Migration: initiated createdAt in the constructor",
+            "description": null
+        },
+        {
+            "id": "saving-create-mix-new-controller",
+            "name": "Saving: Create \/mix\/new controller",
+            "description": null
+        },
+        {
+            "id": "saving-populate-entity",
+            "name": "Saving: populate entity",
+            "description": null
+        },
+        {
+            "id": "saving-persist-and-flush",
+            "name": "Saving: persist and flush",
+            "description": null
+        },
+        {
+            "id": "querying-query-through-em",
+            "name": "Querying: query through EM",
+            "description": null
+        },
+        {
+            "id": "querying-dump-the-repository",
+            "name": "Querying: dump the repository",
+            "description": null
+        },
+        {
+            "id": "querying-inject-repository-directly",
+            "name": "Querying: inject repository directly",
+            "description": null
+        },
+        {
+            "id": "querying-print-out-votes",
+            "name": "Querying: print out votes",
+            "description": null
+        },
+        {
+            "id": "querying-order-by-votes-desc",
+            "name": "Querying: order by votes DESC",
+            "description": null
+        },
+        {
+            "id": "customquery-uncomment-repository-method",
+            "name": "CustomQuery: Uncomment repository method",
+            "description": null
+        },
+        {
+            "id": "customquery-fill-in-custom-method",
+            "name": "CustomQuery: Fill in custom method",
+            "description": null
+        },
+        {
+            "id": "customquery-add-genre-argument",
+            "name": "CustomQuery: Add $genre argument",
+            "description": null
+        },
+        {
+            "id": "customquery-add-andwhere-for-genre",
+            "name": "CustomQuery: add andWhere() for genre",
+            "description": null
+        },
+        {
+            "id": "customquery-add-addorderbyvotesquerybuilder",
+            "name": "CustomQuery: Add addOrderByVotesQueryBuilder()",
+            "description": null
+        },
+        {
+            "id": "custom-methods-getvotesstring-method",
+            "name": "Custom Methods: getVotesString method",
+            "description": null
+        },
+        {
+            "id": "custom-methods-getimageurl-entity-method",
+            "name": "Custom Methods: getImageUrl() entity method",
+            "description": null
         }
     ],
-    "sha": "7336bb844b81132723c92901ba09e92fb11d9fd3"
+    "sha": "b5beb1a9470251df3139676d52f5fc5b67fe4f6b"
 }

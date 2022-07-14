@@ -1,0 +1,36 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index d693f07..1139d6a 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -4,6 +4,7 @@ namespace App\Controller;
+ 
+ use App\Entity\VinylMix;
+ use App\Service\MixRepository;
++use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -49,7 +50,7 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/mix/new')]
+-    public function newMix(): Response
++    public function newMix(EntityManagerInterface $entityManager): Response
+     {
+         $mix = new VinylMix();
+         $mix->setTitle('Do you Remember... Phil Collins?!');
+@@ -58,6 +59,13 @@ class VinylController extends AbstractController
+         $mix->setTrackCount(rand(5, 20));
+         $mix->setVotes(rand(-50, 50));
+ 
+-        dd($mix);
++        $entityManager->persist($mix);
++        $entityManager->flush();
++
++        return new Response(sprintf(
++            'Mix %d is %d tracks of pure 80\'s heaven',
++            $mix->getId(),
++            $mix->getTrackCount()
++        ));
+     }
+ }

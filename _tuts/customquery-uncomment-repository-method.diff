@@ -1,0 +1,39 @@
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index 5734452..531720c 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -39,20 +39,20 @@ class VinylMixRepository extends ServiceEntityRepository
+         }
+     }
+ 
+-//    /**
+-//     * @return VinylMix[] Returns an array of VinylMix objects
+-//     */
+-//    public function findByExampleField($value): array
+-//    {
+-//        return $this->createQueryBuilder('v')
+-//            ->andWhere('v.exampleField = :val')
+-//            ->setParameter('val', $value)
+-//            ->orderBy('v.id', 'ASC')
+-//            ->setMaxResults(10)
+-//            ->getQuery()
+-//            ->getResult()
+-//        ;
+-//    }
++    /**
++     * @return VinylMix[] Returns an array of VinylMix objects
++     */
++    public function findByExampleField($value): array
++    {
++        return $this->createQueryBuilder('v')
++            ->andWhere('v.exampleField = :val')
++            ->setParameter('val', $value)
++            ->orderBy('v.id', 'ASC')
++            ->setMaxResults(10)
++            ->getQuery()
++            ->getResult()
++        ;
++    }
+ 
+ //    public function findOneBySomeField($value): ?VinylMix
+ //    {

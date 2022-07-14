@@ -1,0 +1,29 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index acd4ee7..739eaa5 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -42,7 +42,7 @@ class VinylController extends AbstractController
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $mixRepository->findAllOrderedByVotes();
++        $mixes = $mixRepository->findAllOrderedByVotes($slug);
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index 2005fb1..b82451b 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -47,6 +47,11 @@ class VinylMixRepository extends ServiceEntityRepository
+         $queryBuilder = $this->createQueryBuilder('mix')
+             ->orderBy('mix.votes', 'DESC');
+ 
++        if ($genre) {
++            $queryBuilder->andWhere('mix.genre = :genre')
++                ->setParameter('genre', $genre);
++        }
++
+         return $queryBuilder
+             ->getQuery()
+             ->getResult()

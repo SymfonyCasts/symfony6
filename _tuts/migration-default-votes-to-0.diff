@@ -1,11 +1,11 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
-index 983ced8..5191252 100644
+index 244c65c..69fa2a1 100644
 --- a/src/Entity/VinylMix.php
 +++ b/src/Entity/VinylMix.php
-@@ -26,7 +26,7 @@ class VinylMix
-     private $genre;
+@@ -29,7 +29,7 @@ class VinylMix
+     private $createdAt;
  
-     #[ORM\Column]
+     #[ORM\Column(type: 'integer')]
 -    private $votes;
 +    private $votes = 0;
  

@@ -1,9 +1,9 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
 new file mode 100644
-index 0000000..9ee886b
+index 0000000..833b847
 --- /dev/null
 +++ b/src/Entity/VinylMix.php
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,95 @@
 +<?php
 +
 +namespace App\Entity;
@@ -30,6 +30,9 @@ index 0000000..9ee886b
 +
 +    #[ORM\Column(length: 255)]
 +    private $genre;
++
++    #[ORM\Column(type: 'datetime_immutable')]
++    private $createdAt;
 +
 +    public function getId(): ?int
 +    {
@@ -80,6 +83,18 @@ index 0000000..9ee886b
 +    public function setGenre(string $genre): self
 +    {
 +        $this->genre = $genre;
++
++        return $this;
++    }
++
++    public function getCreatedAt(): ?\DateTimeImmutable
++    {
++        return $this->createdAt;
++    }
++
++    public function setCreatedAt(\DateTimeImmutable $createdAt): self
++    {
++        $this->createdAt = $createdAt;
 +
 +        return $this;
 +    }

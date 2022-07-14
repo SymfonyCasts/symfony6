@@ -1,0 +1,26 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 3dda7f5..d8cb9a1 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
+ 
+ use App\Entity\VinylMix;
++use App\Repository\VinylMixRepository;
+ use App\Service\MixRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+@@ -37,12 +38,10 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(EntityManagerInterface $entityManager, string $slug = null): Response
++    public function browse(VinylMixRepository $mixRepository, string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixRepository = $entityManager->getRepository(VinylMix::class);
+-        dd($mixRepository);
+         $mixes = $mixRepository->findAll();
+ 
+         return $this->render('vinyl/browse.html.twig', [

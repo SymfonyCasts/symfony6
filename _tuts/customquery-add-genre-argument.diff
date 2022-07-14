@@ -1,0 +1,20 @@
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index 97f7aaf..2005fb1 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -42,10 +42,12 @@ class VinylMixRepository extends ServiceEntityRepository
+     /**
+      * @return VinylMix[] Returns an array of VinylMix objects
+      */
+-    public function findAllOrderedByVotes(): array
++    public function findAllOrderedByVotes(string $genre = null): array
+     {
+-        return $this->createQueryBuilder('mix')
+-            ->orderBy('mix.votes', 'DESC')
++        $queryBuilder = $this->createQueryBuilder('mix')
++            ->orderBy('mix.votes', 'DESC');
++
++        return $queryBuilder
+             ->getQuery()
+             ->getResult()
+         ;

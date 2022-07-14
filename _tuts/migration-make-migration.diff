@@ -1,9 +1,9 @@
-diff --git a/migrations/Version20220712173046.php b/migrations/Version20220712173046.php
+diff --git a/migrations/Version20220712175925.php b/migrations/Version20220712175925.php
 new file mode 100644
-index 0000000..c69a69b
+index 0000000..9750cf0
 --- /dev/null
-+++ b/migrations/Version20220712173046.php
-@@ -0,0 +1,34 @@
++++ b/migrations/Version20220712175925.php
+@@ -0,0 +1,35 @@
 +<?php
 +
 +declare(strict_types=1);
@@ -16,7 +16,7 @@ index 0000000..c69a69b
 +/**
 + * Auto-generated Migration: Please modify to your needs!
 + */
-+final class Version20220712173046 extends AbstractMigration
++final class Version20220712175925 extends AbstractMigration
 +{
 +    public function getDescription(): string
 +    {
@@ -27,7 +27,8 @@ index 0000000..c69a69b
 +    {
 +        // this up() migration is auto-generated, please modify it to your needs
 +        $this->addSql('CREATE SEQUENCE vinyl_mix_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-+        $this->addSql('CREATE TABLE vinyl_mix (id INT NOT NULL, title VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, track_count VARCHAR(255) NOT NULL, genre VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
++        $this->addSql('CREATE TABLE vinyl_mix (id INT NOT NULL, title VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, track_count VARCHAR(255) NOT NULL, genre VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
++        $this->addSql('COMMENT ON COLUMN vinyl_mix.created_at IS \'(DC2Type:datetime_immutable)\'');
 +    }
 +
 +    public function down(Schema $schema): void

@@ -1,0 +1,36 @@
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index b82451b..1dba3b9 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -4,6 +4,7 @@ namespace App\Repository;
+ 
+ use App\Entity\VinylMix;
+ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
++use Doctrine\ORM\QueryBuilder;
+ use Doctrine\Persistence\ManagerRegistry;
+ 
+ /**
+@@ -44,8 +45,7 @@ class VinylMixRepository extends ServiceEntityRepository
+      */
+     public function findAllOrderedByVotes(string $genre = null): array
+     {
+-        $queryBuilder = $this->createQueryBuilder('mix')
+-            ->orderBy('mix.votes', 'DESC');
++        $queryBuilder = $this->addOrderByVotesQueryBuilder();
+ 
+         if ($genre) {
+             $queryBuilder->andWhere('mix.genre = :genre')
+@@ -58,6 +58,13 @@ class VinylMixRepository extends ServiceEntityRepository
+         ;
+     }
+ 
++    private function addOrderByVotesQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
++    {
++        $queryBuilder = $queryBuilder ?? $this->createQueryBuilder('mix');
++
++        return $queryBuilder->orderBy('mix.votes', 'DESC');
++    }
++
+ //    public function findOneBySomeField($value): ?VinylMix
+ //    {
+ //        return $this->createQueryBuilder('v')

@@ -1,0 +1,15 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 058bbd9..a8222db 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -46,4 +46,10 @@ class VinylController extends AbstractController
+             'mixes' => $mixes,
+         ]);
+     }
++
++    #[Route('/mix/new')]
++    public function newMix(): Response
++    {
++        dd('new mix');
++    }
+ }

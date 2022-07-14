@@ -1,18 +1,18 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
-index 9ee886b..983ced8 100644
+index 833b847..244c65c 100644
 --- a/src/Entity/VinylMix.php
 +++ b/src/Entity/VinylMix.php
-@@ -25,6 +25,9 @@ class VinylMix
-     #[ORM\Column(length: 255)]
-     private $genre;
+@@ -28,6 +28,9 @@ class VinylMix
+     #[ORM\Column(type: 'datetime_immutable')]
+     private $createdAt;
  
-+    #[ORM\Column]
++    #[ORM\Column(type: 'integer')]
 +    private $votes;
 +
      public function getId(): ?int
      {
          return $this->id;
-@@ -77,4 +80,16 @@ class VinylMix
+@@ -92,4 +95,16 @@ class VinylMix
  
          return $this;
      }

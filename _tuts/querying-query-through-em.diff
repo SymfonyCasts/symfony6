@@ -1,0 +1,19 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 1139d6a..70a0e9b 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -37,11 +37,12 @@ class VinylController extends AbstractController
+     }
+ 
+     #[Route('/browse/{slug}', name: 'app_browse')]
+-    public function browse(string $slug = null): Response
++    public function browse(EntityManagerInterface $entityManager, string $slug = null): Response
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $this->mixRepository->findAll();
++        $mixRepository = $entityManager->getRepository(VinylMix::class);
++        $mixes = $mixRepository->findAll();
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,

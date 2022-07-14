@@ -1,0 +1,34 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c2d012a..acd4ee7 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -42,7 +42,7 @@ class VinylController extends AbstractController
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $mixRepository->findBy([], ['votes' => 'DESC']);
++        $mixes = $mixRepository->findAllOrderedByVotes();
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index 531720c..97f7aaf 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -42,13 +42,10 @@ class VinylMixRepository extends ServiceEntityRepository
+     /**
+      * @return VinylMix[] Returns an array of VinylMix objects
+      */
+-    public function findByExampleField($value): array
++    public function findAllOrderedByVotes(): array
+     {
+-        return $this->createQueryBuilder('v')
+-            ->andWhere('v.exampleField = :val')
+-            ->setParameter('val', $value)
+-            ->orderBy('v.id', 'ASC')
+-            ->setMaxResults(10)
++        return $this->createQueryBuilder('mix')
++            ->orderBy('mix.votes', 'DESC')
+             ->getQuery()
+             ->getResult()
+         ;

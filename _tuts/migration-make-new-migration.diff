@@ -1,8 +1,8 @@
-diff --git a/migrations/Version20220712174021.php b/migrations/Version20220712174021.php
+diff --git a/migrations/Version20220712180231.php b/migrations/Version20220712180231.php
 new file mode 100644
-index 0000000..f786891
+index 0000000..11faa8d
 --- /dev/null
-+++ b/migrations/Version20220712174021.php
++++ b/migrations/Version20220712180231.php
 @@ -0,0 +1,32 @@
 +<?php
 +
@@ -16,7 +16,7 @@ index 0000000..f786891
 +/**
 + * Auto-generated Migration: Please modify to your needs!
 + */
-+final class Version20220712174021 extends AbstractMigration
++final class Version20220712180231 extends AbstractMigration
 +{
 +    public function getDescription(): string
 +    {
@@ -26,7 +26,7 @@ index 0000000..f786891
 +    public function up(Schema $schema): void
 +    {
 +        // this up() migration is auto-generated, please modify it to your needs
-+        $this->addSql('ALTER TABLE vinyl_mix ADD votes VARCHAR(255) NOT NULL');
++        $this->addSql('ALTER TABLE vinyl_mix ADD votes INT NOT NULL');
 +    }
 +
 +    public function down(Schema $schema): void

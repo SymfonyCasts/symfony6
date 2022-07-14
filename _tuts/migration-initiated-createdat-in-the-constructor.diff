@@ -1,0 +1,16 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 69fa2a1..35df5c5 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -31,6 +31,11 @@ class VinylMix
+     #[ORM\Column(type: 'integer')]
+     private $votes = 0;
+ 
++    public function __construct()
++    {
++        $this->createdAt = new \DateTimeImmutable();
++    }
++
+     public function getId(): ?int
+     {
+         return $this->id;

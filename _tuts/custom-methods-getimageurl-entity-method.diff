@@ -1,0 +1,31 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 2caede6..f546a22 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -119,4 +119,13 @@ class VinylMix
+ 
+         return sprintf('%s %d', $prefix, abs($this->votes));
+     }
++
++    public function getImageUrl(int $width): string
++    {
++        return sprintf(
++            'https://picsum.photos/id/%d/%d',
++            ($this->getId() + 50) % 1000, // number between 0 and 1000, based on the id
++            $width
++        );
++    }
+ }
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 20cfbbd..a3a3ba8 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -29,7 +29,7 @@
+             {% for mix in mixes %}
+             <div class="col col-md-4">
+                 <div class="mixed-vinyl-container p-3 text-center">
+-                    <img src="https://via.placeholder.com/300" alt="Square placeholder img">
++                    <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+                     <p class="mt-2"><strong>{{ mix.title }}</strong></p>
+                     <span>{{ mix.trackCount }} Tracks</span>
+                     |

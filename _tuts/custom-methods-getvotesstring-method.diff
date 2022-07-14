@@ -1,0 +1,29 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 35df5c5..2caede6 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -112,4 +112,11 @@ class VinylMix
+ 
+         return $this;
+     }
++
++    public function getVotesString(): string
++    {
++        $prefix = ($this->votes === 0) ? '' : (($this->votes >= 0) ? '+' : '-');
++
++        return sprintf('%s %d', $prefix, abs($this->votes));
++    }
+ }
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 61fa392..20cfbbd 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -37,7 +37,7 @@
+                     |
+                     <span>{{ mix.createdAt|ago }}</span>
+                     <br>
+-                    {{ mix.votes }} votes
++                    {{ mix.votesString }} votes
+                 </div>
+             </div>
+             {% endfor %}
