@@ -1,8 +1,8 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
-index 35df5c5..2caede6 100644
+index 2a3050b..bc4945d 100644
 --- a/src/Entity/VinylMix.php
 +++ b/src/Entity/VinylMix.php
-@@ -112,4 +112,11 @@ class VinylMix
+@@ -113,4 +113,11 @@ class VinylMix
  
          return $this;
      }

@@ -1,8 +1,8 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
-index 2caede6..f546a22 100644
+index bc4945d..13b75fc 100644
 --- a/src/Entity/VinylMix.php
 +++ b/src/Entity/VinylMix.php
-@@ -119,4 +119,13 @@ class VinylMix
+@@ -120,4 +120,13 @@ class VinylMix
  
          return sprintf('%s %d', $prefix, abs($this->votes));
      }

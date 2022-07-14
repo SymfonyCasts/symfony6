@@ -1,13 +1,13 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
-index 244c65c..69fa2a1 100644
+index ec1954d..6b64e4a 100644
 --- a/src/Entity/VinylMix.php
 +++ b/src/Entity/VinylMix.php
-@@ -29,7 +29,7 @@ class VinylMix
-     private $createdAt;
+@@ -30,7 +30,7 @@ class VinylMix
+     private ?\DateTimeImmutable $createdAt = null;
  
-     #[ORM\Column(type: 'integer')]
--    private $votes;
-+    private $votes = 0;
+     #[ORM\Column]
+-    private ?int $votes = null;
++    private int $votes = 0;
  
      public function getId(): ?int
      {

@@ -11,7 +11,7 @@ index 08e5621..6e762ac 100644
      "require": {
          "php": ">=8.1",
 diff --git a/composer.lock b/composer.lock
-index 2c22325..bcb3c66 100644
+index 2c22325..9375997 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -1351,19 +1351,19 @@ index 2c22325..bcb3c66 100644
          {
              "name": "symfony/webpack-encore-bundle",
 -            "version": "v1.14.1",
-+            "version": "v1.15.0",
++            "version": "v1.15.1",
              "source": {
                  "type": "git",
                  "url": "https://github.com/symfony/webpack-encore-bundle.git",
 -                "reference": "6b18be99bf2a5a402b80a2c00043fe0b365fe836"
-+                "reference": "1fc386364200ca43108ff1871d86435b840ea67c"
++                "reference": "718673b1e758533614190ae74d07305a72bc66a9"
              },
              "dist": {
                  "type": "zip",
 -                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/6b18be99bf2a5a402b80a2c00043fe0b365fe836",
 -                "reference": "6b18be99bf2a5a402b80a2c00043fe0b365fe836",
-+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/1fc386364200ca43108ff1871d86435b840ea67c",
-+                "reference": "1fc386364200ca43108ff1871d86435b840ea67c",
++                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/718673b1e758533614190ae74d07305a72bc66a9",
++                "reference": "718673b1e758533614190ae74d07305a72bc66a9",
                  "shasum": ""
              },
              "require": {
@@ -1382,7 +1382,7 @@ index 2c22325..bcb3c66 100644
              "support": {
                  "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
 -                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.14.1"
-+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.15.0"
++                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.15.1"
              },
              "funding": [
                  {
@@ -1391,7 +1391,7 @@ index 2c22325..bcb3c66 100644
                  }
              ],
 -            "time": "2022-05-03T17:55:32+00:00"
-+            "time": "2022-07-06T13:36:43+00:00"
++            "time": "2022-07-13T17:07:35+00:00"
          },
          {
              "name": "symfony/yaml",
@@ -1516,42 +1516,60 @@ index 2c22325..bcb3c66 100644
              },
              "funding": [
                  {
-@@ -3862,16 +3874,16 @@
+@@ -3862,22 +3874,22 @@
          },
          {
              "name": "symfony/maker-bundle",
 -            "version": "v1.42.0",
-+            "version": "v1.43.0",
++            "version": "v1.44.0",
              "source": {
                  "type": "git",
                  "url": "https://github.com/symfony/maker-bundle.git",
 -                "reference": "fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11"
-+                "reference": "e3f9a1d9e0f4968f68454403e820dffc7db38a59"
++                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588"
              },
              "dist": {
                  "type": "zip",
 -                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11",
 -                "reference": "fc9f6bcc0ef79fc9d0325c545ae0f030bb6c9d11",
-+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/e3f9a1d9e0f4968f68454403e820dffc7db38a59",
-+                "reference": "e3f9a1d9e0f4968f68454403e820dffc7db38a59",
++                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/fa535d792e9261ae7a78481f643c00991e1d1588",
++                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588",
                  "shasum": ""
              },
              "require": {
-@@ -3933,7 +3945,7 @@
+                 "doctrine/inflector": "^2.0",
+                 "nikic/php-parser": "^4.11",
+-                "php": ">=7.2.5",
++                "php": ">=8.0",
+                 "symfony/config": "^5.4.7|^6.0",
+                 "symfony/console": "^5.4.7|^6.0",
+                 "symfony/dependency-injection": "^5.4.7|^6.0",
+@@ -3888,7 +3900,9 @@
+                 "symfony/http-kernel": "^5.4.7|^6.0"
+             },
+             "conflict": {
+-                "doctrine/orm": "<2.10"
++                "doctrine/doctrine-bundle": "<2.4",
++                "doctrine/orm": "<2.10",
++                "symfony/doctrine-bridge": "<5.4"
+             },
+             "require-dev": {
+                 "composer/semver": "^3.0",
+@@ -3933,7 +3947,7 @@
              ],
              "support": {
                  "issues": "https://github.com/symfony/maker-bundle/issues",
 -                "source": "https://github.com/symfony/maker-bundle/tree/v1.42.0"
-+                "source": "https://github.com/symfony/maker-bundle/tree/v1.43.0"
++                "source": "https://github.com/symfony/maker-bundle/tree/v1.44.0"
              },
              "funding": [
                  {
-@@ -3949,11 +3961,11 @@
+@@ -3949,11 +3963,11 @@
                      "type": "tidelift"
                  }
              ],
 -            "time": "2022-05-09T19:36:10+00:00"
-+            "time": "2022-05-17T15:46:50+00:00"
++            "time": "2022-07-13T17:37:04+00:00"
          },
          {
              "name": "symfony/stopwatch",
@@ -1560,7 +1578,7 @@ index 2c22325..bcb3c66 100644
              "source": {
                  "type": "git",
                  "url": "https://github.com/symfony/stopwatch.git",
-@@ -3995,7 +4007,7 @@
+@@ -3995,7 +4009,7 @@
              "description": "Provides a way to profile code",
              "homepage": "https://symfony.com",
              "support": {
@@ -1569,7 +1587,7 @@ index 2c22325..bcb3c66 100644
              },
              "funding": [
                  {
-@@ -4015,23 +4027,23 @@
+@@ -4015,23 +4029,23 @@
          },
          {
              "name": "symfony/web-profiler-bundle",
@@ -1598,7 +1616,7 @@ index 2c22325..bcb3c66 100644
                  "symfony/routing": "^5.4|^6.0",
                  "symfony/twig-bundle": "^5.4|^6.0",
                  "twig/twig": "^2.13|^3.0.4"
-@@ -4073,7 +4085,7 @@
+@@ -4073,7 +4087,7 @@
              "description": "Provides a development tool that gives detailed information about the execution of any request",
              "homepage": "https://symfony.com",
              "support": {
@@ -1607,7 +1625,7 @@ index 2c22325..bcb3c66 100644
              },
              "funding": [
                  {
-@@ -4089,11 +4101,11 @@
+@@ -4089,11 +4103,11 @@
                      "type": "tidelift"
                  }
              ],

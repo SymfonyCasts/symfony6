@@ -1,14 +1,15 @@
 diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
 new file mode 100644
-index 0000000..833b847
+index 0000000..b4f8006
 --- /dev/null
 +++ b/src/Entity/VinylMix.php
-@@ -0,0 +1,95 @@
+@@ -0,0 +1,96 @@
 +<?php
 +
 +namespace App\Entity;
 +
 +use App\Repository\VinylMixRepository;
++use Doctrine\DBAL\Types\Types;
 +use Doctrine\ORM\Mapping as ORM;
 +
 +#[ORM\Entity(repositoryClass: VinylMixRepository::class)]
@@ -16,23 +17,23 @@ index 0000000..833b847
 +{
 +    #[ORM\Id]
 +    #[ORM\GeneratedValue]
-+    #[ORM\Column(type: 'integer')]
-+    private $id;
++    #[ORM\Column()]
++    private ?int $id = null;
 +
 +    #[ORM\Column(length: 255)]
-+    private $title;
++    private ?string $title = null;
 +
-+    #[ORM\Column(type: 'text', nullable: true)]
-+    private $description;
++    #[ORM\Column(type: Types::TEXT, nullable: true)]
++    private ?string $description = null;
 +
 +    #[ORM\Column]
-+    private $trackCount;
++    private ?int $trackCount = null;
 +
 +    #[ORM\Column(length: 255)]
-+    private $genre;
++    private ?string $genre = null;
 +
-+    #[ORM\Column(type: 'datetime_immutable')]
-+    private $createdAt;
++    #[ORM\Column]
++    private ?\DateTimeImmutable $createdAt = null;
 +
 +    public function getId(): ?int
 +    {

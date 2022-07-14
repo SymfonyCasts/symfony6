@@ -48,7 +48,7 @@ index 6e762ac..c25c261 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index bcb3c66..54d6dd2 100644
+index 9375997..f74c745 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,1460 @@
@@ -2030,9 +2030,9 @@ index bcb3c66..54d6dd2 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.14.0",
-@@ -3963,68 +5633,6 @@
+@@ -3965,68 +5635,6 @@
              ],
-             "time": "2022-05-17T15:46:50+00:00"
+             "time": "2022-07-13T17:37:04+00:00"
          },
 -        {
 -            "name": "symfony/stopwatch",
