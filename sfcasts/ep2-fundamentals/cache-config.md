@@ -5,9 +5,13 @@ cache somewhere else. In the real world, we can just search for "How do I config
 Symfony's cache service". But... we can *also* figure this out on our own, by
 using the commands we just learned.
 
-We already noticed there's a `cache.yaml` file. It looks like FrameworkBundle is
-responsible for creating the cache service... and it has a sub `cache` key where
-we can pass *some* values to control it. All of this is commented-out at the moment.
+We already noticed there's a `cache.yaml` file:
+
+[[[ code('669c75d7a9') ]]]
+
+It looks like FrameworkBundle is responsible for creating the cache service... 
+and it has a sub `cache` key where we can pass *some* values to control it. 
+All of this is commented-out at the moment.
 
 To get more information about FrameworkBundle, run:
 
@@ -45,6 +49,8 @@ the cache system to store somewhere else. Before we do that, go into
 `dump($cache)`. We've been using `dd()` so far, which stands for "dump and die".
 But in this case I want `dump()`... but let the page load.
 
+[[[ code('8e64b535c2') ]]]
+
 Refresh now. Wait, where *is* my dump? This is a... feature! When you use `dump()`,
 you won't actually see it on the page: it hides down here on the web debug toolbar.
 If you look there, the cache is some sort of `TraceableAdapter`. But inside of *that*,
@@ -57,11 +63,14 @@ To make this store somewhere else, go into `cache.yaml` and change this `app` ke
 You can set this to a number of different special strings, called adapters. If we
 wanted to store our cache in Redis, we would use `cache.adapter.redis`.
 
-To make things really easy, use `cache.adapter.array`. The `array` adapter is a
-*fake* cache where it *does* store things... but it only lives for the duration
-of the request. So, at the end of each request, it forgets everything. It's a
-fake cache, but it's enough to see how changing this key will affect the cache
-service itself.
+To make things really easy, use `cache.adapter.array`:
+
+[[[ code('cc8987c4ae) ]]]
+
+The `array` adapter is a *fake* cache where it *does* store things... but it only lives 
+for the duration of the request. So, at the end of each request, it forgets 
+everything. It's a fake cache, but it's enough to see how changing this key will affect 
+the cache service itself.
 
 Watch what happens. Currently, we have a `FilesystemAdapter`. When we refresh...
 the cache is an `ArrayAdapter`! And since the `ArrayAdapter` forgets its cache at
