@@ -118,8 +118,8 @@ Por ejemplo, si cambiáramos el default_path
 por algo como %kernel.project_dir%/views, el
 
 00:02:28.556 --> 00:02:34.466 align:middle
-resultado es que el servicio Twig que renderiza
-las plantillas estaría ahora preconfigurado
+resultado es que el servicio Twig que genera
+plantillas estaría ahora preconfigurado
 
 00:02:34.556 --> 00:02:36.496 align:middle
 para buscar en ese directorio. La cuestión
