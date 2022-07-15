@@ -1,4 +1,4 @@
-# Configuración del Bundle (para controlar servicios del bundle)
+# Bundle Config (para controlar los servicios de bundle)
 
 Ahora utilizamos los servicios `HttpClientInterface` y `CacheInterface`. ¡Sí! Pero en realidad no somos responsables de instanciar estos objetos de servicio. No, los crea otra cosa (hablaremos de ello en unos minutos), y luego nos los pasa.
 
@@ -18,7 +18,7 @@ Cuando Symfony carga este archivo, ve esta clave raíz - `twig` - y dice:
 
 ¡Y recuerda! Los bundles nos dan servicios. Gracias a esta configuración, cuando TwigBundle está preparando sus servicios, Symfony le pasa esta configuración y TwigBundle la utiliza para decidir cómo deben instanciarse sus servicios... como qué nombres de clase usar para cada servicio... o qué primer segundo o tercer argumento del constructor pasar.
 
-Por ejemplo, si cambiáramos el `default_path` por algo como`%kernel.project_dir%/views`, el resultado es que el servicio Twig que renderiza las plantillas estaría ahora preconfigurado para buscar en ese directorio.
+Por ejemplo, si cambiáramos el `default_path` por algo como`%kernel.project_dir%/views`, el resultado es que el servicio Twig que genera plantillas estaría ahora preconfigurado para buscar en ese directorio.
 
 La cuestión es: la configuración de estos archivos nos da el poder de controlar los servicios que proporciona cada bundle.
 
