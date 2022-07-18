@@ -65,7 +65,7 @@ wanted to store our cache in Redis, we would use `cache.adapter.redis`.
 
 To make things really easy, use `cache.adapter.array`:
 
-[[[ code('cc8987c4ae) ]]]
+[[[ code('cc8987c4ae') ]]]
 
 The `array` adapter is a *fake* cache where it *does* store things... but it only lives 
 for the duration of the request. So, at the end of each request, it forgets 
