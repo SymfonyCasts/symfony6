@@ -1,0 +1,24 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 4e0547a..9dde24d 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
+ 
+ use App\Entity\VinylMix;
++use App\Repository\VinylMixRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+@@ -31,8 +32,9 @@ class MixController extends AbstractController
+     }
+ 
+     #[Route('/mix/{id}')]
+-    public function show($id): Response
++    public function show($id, VinylMixRepository $mixRepository): Response
+     {
+-        dd($id);
++        $mix = $mixRepository->find($id);
++        dd($mix);
+     }
+ }

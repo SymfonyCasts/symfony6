@@ -1,8 +1,18 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 1139d6a..70a0e9b 100644
+index 058bbd9..6db5227 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -37,11 +37,12 @@ class VinylController extends AbstractController
+@@ -2,7 +2,9 @@
+ 
+ namespace App\Controller;
+ 
++use App\Entity\VinylMix;
+ use App\Service\MixRepository;
++use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -35,11 +37,12 @@ class VinylController extends AbstractController
      }
  
      #[Route('/browse/{slug}', name: 'app_browse')]

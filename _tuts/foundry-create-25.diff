@@ -1,0 +1,13 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 26e177d..79e9011 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager): void
+     {
+-        VinylMixFactory::createOne();
++        VinylMixFactory::createMany(25);
+ 
+         $manager->flush();
+     }

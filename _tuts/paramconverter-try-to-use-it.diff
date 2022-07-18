@@ -1,0 +1,20 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index ba0351c..1ce3678 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -32,14 +32,8 @@ class MixController extends AbstractController
+     }
+ 
+     #[Route('/mix/{id}', name: 'app_mix_show')]
+-    public function show($id, VinylMixRepository $mixRepository): Response
++    public function show(VinylMix $mix): Response
+     {
+-        $mix = $mixRepository->find($id);
+-
+-        if (!$mix) {
+-            throw $this->createNotFoundException('Mix not found');
+-        }
+-
+         return $this->render('mix/show.html.twig', [
+             'mix' => $mix,
+         ]);

@@ -1,0 +1,15 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index f54e747..ba0351c 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -36,6 +36,10 @@ class MixController extends AbstractController
+     {
+         $mix = $mixRepository->find($id);
+ 
++        if (!$mix) {
++            throw $this->createNotFoundException('Mix not found');
++        }
++
+         return $this->render('mix/show.html.twig', [
+             'mix' => $mix,
+         ]);

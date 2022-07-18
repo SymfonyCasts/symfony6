@@ -1,0 +1,35 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 8d98dbc..e375b11 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -32,7 +32,7 @@ class MixController extends AbstractController
+         ));
+     }
+ 
+-    #[Route('/mix/{id}', name: 'app_mix_show')]
++    #[Route('/mix/{slug}', name: 'app_mix_show')]
+     public function show(VinylMix $mix): Response
+     {
+         return $this->render('mix/show.html.twig', [
+@@ -54,7 +54,7 @@ class MixController extends AbstractController
+         $this->addFlash('success', 'Vote counted!');
+ 
+         return $this->redirectToRoute('app_mix_show', [
+-            'id' => $mix->getId(),
++            'slug' => $mix->getSlug(),
+         ]);
+     }
+ }
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 277d577..05cf3cb 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -29,7 +29,7 @@
+             {% for mix in mixes %}
+             <div class="col col-md-4">
+                 <a href="{{ path('app_mix_show', {
+-                    id: mix.id
++                    slug: mix.slug
+                 }) }}" class="mixed-vinyl-container p-3 text-center">
+                     <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+                     <p class="mt-2"><strong>{{ mix.title }}</strong></p>

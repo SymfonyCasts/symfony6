@@ -1,0 +1,13 @@
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 5ab59ef..77c6657 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -44,8 +44,6 @@
+                     </a>
+                 </div>
+                 {% endfor %}
+-
+-                {{ pagerfanta(pager) }}
+             </div>
+         </turbo-frame>
+     </div>

@@ -1,0 +1,27 @@
+diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
+index 987f6fe..cfdd63e 100644
+--- a/src/DataFixtures/AppFixtures.php
++++ b/src/DataFixtures/AppFixtures.php
+@@ -2,6 +2,7 @@
+ 
+ namespace App\DataFixtures;
+ 
++use App\Entity\VinylMix;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+ use Doctrine\Persistence\ObjectManager;
+ 
+@@ -9,8 +10,12 @@ class AppFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager): void
+     {
+-        // $product = new Product();
+-        // $manager->persist($product);
++        $mix = new VinylMix();
++        $mix->setTitle('Do you Remember... Phil Collins?!');
++        $mix->setDescription('A pure mix of drummers turned singers!');
++        $mix->setGenre('pop');
++        $mix->setTrackCount(rand(5, 20));
++        $mix->setVotes(rand(-50, 50));
+ 
+         $manager->flush();
+     }

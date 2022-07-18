@@ -1,0 +1,16 @@
+diff --git a/src/Factory/VinylMixFactory.php b/src/Factory/VinylMixFactory.php
+index ea78fc4..199cdc9 100644
+--- a/src/Factory/VinylMixFactory.php
++++ b/src/Factory/VinylMixFactory.php
+@@ -39,10 +39,10 @@ final class VinylMixFactory extends ModelFactory
+     {
+         return [
+             'title' => self::faker()->words(5, true),
++            'description' => self::faker()->paragraph(),
+             'trackCount' => self::faker()->numberBetween(5, 20),
+             'genre' => self::faker()->word(),
+             'votes' => self::faker()->numberBetween(-50, 50),
+-            'slug' => self::faker()->text(),
+         ];
+     }
+ 

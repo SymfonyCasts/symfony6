@@ -1,15 +1,22 @@
-diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 058bbd9..a8222db 100644
---- a/src/Controller/VinylController.php
-+++ b/src/Controller/VinylController.php
-@@ -46,4 +46,10 @@ class VinylController extends AbstractController
-             'mixes' => $mixes,
-         ]);
-     }
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+new file mode 100644
+index 0000000..7b8db1c
+--- /dev/null
++++ b/src/Controller/MixController.php
+@@ -0,0 +1,16 @@
++<?php
 +
++namespace App\Controller;
++
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Routing\Annotation\Route;
++
++class MixController extends AbstractController
++{
 +    #[Route('/mix/new')]
-+    public function newMix(): Response
++    public function new(): Response
 +    {
 +        dd('new mix');
 +    }
- }
++}

@@ -1,18 +1,18 @@
-diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index a8222db..d693f07 100644
---- a/src/Controller/VinylController.php
-+++ b/src/Controller/VinylController.php
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 7b8db1c..8313c95 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
 @@ -2,6 +2,7 @@
  
  namespace App\Controller;
  
 +use App\Entity\VinylMix;
- use App\Service\MixRepository;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Response;
-@@ -50,6 +51,13 @@ class VinylController extends AbstractController
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -11,6 +12,13 @@ class MixController extends AbstractController
      #[Route('/mix/new')]
-     public function newMix(): Response
+     public function new(): Response
      {
 -        dd('new mix');
 +        $mix = new VinylMix();

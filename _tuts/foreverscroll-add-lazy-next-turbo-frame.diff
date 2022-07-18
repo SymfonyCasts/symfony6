@@ -1,0 +1,15 @@
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 77c6657..040ce2f 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -44,6 +44,10 @@
+                     </a>
+                 </div>
+                 {% endfor %}
++
++                {% if pager.hasNextPage %}
++                    <turbo-frame id="mix-browse-list-{{ pager.nextPage }}" src="{{ pagerfanta_page_url(pager, pager.nextPage) }}" loading="lazy"></turbo-frame>
++                {% endif %}
+             </div>
+         </turbo-frame>
+     </div>

@@ -1,0 +1,61 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index e4f767d..3ff04f4 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -4,6 +4,8 @@ namespace App\Controller;
+ 
+ use App\Repository\VinylMixRepository;
+ use App\Service\MixRepository;
++use Pagerfanta\Doctrine\ORM\QueryAdapter;
++use Pagerfanta\Pagerfanta;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -40,11 +42,17 @@ class VinylController extends AbstractController
+     {
+         $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+ 
+-        $mixes = $mixRepository->findAllOrderedByVotes($slug);
++        $queryBuilder = $mixRepository->createOrderedByVotesQueryBuilder($slug);
++        $adapter = new QueryAdapter($queryBuilder);
++        $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
++            $adapter,
++            1,
++            9
++        );
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,
+-            'mixes' => $mixes,
++            'pager' => $pagerfanta,
+         ]);
+     }
+ }
+diff --git a/src/Repository/VinylMixRepository.php b/src/Repository/VinylMixRepository.php
+index 1dba3b9..44510f1 100644
+--- a/src/Repository/VinylMixRepository.php
++++ b/src/Repository/VinylMixRepository.php
+@@ -40,10 +40,7 @@ class VinylMixRepository extends ServiceEntityRepository
+         }
+     }
+ 
+-    /**
+-     * @return VinylMix[] Returns an array of VinylMix objects
+-     */
+-    public function findAllOrderedByVotes(string $genre = null): array
++    public function createOrderedByVotesQueryBuilder(string $genre = null): QueryBuilder
+     {
+         $queryBuilder = $this->addOrderByVotesQueryBuilder();
+ 
+@@ -52,10 +49,7 @@ class VinylMixRepository extends ServiceEntityRepository
+                 ->setParameter('genre', $genre);
+         }
+ 
+-        return $queryBuilder
+-            ->getQuery()
+-            ->getResult()
+-        ;
++        return $queryBuilder;
+     }
+ 
+     private function addOrderByVotesQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder

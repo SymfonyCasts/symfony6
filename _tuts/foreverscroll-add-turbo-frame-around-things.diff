@@ -1,0 +1,54 @@
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index d162651..5ab59ef 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -25,27 +25,29 @@
+ 
+     <div>
+         <h2 class="mt-5">Mixes</h2>
+-        <div class="row">
+-            {% for mix in pager %}
+-            <div class="col col-md-4">
+-                <a href="{{ path('app_mix_show', {
+-                    slug: mix.slug
+-                }) }}" class="mixed-vinyl-container p-3 text-center">
+-                    <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+-                    <p class="mt-2"><strong>{{ mix.title }}</strong></p>
+-                    <span>{{ mix.trackCount }} Tracks</span>
+-                    |
+-                    <span>{{ mix.genre }}</span>
+-                    |
+-                    <span>{{ mix.createdAt|ago }}</span>
+-                    <br>
+-                    {{ mix.votesString }} votes
+-                </a>
+-            </div>
+-            {% endfor %}
++        <turbo-frame id="mix-browse-list-{{ pager.currentPage }}">
++            <div class="row">
++                {% for mix in pager %}
++                <div class="col col-md-4">
++                    <a href="{{ path('app_mix_show', {
++                        slug: mix.slug
++                    }) }}" class="mixed-vinyl-container p-3 text-center">
++                        <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
++                        <p class="mt-2"><strong>{{ mix.title }}</strong></p>
++                        <span>{{ mix.trackCount }} Tracks</span>
++                        |
++                        <span>{{ mix.genre }}</span>
++                        |
++                        <span>{{ mix.createdAt|ago }}</span>
++                        <br>
++                        {{ mix.votesString }} votes
++                    </a>
++                </div>
++                {% endfor %}
+ 
+-            {{ pagerfanta(pager) }}
+-        </div>
++                {{ pagerfanta(pager) }}
++            </div>
++        </turbo-frame>
+     </div>
+ </div>
+ {% endblock %}

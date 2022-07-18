@@ -1,0 +1,9 @@
+diff --git a/config/packages/babdev_pagerfanta.yaml b/config/packages/babdev_pagerfanta.yaml
+new file mode 100644
+index 0000000..7449986
+--- /dev/null
++++ b/config/packages/babdev_pagerfanta.yaml
+@@ -0,0 +1,3 @@
++babdev_pagerfanta:
++    default_view: twig
++    default_twig_template: '@BabDevPagerfanta/twitter_bootstrap5.html.twig'

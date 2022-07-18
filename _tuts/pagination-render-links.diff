@@ -1,0 +1,13 @@
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index 47d13cb..d162651 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -43,6 +43,8 @@
+                 </a>
+             </div>
+             {% endfor %}
++
++            {{ pagerfanta(pager) }}
+         </div>
+     </div>
+ </div>

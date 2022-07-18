@@ -1,0 +1,15 @@
+diff --git a/assets/styles/app.css b/assets/styles/app.css
+index 9b29c2b..1ea81c5 100644
+--- a/assets/styles/app.css
++++ b/assets/styles/app.css
+@@ -30,4 +30,10 @@ body {
+     background: rgb(23,36,44);
+     background: linear-gradient(180deg, rgba(23,36,44,1) 1%, rgba(34,47,54,1) 97%);
+     border-radius: 5px;
++    display: block;
++    color: #fff;
++    text-decoration: none;
++}
++.mixed-vinyl-container:hover {
++    color: #fff;
+ }

@@ -1,0 +1,55 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 5cef946..86d70b6 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -5,10 +5,13 @@ namespace App\Entity;
+ use App\Repository\VinylMixRepository;
+ use Doctrine\DBAL\Types\Types;
+ use Doctrine\ORM\Mapping as ORM;
++use Gedmo\Timestampable\Traits\TimestampableEntity;
+ 
+ #[ORM\Entity(repositoryClass: VinylMixRepository::class)]
+ class VinylMix
+ {
++    use TimestampableEntity;
++
+     #[ORM\Id]
+     #[ORM\GeneratedValue]
+     #[ORM\Column()]
+@@ -26,17 +29,9 @@ class VinylMix
+     #[ORM\Column(length: 255)]
+     private ?string $genre = null;
+ 
+-    #[ORM\Column]
+-    private \DateTimeImmutable $createdAt;
+-
+     #[ORM\Column]
+     private int $votes = 0;
+ 
+-    public function __construct()
+-    {
+-        $this->createdAt = new \DateTimeImmutable();
+-    }
+-
+     public function getId(): ?int
+     {
+         return $this->id;
+@@ -90,18 +85,6 @@ class VinylMix
+         return $this;
+     }
+ 
+-    public function getCreatedAt(): ?\DateTimeImmutable
+-    {
+-        return $this->createdAt;
+-    }
+-
+-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+-    {
+-        $this->createdAt = $createdAt;
+-
+-        return $this;
+-    }
+-
+     public function getVotes(): ?int
+     {
+         return $this->votes;

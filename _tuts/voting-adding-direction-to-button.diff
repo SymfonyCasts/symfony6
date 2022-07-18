@@ -1,0 +1,36 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 79aca5f..59931ec 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -6,6 +6,7 @@ use App\Entity\VinylMix;
+ use App\Repository\VinylMixRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+ 
+@@ -40,8 +41,8 @@ class MixController extends AbstractController
+     }
+ 
+     #[Route('/mix/{id}/vote', name: 'app_mix_vote', methods: ['POST'])]
+-    public function vote(VinylMix $mix): Response
++    public function vote(VinylMix $mix, Request $request): Response
+     {
+-        dd($mix);
++        dd($request->request->get('direction'));
+     }
+ }
+diff --git a/templates/mix/show.html.twig b/templates/mix/show.html.twig
+index 2b5a1b5..6b0e590 100644
+--- a/templates/mix/show.html.twig
++++ b/templates/mix/show.html.twig
+@@ -18,6 +18,8 @@
+                     <button
+                         type="submit"
+                         class="btn btn-outline-primary"
++                        name="direction"
++                        value="up"
+                     ><span class="fa fa-thumbs-up"></span></button>
+                 </form>
+             </div>

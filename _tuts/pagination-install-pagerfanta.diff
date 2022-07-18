@@ -1,0 +1,590 @@
+diff --git a/composer.json b/composer.json
+index 964a84f..02fc8b2 100644
+--- a/composer.json
++++ b/composer.json
+@@ -6,10 +6,12 @@
+         "php": ">=8.1",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
++        "babdev/pagerfanta-bundle": "^3.7",
+         "doctrine/doctrine-bundle": "^2.7",
+         "doctrine/doctrine-migrations-bundle": "^3.2",
+         "doctrine/orm": "^2.12",
+         "knplabs/knp-time-bundle": "^1.18",
++        "pagerfanta/doctrine-orm-adapter": "^3.6",
+         "sensio/framework-extra-bundle": "^6.2",
+         "stof/doctrine-extensions-bundle": "^1.7",
+         "symfony/asset": "6.1.*",
+diff --git a/composer.lock b/composer.lock
+index aba14e9..84194f2 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,8 +4,91 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "5f6b6242b3b8235284f9134c7aa6f05c",
++    "content-hash": "74e4ee7f404472d1afeceeebaa71336c",
+     "packages": [
++        {
++            "name": "babdev/pagerfanta-bundle",
++            "version": "v3.7.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/BabDev/PagerfantaBundle.git",
++                "reference": "d2760ebc3d22db10f219544323bea432dedc9eb0"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/BabDev/PagerfantaBundle/zipball/d2760ebc3d22db10f219544323bea432dedc9eb0",
++                "reference": "d2760ebc3d22db10f219544323bea432dedc9eb0",
++                "shasum": ""
++            },
++            "require": {
++                "pagerfanta/core": "^3.1",
++                "php": "^7.4 || ^8.0",
++                "symfony/config": "^4.4 || ^5.4 || ^6.0",
++                "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
++                "symfony/deprecation-contracts": "^2.1 || ^3.0",
++                "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
++                "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
++                "symfony/polyfill-php80": "^1.15",
++                "symfony/property-access": "^4.4 || ^5.4 || ^6.0",
++                "symfony/routing": "^4.4 || ^5.4 || ^6.0"
++            },
++            "conflict": {
++                "pagerfanta/twig": "<3.1",
++                "twig/twig": "<1.35 || >=2.0,<2.5",
++                "white-october/pagerfanta-bundle": "*"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.8",
++                "jms/serializer": "^3.0",
++                "jms/serializer-bundle": "^3.0 || ^4.0",
++                "matthiasnoback/symfony-dependency-injection-test": "^4.3",
++                "pagerfanta/twig": "^3.1",
++                "phpstan/extension-installer": "^1.1",
++                "phpstan/phpstan": "1.7.2",
++                "phpstan/phpstan-phpunit": "1.1.1",
++                "phpstan/phpstan-symfony": "1.2.0",
++                "phpunit/phpunit": "^9.5",
++                "symfony/phpunit-bridge": "^5.4 || ^6.0",
++                "symfony/serializer": "^4.4 || ^5.4 || ^6.0",
++                "symfony/translation": "^4.4 || ^5.4 || ^6.0",
++                "symfony/twig-bridge": "^4.4 || ^5.4 || ^6.0",
++                "symfony/twig-bundle": "^4.4 || ^5.4 || ^6.0",
++                "twig/twig": "^1.35 || ^2.5 || ^3.0"
++            },
++            "suggest": {
++                "jms/serializer-bundle": "To use the Pagerfanta class with the JMS Serializer",
++                "symfony/serializer": "To use the Pagerfanta class with the Symfony Serializer",
++                "symfony/translation": "To use the Twig templates with translation support",
++                "twig/twig": "To integrate Pagerfanta with Twig through extensions"
++            },
++            "type": "symfony-bundle",
++            "autoload": {
++                "psr-4": {
++                    "BabDev\\PagerfantaBundle\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "description": "Bundle integrating Pagerfanta with Symfony",
++            "keywords": [
++                "pagerfanta",
++                "pagination",
++                "symfony"
++            ],
++            "support": {
++                "issues": "https://github.com/BabDev/PagerfantaBundle/issues",
++                "source": "https://github.com/BabDev/PagerfantaBundle/tree/v3.7.0"
++            },
++            "funding": [
++                {
++                    "url": "https://github.com/mbabker",
++                    "type": "github"
++                }
++            ],
++            "time": "2022-05-27T20:58:26+00:00"
++        },
+         {
+             "name": "behat/transliterator",
+             "version": "v1.5.0",
+@@ -1856,6 +1939,103 @@
+             ],
+             "time": "2022-06-09T09:09:00+00:00"
+         },
++        {
++            "name": "pagerfanta/core",
++            "version": "v3.6.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Pagerfanta/core.git",
++                "reference": "ed751ad06edea1d88451683405e4a207f20c26ac"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Pagerfanta/core/zipball/ed751ad06edea1d88451683405e4a207f20c26ac",
++                "reference": "ed751ad06edea1d88451683405e4a207f20c26ac",
++                "shasum": ""
++            },
++            "require": {
++                "ext-json": "*",
++                "php": "^7.4 || ^8.0",
++                "symfony/deprecation-contracts": "^2.1 || ^3.0",
++                "symfony/polyfill-php80": "^1.15"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^9.5",
++                "symfony/phpunit-bridge": "^5.4 || ^6.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Pagerfanta\\": "./"
++                },
++                "exclude-from-classmap": [
++                    "Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "description": "Core Pagerfanta API",
++            "keywords": [
++                "pagerfanta"
++            ],
++            "support": {
++                "source": "https://github.com/Pagerfanta/core/tree/v3.6.1"
++            },
++            "time": "2022-03-15T23:30:46+00:00"
++        },
++        {
++            "name": "pagerfanta/doctrine-orm-adapter",
++            "version": "v3.6.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Pagerfanta/doctrine-orm-adapter.git",
++                "reference": "592926e29e280f30a8912030247960f396faece7"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Pagerfanta/doctrine-orm-adapter/zipball/592926e29e280f30a8912030247960f396faece7",
++                "reference": "592926e29e280f30a8912030247960f396faece7",
++                "shasum": ""
++            },
++            "require": {
++                "doctrine/orm": "^2.8",
++                "pagerfanta/core": "^3.0",
++                "php": "^7.4 || ^8.0",
++                "symfony/deprecation-contracts": "^2.1 || ^3.0"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.11.1",
++                "doctrine/cache": "^1.11 || ^2.0",
++                "phpunit/phpunit": "^9.5",
++                "symfony/cache": "^4.4 || ^5.4 || ^6.0",
++                "symfony/phpunit-bridge": "^5.4 || ^6.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Pagerfanta\\Doctrine\\ORM\\": "./"
++                },
++                "exclude-from-classmap": [
++                    "Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "description": "Pagerfanta adapter for Doctrine ORM",
++            "keywords": [
++                "doctrine",
++                "orm",
++                "pagerfanta"
++            ],
++            "support": {
++                "source": "https://github.com/Pagerfanta/doctrine-orm-adapter/tree/v3.6.1"
++            },
++            "time": "2022-03-09T00:03:03+00:00"
++        },
+         {
+             "name": "psr/cache",
+             "version": "3.0.0",
+@@ -4307,6 +4487,174 @@
+             ],
+             "time": "2022-05-24T11:49:31+00:00"
+         },
++        {
++            "name": "symfony/property-access",
++            "version": "v6.1.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/property-access.git",
++                "reference": "71a4cab59753349d25dfb1e34a342a6bd6a818cc"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/property-access/zipball/71a4cab59753349d25dfb1e34a342a6bd6a818cc",
++                "reference": "71a4cab59753349d25dfb1e34a342a6bd6a818cc",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.1",
++                "symfony/property-info": "^5.4|^6.0"
++            },
++            "require-dev": {
++                "symfony/cache": "^5.4|^6.0"
++            },
++            "suggest": {
++                "psr/cache-implementation": "To cache access methods."
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\PropertyAccess\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides functions to read and write from/to an object or array using a simple string notation",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "access",
++                "array",
++                "extraction",
++                "index",
++                "injection",
++                "object",
++                "property",
++                "property path",
++                "reflection"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/property-access/tree/v6.1.0"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-04-12T16:22:53+00:00"
++        },
++        {
++            "name": "symfony/property-info",
++            "version": "v6.1.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/property-info.git",
++                "reference": "4989684b39c929fcf3ba432afdd932879fbc1334"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/property-info/zipball/4989684b39c929fcf3ba432afdd932879fbc1334",
++                "reference": "4989684b39c929fcf3ba432afdd932879fbc1334",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.1",
++                "symfony/string": "^5.4|^6.0"
++            },
++            "conflict": {
++                "phpdocumentor/reflection-docblock": "<5.2",
++                "phpdocumentor/type-resolver": "<1.5.1",
++                "symfony/dependency-injection": "<5.4"
++            },
++            "require-dev": {
++                "doctrine/annotations": "^1.10.4",
++                "phpdocumentor/reflection-docblock": "^5.2",
++                "phpstan/phpdoc-parser": "^1.0",
++                "symfony/cache": "^5.4|^6.0",
++                "symfony/dependency-injection": "^5.4|^6.0",
++                "symfony/serializer": "^5.4|^6.0"
++            },
++            "suggest": {
++                "phpdocumentor/reflection-docblock": "To use the PHPDoc",
++                "psr/cache-implementation": "To cache results",
++                "symfony/doctrine-bridge": "To use Doctrine metadata",
++                "symfony/serializer": "To use Serializer metadata"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\PropertyInfo\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Kévin Dunglas",
++                    "email": "dunglas@gmail.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Extracts information about PHP class' properties using metadata of popular sources",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "doctrine",
++                "phpdoc",
++                "property",
++                "symfony",
++                "type",
++                "validator"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/property-info/tree/v6.1.2"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2022-06-10T06:48:13+00:00"
++        },
+         {
+             "name": "symfony/proxy-manager-bridge",
+             "version": "v6.1.0",
+@@ -6254,174 +6602,6 @@
+             ],
+             "time": "2022-05-24T11:49:31+00:00"
+         },
+-        {
+-            "name": "symfony/property-access",
+-            "version": "v6.1.0",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/symfony/property-access.git",
+-                "reference": "71a4cab59753349d25dfb1e34a342a6bd6a818cc"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/property-access/zipball/71a4cab59753349d25dfb1e34a342a6bd6a818cc",
+-                "reference": "71a4cab59753349d25dfb1e34a342a6bd6a818cc",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "php": ">=8.1",
+-                "symfony/property-info": "^5.4|^6.0"
+-            },
+-            "require-dev": {
+-                "symfony/cache": "^5.4|^6.0"
+-            },
+-            "suggest": {
+-                "psr/cache-implementation": "To cache access methods."
+-            },
+-            "type": "library",
+-            "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Component\\PropertyAccess\\": ""
+-                },
+-                "exclude-from-classmap": [
+-                    "/Tests/"
+-                ]
+-            },
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "authors": [
+-                {
+-                    "name": "Fabien Potencier",
+-                    "email": "fabien@symfony.com"
+-                },
+-                {
+-                    "name": "Symfony Community",
+-                    "homepage": "https://symfony.com/contributors"
+-                }
+-            ],
+-            "description": "Provides functions to read and write from/to an object or array using a simple string notation",
+-            "homepage": "https://symfony.com",
+-            "keywords": [
+-                "access",
+-                "array",
+-                "extraction",
+-                "index",
+-                "injection",
+-                "object",
+-                "property",
+-                "property path",
+-                "reflection"
+-            ],
+-            "support": {
+-                "source": "https://github.com/symfony/property-access/tree/v6.1.0"
+-            },
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2022-04-12T16:22:53+00:00"
+-        },
+-        {
+-            "name": "symfony/property-info",
+-            "version": "v6.1.2",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/symfony/property-info.git",
+-                "reference": "4989684b39c929fcf3ba432afdd932879fbc1334"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/property-info/zipball/4989684b39c929fcf3ba432afdd932879fbc1334",
+-                "reference": "4989684b39c929fcf3ba432afdd932879fbc1334",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "php": ">=8.1",
+-                "symfony/string": "^5.4|^6.0"
+-            },
+-            "conflict": {
+-                "phpdocumentor/reflection-docblock": "<5.2",
+-                "phpdocumentor/type-resolver": "<1.5.1",
+-                "symfony/dependency-injection": "<5.4"
+-            },
+-            "require-dev": {
+-                "doctrine/annotations": "^1.10.4",
+-                "phpdocumentor/reflection-docblock": "^5.2",
+-                "phpstan/phpdoc-parser": "^1.0",
+-                "symfony/cache": "^5.4|^6.0",
+-                "symfony/dependency-injection": "^5.4|^6.0",
+-                "symfony/serializer": "^5.4|^6.0"
+-            },
+-            "suggest": {
+-                "phpdocumentor/reflection-docblock": "To use the PHPDoc",
+-                "psr/cache-implementation": "To cache results",
+-                "symfony/doctrine-bridge": "To use Doctrine metadata",
+-                "symfony/serializer": "To use Serializer metadata"
+-            },
+-            "type": "library",
+-            "autoload": {
+-                "psr-4": {
+-                    "Symfony\\Component\\PropertyInfo\\": ""
+-                },
+-                "exclude-from-classmap": [
+-                    "/Tests/"
+-                ]
+-            },
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "authors": [
+-                {
+-                    "name": "Kévin Dunglas",
+-                    "email": "dunglas@gmail.com"
+-                },
+-                {
+-                    "name": "Symfony Community",
+-                    "homepage": "https://symfony.com/contributors"
+-                }
+-            ],
+-            "description": "Extracts information about PHP class' properties using metadata of popular sources",
+-            "homepage": "https://symfony.com",
+-            "keywords": [
+-                "doctrine",
+-                "phpdoc",
+-                "property",
+-                "symfony",
+-                "type",
+-                "validator"
+-            ],
+-            "support": {
+-                "source": "https://github.com/symfony/property-info/tree/v6.1.2"
+-            },
+-            "funding": [
+-                {
+-                    "url": "https://symfony.com/sponsor",
+-                    "type": "custom"
+-                },
+-                {
+-                    "url": "https://github.com/fabpot",
+-                    "type": "github"
+-                },
+-                {
+-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+-                    "type": "tidelift"
+-                }
+-            ],
+-            "time": "2022-06-10T06:48:13+00:00"
+-        },
+         {
+             "name": "symfony/web-profiler-bundle",
+             "version": "v6.1.2",
+diff --git a/config/bundles.php b/config/bundles.php
+index c86d88c..e1a3602 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -17,4 +17,5 @@ return [
+     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+     Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
++    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
+ ];
+diff --git a/symfony.lock b/symfony.lock
+index 45814e1..b013ca3 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -1,4 +1,7 @@
+ {
++    "babdev/pagerfanta-bundle": {
++        "version": "v3.7.0"
++    },
+     "doctrine/annotations": {
+         "version": "1.13",
+         "recipe": {

@@ -1,0 +1,28 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 9dde24d..3c393f6 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -35,6 +35,9 @@ class MixController extends AbstractController
+     public function show($id, VinylMixRepository $mixRepository): Response
+     {
+         $mix = $mixRepository->find($id);
+-        dd($mix);
++
++        return $this->render('mix/show.html.twig', [
++            'mix' => $mix,
++        ]);
+     }
+ }
+diff --git a/templates/mix/show.html.twig b/templates/mix/show.html.twig
+new file mode 100644
+index 0000000..0cf2845
+--- /dev/null
++++ b/templates/mix/show.html.twig
+@@ -0,0 +1,7 @@
++{% extends 'base.html.twig' %}
++
++{% block title %}{{ mix.title }} Mix{% endblock %}
++
++{% block body %}
++    <h1>{{ mix.title }}</h1>
++{% endblock %}

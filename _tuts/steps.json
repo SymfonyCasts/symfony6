@@ -776,6 +776,16 @@
             "description": null
         },
         {
+            "id": "pre-ep3-tweaking-styles",
+            "name": "PRE_EP3: tweaking styles",
+            "description": null
+        },
+        {
+            "id": "pre-ep3-changing-navigation-wrapper",
+            "name": "PRE_EP3: changing navigation wrapper",
+            "description": null
+        },
+        {
             "id": "pre-ep3-re-compiling-yarn-assets",
             "name": "PRE_EP3: re-compiling yarn assets",
             "description": null
@@ -899,7 +909,232 @@
             "id": "custom-methods-getimageurl-entity-method",
             "name": "Custom Methods: getImageUrl() entity method",
             "description": null
+        },
+        {
+            "id": "showpage-create-show-action",
+            "name": "ShowPage: create show() action",
+            "description": null
+        },
+        {
+            "id": "showpage-query-for-single-vinylmix",
+            "name": "ShowPage: query for single VinylMix",
+            "description": null
+        },
+        {
+            "id": "showpage-create-show-page",
+            "name": "ShowPage: create show page",
+            "description": null
+        },
+        {
+            "id": "showpage-paste-in-better-show-page",
+            "name": "ShowPage: paste in better show page",
+            "description": null
+        },
+        {
+            "id": "showpage-print-my-dynamic-data",
+            "name": "ShowPage: Print my dynamic data",
+            "description": null
+        },
+        {
+            "id": "showpage-link-to-page",
+            "name": "ShowPage: link to page",
+            "description": null
+        },
+        {
+            "id": "showpage-404-on-no-mix-found",
+            "name": "ShowPage: 404 on no mix found",
+            "description": null
+        },
+        {
+            "id": "paramconverter-try-to-use-it",
+            "name": "ParamConverter: try to use it",
+            "description": null
+        },
+        {
+            "id": "paramconverter-install-sensiofwextrabundle",
+            "name": "ParamConverter: install SensioFWExtraBundle",
+            "description": null
+        },
+        {
+            "id": "voting-add-controller-and-form",
+            "name": "Voting: add controller and form",
+            "description": null
+        },
+        {
+            "id": "voting-adding-direction-to-button",
+            "name": "Voting: adding \"direction\" to button",
+            "description": null
+        },
+        {
+            "id": "voting-add-default-direction-value",
+            "name": "Voting: add default direction value",
+            "description": null
+        },
+        {
+            "id": "voting-set-votes-onto-entity",
+            "name": "Voting: set votes onto entity",
+            "description": null
+        },
+        {
+            "id": "voting-save-and-redirect",
+            "name": "Voting: Save and redirect",
+            "description": null
+        },
+        {
+            "id": "voting-add-flash",
+            "name": "Voting: add flash",
+            "description": null
+        },
+        {
+            "id": "voting-smarter-entity-methods",
+            "name": "Voting: smarter entity methods",
+            "description": null
+        },
+        {
+            "id": "extensions-install-stof-extensions",
+            "name": "Extensions: install stof extensions",
+            "description": null
+        },
+        {
+            "id": "extensions-activate-timestampable",
+            "name": "Extensions: activate timestampable",
+            "description": null
+        },
+        {
+            "id": "extensions-use-trait",
+            "name": "Extensions: use trait",
+            "description": null
+        },
+        {
+            "id": "extensions-make-migration",
+            "name": "Extensions: make:migration",
+            "description": null
+        },
+        {
+            "id": "extensions-enable-sluggable",
+            "name": "Extensions: enable sluggable",
+            "description": null
+        },
+        {
+            "id": "extensions-add-slug-column",
+            "name": "Extensions: add slug column",
+            "description": null
+        },
+        {
+            "id": "extensions-make-slug-unique",
+            "name": "Extensions: make slug unique",
+            "description": null
+        },
+        {
+            "id": "extensions-make-slug-migration",
+            "name": "Extensions: make slug migration",
+            "description": null
+        },
+        {
+            "id": "extensions-add-slug-attribute",
+            "name": "Extensions: add Slug attribute",
+            "description": null
+        },
+        {
+            "id": "extensions-change-route-to-use-slug",
+            "name": "Extensions: change route to use {slug}",
+            "description": null
+        },
+        {
+            "id": "fixtures-install-fixtures-bundle",
+            "name": "Fixtures: install fixtures bundle",
+            "description": null
+        },
+        {
+            "id": "fixtures-copy-new-vinylmix-code-into-fixtures",
+            "name": "Fixtures: copy new VinylMix code into fixtures",
+            "description": null
+        },
+        {
+            "id": "fixtures-persist-the-mix",
+            "name": "Fixtures: persist the mix",
+            "description": null
+        },
+        {
+            "id": "foundry-install-it",
+            "name": "Foundry: install it",
+            "description": null
+        },
+        {
+            "id": "foundry-make-factory",
+            "name": "Foundry: make:factory",
+            "description": null
+        },
+        {
+            "id": "foundry-use-it-in-the-fixtures",
+            "name": "Foundry: use it in the fixtures",
+            "description": null
+        },
+        {
+            "id": "foundry-create-25",
+            "name": "Foundry: create 25",
+            "description": null
+        },
+        {
+            "id": "foundry-tweaking-defaults",
+            "name": "Foundry: tweaking defaults",
+            "description": null
+        },
+        {
+            "id": "foundry-more-defaults-tweaks",
+            "name": "Foundry: more defaults tweaks",
+            "description": null
+        },
+        {
+            "id": "pagination-install-pagerfanta",
+            "name": "Pagination: Install pagerfanta",
+            "description": null
+        },
+        {
+            "id": "pagination-set-up-pager-in-controller",
+            "name": "Pagination: Set up pager in controller",
+            "description": null
+        },
+        {
+            "id": "pagination-render-in-template",
+            "name": "Pagination: render in template",
+            "description": null
+        },
+        {
+            "id": "pagination-install-twig-adapter",
+            "name": "Pagination: install twig adapter",
+            "description": null
+        },
+        {
+            "id": "pagination-render-links",
+            "name": "Pagination: render links",
+            "description": null
+        },
+        {
+            "id": "pagination-set-page-in-controller",
+            "name": "Pagination: set page in controller",
+            "description": null
+        },
+        {
+            "id": "pagination-set-theme",
+            "name": "Pagination: set theme",
+            "description": null
+        },
+        {
+            "id": "foreverscroll-add-turbo-frame-around-things",
+            "name": "ForeverScroll: Add turbo-frame around things",
+            "description": null
+        },
+        {
+            "id": "foreverscroll-remove-pagerfanta-links",
+            "name": "ForeverScroll: Remove pagerfanta links",
+            "description": null
+        },
+        {
+            "id": "foreverscroll-add-lazy-next-turbo-frame",
+            "name": "ForeverScroll: Add lazy next turbo-frame",
+            "description": null
         }
     ],
-    "sha": "e7f07bde4688ebf4a41d27dff03f3d63b3431292"
+    "sha": "9bbb476fc1dcc62d664c75a42f9991f6e9aaa76d"
 }

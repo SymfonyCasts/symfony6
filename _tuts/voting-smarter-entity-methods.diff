@@ -1,0 +1,37 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index db76d7b..8d98dbc 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -45,9 +45,9 @@ class MixController extends AbstractController
+     {
+         $direction = $request->request->get('direction', 'up');
+         if ($direction === 'up') {
+-            $mix->setVotes($mix->getVotes() + 1);
++            $mix->upVote();
+         } else {
+-            $mix->setVotes($mix->getVotes() - 1);
++            $mix->downVote();
+         }
+ 
+         $entityManager->flush();
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 13b75fc..5cef946 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -114,6 +114,16 @@ class VinylMix
+         return $this;
+     }
+ 
++    public function upVote(): void
++    {
++        $this->votes++;
++    }
++
++    public function downVote(): void
++    {
++        $this->votes--;
++    }
++
+     public function getVotesString(): string
+     {
+         $prefix = ($this->votes === 0) ? '' : (($this->votes >= 0) ? '+' : '-');

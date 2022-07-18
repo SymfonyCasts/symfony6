@@ -1,8 +1,8 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index acd4ee7..739eaa5 100644
+index 5eb2a34..e4f767d 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -42,7 +42,7 @@ class VinylController extends AbstractController
+@@ -40,7 +40,7 @@ class VinylController extends AbstractController
      {
          $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
  

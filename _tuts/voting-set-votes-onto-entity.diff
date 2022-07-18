@@ -1,0 +1,33 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 61e2713..599fb40 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -44,5 +44,11 @@ class MixController extends AbstractController
+     public function vote(VinylMix $mix, Request $request): Response
+     {
+         $direction = $request->request->get('direction', 'up');
++        if ($direction === 'up') {
++            $mix->setVotes($mix->getVotes() + 1);
++        } else {
++            $mix->setVotes($mix->getVotes() - 1);
++        }
++        dd($mix);
+     }
+ }
+diff --git a/templates/mix/show.html.twig b/templates/mix/show.html.twig
+index 6b0e590..19191ea 100644
+--- a/templates/mix/show.html.twig
++++ b/templates/mix/show.html.twig
+@@ -21,6 +21,12 @@
+                         name="direction"
+                         value="up"
+                     ><span class="fa fa-thumbs-up"></span></button>
++                    <button
++                        type="submit"
++                        class="btn btn-outline-primary"
++                        name="direction"
++                        value="down"
++                    ><span class="fa fa-thumbs-down"></span></button>
+                 </form>
+             </div>
+         </div>

@@ -1,0 +1,29 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 9a02913..db76d7b 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -51,6 +51,7 @@ class MixController extends AbstractController
+         }
+ 
+         $entityManager->flush();
++        $this->addFlash('success', 'Vote counted!');
+ 
+         return $this->redirectToRoute('app_mix_show', [
+             'id' => $mix->getId(),
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index 2bebad7..bb1d2a2 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -54,6 +54,12 @@
+                 </div>
+             </nav>
+             <!-- End Main Navigation -->
++
++            {% for message in app.flashes('success') %}
++                <div class="alert alert-success">
++                    {{ message }}
++                </div>
++            {% endfor %}
+         </div>
+ 
+         {% block body %}{% endblock %}

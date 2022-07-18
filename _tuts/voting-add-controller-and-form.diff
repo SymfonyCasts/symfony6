@@ -1,0 +1,34 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 1ce3678..79aca5f 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -38,4 +38,10 @@ class MixController extends AbstractController
+             'mix' => $mix,
+         ]);
+     }
++
++    #[Route('/mix/{id}/vote', name: 'app_mix_vote', methods: ['POST'])]
++    public function vote(VinylMix $mix): Response
++    {
++        dd($mix);
++    }
+ }
+diff --git a/templates/mix/show.html.twig b/templates/mix/show.html.twig
+index 3f5b1b5..2b5a1b5 100644
+--- a/templates/mix/show.html.twig
++++ b/templates/mix/show.html.twig
+@@ -12,6 +12,14 @@
+             <div class="col-12 col-md-8 ps-5">
+                 <h2 class="mb-4">{{ mix.trackCount }} songs <small>(genre: {{ mix.genre }})</small></h2>
+                 <p>{{ mix.description }}</p>
++
++                {{ mix.votesString }} votes
++                <form action="{{ path('app_mix_vote', {id: mix.id }) }}" method="POST">
++                    <button
++                        type="submit"
++                        class="btn btn-outline-primary"
++                    ><span class="fa fa-thumbs-up"></span></button>
++                </form>
+             </div>
+         </div>
+     </div>

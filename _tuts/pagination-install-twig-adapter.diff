@@ -1,0 +1,78 @@
+diff --git a/composer.json b/composer.json
+index 02fc8b2..a9e59b2 100644
+--- a/composer.json
++++ b/composer.json
+@@ -12,6 +12,7 @@
+         "doctrine/orm": "^2.12",
+         "knplabs/knp-time-bundle": "^1.18",
+         "pagerfanta/doctrine-orm-adapter": "^3.6",
++        "pagerfanta/twig": "^3.6",
+         "sensio/framework-extra-bundle": "^6.2",
+         "stof/doctrine-extensions-bundle": "^1.7",
+         "symfony/asset": "6.1.*",
+diff --git a/composer.lock b/composer.lock
+index 84194f2..40a6caf 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "74e4ee7f404472d1afeceeebaa71336c",
++    "content-hash": "9a5fe75b51c7fbf653e97a4fdb7bdc3e",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -2036,6 +2036,52 @@
+             },
+             "time": "2022-03-09T00:03:03+00:00"
+         },
++        {
++            "name": "pagerfanta/twig",
++            "version": "v3.6.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/Pagerfanta/twig.git",
++                "reference": "0d7af77b027ffd613212abb434a40f4520f4e9d5"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/Pagerfanta/twig/zipball/0d7af77b027ffd613212abb434a40f4520f4e9d5",
++                "reference": "0d7af77b027ffd613212abb434a40f4520f4e9d5",
++                "shasum": ""
++            },
++            "require": {
++                "pagerfanta/core": "^3.0",
++                "php": "^7.4 || ^8.0",
++                "symfony/polyfill-php80": "^1.15",
++                "twig/twig": "^1.35 || ^2.5 || ^3.0"
++            },
++            "require-dev": {
++                "phpunit/phpunit": "^9.5",
++                "symfony/phpunit-bridge": "^5.4 || ^6.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Pagerfanta\\Twig\\": "./"
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "description": "Twig integration for Pagerfanta",
++            "keywords": [
++                "pagerfanta"
++            ],
++            "support": {
++                "source": "https://github.com/Pagerfanta/twig/tree/v3.6.1"
++            },
++            "time": "2022-01-18T04:22:14+00:00"
++        },
+         {
+             "name": "psr/cache",
+             "version": "3.0.0",

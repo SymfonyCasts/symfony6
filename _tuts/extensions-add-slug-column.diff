@@ -1,0 +1,31 @@
+diff --git a/src/Entity/VinylMix.php b/src/Entity/VinylMix.php
+index 86d70b6..36de937 100644
+--- a/src/Entity/VinylMix.php
++++ b/src/Entity/VinylMix.php
+@@ -32,6 +32,9 @@ class VinylMix
+     #[ORM\Column]
+     private int $votes = 0;
+ 
++    #[ORM\Column(length: 100)]
++    private ?string $slug = null;
++
+     public function getId(): ?int
+     {
+         return $this->id;
+@@ -122,4 +125,16 @@ class VinylMix
+             $width
+         );
+     }
++
++    public function getSlug(): ?string
++    {
++        return $this->slug;
++    }
++
++    public function setSlug(string $slug): self
++    {
++        $this->slug = $slug;
++
++        return $this;
++    }
+ }

@@ -1,0 +1,19 @@
+diff --git a/src/Factory/VinylMixFactory.php b/src/Factory/VinylMixFactory.php
+index b82bd73..ea78fc4 100644
+--- a/src/Factory/VinylMixFactory.php
++++ b/src/Factory/VinylMixFactory.php
+@@ -38,10 +38,10 @@ final class VinylMixFactory extends ModelFactory
+     protected function getDefaults(): array
+     {
+         return [
+-            'title' => self::faker()->text(),
+-            'trackCount' => self::faker()->randomNumber(),
+-            'genre' => self::faker()->text(),
+-            'votes' => self::faker()->randomNumber(),
++            'title' => self::faker()->words(5, true),
++            'trackCount' => self::faker()->numberBetween(5, 20),
++            'genre' => self::faker()->word(),
++            'votes' => self::faker()->numberBetween(-50, 50),
+             'slug' => self::faker()->text(),
+         ];
+     }

@@ -1,25 +1,25 @@
-diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index d693f07..1139d6a 100644
---- a/src/Controller/VinylController.php
-+++ b/src/Controller/VinylController.php
-@@ -4,6 +4,7 @@ namespace App\Controller;
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 8313c95..9a9acfe 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -3,6 +3,7 @@
+ namespace App\Controller;
  
  use App\Entity\VinylMix;
- use App\Service\MixRepository;
 +use Doctrine\ORM\EntityManagerInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Response;
  use Symfony\Component\Routing\Annotation\Route;
-@@ -49,7 +50,7 @@ class VinylController extends AbstractController
-     }
- 
+@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
+ class MixController extends AbstractController
+ {
      #[Route('/mix/new')]
--    public function newMix(): Response
-+    public function newMix(EntityManagerInterface $entityManager): Response
+-    public function new(): Response
++    public function new(EntityManagerInterface $entityManager): Response
      {
          $mix = new VinylMix();
          $mix->setTitle('Do you Remember... Phil Collins?!');
-@@ -58,6 +59,13 @@ class VinylController extends AbstractController
+@@ -19,6 +20,13 @@ class MixController extends AbstractController
          $mix->setTrackCount(rand(5, 20));
          $mix->setVotes(rand(-50, 50));
  

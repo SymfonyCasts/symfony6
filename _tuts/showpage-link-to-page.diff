@@ -1,0 +1,37 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 3c393f6..f54e747 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -31,7 +31,7 @@ class MixController extends AbstractController
+         ));
+     }
+ 
+-    #[Route('/mix/{id}')]
++    #[Route('/mix/{id}', name: 'app_mix_show')]
+     public function show($id, VinylMixRepository $mixRepository): Response
+     {
+         $mix = $mixRepository->find($id);
+diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
+index a3a3ba8..277d577 100644
+--- a/templates/vinyl/browse.html.twig
++++ b/templates/vinyl/browse.html.twig
+@@ -28,7 +28,9 @@
+         <div class="row">
+             {% for mix in mixes %}
+             <div class="col col-md-4">
+-                <div class="mixed-vinyl-container p-3 text-center">
++                <a href="{{ path('app_mix_show', {
++                    id: mix.id
++                }) }}" class="mixed-vinyl-container p-3 text-center">
+                     <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+                     <p class="mt-2"><strong>{{ mix.title }}</strong></p>
+                     <span>{{ mix.trackCount }} Tracks</span>
+@@ -38,7 +40,7 @@
+                     <span>{{ mix.createdAt|ago }}</span>
+                     <br>
+                     {{ mix.votesString }} votes
+-                </div>
++                </a>
+             </div>
+             {% endfor %}
+         </div>
