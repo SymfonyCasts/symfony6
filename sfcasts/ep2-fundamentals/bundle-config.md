@@ -18,7 +18,11 @@ files, all of which are loaded *automatically* by Symfony when it first boots
 up. These files all have exactly *one* purpose: to configure the *services* that
 each bundle gives us.
 
-Open up `twig.yaml`. For now, ignore this `when@test`: we're going to talk
+Open up `twig.yaml`:
+
+[[[ code('0100059e45') ]]]
+
+For now, ignore this `when@test`: we're going to talk
 about that in a few minutes. This file has a root key called `twig`. And so, the
 entire purpose of this file is to control the services provide by the "Twig" bundle.
 And, it's not the filename - `twig.yaml` - that's important. I could rename this to
@@ -42,15 +46,21 @@ templates would now be pre-configured to look in that directory.
 The point is: the config in these files give us the power to control the services
 that each bundle provides.
 
-Let's check out another one:  `framework.yaml`. Because the root key is
-`framework`, all of this config is passed to FrameworkBundle... which uses it
-to configure the services it provides.
+Let's check out another one:  `framework.yaml`:
+
+[[[ code('c5bd3da5ab') ]]]
+
+Because the root key is `framework`, all of this config is passed to FrameworkBundle... 
+which uses it to configure the services it provides.
 
 And, as I mentioned, the filename doesn't matter... though the name *often* matches
 the root key... just for sanity reasons: like `framework` and `framework.yaml`.
-But that's not *always* the case. Open up `cache.yaml`. Woh! This is... just *more*
-config for FrameworkBundle! It lives in its own file... just because it's
-nice to have a separate file to control the cache.
+But that's not *always* the case. Open up `cache.yaml`:
+
+[[[ code('ba42bd4e0b') ]]]
+
+Woh! This is... just *more* config for FrameworkBundle! It lives in its own file... 
+just because it's nice to have a separate file to control the cache.
 
 ## Debugging the Available Bundle Config
 
