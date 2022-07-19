@@ -5,7 +5,11 @@ work... and ultimately render some pages. But we can make our machine work
 *differently* by feeding it different *configuration*.
 
 For example, in `SongController`, we're using the `$logger` service to log some
-information. If we feed the logger some configuration that says "log everything",
+information:
+
+[[[ code('ec32177521') ]]]
+
+If we feed the logger some configuration that says "log everything",
 it will log *everything*, including low level debug messages. But if we change the
 config to say "only log errors", then this will *only* log errors. In other words,
 the same machine can behave *differently* based on our configuration. And sometimes,
@@ -22,14 +26,22 @@ environment with a set of config that's optimized for production. Let me show yo
 
 ## The APP_ENV Variable
 
-In the root of our project, we have a `.env` file. We're going to talk more about
-this file later. But see this `APP_ENV=dev`? This tells Symfony that the current
-environment is `dev`, which is *perfect* for local development. When we deploy
-to production, we'll change this to `prod`. More on that in a few minutes.
+In the root of our project, we have a `.env` file:
+
+[[[ code('40c34e875b') ]]]
+
+We're going to talk more about this file later. But see this `APP_ENV=dev`? 
+This tells Symfony that the current environment is `dev`, which is *perfect* 
+for local development. When we deploy to production, we'll change this to `prod`. 
+More on that in a few minutes.
 
 But... what *difference* does that make? What happens in our app when we change this
 from `dev` to `prod`? To answer, let me close some folders... and open
-`public/index.php`. Remember: this is our front controller. It's the first file
+`public/index.php`:
+
+[[[ code('7e152d62fa') ]]]
+
+Remember: this is our front controller. It's the first file
 that's executed on every request. We don't really care much about this file, but
 its job is important: it boots up Symfony.
 
@@ -73,7 +85,9 @@ Below this, we also load a file called `services.yaml` and, if we have it,
 
 So, if you want to add environment-specific configuration, you can put it in the
 correct environment directory. But there's one *other* way. It's a pretty new feature
-and we saw it at the bottom of `twig.yaml`. It's the `when@` syntax.
+and we saw it at the bottom of `twig.yaml`. It's the `when@` syntax:
+
+[[[ code('c2bc8660e5') ]]]
 
 In Symfony, by default, there are *three* environments: `dev`, `prod`,
 and then if you run automated tests, there's an environment called `test`. Inside
@@ -116,6 +130,8 @@ environment directory, if you have one. We don't.
 You can also use the `when@dev` trick. This file is responsible for registering
 the routes used by the web debug toolbar. We *don't want* the web debug toolbar
 in production... so these routes are *only* imported in the `dev` environment.
+
+[[[ code('c32be9baf6') ]]]
 
 Heck, certain *bundles* are only enabled in some environments! If you open
 `config/bundles.php`, we have the name of the bundle... and then on the right,
