@@ -1,19 +1,142 @@
-# docker-compose
+# docker-compose & Exposed Ports
 
-Coming soon...
+We need to get a database running: MySQL, Postgresql, whatever. If you already have
+one running, awesome! All you need to do is copy your `DATABASE_URL` environment
+variable, open or create a `.env.local` file, paste, then change it to match whatever
+your local setup is using. If you decide to do this, feel free to skip ahead to
+the end of chapter 4 where we configure the `server_version`.
 
-We need to get a database running my SQL Postgre SQL, whatever. If you already have one running awesome, all you need to do is copy your database, underscore environment variable open, or create a dot M dot local file or create a M lo file pace there, and then just change it for whatever your actual parameters use an M parameter port are. And if you wanna do that, do it, and then go ahead and skip forward. I, for me, <affirmative>, for me, I do not have a database running locally on my system, and I'm not going to install one. Instead. I want to use Docker. We're actually gonna use Docker in kind of an interesting way. I do have PHP installed locally, so we won't use Docker and create a Docker container specifically for PHP. Instead we'll simply use Docker to help boot up services like a database service Docker makes that super easy, especially with some tricks, we'll learn about the symphony binary. Oh, and remember when the doctrine recipe asked us if we wanted Docker configuration, because we said, yes, we got a Docker composed and dock ride override dot Yamo file. When Docker boots, it will actually read both of these files. The reason they're split into two pieces, isn't really important.
+## Docker Just for the Database
 
-It's important only if you were planning to use Docker for production, we're gonna use just Docker, just locally. So what this says is it's going to boot up a single container, which is going to be, which is gonna run a Postgres database. It'll create a database called app with a user called symphony and password change me unless we override those by setting other environment variables, which we want. It also is going to expose the port 5 43, 2 that's Postgres, normal port to our host machine on a random port. So what that means is we are gonna be able to talk to our Postgres Docker container through, through a random port. And we'll see how that works in a second. By the way, if you wanna use a MySQL instead of Postgres, you can absolutely. You can go ahead and update these used MySQL, or you could delete both of these files and use the bin console, make database to generate new ones for my SQL or Maria DB. All right, but I'm gonna use Postgres because it is awesome. So let's get our container running through that. We're gonna run Docker compose. I need to also make sure people have Docker installed up dash D dash D means to run in the background as the Damon, first time you run this, we'll probably have to download some stuff, but then it works. It started our container.
+For me, I do *not* have a database running locally on my system... and I'm *not*
+going to install one. Instead, I want to use Docker. And, we're going to use Docker
+in an interesting way. I *do* have PHP installed locally:
 
-Cool. But now what, how can we talk to this container? Run a command called dock composed PS that shows all of the containers that are running. And the really important thing here to see is that port 5, 4 32 in the container is connected to port 5, 0 7, 0 0 on our host machine. That means if we talk to this port, it will actually talk to that Postgres container. This port here is actually random. You'll see that it'll change every time we restart our container. So for example, because I'm using Postgres. If I wanted to talk to that Postgres database, I could use the P SQL, um,
+```terminal-silent
+php -v
+```
 
-Command line tool. If you have that installed, say dash user equals symphony dash port equals 5, 0 7 dash host equals 1, 2 7 0 1. So talking to my local machine and then dash password. So it'll ask us to enter the password and then app, because app's the name of our database. I'm getting the user symphony and the app from the stuff that we can figure it here on doctrine. And I'll go ahead and copy the password here. Cuz when I hit this, it asks for the password I paste and we are in, this is actually inside a Postgres inside of that container. Awesome. If you using my SQL, you can run a very similar command to talk to whatever your local password is. I'll type quick to get out of this. Now, another way to do this, let me run Docker PS again, Docker composed PS is because our data, our service is called database that comes from our dock compose at Yamo file. We could run doc compose exec X database, and then basically that same command PSQ dash user symphony dash password, and then app. So this is just kind of an easier way to talk to this container, run PSQ with these things.
+So I *won't* use Docker to create a container specifically for PHP. Instead I'm going
+to use Docker simply to help boot up any *services* my app needs locally. And right
+now, I need a database service. Thanks to some magic between Docker and the Symfony
+binary, this is going to be *super* easy.
 
-And if we type in the change rate password, that's another way to get inside of there. Then you can also do that for my SQL as well. So awesome. So just by running com Doose up, we have a Postgres, we have database container that we can talk to. Now, when you wanna stop your container, you'll run, Doose stop, which basically turns your container off. Or you can run the kind of more common Doose down, which turns off those containers and actually removes them. Then when you want to back up, we can run dock both up dash D and then Docker, PS,
+To start, remember when the Doctrine recipe asked us if we wanted Docker
+configuration? Because we said yes, the recipe gave us `docker-compose.yml` and
+`docker-compose.override.yml` files. When Docker boots, it will read *both* of
+these... and they're split into two pieces just in case you want to *also*
+use Docker to deploy to production. But we're not going to worry about that: we
+just want to use Docker to make life easier for local development.
 
-Oops,
+These files say that they will boot a single Postgres database container
+with a user called `symfony` and password `ChangeMe`. It will also expose port
+5432 of the container - that's Postgres's normal port - to our *host* machine on
+a *random* port. This means that we're going to be able to talk to the Postgresql
+Docker container as *if* it were running on our local machine... as long as we know
+the random port that Docker chose. We'll see how that works in a minute.
 
-And then Docker composed PS
+By the way, if you want to use MySQL instead of Postgres, you absolutely can.
+Feel free to update these files... or delete both of them and run:
 
-To see it running again. But notice this port, as I mentioned is different. That's gonna be a different random port. Every time we start doctrine, all right, so we have our database container running and we even know what port it's running on and everything. So in theory, we could now configure this database UL to point to the exact right spot, including the right port though. This random port here will be kind of annoying. We'll have to kind of go and find it and update it every time we stop and start Docker. Fortunately, there's a much better way. Thanks to the symphony binary. That's running our web server. I wanna talk about that next.
+```terminal
+php bin/console make:docker:database
+```
+
+to generate a new compose file for MySQL or MariaDB. I'm going to stick with Postgres
+because it's awesome.
+
+At this point, we're going to start Docker and learn a bit about how to communicate
+with the database that lives inside. If you're pretty comfortable with Docker, feel
+free to skip to the next chapter.
+
+## Starting the Container
+
+Anyways, let's get our container running. First, make sure you have Docker actually
+installed on your machine: I won't show that because it varies by operating system.
+Then, find your terminal and run:
+
+```terminal
+docker-compose up -d
+```
+
+The `-d` means "run in the background as a daemon". The first time you run this,
+it'll probably download a bunch of stuff. But eventually, our container should
+start!
+
+## Communicating with the Container
+
+Cool! But now what? How can we *talk* to the container? Run a command called:
+
+```terminal
+docker-compose ps
+```
+
+This shows info about all the containers currently running... just one for us. The
+really important thing is that port 5432 in the container is connected to port
+50700 on my host machine. This means that if we talk to this port, we will actually
+be talking to that Postgres database. Oh, and this port is random: it'll be different
+on your machine... and it'll even change each time we stop and start our container.
+More on that soon.
+
+But now that we know about port 50700, we can *use* that to connect to the database.
+For example, because I'm using Postgres, I could run:
+
+```terminal-silent
+psql --user=symfony --port=50700 --host=127.0.0.1 --password app
+```
+
+That means: connect to Postgres at 127.0.0.1 port 50700 using user `symfony` and
+talking to the `app` database. All of this is configured in the `docker-compose.yml`
+file. Copy the `ChangeMe` password because that last flag tells Postgres to ask
+for that password. Paste and... we're in!
+
+If you're using MySQL, we can do this same thing with a `mysql` command.
+
+But, this only works if we have that `psql` command installed on our *local*
+machine. So let's try a different command. Run:
+
+```terminal
+docker-compose ps
+```
+
+again. The container is called `database`, which comes from our `docker-compose.yml`
+file. So we can change the previous command to:
+
+```terminal
+docker-compose exec database psql --username symfony --password app
+```
+
+This time, we're executing the `psql` command *inside* the container, so we don't
+need to install it locally. Type `ChangeMe` for the password and... we're back in!
+
+The point is: just by running `docker-compose up`, we have a Postgres database
+container that we can talk to!
+
+## Stopping the Container
+
+Btw, when you're ready to stop the container later, you can run:
+
+```terminal
+docker-compose stop
+```
+
+That basically turns the container off. Or you can run the more common:
+
+```terminal
+docker-compose down
+```
+
+
+which turns off the containers and removes them. To start back up, it's the same:
+
+```terminal
+docker-compose up -d
+```
+
+But notice that when we run `docker-compose ps` again, the port on my host machine
+is a *different* random port! So, in theory, we could configure the `DATABASE_URL`
+variable to point to our Postgres database, including using the correct port. But
+that random port that keeps changing is going to be annoying!
+
+Fortunately, there's a trick for this! It turns our, our app is *already* configured,
+without us doing anything! That's next.

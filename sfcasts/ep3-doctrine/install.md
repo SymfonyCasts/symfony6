@@ -1,15 +1,108 @@
-# Installation
+# Installing Doctrine
 
-Coming soon...
+Welcome back team to episode *three* of our Symfony 6 series! The first two courses
+were *super* important: taking us from the basics up through the *core* of how
+*everything* works in Symfony: all that good "services" & configuration stuff. You
+are now ready to use *any* other part of Symfony and *really* start building out
+a site.
 
-Welcome back. My friends, if you were with me for the first two episodes in our symphony six series, you, we have learned a lot about how symphony works, serious skills around services and configuration that are gonna make everything else to do a lot easier, but our app didn't have a database yet, which is no fun. So that's the goal of this tutorial to add a database to our application and truly make things dynamic, which is just super fun. As we know, symphony gives us a lot of tools. So is do any of those tools include tools to talk at the database? The answer is no. And that's because symphony doesn't have to, because there is another PHP library called doctrine that does doctrine is the industry standard way to talk to the database. And when you're using PHP, it's a fantastically powerful database library. And it's basically best friends with symphony with first class integration. All right. So I want to get into the database stuff. So let's get our project set up.
+And... what better way to do that than to add a database? Because... so far,
+for all the cool things we've done, the site we've been building is 100% static.
+Boring! Time to change that.
 
-If you download the course code from this page and on zip, it you'll find a start director with the same code that you see here, pop this readme.md file. This will contain all the instructions you need to get your app running. The last step will be to find open a terminal, move into your project and run symphony serve dash D. This uses the symphony binary to start a local web server, which is just a really handy way to set things up. This will our web server at 1, 2 7 0.001, colon 8,000. If you had there do fine mixed vinyl. The site, we are creating to allow people to create their own mix tapes, but then be super hipster to be super hipster. We'll print them onto vinyl records for you. Our site has a homepage and also a
+## Hello Doctrine
 
-Oops <affirmative>.
+So we know that Symfony is a collection of a *lot* of libraries for solving a *ton*
+of different problems. So... does Symfony have some tools to help us talk to the
+database? The answer is... no! Because... it doesn't have to!
 
-And I'll say a browse page where you can view other people's mixes, but all of this data is hard coded right now. So let's go get doctrine installed, move over to your terminal and run a composer require doctrine. That is of course, a flex alias for a library called symphony slash RM pack. As a reminder, when you install a library, that's a pack. That's actually, it's really just a shortcut to install several libraries at once. So will install a doctrine and a couple other other libraries that make working with doctrine really, really nice. Now notice at the bottom of this, it asks, do you want to include Docker configuration from recipes? So occasionally when you install a library that library's recipe will have Docker configuration that can, for example, start a database container. This is totally optional, but I'm gonna say P for yes. Permanently. We'll talk more about that Docker configuration in a few minutes, but right now let's check out what that did. So I'm gonna run get status and, okay, cool. So we have the normal files like composed at JS composer dot lock and symphony dot lock that it enables it also modified config slash bundles. Do PHP, no surprise there. This installed a new bundle called doctrine bundle
+Why? Enter Doctrine: *the* most powerful library in the PHP world for working
+with databases. And Symfony and Doctrine work *great* together: they're the Frodo
+and Sam Gamgee of PHP middle earth: the Han Solo and Chewbacca of the PHP Rebel
+Alliance. Symfony & Doctrine are like two Disney characters that finish each other's
+sandwiches!
 
-Doctrine, bundle Dr. Bundle as well as another one called doctrine migrations bundle that we'll talk about in a few minutes, probably the most important part of the recipe is that it modified our data. End file. Remember, this is where we can configure environment variables. And this gave us one new environment, variable called database URL, which we set to the type of database and the username password or database connection string. Now that's database underscore URL environment. Variable is read by another file that the recipe just gave us config packages, doctrine, Danielle, most of the configuration in this file, you do not need to think about or change, but notice that there's this URL key, this is what tells doctrine, the URL to your database. And it reads that database URL environment variable. So in a few minutes, we're gonna be playing with this environment variable so that we can get doctrine to talk to our database. The recipe also added a couple of new files and a couple of new directories like migrations source, entity, and source repository. And right now those are all empty, but you'll see how those will be used over the next few minutes.
+## Project Setup
 
-Okay. So good. First step one here we do now have doctrine installed and doctrine is a library. That's good at talking to databases, but for this to work, we need to first make sure we actually have a database actually running. And a second in the second, our database URL environment, variable needs to be configured to point correctly to that database, including the correct user name and password and port. So let's get, do that next, but with an optional, but delightful twist, we are going to use Docker to start a database for us.
+To see this dynamic duo in action, let's get our project set up. Playing with
+databases is fun, so code along with me! Do that by downloading the course code
+from this page. After unzipping it, you'll find a `start/` directory with the same
+code that you see here. Pop open this `README.MD` file for all the setup instructions.
+
+The last step will be to open a terminal, move into your project and run:
+
+```terminal
+symfony serve -d
+```
+
+This uses the Symfony binary to start a local web server which lives at
+https://127.0.0.1:8000. I'll take the lazy way out and click that to see...
+Mixed Vinyl! Our latest startup idea - and I swear, this one is going to be *huge* -
+combines the nostalgia for the "mix tapes" of the 80's and 90's with the audio
+experience of vinyl records. You craft your sweet mix tapes, then we press them
+onto a vinyl record for a *full* hipster audio experience.
+
+So far, our site has a homepage *and* a page to browse mixes that *other* people
+created. Though, that page isn't *really* dynamic: it pulls from a GitHub repository...
+and unless you've configured an API key like we did in the last episode, this page
+is broken! That's the *first* thing we'll fix: by querying a databasse for the mixes.
+
+## Installing Doctrine
+
+So let's get Doctrine installed! Find your terminal and run:
+
+```terminal
+composer require doctrine
+```
+
+This is, of course, a Flex alias for a library called `symfony/orm-pack`. And
+remember: a "pack" is a, sort of, "fake library" that serves as a shortcut to
+install *several* packages at once. In this case, we're installing Doctrine itself,
+but also a few other relataed libraries, like the excellent Doctrine Migrations
+system.
+
+## Docker Configuration
+
+Oh, and check this out! The command is asking:
+
+> Do you want to include Docker configuration from recipes?
+
+So, occasionally when you install a package, that package's recipe will contain
+Docker configuration that can, for example, start a database container. This is
+totally optional, but I'm going to say `p` for yes permanently. We'll talk more about
+the Docker configuration in a few minutes.
+
+## The Doctrine Recipes
+
+But right now, let's check out what the recipe did. Run:
+
+```terminal
+git status
+```
+
+Okay cool: this modified the normal files like `composer.json`, `composer.lock` and
+`symfony.lock`... and it *also* modified `config/bundles.php`. If you check that
+out... no surprise: our app now has *two* new bundles: DoctrineBundle and
+DoctrineMigrationsBundle.
+
+But probably the most important part of the recipe is the change it made to our
+`.env` file. Remember: this is where we can configure environment variables... and
+the recipe gave us a *new* one called `DATABASE_URL`. This, as you can see, holds
+all the connection details, like the username and password.
+
+What *uses* this environment variable? Excellent question! Check out a new file
+the recipe gave us: `config/packages/doctrine.yaml`. Most of this config you
+won't need to think about or change. But notice this `url` key: it reads
+that `DATABASE_URL` environment variable!
+
+The point is: the `DATABASE_URL` env var is the *key* to setting up your app to
+talk to a database... and we'll play with it in a few minutes.
+
+The recipe also added a few new directories: `migrations/` `src/Entity/` and
+`src/Repository/`. Right now, other than a meaningless `.gitignore` file, these
+are all empty. We'll start filling them up real soon.
+
+Ok: Doctrine *is* now installed. But to talk to a database... we need to make
+sure we have a database running *and* that the `DATABASE_URL` environment variable
+is pointing to it. Let's do that next, but with an optional & delightful twist:
+we're going to use Docker to start the database.
