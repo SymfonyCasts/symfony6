@@ -4,15 +4,21 @@ In practice, you rarely need to do anything inside of `services.yaml`. Most of t
 time, when you add an argument to the constructor of a service, it's autowireable.
 So you add the argument, give it a type-hint... and *keep* coding!
 
+[[[ code('c687e6b377') ]]]
+
 But the `$isDebug` argument is *not* autowireable... since it's not a service. And
 *that* forced us to *completely* override the service so we could specify that
 *one* argument with `bind`. It works but... that was... kind of a lot of typing
 to do such a small thing!
 
+[[[ code('d26ed5a862') ]]]
+
 # Moving bind to `_defaults`
 
 So here's a *different* solution. Copy that `bind` key, delete the service entirely,
-and up, under `_defaults`, paste.
+and up, under `_defaults`, paste:
+
+[[[ code('b8c74cd912') ]]]
 
 When we move over and try this... the page *still* works! How cool is that? And,
 it makes sense. This section will automatically register `MixRepository` as a
@@ -27,14 +33,19 @@ and it will instantly work.
 
 By the way, if you want, you can *also* include the *type* with the bind.
 
-So this would now *only* work if we use the `bool` type-hint with the argument.
+So this would now *only* work if we use the `bool` type-hint with the argument:
+
+[[[ code('c3d834b446') ]]]
+
 If we used `string`, for example, Symfony would *not* try to pass in that value.
 
 ## The Autowire Attribute
 
 So the global bind is *awesome*. But starting in Symfony 6.1, there's *another*
 way to specify a non-autowireable argument. Comment out the global `bind`. I *do*
-still like doing this... but let's try the new way.
+still like doing this... but let's try the new way:
+
+[[[ code('a28f96d46a') ]]]
 
 If we refresh now, we get an error because Symfony doesn't know what to pass to
 the `$isDebug` argument. To fix that, go into `MixRepository` and, above the argument
@@ -51,7 +62,9 @@ You may also notice that it's underlined with a message:
 
 Again, PhpStorm is a bit confused because this is both a property *and* an argument.
 
-Anyway, go ahead and pass this an argument `%kernel.debug%`.
+Anyway, go ahead and pass this an argument `%kernel.debug%`:
+
+[[[ code('080c22c394') ]]]
 
 Refresh now and... got it! Pretty cool, right?
 
