@@ -17,7 +17,9 @@ Here's how it works. Open up `config/packages/framework.yaml`. To create a scope
 client, under the `framework` key, add `http_client` followed by `scoped_clients`.
 Now, give your scoped client a name, like `githubContentClient`... since we're using
 a part of their API that returns the content of files. Also add `base_uri`, go copy
-the host name over here... and paste.
+the host name over here... and paste:
+
+[[[ code('ebc7952f44') ]]]
 
 Remember: the purpose of these config files is to *change* the services in the
 container. The end result of this new code is that a *second* HttpClient service
@@ -27,8 +29,11 @@ keys to make this work. Configuration is the kind of thing where you really need
 to rely on the documentation.
 
 Anyways, now that we've preconfigured this client, we should be able to go into
-`MixRepository` and make a request directly to the path. But if we head over and
-refresh... ah...
+`MixRepository` and make a request directly to the path:
+
+[[[ code('2f3d36b908') ]]]
+
+But if we head over and refresh... ah...
 
 > Invalid URL: scheme is missing [...]. Did you forget to add "http(s)://"?
 
@@ -57,13 +62,18 @@ autowiring"... and it's already showing us how. If we type-hint an argument with
 `HttpClientInterface` *and* *name* the argument `$githubContentClient`, Symfony
 will pass us the second one.
 
-Let's try it: change the argument from `$httpClient` to `$githubContentClient`, and
-now... it doesn't work. Whoops...
+Let's try it: change the argument from `$httpClient` to `$githubContentClient`:
+
+[[[ code('319f5e30f8') ]]]
+
+and now... it doesn't work. Whoops...
 
 > Undefined property: `MixRepository::$httpClient`
 
 That's... just me being careless. When I changed the argument name, it changed
-the property name. So... we need to adjust the code below.
+the property name. So... we need to adjust the code below:
+
+[[[ code('2764098093') ]]]
 
 And now... it's alive! We just autowired a *specific* HttpClientInterface service!
 
