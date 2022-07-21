@@ -2,7 +2,11 @@
 
 Our app is currently running in the `dev` environment. Let's switch it to `prod`...
 which is what you would use on production. Temporarily change `APP_ENV=dev` to
-`prod`... then head over and refresh. Whoa! The web debug toolbar is *gone*.
+`prod`:
+
+[[[ code('0ad4cd6444') ]]]
+
+then head over and refresh. Whoa! The web debug toolbar is *gone*.
 That... makes sense! The entire web profiler bundle is *not* enabled in the `prod`
 environment.
 
@@ -46,12 +50,16 @@ back to our *cool* name, `Mixed Vinyl`.
 
 Let's try something else! Open up `config/packages/cache.yaml`. Our cache service
 currently uses the `ArrayAdapter`, which is a fake cache. That might be cool
-for development, but it won't be much help on production.
+for development, but it won't be much help on production:
+
+[[[ code('8b4dd40fad') ]]]
 
 Let's see if we can switch that back to the filesystem adapter, but *only* for the
 `prod` environment. How? Down here, use `when@prod` and then repeat the same keys.
 So `framework`, `cache`, and then `app`. Set this to the adapter we want, which is
-called `cache.adapter.filesystem`.
+called `cache.adapter.filesystem`:
+
+[[[ code('38e1943114') ]]]
 
 It's going to be *really* easy to see if this works because we're still dumping the
 cache service in our controller. Right now, it's an `ArrayAdapter`. If we refresh...
@@ -69,7 +77,9 @@ again and now... got it - `FilesystemAdapter`!
 
 But... let's *reverse* this config. Copy `cache.adapter.array` and change it to
 `filesystem`. We'll use *that* by default. Then at the bottom, change to `when@dev`,
-and *this* to `cache.adapter.array`.
+and *this* to `cache.adapter.array`:
+
+[[[ code('9554ab0ea8') ]]]
 
 Why am I doing that? Well, that literally makes zero difference in the `dev` and
 `prod` environments. *But* if we decide to start writing tests later, which run in
@@ -78,7 +88,11 @@ cache service as production... which is probably more realistic and better for t
 
 To make sure this still works, clear the cache one more time. Refresh and... it
 does! We still have `FilesystemAdapter`. And... if we switch back to the `dev`
-environment in `.env`... and refresh... yes! The web debug toolbar is back, and down
+environment in `.env`:
+
+[[[ code('02a3fa35f7') ]]]
+
+and refresh... yes! The web debug toolbar is back, and down
 here, we are once again using `ArrayAdapter`!
 
 Now, in reality, you probably won't ever switch to the `prod` environment while
@@ -88,7 +102,9 @@ that `bin/console cache:clear` command during deployment... but probably almost
 never on your local machine.
 
 Before we go on, head into `VinylController`, go down to `browse()`, and take
-out that `dump()`.
+out that `dump()`:
+
+[[[ code('51d407c154') ]]]
 
 Okay, status check! First, *everything* in Symfony is done by a service. Second,
 bundles *give* us services. And third, we can control *how* those services are
