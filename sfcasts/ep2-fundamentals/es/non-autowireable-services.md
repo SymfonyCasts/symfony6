@@ -18,7 +18,7 @@ Fíjate en éste Se llama `twig.command.debug`. Abre otra pestaña. Antes hemos 
 php bin/console debug:twig
 ```
 
-Esto nos muestra todas las funciones y filtros de Twig... ¡qué bien! Bueno, ¡sorpresa! ¡Este comando viene del servicio `twig.command.debug`! Porque "todo en Symfony lo hace un servicio", incluso los comandos de la consola.
+Esto nos muestra todas las funciones y filtros de Twig... ¡lo que está muy bien! Bueno, ¡sorpresa! ¡Este comando viene del servicio `twig.command.debug`! Porque "todo en Symfony lo hace un servicio", incluso los comandos de la consola.
 
 Como reto, veamos si podemos inyectar este servicio en `MixRepository`, ejecutarlo y volcar su salida.
 
