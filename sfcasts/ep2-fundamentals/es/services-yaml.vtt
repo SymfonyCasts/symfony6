@@ -1,0 +1,510 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:06.066 align:middle
+Cuando Symfony arranca por primera vez,
+necesita obtener la lista completa de todos los
+
+00:00:06.066 --> 00:00:08.426 align:middle
+servicios que deben estar en el contenedor.
+
+00:00:08.916 --> 00:00:15.116 align:middle
+Esto incluye el ID del servicio, el nombre de su
+clase y todos los argumentos de su constructor.
+
+00:00:15.816 --> 00:00:19.596 align:middle
+La primera y mayor fuente de
+servicios son los bundles.
+
+00:00:20.246 --> 00:00:25.566 align:middle
+Si ejecutas php bin/console
+debug:container la gran mayoría
+
+00:00:25.566 --> 00:00:27.886 align:middle
+de estos servicios provienen de bundles.
+
+00:00:28.676 --> 00:00:33.256 align:middle
+El segundo lugar del que el contenedor
+obtiene servicios es nuestro código.
+
+00:00:33.806 --> 00:00:38.786 align:middle
+Y para conocer nuestros servicios, Symfony lee
+services.yaml. En el momento en que Symfony
+
+00:00:39.636 --> 00:00:43.786 align:middle
+comienza a analizar la primera
+línea de este archivo,
+
+00:00:44.146 --> 00:00:48.966 align:middle
+nada de nuestro directorio src/ ha sido
+registrado como servicio en el contenedor.
+
+00:00:49.646 --> 00:00:51.236 align:middle
+Esto es realmente importante.
+
+00:00:51.826 --> 00:00:57.596 align:middle
+Añadir nuestras clases al contenedor
+es, de hecho, el trabajo de este archivo
+
+00:00:58.126 --> 00:01:00.456 align:middle
+Y la forma en que lo hace
+es bastante sorprendente.
+
+00:01:01.056 --> 00:01:02.116 align:middle
+¡Hagamos un recorrido!
+
+00:01:02.856 --> 00:01:05.526 align:middle
+Fíjate en que la configuración
+está bajo una clave services.
+
+00:01:06.146 --> 00:01:08.996 align:middle
+Al igual que parameters,
+ésta es una clave especial.
+
+00:01:09.416 --> 00:01:15.306 align:middle
+Y, como su nombre indica, todo lo que está bajo
+ella está destinado a configurar servicios.
+
+00:01:15.946 --> 00:01:19.316 align:middle
+La primera subclave bajo ésta es _defaults.
+
+00:01:19.976 --> 00:01:27.436 align:middle
+_defaults es una clave mágica que nos permite
+definir algunas opciones por defecto que se añadirán
+
+00:01:27.436 --> 00:01:31.786 align:middle
+a todos los servicios que se
+registren en este archivo.
+
+00:01:32.426 --> 00:01:38.006 align:middle
+Así, todos los servicios que registremos a
+continuación tendrán automáticamente autowire:
+
+00:01:38.006 --> 00:01:40.206 align:middle
+true y autoconfigure: true.
+
+00:01:41.016 --> 00:01:42.356 align:middle
+Veamos un ejemplo.
+
+00:01:42.946 --> 00:01:46.986 align:middle
+Lo más básico que puedes hacer
+con la clave services es...
+
+00:01:47.406 --> 00:01:49.066 align:middle
+¡registrar un servicio!
+
+00:01:49.586 --> 00:01:51.286 align:middle
+Eso es lo que estamos
+haciendo en la parte inferior.
+
+00:01:51.976 --> 00:01:58.116 align:middle
+Esto le dice al contenedor que debe haber
+un servicio App\Service\MixRepository
+
+00:01:58.236 --> 00:02:02.686 align:middle
+en el contenedor y
+especificamos una opción: bind.
+
+00:02:03.476 --> 00:02:10.006 align:middle
+En realidad, los servicios pueden tener un montón
+de opciones, como autowire y autoconfigure.
+
+00:02:10.776 --> 00:02:17.376 align:middle
+Así que sería totalmente legal decir:
+autowire: true y autoconfigure: true aquí.
+
+00:02:17.976 --> 00:02:20.086 align:middle
+Esto funcionaría perfectamente.
+
+00:02:20.646 --> 00:02:24.666 align:middle
+Pero gracias a la sección
+_defaults, ¡no son necesarias!
+
+00:02:25.416 --> 00:02:32.376 align:middle
+El _defaults dice: A menos que se haya anulado
+en un servicio específico, establece autowire
+
+00:02:32.406 --> 00:02:36.996 align:middle
+y autoconfigure en true para todos
+los servicios de este archivo.
+
+00:02:37.786 --> 00:02:40.216 align:middle
+¿Y qué hace autowire?
+
+00:02:40.776 --> 00:02:44.016 align:middle
+Muy sencillo Le dice al
+contenedor de Symfony ¡Eh!
+
+00:02:44.436 --> 00:02:49.636 align:middle
+Por favor, intenta adivinar los argumentos de
+mi constructor mirando sus sugerencias de tipo.
+
+00:02:50.386 --> 00:02:52.286 align:middle
+Esta función es bastante impresionante...
+
+00:02:52.506 --> 00:02:56.616 align:middle
+y por eso está activada automáticamente
+en todos nuestros servicios.
+
+00:02:57.416 --> 00:03:02.056 align:middle
+La otra opción - autoconfigure - es más
+sutil y hablaremos de ella más adelante.
+
+00:03:02.986 --> 00:03:06.116 align:middle
+Muy bien, cuando lleguemos a
+la línea _defaults, habremos
+
+00:03:06.546 --> 00:03:09.686 align:middle
+establecido alguna
+configuración por defecto...
+
+00:03:10.206 --> 00:03:14.386 align:middle
+pero aún no hemos registrado ningún servicio.
+
+00:03:15.076 --> 00:03:17.216 align:middle
+Eso a continuación...
+
+00:03:17.666 --> 00:03:20.656 align:middle
+y es la clave de todo.
+
+00:03:21.406 --> 00:03:25.486 align:middle
+Esta sintaxis especial dice Por
+favor, mira dentro del directorio src/
+
+00:03:25.916 --> 00:03:30.526 align:middle
+y registra automáticamente todas
+las clases de PHP como un servicio...
+
+00:03:30.866 --> 00:03:32.856 align:middle
+excepto estas tres cosas.
+
+00:03:33.576 --> 00:03:38.366 align:middle
+Por eso, inmediatamente después
+de crear la clase MixRepository,
+
+00:03:38.826 --> 00:03:41.316 align:middle
+¡ya estaba en el contenedor!
+
+00:03:41.986 --> 00:03:46.146 align:middle
+Y gracias a la sección _defaults,
+cualquier servicio registrado
+
+00:03:46.146 --> 00:03:51.626 align:middle
+por ésta tendrá automáticamente
+autowire: true y autoconfigure: true.
+
+00:03:52.346 --> 00:03:54.596 align:middle
+¡Eso es un gran trabajo en equipo!
+
+00:03:55.406 --> 00:03:59.156 align:middle
+Este mecanismo se denomina
+"Registro automático de servicios".
+
+00:04:00.046 --> 00:04:05.216 align:middle
+Pero recuerda que cada servicio del
+contenedor debe tener un ID único.
+
+00:04:06.026 --> 00:04:11.456 align:middle
+Si vuelves a mirar debug:container, la mayoría
+de los ID de servicio son de tipo serpiente.
+
+00:04:12.146 --> 00:04:14.386 align:middle
+Permíteme alejar el zoom un poco
+para que sea más fácil de ver.
+
+00:04:15.046 --> 00:04:21.126 align:middle
+¡Mejor! Así, por ejemplo, el servicio Twig
+tiene el ID de twig en forma de serpiente.
+
+00:04:21.756 --> 00:04:26.626 align:middle
+Pero si te desplazas hasta la parte superior de
+esta lista, nuestro ID de MixRepository es...
+
+00:04:26.876 --> 00:04:28.746 align:middle
+el nombre completo de la clase.
+
+00:04:29.346 --> 00:04:34.256 align:middle
+¡Sí! Cuando utilizas el registro automático
+de servicios, éste utiliza el nombre de la
+
+00:04:34.406 --> 00:04:38.456 align:middle
+clase como ID de la clase y del servicio.
+
+00:04:39.276 --> 00:04:41.286 align:middle
+Esto se hace por simplicidad...
+
+00:04:41.716 --> 00:04:43.896 align:middle
+pero también para el autocableado.
+
+00:04:44.686 --> 00:04:49.616 align:middle
+Cuando intentemos autocablear MixRepository en
+nuestro controlador o en cualquier otro lugar,
+
+00:04:50.116 --> 00:04:52.806 align:middle
+para saber qué servicio pasarnos,
+
+00:04:53.216 --> 00:05:00.786 align:middle
+Symfony buscará un servicio cuyo ID coincida
+exactamente con App\Service\MixRepository.
+
+00:05:01.466 --> 00:05:06.706 align:middle
+Así que el auto-registro de servicios no sólo
+registra nuestras clases como servicios, sino que
+
+00:05:07.106 --> 00:05:10.726 align:middle
+lo hace de forma que las hace auto-cableables.
+
+00:05:11.006 --> 00:05:12.226 align:middle
+¡Eso es increíble! De
+
+00:05:13.136 --> 00:05:16.346 align:middle
+todos modos, después de esta
+sección, todas las clases
+
+00:05:16.346 --> 00:05:20.256 align:middle
+de src/ están ahora registradas
+como servicios en el contenedor.
+
+00:05:20.956 --> 00:05:21.796 align:middle
+Excepto, bueno...
+
+00:05:22.106 --> 00:05:25.176 align:middle
+no queremos que todas las
+clases de src/ sean un servicio.
+
+00:05:25.776 --> 00:05:31.356 align:middle
+En realidad hay dos tipos de clases en tu aplicación:
+las " clases de servicio " que hacen el trabajo
+
+00:05:31.836 --> 00:05:38.416 align:middle
+, y las "clases modelo" -a veces llamadas "DTO"- cuyo
+trabajo consiste principalmente en mantener los datos,
+
+00:05:38.916 --> 00:05:42.926 align:middle
+como una clase Product con
+las propiedades name y price.
+
+00:05:43.446 --> 00:05:47.776 align:middle
+Queremos que el contenedor se encargue
+de instanciar nuestros servicios.
+
+00:05:48.316 --> 00:05:52.206 align:middle
+Pero en el caso de las clases modelo, las
+crearemos siempre que las necesitemos,
+
+00:05:52.206 --> 00:05:55.096 align:middle
+como con $product = new Product().
+
+00:05:55.876 --> 00:05:58.786 align:middle
+Por lo tanto, éstas no serán
+servicios en el contenedor. En el
+
+00:05:59.516 --> 00:06:03.686 align:middle
+siguiente tutorial, crearemos
+clases de entidad Doc trine,
+
+00:06:03.976 --> 00:06:06.316 align:middle
+que son clases modelo para la base de datos.
+
+00:06:07.006 --> 00:06:09.586 align:middle
+Éstas vivirán en el directorio src/Entity/...
+
+00:06:10.046 --> 00:06:14.966 align:middle
+y como no están destinadas a ser
+servicios, ese directorio está excluido.
+
+00:06:15.716 --> 00:06:22.116 align:middle
+Así que registramos todo en el directorio
+src/ como servicio, excepto estas tres cosas.
+
+00:06:22.776 --> 00:06:24.096 align:middle
+Pero... ¡dato curioso!
+
+00:06:24.506 --> 00:06:27.596 align:middle
+Esta clave exclude no es tan importante.
+
+00:06:28.346 --> 00:06:32.086 align:middle
+Podrías eliminarla y
+todo seguiría funcionando
+
+00:06:32.616 --> 00:06:35.756 align:middle
+Si accidentalmente registras como servicio algo
+
+00:06:35.836 --> 00:06:39.076 align:middle
+que no debe serlo, ¡no te preocupes!
+
+00:06:39.676 --> 00:06:43.866 align:middle
+Como nunca intentarás autoconectar y
+utilizar esa clase como un servicio,
+
+00:06:44.456 --> 00:06:48.966 align:middle
+Symfony se dará cuenta de que no se está
+utilizando y la eliminará del contenedor.
+
+00:06:49.606 --> 00:06:50.666 align:middle
+¡Vaya, eso es inteligente!
+
+00:06:51.456 --> 00:06:56.896 align:middle
+Así que todo en src/ se registra automáticamente
+como un servicio sin que tengamos que
+
+00:06:56.896 --> 00:06:59.256 align:middle
+hacer nada ni tocar este archivo.
+
+00:07:00.176 --> 00:07:06.396 align:middle
+Pero... ocasionalmente, necesitarás añadir una
+configuración extra a un servicio específico.
+
+00:07:07.046 --> 00:07:13.736 align:middle
+Eso es lo que ocurrió con MixRepository gracias
+a su argumento no autoadministrable $isDebug.
+
+00:07:14.316 --> 00:07:20.306 align:middle
+Para solucionarlo, al final de este archivo,
+registraremos un nuevo servicio cuyo ID
+
+00:07:20.306 --> 00:07:24.316 align:middle
+y clase es App\Service\MixRepository.
+
+00:07:25.276 --> 00:07:31.456 align:middle
+En realidad, esto anulará el servicio que se
+creó durante el registro automático de servicios,
+
+00:07:31.976 --> 00:07:36.846 align:middle
+ya que ambos ID coincidirán
+con App\Service\MixRepository.
+
+00:07:37.466 --> 00:07:41.016 align:middle
+Por tanto, estamos
+definiendo un nuevo servicio.
+
+00:07:41.826 --> 00:07:47.966 align:middle
+Pero gracias a _defaults, tiene automáticamente
+autowire: true y autoconfigure: true.
+
+00:07:48.706 --> 00:07:51.346 align:middle
+Entonces añadimos la opción adicional bind.
+
+00:07:51.986 --> 00:07:55.946 align:middle
+Así que lo único que tenemos que poner
+al final de este archivo son los servicios
+
+00:07:55.946 --> 00:07:58.756 align:middle
+que necesitan una configuración
+adicional para funcionar.
+
+00:07:59.646 --> 00:08:02.306 align:middle
+Y... en realidad hay una forma más genial
+
+00:08:02.306 --> 00:08:06.096 align:middle
+de arreglar los argumentos no autoconfigurables
+que te mostraré a continuación.
+
+00:08:06.946 --> 00:08:12.926 align:middle
+Pero antes de llegar a eso, quiero mencionar
+una cosa más: este archivo, services.yaml,
+
+00:08:13.266 --> 00:08:19.556 align:middle
+se carga mediante el mismo sistema que carga
+todos los archivos en config/packages/.
+
+00:08:20.146 --> 00:08:24.946 align:middle
+De hecho, no hay ninguna diferencia técnica
+entre este archivo y, por ejemplo...
+
+00:08:25.086 --> 00:08:26.326 align:middle
+framework.yaml.
+
+00:08:27.046 --> 00:08:27.446 align:middle
+Así es
+
+00:08:27.646 --> 00:08:32.606 align:middle
+Si quisiéramos, podríamos copiar y
+borrar el contenido de services.yaml,
+
+00:08:33.006 --> 00:08:38.086 align:middle
+pegarlo en framework.yaml, y todo
+funcionaría exactamente igual.
+
+00:08:38.926 --> 00:08:39.766 align:middle
+Excepto que...
+
+00:08:39.806 --> 00:08:45.176 align:middle
+tendríamos que, ya sabes, corregir estas
+rutas ya que estamos un directorio más allá.
+
+00:08:45.976 --> 00:08:48.956 align:middle
+¡Observa! Moveré esto muy rápido y...
+
+00:08:49.436 --> 00:08:51.516 align:middle
+¡todavía funciona bien!
+
+00:08:52.206 --> 00:08:58.406 align:middle
+¡Genial! Volvamos a ponerlo como estaba y...
+
+00:08:58.406 --> 00:08:58.856 align:middle
+ya está.
+
+00:08:59.736 --> 00:09:04.456 align:middle
+La única razón por la que tenemos un
+archivo service.yaml es para organizarnos.
+
+00:09:05.056 --> 00:09:09.776 align:middle
+Es bueno tener un solo archivo
+para "configurar tus servicios".
+
+00:09:10.576 --> 00:09:16.586 align:middle
+Lo verdaderamente importante es que toda esta
+configuración vive bajo la clave services.
+
+00:09:17.406 --> 00:09:22.316 align:middle
+De hecho, cerca de la parte superior de este
+archivo, verás que hay una clave parameters vacía.
+
+00:09:23.136 --> 00:09:28.926 align:middle
+En cache.yaml, creamos allí una clave
+parameters para registrar un nuevo parámetro.
+
+00:09:29.806 --> 00:09:34.416 align:middle
+Realmente depende de nosotros decidir
+dónde queremos definir este parámetro.
+
+00:09:34.946 --> 00:09:42.446 align:middle
+Podemos hacerlo en cache.yaml o, para mantener todos
+los parámetros en un solo lugar, podríamos copiar esto
+
+00:09:42.536 --> 00:09:44.916 align:middle
+y trasladarlo a services.yaml.
+
+00:09:45.786 --> 00:09:53.246 align:middle
+En cache.yaml, también cogeré el when@dev,
+lo borraré y lo pegaré en services.yaml.
+
+00:09:54.046 --> 00:09:58.796 align:middle
+A nivel técnico, eso no supone ninguna diferencia
+y nuestra aplicación sigue funcionando.
+
+00:09:59.376 --> 00:10:00.346 align:middle
+Pero me gusta más esto.
+
+00:10:00.966 --> 00:10:04.676 align:middle
+Los servicios y parámetros son
+una idea global en tu app...
+
+00:10:05.136 --> 00:10:07.416 align:middle
+así que es bueno organizarlos
+todos en un solo archivo. De
+
+00:10:07.416 --> 00:10:13.636 align:middle
+acuerdo, la única razón por la que escribimos algún
+código en la parte inferior de services.yaml fue
+
+00:10:13.636 --> 00:10:19.266 align:middle
+para decirle al contenedor qué debe pasar
+al argumento no autoadministrable $isDebug.
+
+00:10:20.136 --> 00:10:25.026 align:middle
+Pero, ¿y si te dijera que hay una forma más
+automática de resolver estos argumentos problemáticos?
+
+00:10:25.436 --> 00:10:26.496 align:middle
+Eso a continuación
