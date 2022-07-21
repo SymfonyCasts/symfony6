@@ -27,12 +27,16 @@ configure *services*.
 The first *sub-key* under this is `_defaults`. `_defaults` is a magic key
 that allows us to define some *default* options that will be added to *all* services
 that are registered in this file. So *every* service that we register below will
-*automatically* have `autowire: true` and `autoconfigure: true`.
+*automatically* have `autowire: true` and `autoconfigure: true`:
+
+[[[ code('a83c31b72c') ]]]
 
 Let's look at an example. The most *basic* thing you can do under the `services`
 key is... register a service! That's what we're doing at the bottom. This tells
 the container that there should be an `App\Service\MixRepository` service in the
 container *and* we specified one option: `bind`.
+
+[[[ code('11d276a2d8')]]]
 
 Services can actually have a *bunch* of options, including `autowire` and
 `autoconfigure`. So it would be *totally* legal to say, `autowire: true` and
@@ -54,7 +58,11 @@ about it later.
 
 All right, by the time we get to the `_defaults` line, we've established some default
 configuration... but we *haven't* actually registered any services yet. That's the
-job of the next section... and it's the key to *everything*. This special syntax says
+job of the next section... and it's the key to *everything*:
+
+[[[ code('dee9765bcf') ]]]
+
+This special syntax says
 
 > Please look inside the `src/` directory and automatically register *all*
 > PHP classes as a service... except for these three things.
@@ -148,7 +156,11 @@ in `cache.yaml` or, to keep all parameters in one spot, we could copy this and m
 it over to `services.yaml`.
 
 In `cache.yaml`, I'll also grab the `when@dev`, delete that, and paste it into
-`services.yaml`. On a technical level, that makes no difference and our app *still*
+`services.yaml`:
+
+[[[ code('5ffe3e85e5') ]]]
+
+On a technical level, that makes no difference and our app *still*
 works. But I like this better. Services and parameters are a global idea in your
 app... so it's nice to organize them all in one file.
 
