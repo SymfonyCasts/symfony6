@@ -43,7 +43,9 @@ First things first. In `MixRepository`, we just discovered that, in order to do 
 work, we need access to another service. What do we do? The answer: *Dependency
 injection*, which is that fancy word for adding another construct argument and
 setting it onto a property, which we can do all at once with
-`private $twigDebugCommand`.
+`private $twigDebugCommand`:
+
+[[[ code('db9765d0f6') ]]]
 
 If we stopped right now and refreshed... no surprise! We get an error. Symfony has
 no idea what to pass for that argument.
@@ -51,7 +53,9 @@ no idea what to pass for that argument.
 What if we added the *type* for this class? Back over in our terminal, we can see
 that this service is an instance of `DebugCommand`. Over here, let's add that
 type-hint: `DebugCommand`... we want the one from `Symfony\Bridge\Twig\Command`.
-Hit "tab" to autocomplete that.
+Hit "tab" to autocomplete that:
+
+[[[ code('1d003f5f47') ]]]
 
 And then... refresh. *Still* an error! Okay, we *should* add the type-hint because
 we're good programmers. But... no matter how hard we try, this is *not* an autowireable
@@ -74,7 +78,9 @@ yup!
 
 We need to tell Symfony to pass the *service* that has this ID. In these YAML
 files, there's a special syntax to do just that: *prefix* the service ID with the
-`@` symbol.
+`@` symbol:
+
+[[[ code('447697206a') ]]]
 
 As *soon* as we do that... the fact that this doesn't explode means it's working!
 
@@ -84,7 +90,9 @@ As *soon* as we do that... the fact that this doesn't explode means it's working
 which leverages that same fancy `Autowire` attribute.
 
 Up here, say `#[Autowire()]`, but instead of just passing a string, say
-`service: 'twig.command.debug'`.
+`service: 'twig.command.debug'`:
+
+[[[ code('b2b20613e3') ]]]
 
 ## Using the new Argument
 
@@ -96,7 +104,9 @@ possible. It's a little weird, but cool! We need to create an
 the command-line arguments - pass that an empty `[]` - then `$output`. Whatever
 the command *outputs* will be set onto that object.
 
-To see if it's working, just `dd($output)`.
+To see if it's working, just `dd($output)`:
+
+[[[ code('d77a8d195f') ]]]
 
 Testing time! Refresh... and got it! How fun is that?
 
