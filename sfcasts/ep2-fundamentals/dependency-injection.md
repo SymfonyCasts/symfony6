@@ -39,11 +39,15 @@ autowiring works in controller methods, but don't expect it to work for any
 won't be the final solution, but let's try it.
 
 I already have a `CacheInterface` argument... so now add the
-`HttpClientInterface` argument and call it `$httpClient`.
+`HttpClientInterface` argument and call it `$httpClient`:
+
+[[[ code('bbbc6e904f') ]]]
 
 Perfect! The code in this method is now happy.
 
-Back over in our controller, for `findAll()`, pass `$httpClient` and `$cache`.
+Back over in our controller, for `findAll()`, pass `$httpClient` and `$cache`:
+
+[[[ code('4592179cbd') ]]]
 
 And now... it works!
 
@@ -72,7 +76,9 @@ For "dependencies" like this, whether they're service objects or static
 configuration that your service needs, instead of passing them to the methods,
 we pass them into the *constructor*. Delete that pretend `$genre` argument... then
 add a `public function __construct()`. Copy the two arguments, delete them, and
-move them up here.
+move them up here:
+
+[[[ code('88ae2b61fb') ]]]
 
 Before we finish this, I need to tell you that autowiring works in *two* places. We
 already know that we can autowire arguments into our controller methods. But we
@@ -89,20 +95,26 @@ And what do we *do* with these two arguments? We set them onto properties.
 
 Create a `private $httpClient` property and a `private $cache` property. Then, down
 in the constructor, assign them: `$this->httpClient = $httpClient`, and
-`$this->cache = $cache`.
+`$this->cache = $cache`:
+
+[[[ code('811c0bad31') ]]]
 
 So when Symfony instantiates our `MixRepository`, it passes us these two arguments
 and we store them on properties so we can use them later.
 
 Watch! Down here, instead of `$cache`, use `$this->cache`. And then we don't need
-this `use ($httpClient)` over here... because we can say `$this->httpClient`.
+this `use ($httpClient)` over here... because we can say `$this->httpClient`:
+
+[[[ code('f8d4d7c4cd') ]]]
 
 This service is now in *perfect* shape.
 
 Back over in `VinylController`, now we can simplify! The `findAll()`
 method doesn't need any arguments... and so we don't even need to autowire
 `$httpClient` or `$cache` at all. I'm going to celebrate by removing those `use`
-statements on top.
+statements on top:
+
+[[[ code('6d017b765c') ]]]
 
 Look how much easier that is! We autowire the *one* service we need, call the method
 on it, and... it even *works*! *This* is how we write services. We add any
@@ -131,8 +143,11 @@ and over again.
 
 Okay, *unrelated* to dependency injection and autowiring, there are two minor
 improvements that we can make to our service. The first is that we can add *types*
-to our properties: `HttpClientInterface` and `CacheInterface`. That doesn't change
-how our code works... it's just a nice, responsible way to do things.
+to our properties: `HttpClientInterface` and `CacheInterface`:
+
+[[[ code('157fc6f3fd') ]]]
+
+That doesn't change how our code works... it's just a nice, responsible way to do things.
 
 But we can go further! In PHP 8, there's a new, shorter syntax for creating
 a property and setting it in the constructor like we're doing. It looks like
@@ -142,8 +157,11 @@ deleting the properties... as well as the inside of the method.
 
 That might look weird at first, but as soon as you add `private`, `protected`, or
 `public` in front of a `__construct()` argument, that creates a property with this
-name and sets the argument *onto* that property. So it looks different, but it's
-the *exact* same as what we had before.
+name and sets the argument *onto* that property:
+
+[[[ code('a7cff8b189') ]]]
+
+So it looks different, but it's the *exact* same as what we had before.
 
 When we try it... yup! It still works.
 
