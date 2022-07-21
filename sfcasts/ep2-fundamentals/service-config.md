@@ -12,7 +12,9 @@ and *false* for `prod`. And, occasionally, it comes in handy!
 
 Here's our new *challenge* (mostly to see if we can do it). Inside of
 `MixRepository`, I want to figure out if we're in debug mode. If debug mode is *true*,
-we will cache for *5 seconds*. If it's *false*, I want to cache for *60 seconds*
+we will cache for *5 seconds*. If it's *false*, I want to cache for *60 seconds*:
+
+[[[ code('94a9fd6760') ]]]
 
 ## Dependency Injection!
 
@@ -47,16 +49,25 @@ I *can* make a whole slice of pie disappear, though. With magic. Definitely.
 ## Configuring MixRepository in services.yaml
 
 How do we fix this? Open a file that we haven't looked at yet:
-`config/services.yaml`. So far, we haven't needed to add any configuration for our
+`config/services.yaml`:
+
+[[[ code('542aee2141') ]]]
+
+So far, we haven't needed to add any configuration for our
 `MixRepository` service. The container saw the `MixRepository` class as soon as we
 created it... and autowiring helped the container know which arguments to pass to
 the constructor. But now that we have a non-autowireable argument, we need to give
 the container a *hint*. And we do that in this file.
 
 Head down to the bottom and add the full namespace of this class:
-`App\Service\MixRepository`. Below that, use the word `bind`. And below *that*,
-give the container a *hint* to tell it what to pass to the argument by saying
-`$isDebug` set to `%kernel.debug%`
+`App\Service\MixRepository`:
+
+[[[ code('8e53833539') ]]]
+
+Below that, use the word `bind`. And below *that*, give the container a *hint* 
+to tell it what to pass to the argument by saying `$isDebug` set to `%kernel.debug%`:
+
+[[[ code('b6a4ed289a') ]]]
 
 I'm using `$isDebug` on purpose. That needs to *exactly* match the name of
 the argument in the class. Thanks to this, the container will pass the
