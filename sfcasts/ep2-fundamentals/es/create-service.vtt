@@ -195,7 +195,7 @@ los servicios principales como y , $httpClient $cache
 
 00:03:57.616 --> 00:04:01.426 align:middle
 además de nuestros propios
-servicios como . MixRepository
+servicios como MixRepository.
 
 00:04:02.396 --> 00:04:03.756 align:middle
 En segundo lugar, el contenedor...
@@ -221,21 +221,21 @@ nombre completo de la clase.
 
 00:04:29.646 --> 00:04:35.056 align:middle
 vuelta a nuestro controlador, añade un
-tercer argumento de tipo - MixRepository
+tercer argumento de tipo MixRepository -
 
 00:04:35.406 --> 00:04:38.436 align:middle
 pulsa el tabulador para añadir la
 declaración - y llámalo use...
 
 00:04:38.736 --> 00:04:40.526 align:middle
-qué tal . $mixRepository
+¿qué tal $mixRepository?
 
 00:04:41.306 --> 00:04:46.086 align:middle
 Luego, aquí abajo, ya no necesitamos
-nada de este código . $mixes
+nada de este código $mixes.
 
 00:04:46.636 --> 00:04:51.716 align:middle
-Sustitúyelo por . $mixes =
+Sustitúyelo por $mixes =
 $mixRepository->findAll()
 
 00:04:52.276 --> 00:04:53.636 align:middle
@@ -255,12 +255,12 @@ Actualiza y...
 en este caso significa
 
 00:05:03.446 --> 00:05:08.916 align:middle
-que obtenemos un mensaje procedente de .
-Undefined variable $cache MixRepository
+que obtenemos un mensaje Undefined variable
+$cache procedente de MixRepository.
 
 00:05:09.616 --> 00:05:16.406 align:middle
 Pero el hecho de que nuestro código haya llegado hasta aquí
-significa que el autocableado ha funcionado MixRepository:
+significa que el autocableado de MixRepository ha funcionado:
 
 00:05:16.806 --> 00:05:20.786 align:middle
 el contenedor lo ha visto,
