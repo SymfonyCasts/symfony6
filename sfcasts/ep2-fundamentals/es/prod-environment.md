@@ -28,7 +28,7 @@ Gracias a esto, cuando refrescamos... ahora el título se actualiza. Volveré a 
 
 Veamos si podemos volver a cambiar al adaptador del sistema de archivos, pero sólo para el entorno`prod`. ¿Cómo? Aquí abajo, usa `when@prod` y luego repite las mismas claves. Así que `framework`, `cache`, y luego `app`. Pon esto en el adaptador que queremos, que se llama `cache.adapter.filesystem`.
 
-Va a ser muy fácil ver si esto funciona porque seguimos volcando el servicio de caché en nuestro controlador. Ahora mismo, es un `ArrayAdapter`. Si refrescamos... ¡sorpresa! Sigue siendo un `ArrayAdapter`. ¿Por qué? Porque estamos en el entorno prod... y prácticamente cada vez que haces un cambio en el entorno `prod`, tienes que reconstruir la caché.
+Va a ser muy fácil ver si esto funciona porque seguimos volcando el servicio de caché en nuestro controlador. Ahora mismo, es un `ArrayAdapter`. Si refrescamos... ¡sorpresa! Sigue siendo un `ArrayAdapter`. ¿Por qué? Porque estamos en el entorno de producción... y prácticamente cada vez que haces un cambio en el entorno `prod`, tienes que reconstruir tu caché.
 
 Vuelve a tu terminal y ejecuta
 
