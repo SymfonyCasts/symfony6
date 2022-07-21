@@ -32,7 +32,7 @@ En segundo lugar, el contenedor... de alguna manera ya vio nuestra clase de repo
 
 ## Autoconexión del nuevo servicio
 
-De vuelta a nuestro controlador, añade un tercer argumento de tipo `MixRepository` - pulsa el tabulador para añadir la declaración `use` - y llámalo... ¿qué tal `$mixRepository`. Luego, aquí abajo, ya no necesitamos nada de este código `$mixes`. Sustitúyelo por`$mixes = $mixRepository->findAll()`.
+De vuelta a nuestro controlador, añade un tercer argumento de tipo `MixRepository` - pulsa el tabulador para añadir la declaración `use` - y llámalo... ¿qué tal `$mixRepository`? Luego, aquí abajo, ya no necesitamos nada de este código `$mixes`. Sustitúyelo por `$mixes = $mixRepository->findAll()`.
 
 ¿Qué te parece? ¿Funcionará? ¡Averigüémoslo! Actualiza y... ¡funciona! Vale, que funcione en este caso significa que obtenemos un mensaje `Undefined variable $cache` procedente de `MixRepository`. Pero el hecho de que nuestro código haya llegado hasta aquí significa que el autocableado de `MixRepository` ha funcionado: el contenedor lo ha visto, ha instanciado`MixRepository` y nos lo ha pasado para que podamos utilizarlo.
 
