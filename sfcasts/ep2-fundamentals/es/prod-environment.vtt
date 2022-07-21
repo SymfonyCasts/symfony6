@@ -1,0 +1,307 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.186 align:middle
+Nuestra aplicación se está ejecutando
+actualmente en el entorno dev.
+
+00:00:04.816 --> 00:00:06.606 align:middle
+Vamos a cambiarla a prod...
+
+00:00:07.036 --> 00:00:08.956 align:middle
+que es el que utilizarías en producción.
+
+00:00:09.686 --> 00:00:13.586 align:middle
+Cambia temporalmente APP_ENV=dev por prod...
+
+00:00:14.346 --> 00:00:16.456 align:middle
+y luego dirígete a él y actualízalo.
+
+00:00:17.646 --> 00:00:21.016 align:middle
+¡Vaya! La barra de herramientas
+de depuración web ha desaparecido.
+
+00:00:21.476 --> 00:00:23.016 align:middle
+Eso... ¡tiene sentido!
+
+00:00:23.516 --> 00:00:28.976 align:middle
+Todo el bundle del perfilador web no
+está activado en el entorno prod.
+
+00:00:29.776 --> 00:00:34.886 align:middle
+También observarás que el volcado de nuestro
+controlador aparece en la parte superior de la página.
+
+00:00:35.406 --> 00:00:40.786 align:middle
+El perfilador web normalmente captura eso y lo muestra
+abajo en la barra de herramientas de depuración web.
+
+00:00:41.236 --> 00:00:49.096 align:middle
+Pero... como todo ese sistema ya no está habilitado,
+ahora hace el volcado justo donde lo llamas.
+
+00:00:49.096 --> 00:00:55.266 align:middle
+Y hay muchas otras diferencias, como el registrador,
+que ahora se comporta de forma diferente gracias
+
+00:00:55.266 --> 00:00:57.916 align:middle
+a la configuración en monolog.yaml.
+
+00:00:58.716 --> 00:01:01.866 align:middle
+La forma de construir las
+páginas también ha cambiado.
+
+00:01:02.286 --> 00:01:05.976 align:middle
+Por ejemplo, Symfony almacena en
+caché un montón de archivos...
+
+00:01:06.506 --> 00:01:09.286 align:middle
+pero eso no se nota en el entorno dev. Eso es
+
+00:01:09.806 --> 00:01:13.486 align:middle
+porque Symfony es súper
+inteligente y reconstruye
+
+00:01:13.486 --> 00:01:17.346 align:middle
+esa caché automáticamente
+cuando cambiamos ciertos archivos.
+
+00:01:18.076 --> 00:01:22.356 align:middle
+Sin embargo, en el entorno prod, eso no ocurre.
+
+00:01:22.856 --> 00:01:23.306 align:middle
+¡Compruébalo!
+
+00:01:23.716 --> 00:01:26.486 align:middle
+Abre templates/base.html.twig...
+
+00:01:27.116 --> 00:01:31.586 align:middle
+y cambia el título de la
+página a Stirred Vinyl.
+
+00:01:32.426 --> 00:01:34.676 align:middle
+Si vuelves y actualizas...
+
+00:01:35.066 --> 00:01:35.886 align:middle
+¡mira aquí arriba!
+
+00:01:36.156 --> 00:01:37.406 align:middle
+¡No hay cambios!
+
+00:01:37.886 --> 00:01:40.916 align:middle
+Las propias plantillas Twig
+se almacenan en la caché.
+
+00:01:41.676 --> 00:01:45.736 align:middle
+En el entorno dev, Symfony
+reconstruye esa caché por nosotros.
+
+00:01:46.246 --> 00:01:47.886 align:middle
+¿Pero en el entorno prod?
+
+00:01:48.356 --> 00:01:50.846 align:middle
+No Tenemos que borrarla manualmente.
+
+00:01:51.446 --> 00:01:57.726 align:middle
+¿Cómo? En tu terminal, ejecuta: php bin/console
+cache:clear Fíjate que dice que está borrando
+
+00:01:57.726 --> 00:02:00.946 align:middle
+la caché del entorno prod.
+
+00:02:01.716 --> 00:02:06.416 align:middle
+Así que, al igual que nuestra aplicación
+se ejecuta siempre en un entorno específico,
+
+00:02:06.816 --> 00:02:10.246 align:middle
+los comandos de la consola también
+se ejecutan en un entorno específico.
+
+00:02:10.736 --> 00:02:14.366 align:middle
+Y lee la misma bandera APP_ENV.
+
+00:02:15.016 --> 00:02:21.416 align:middle
+Así que, como tenemos aquí APP_ENV=prod,
+cache:clear sabe que debe ejecutarse
+
+00:02:21.416 --> 00:02:25.446 align:middle
+en el entorno prod y borra
+la caché para ese entorno.
+
+00:02:26.106 --> 00:02:28.296 align:middle
+Gracias a esto, cuando refrescamos...
+
+00:02:28.576 --> 00:02:30.366 align:middle
+ahora el título se actualiza.
+
+00:02:31.166 --> 00:02:34.856 align:middle
+Volveré a cambiar esto por
+nuestro nombre genial, Mixed Vinyl.
+
+00:02:35.756 --> 00:02:36.806 align:middle
+¡Vamos a probar otra cosa!
+
+00:02:37.406 --> 00:02:39.926 align:middle
+Abre config/packages/cache.yaml.
+
+00:02:41.006 --> 00:02:46.346 align:middle
+Nuestro servicio de caché utiliza actualmente
+el ArrayAdapter, que es un caché falso.
+
+00:02:46.976 --> 00:02:52.416 align:middle
+Eso puede estar bien para el desarrollo,
+pero no será de mucha ayuda en producción.
+
+00:02:53.106 --> 00:02:57.056 align:middle
+Veamos si podemos volver a cambiar
+al adaptador del sistema de archivos,
+
+00:02:57.516 --> 00:03:00.216 align:middle
+pero sólo para el entorno prod.
+
+00:03:00.916 --> 00:03:07.716 align:middle
+¿Cómo? Aquí abajo, utiliza when@prod
+y luego repite las mismas claves.
+
+00:03:08.316 --> 00:03:11.376 align:middle
+Así que framework, cache, y luego app.
+
+00:03:11.906 --> 00:03:17.656 align:middle
+Pon esto en el adaptador que queremos,
+que se llama cache.adapter.filesystem. Va
+
+00:03:18.446 --> 00:03:21.306 align:middle
+a ser muy fácil ver si esto funciona
+
+00:03:21.576 --> 00:03:24.486 align:middle
+porque seguimos volcando el servicio
+de caché en nuestro controlador.
+
+00:03:25.356 --> 00:03:27.356 align:middle
+Ahora mismo, es un ArrayAdapter.
+
+00:03:27.906 --> 00:03:29.196 align:middle
+Si refrescamos...
+
+00:03:29.716 --> 00:03:32.616 align:middle
+¡sorpresa! Sigue siendo un ArrayAdapter.
+
+00:03:33.246 --> 00:03:36.766 align:middle
+¿Por qué? Porque estamos
+en el entorno prod...
+
+00:03:37.216 --> 00:03:39.636 align:middle
+y prácticamente cada vez que
+haces un cambio en el entorno
+
+00:03:39.636 --> 00:03:43.236 align:middle
+prod , tienes que reconstruir tu caché.
+
+00:03:43.946 --> 00:03:49.416 align:middle
+Vuelve a tu terminal y ejecuta de nuevo
+php bin console cache:clear y ahora...
+
+00:03:50.816 --> 00:03:53.016 align:middle
+lo tienes - ¡ FilesystemAdapter!
+
+00:03:53.776 --> 00:03:56.556 align:middle
+Pero... vamos a invertir esta configuración.
+
+00:03:57.326 --> 00:04:01.646 align:middle
+Copia cache.adapter.array
+y cámbialo por filesystem.
+
+00:04:02.076 --> 00:04:04.266 align:middle
+Lo usaremos por defecto.
+
+00:04:04.846 --> 00:04:12.396 align:middle
+Luego, en la parte inferior, cambia a
+when@dev, y esto a cache.adapter.array.
+
+00:04:13.076 --> 00:04:15.066 align:middle
+¿Por qué hago esto?
+
+00:04:15.716 --> 00:04:20.876 align:middle
+Bueno, esto literalmente no supone ninguna
+diferencia en los entornos dev y prod.
+
+00:04:21.346 --> 00:04:26.996 align:middle
+Pero si decidimos empezar a escribir pruebas más
+adelante, que se ejecuten en el entorno de pruebas,
+
+00:04:27.516 --> 00:04:33.586 align:middle
+con esta nueva configuración, el entorno de pruebas
+utilizará el mismo servicio de caché que el de producción...
+
+00:04:34.176 --> 00:04:37.516 align:middle
+lo que probablemente sea más
+realista y mejor para las pruebas.
+
+00:04:38.386 --> 00:04:42.206 align:middle
+Para asegurarte de que esto sigue
+funcionando, borra la caché una vez más.
+
+00:04:43.706 --> 00:04:45.026 align:middle
+Refresca y...
+
+00:04:45.496 --> 00:04:49.256 align:middle
+¡funciona! Todavía tenemos FilesystemAdapter.
+
+00:04:50.126 --> 00:04:54.116 align:middle
+Y... si volvemos al entorno dev en .env...
+
+00:04:54.666 --> 00:04:55.906 align:middle
+y refrescamos...
+
+00:04:56.396 --> 00:05:04.556 align:middle
+¡sí! La barra de herramientas de depuración de la web ha
+vuelto, y aquí abajo, ¡volvemos a utilizar ArrayAdapter !
+
+00:05:05.446 --> 00:05:08.966 align:middle
+Ahora bien, en realidad, es
+probable que nunca cambies
+
+00:05:08.966 --> 00:05:12.386 align:middle
+al entorno prod mientras estés
+desarrollando localmente.
+
+00:05:12.946 --> 00:05:14.346 align:middle
+Es difícil trabajar con él...
+
+00:05:14.876 --> 00:05:17.126 align:middle
+¡y no tiene sentido!
+
+00:05:17.716 --> 00:05:21.156 align:middle
+¡El entorno prod está realmente
+pensado para la producción!
+
+00:05:21.676 --> 00:05:27.726 align:middle
+Y así, ejecutarás ese comando bin/console
+cache:clear durante el despliegue...
+
+00:05:28.136 --> 00:05:31.326 align:middle
+pero probablemente casi
+nunca en tu máquina local.
+
+00:05:32.166 --> 00:05:38.706 align:middle
+Antes de continuar, entra en VinylController,
+baja a browse(), y saca ese dump().
+
+00:05:39.616 --> 00:05:41.086 align:middle
+Bien, ¡comprobación de estado!
+
+00:05:41.646 --> 00:05:45.016 align:middle
+Primero, todo en Symfony lo hace un servicio.
+
+00:05:45.446 --> 00:05:48.296 align:middle
+Segundo, los bundles nos dan servicios.
+
+00:05:48.746 --> 00:05:55.196 align:middle
+Y tercero, podemos controlar cómo se instancian
+esos servicios a través de las diferentes
+
+00:05:55.196 --> 00:05:58.206 align:middle
+configuraciones de bundle en config/packages/.
+
+00:05:58.916 --> 00:06:05.106 align:middle
+Ahora, vamos a dar un paso importante
+creando nuestro propio servicio
