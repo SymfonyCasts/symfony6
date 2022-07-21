@@ -1,0 +1,219 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.116 align:middle
+En MixRepository, sería
+genial que no tu viéramos
+
+00:00:05.116 --> 00:00:09.416 align:middle
+que especificar el nombre del host
+cuando hagamos la petición HTTP.
+
+00:00:10.116 --> 00:00:15.806 align:middle
+Sería genial que eso estuviera preconfigurado
+y sólo tuviéramos que incluir la ruta.
+
+00:00:16.516 --> 00:00:21.796 align:middle
+Además, muy pronto, vamos a configurar un
+token de acceso que se utilizará cuando
+
+00:00:21.796 --> 00:00:24.446 align:middle
+hagamos peticiones a la API de GitHub.
+
+00:00:25.456 --> 00:00:32.446 align:middle
+Podríamos pasar ese token de acceso manualmente
+aquí en nuestro servicio, pero ¿a qué sería genial
+
+00:00:32.446 --> 00:00:38.356 align:middle
+que el servicio HttpClient viniera preconfigurado
+para incluir siempre el token de acceso?
+
+00:00:38.976 --> 00:00:45.346 align:middle
+Entonces, ¿tiene Symfony una forma de
+"preconfigurar" el servicio HttpClient?
+
+00:00:45.896 --> 00:00:52.466 align:middle
+¡La tiene! Se llama "scoped clients":
+una característica de HttpClient
+
+00:00:52.636 --> 00:00:58.416 align:middle
+que permite crear varios servicios HttpClient,
+cada uno preconfigurado de forma diferente.
+
+00:00:59.146 --> 00:01:00.016 align:middle
+Así es como funciona.
+
+00:01:00.486 --> 00:01:03.226 align:middle
+Abre config/packages/framework.yaml.
+
+00:01:04.056 --> 00:01:12.896 align:middle
+Para crear un cliente de ámbito, bajo la clave
+framework, añade http_client seguido de scoped_clients.
+
+00:01:13.706 --> 00:01:18.446 align:middle
+Ahora, dale a tu cliente de ámbito
+un nombre, como githubContentClient...
+
+00:01:18.966 --> 00:01:23.516 align:middle
+ya que estamos utilizando una parte de su API
+que devuelve el contenido de los archivos.
+
+00:01:24.356 --> 00:01:28.636 align:middle
+Añade también base_uri, ve a copiar
+el nombre del host por aquí...
+
+00:01:31.306 --> 00:01:32.366 align:middle
+y pégalo:
+
+00:01:33.216 --> 00:01:39.826 align:middle
+Recuerda: el objetivo de estos archivos de configuración
+es cambiar los servicios del contenedor. El
+
+00:01:40.776 --> 00:01:46.766 align:middle
+resultado final de este nuevo código es que
+se añadirá un segundo servicio HttpClient
+
+00:01:46.766 --> 00:01:47.626 align:middle
+al contenedor.
+
+00:01:47.916 --> 00:01:49.366 align:middle
+Lo veremos dentro de un minuto.
+
+00:01:50.016 --> 00:01:56.866 align:middle
+Y, por cierto, no hay forma de que adivines
+que necesitas las claves http_client
+
+00:01:57.266 --> 00:02:01.006 align:middle
+y scoped_clients para que esto funcione.
+
+00:02:01.756 --> 00:02:07.356 align:middle
+La configuración es el tipo de cosa en la que
+realmente tienes que confiar en la documentación. De
+
+00:02:08.086 --> 00:02:12.756 align:middle
+todos modos, ahora que hemos preconfigurado
+este cliente, deberíamos poder
+
+00:02:12.756 --> 00:02:17.446 align:middle
+entrar en MixRepository y hacer una
+petición directamente a la ruta:
+
+00:02:18.506 --> 00:02:20.786 align:middle
+Pero si nos dirigimos y refrescamos...
+
+00:02:21.336 --> 00:02:24.886 align:middle
+ah... URL no válida: falta el esquema [...].
+
+00:02:24.946 --> 00:02:28.416 align:middle
+¿Te has olvidado de añadir "http(s)://"?
+
+00:02:29.046 --> 00:02:31.526 align:middle
+No creí que nos hubiéramos olvidado... ya que
+
+00:02:31.576 --> 00:02:35.216 align:middle
+lo configuramos mediante
+la opción base_uri... pero
+
+00:02:35.686 --> 00:02:38.086 align:middle
+parece que no funcionó. Y
+
+00:02:38.506 --> 00:02:40.576 align:middle
+puede que hayas adivinado por qué. Busca
+
+00:02:40.946 --> 00:02:48.236 align:middle
+tu terminal y ejecuta: php bin/console debug:autowiring
+client Ahora hay dos servicios HttpClient
+
+00:02:48.236 --> 00:02:54.076 align:middle
+en el contenedor: El
+normal, no configurado, y el
+
+00:02:54.446 --> 00:02:56.786 align:middle
+que acabamos de configurar. Aparentemente,
+
+00:02:57.626 --> 00:03:04.696 align:middle
+en MixRepository, Symfony nos sigue pasando
+el servicio HttpClient no configurado. ¿Cómo
+
+00:03:05.186 --> 00:03:06.386 align:middle
+puedo estar seguro? Bueno,
+
+00:03:07.146 --> 00:03:10.306 align:middle
+piensa en cómo funciona
+el autocableado. Symfony
+
+00:03:10.976 --> 00:03:13.506 align:middle
+mira el tipo de pista de nuestro argumento, que
+
+00:03:13.916 --> 00:03:18.316 align:middle
+es Symfony\Contracts\HttpClient\HttpClientInterface,
+y luego busca
+
+00:03:18.886 --> 00:03:24.946 align:middle
+en el contenedor un servicio cuyo
+ID coincida exactamente. Es así de
+
+00:03:25.486 --> 00:03:27.686 align:middle
+sencillo Entonces... si
+
+00:03:27.956 --> 00:03:32.476 align:middle
+hay varios servicios con el mismo
+"tipo" en nuestro contenedor, ¿sólo es
+
+00:03:32.946 --> 00:03:36.116 align:middle
+autocable el principal? Afortunadamente, ¡no!
+
+00:03:36.936 --> 00:03:38.276 align:middle
+Podemos
+
+00:03:38.946 --> 00:03:41.886 align:middle
+utilizar algo llamado
+"autoconexión con nombre"... y
+
+00:03:42.426 --> 00:03:44.386 align:middle
+ya nos muestra cómo hacerlo. Si
+
+00:03:44.936 --> 00:03:48.586 align:middle
+tecleamos un argumento con
+HttpClientInterface y nombramos
+
+00:03:48.916 --> 00:03:56.116 align:middle
+el argumento $githubContentClient,
+Symfony nos pasará el segundo. Probemos
+
+00:03:56.816 --> 00:04:04.276 align:middle
+: cambia el argumento de $httpClient
+a $githubContentClient: y ahora ... no
+
+00:04:04.916 --> 00:04:06.226 align:middle
+funciona. Ups... Propiedad no definida:
+
+00:04:06.746 --> 00:04:11.936 align:middle
+MixRepository::$httpClient Eso es... que me
+
+00:04:12.076 --> 00:04:13.586 align:middle
+he descuidado. Cuando
+
+00:04:14.136 --> 00:04:17.426 align:middle
+cambié el nombre del argumento, cambió
+el nombre de la propiedad. Así que ... hay
+
+00:04:17.816 --> 00:04:20.526 align:middle
+que ajustar el código de abajo: Y ahora...
+
+00:04:21.686 --> 00:04:22.576 align:middle
+¡está vivo! ¡
+
+00:04:23.566 --> 00:04:24.806 align:middle
+Acabamos de
+
+00:04:25.186 --> 00:04:30.236 align:middle
+autocablear un servicio específico de
+HttpClientInterface! A continuación, vamos a
+
+00:04:31.176 --> 00:04:36.716 align:middle
+abordar otro problema complicado con la
+autoconexión, aprendiendo a obtener uno de los
+
+00:04:36.716 --> 00:04:42.536 align:middle
+muchos servicios de nuestro contenedor que
+no está disponible para la autoconexión
