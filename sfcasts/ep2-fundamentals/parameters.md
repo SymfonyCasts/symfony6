@@ -32,17 +32,24 @@ So... how do we *use* these parameters? There are two ways. First, it's not supe
 common, but you *can* fetch a parameter in your controller. For example,
 in `VinylController`, let's `dd($this->getParameter())` - which is a shortcut
 method from `AbstractController` - and then `kernel.project_dir`. We even get some
-nice auto-completion thanks to the Symfony PhpStorm plugin! And when we try it...
-yep! There it is!
+nice auto-completion thanks to the Symfony PhpStorm plugin!
+
+[[[ code('ef8f6d1274') ]]]
+
+And when we try it... yep! There it is!
 
 ## Referencing Parameters with %parameter%
 
 Now... delete that. This *works*, but most of the time, the way you'll use parameters
 is by referencing them in your *configuration files*. And we've seen this before!
-Open up `config/packages/twig.yaml`. Remember that `default_path`? That's referencing
-the `kernel.project_dir` parameter. When you're in *any* of these `.yaml`
-configuration files and you want to reference a parameter, you can use this special
-syntax: `%`, the name of the parameter, then another `%`.
+Open up `config/packages/twig.yaml`:
+
+[[[ code('852f378720') ]]]
+
+Remember that `default_path`? That's referencing the `kernel.project_dir` parameter. 
+When you're in *any* of these `.yaml` configuration files and you want to reference 
+a parameter, you can use this special syntax: `%`, the name of the parameter, 
+then another `%`.
 
 ## Creating a new Parameter
 
@@ -52,7 +59,9 @@ environment only. Let's see if we can shorten this by creating a *new* parameter
 
 How *do* we create parameters? In any of these files, add a root key called
 `parameters`. Below that, you can just... invent a name. I'll call it `cache_adapter`,
-and set that to our value: `cache.adapter.filesystem`.
+and set that to our value: `cache.adapter.filesystem`:
+
+[[[ code('88f00b7bd8') ]]]
 
 If you have a root `framework` key, Symfony will pass all of the config to
 FrameworkBundle. The same is true with the `twig` key and TwigBundle.
@@ -67,7 +76,9 @@ php bin/console debug:container --parameters
 ```
 
 Near the top... there it is - `cache_adapter`! To use this, down here for `app`,
-say `%cache_adapter%`.
+say `%cache_adapter%`:
+
+[[[ code('9060cf5eae') ]]]
 
 That's *it*. Quick note: You may have noticed that *sometimes* I use quotes in
 YAML and *sometimes* I *don't*. Mostly, in YAML, you don't need to use quotes...
@@ -80,7 +91,9 @@ an error.
 
 Anyway, in the `dev` environment, instead of saying `framework`, `cache`, and `app`,
 all we need to do is override that parameter. I'll say `parameters`, then
-`cache_adapter`... and set it to `cache.adapter.array`.
+`cache_adapter`... and set it to `cache.adapter.array`:
+
+[[[ code('e3fea12cdb') ]]]
 
 To see if that's working, spin over here and run another helper command:
 
