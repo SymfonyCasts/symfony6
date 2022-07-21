@@ -11,14 +11,20 @@ autowiring only works with the constructor.
 
 And, the action methods really *do* work *just* like the constructors when it comes
 to autowiring. For example, add a `bool $isDebug` argument to the `browse()` action...
-then `dump($isDebug)` below.
+then `dump($isDebug)` below:
+
+[[[ code('d77a8d195f') ]]]
 
 And that... doesn't work! So far, the only two things that we know we are allowed
 to have as arguments to our "actions" are (A), any wildcards in the route like
 `$slug` and (B) autowireable services, like `MixRepository`.
 
 But now, go back to `config/services.yaml` and *uncomment* that global `bind` from
-earlier. This time... it works!
+earlier:
+
+[[[ code('78858f9ac6') ]]]
+
+This time... it works!
 
 ## Adding a Constructor
 
@@ -26,10 +32,14 @@ Going in the *other* direction, because controllers are services, you can *absol
 have a constructor if you want. Let's move `MixRepository` and `$isDebug` up to a
 new constructor. Copy those, remove them... add `public function __construct()`,
 paste... then I'll put them on their own lines. To turn them into properties, add
-`private` in front of each.
+`private` in front of each:
+
+[[[ code('4c824ee41c') ]]]
 
 Back down below, we just need to make sure we change to `dump($this->isDebug)` and
-add `$this->` in front of `mixRepository`.
+add `$this->` in front of `mixRepository`:
+
+[[[ code('672b0fa2a8') ]]]
 
 Nice! If we try this now... that works just fine!
 
