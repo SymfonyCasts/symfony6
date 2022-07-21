@@ -4,8 +4,11 @@ We know that bundles give us services and services do work. Ok. But what if we n
 to write our *own* custom code that does work? Should we... put that into our *own*
 service class? Absolutely! And it's a *great* way to organize your code.
 
-We *are* already doing some work in our app. In the `browse()` action: we make
-an HTTP request and cache the result. Putting this logic in our controller is *fine*.
+We *are* already doing some work in our app. In the `browse()` action: 
+
+[[[ code('51d407c154') ]]]
+
+we make an HTTP request and cache the result. Putting this logic in our controller is *fine*.
 But by moving it into its own service class, it'll make the *purpose* of the code
 more clear, allow us to reuse it from multiple places... and even enable us to
 unit test that code if we want to.
@@ -22,7 +25,9 @@ call that `PizzaParty` or `Repository` - and inside of *that*, a new
 PHP class. Let's call it... how about `MixRepository`. "Repository" is a pretty common
 name for a service that returns data. Notice that when I create this, PhpStorm
 *automatically* adds the correct namespace. It doesn't matter *how* we organize our
-classes inside of `src/`... as long as our namespace matches the directory.
+classes inside of `src/`... as long as our namespace matches the directory:
+
+[[[ code('dab4aa0947') ]]]
 
 One important thing about service classes: they have *nothing* to do with Symfony.
 Our controller class is a Symfony concept. But `MixRepository` is a class *we're*
@@ -33,9 +38,14 @@ and feel however we want. The power!
 With that in mind, let's create a new `public function` called, how about,
 `findAll()` that will `return` an `array` of all of the mixes in our system. Back
 in `VinylController`, copy all of the logic that fetches the mixes and paste that
-here. PhpStorm will ask if we want to add a `use` statement for the
-`CacheItemInterface`. We *totally* do! Then, instead of creating a `$mixes` variable,
-just `return`.
+here:
+
+[[[ code('3085dac9b6') ]]]
+
+PhpStorm will ask if we want to add a `use` statement for the `CacheItemInterface`. 
+We *totally* do! Then, instead of creating a `$mixes` variable, just `return`:
+
+[[[ code('eebdfc0b0f') ]]]
 
 There *are* some undefined variables in this class... and those *will* be a problem.
 But ignore them for a minute: I *first* want to see if we can *use* our shiny new
@@ -66,9 +76,14 @@ its service *id* is the full class name. *That* means we can autowire it!
 ## Autowiring the new Service
 
 Back over in our controller, add a third argument type-hinted with `MixRepository` -
-hit tab to add the `use` statement - and call it... how about `$mixRepository`. Then,
-down here, we don't need any of this `$mixes` code anymore. Replace it with
-`$mixes = $mixRepository->findAll()`.
+hit tab to add the `use` statement - and call it... how about `$mixRepository`:
+
+[[[ code('a05b30f0d4') ]]]
+
+Then, down here, we don't need any of this `$mixes` code anymore. Replace it with
+`$mixes = $mixRepository->findAll()`:
+
+[[[ code('c5fdb1c634') ]]]
 
 How nice is that? Will it work? Let's find out! Refresh and... it *does*! Ok,
 working in this case means that we get an `Undefined variable $cache` message
