@@ -1,8 +1,8 @@
 # The "symfony console" Command & server_version
 
 Doctrine is now configured to talk to our database, which lives inside a Docker
-container. That's thanks to the fact that the Symfony dev server is exposes
-this `DATABASE_URL` environment, variable, which *points* to the container. For
+container. That's thanks to the fact that the Symfony dev server exposes
+this `DATABASE_URL` environment variable, which *points* to the container. For
 me, the container is accessible on port 50739.
 
 Now let's make sure the actual database has been created. But first, in `index.php`,
@@ -31,11 +31,11 @@ variable is pointing to port 50739! It's as if it's using the `DATABASE_URL`
 value from our `.env` file instead of the *real* one that's set by the Symfony binary.
 
 And, in fact, that's *exactly* what's happening. And, it makes sense! When we refresh
-the page in our browser, that's processed *through* the Symfony binary, which gives
+the page in our browser, that's processed *through* the `symfony` binary, which gives
 it the opportunity to add the environment variable.
 
 But when we run a `bin/console` command - where `console` is just a PHP file that
-lives in a `bin/` directory, the Symfony binary is *never* used as part of that
+lives in a `bin/` directory, the `symfony` binary is *never* used as part of that
 process. This means it never has the opportunity to add the environment variable.
 And so, Symfony falls back to using the value from `.env`.
 
@@ -47,7 +47,7 @@ symfony console doctrine:database:create
 ```
 
 That's literally a shortcut to running `bin/console`: it's no different. But the
-fact that we're executing it *through* the Symfony binary gives it the opportunity
+fact that we're executing it *through* the `symfony` binary gives it the opportunity
 to add the environment variables.
 
 When we try this... yes! We *do* get an error because apparently the database already
@@ -57,11 +57,11 @@ exists, but it *did* successfully connect and talk to the database.
 
 Ok, there's one last bit of configuration that we need to set. Open
 `config/packages/doctrine.yaml`. This file came from the recipe. Find
-`server_version` and un-commented.
+`server_version` and un-comment it.
 
-This value "13" is referring to the version of your database engine. Since I'm
-using Postgres version 13, I need 13 here. If you're using MySQL, you might be
-8 or 5.7 here.
+This value "13" is referring to the version of my database engine. Since I'm
+using Postgres version 13, I need 13 here. If you're using MySQL, you might need
+8 or 5.7.
 
 This helps Doctrine determine which features your database does or doesn't support...
 since a newer version of a database might support features that an older version
@@ -69,5 +69,5 @@ doesn't. It's not a particularly interesting piece of configuration, we just nee
 to make sure it's set.
 
 Ok team: all the boring setup is *done*. Next: let's create our first entity class!
-Entities are the most foundational concept in Doctrine and the *key* to talking
+Entities are the most *foundational* concept in Doctrine and the *key* to talking
 to our first database table.
