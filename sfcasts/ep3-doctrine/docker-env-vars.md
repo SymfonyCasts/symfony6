@@ -1,9 +1,81 @@
-# Docker Env Vars
+# Docker & Environment Variables
 
-Coming soon...
+We now have a Postgres database running inside of a Docker container. We can see it
+by running:
 
-We now have a Postgres database running inside of a Docker container. We can see it by running dock post PS. This also shows us that if we want to talk to this database, we can talk to port 5, 0 7, 3 9. That will be a different port on you for you, because it's a, because that port is randomly chosen when we start a container. And if we wanted to talk to this database directly, like run some commands inside of it, we could use Dr. Composose do that. Dr. Compos exec, and then the name of the service database that comes from the key inside of Doose YAML. And then just the command you wanna go run inside of it. So for us, since this is Postgres, we could use, for example, P sql.ps, user symphony password. So we'll ask us the password and then the name of the database, which is app, both the user symphony and the name of the database app. Those just come from our configuration inside of our dock. Compose that Yamo file. The password has changed me. I'll copy that. We hit paste. It asks us for the password and we are in. So if you need to talk directly at database, you can, and of course you can also do that from my SQL. I'll run quick to get outta that.
+```terminal
+docker-compose ps
+```
 
-So to get our actual application, to point to this database, that's running on this port, we could go into down end and customize this accordingly, like user symphony password change me. And then we could change this port here to be whatever our actual dynamic port is there, but it turns out we don't need to do that because this database URL environment variable is already being correctly set. When we started our project, we started a local dev server using the symphony binary, just to remind you, I'm gonna run symphony server stop to actually stop that web server. And then we'll rerun symphony serve dash D to start that web server. Well, it turns out that the symphony binary, the symphony dev server has special Docker integration watch over here now that when you refresh, you're now seeing the bottom right corner, it's got it's green. And it says en VAs from Docker in short, the symphony binary noticed that Docker was running and has exposed a new environment. Variable that's pointing to it here. I'll show you open up public slash index dot PHP. Or this is our front controller. We're not usually worry about this, but, and inside this little callback, do a DD for dump and die, and we're gonna dump and die. These server super global, this contains lots of different information, including the environment variables that are currently set.
+This also tells us that if we want to talk to this database, we can talk to port
+`50739`. That will be a different port for you, because it's randomly chosen when
+we start Docker.
 
-So go over, refresh any page and then search for database underscore U R L and check it out. There it is. This is not the value that we have in our dot end file. Notice the port here, port is not what we have inside of here, but it is the correct port, but it is the correct port for talking to my local database container. So step one, symphony binary detects that Docker is running and then two, it sets a real database underscore URL environment, variable that points to that container. And that's it doctrine knows to read this environment variable. And remember, since this is a real environment, variable it'll override any value that we have in our dot N or dot N dot local files. So in other words, just by starting Docker, our local development, everything is already set up for us. If you wanna see what other environment variables, the symphony local binary setting, you can run symphony VAR export dash dash multiline, but the most important one by far is database underscoring URL. So doctrine is configured and ready next. Let's actually create the database via a bin console command. And we, when we do that, we'll learn a trick for doing that with the symphony binary.
+We also learned that we can talk to the database directly via:
+
+```terminal
+docker-compose exec database psql --user symfony --password app
+```
+
+To get our actual application to point to the database that's running on this
+port, we could go into down `.env` or `.env.local` and customize `DATABASE_URL`
+accordingly: with user `symfony` password `ChangeMe`... and with whatever the port
+currently is. Though... we would need to *update* that port each time we start and
+stop Docker.
+
+## Symfony Binary & Docker Env Vars
+
+Whelp, it turns out that we don't need to do *any* of this because the `DATABASE_URL`
+environment variable is *already* being correctly set! When we set up our project,
+we started a local dev server using the Symfony binary.
+
+Just as a reminder, I'm going to run:
+
+```terminal
+symfony server:stop
+```
+
+to stop that server. And then restart it with:
+
+```terminal
+symfony serve -d
+```
+
+I'm mentioning this because the `symfony` binary has a *pretty* awesome Docker
+superpower.
+
+Watch: when you refresh now, and hover over the bottom right corner of the web
+debug toolbar, it says "Env Vars: From Docker".
+
+In short, the Symfony binary *noticed* that Docker was running and exposed some
+new environment variables pointing to the database! I'll show you. Open up
+`public/index.php`. We don't normally care about this file... but it's a great
+spot to dump some info *right* when our app starts booting. Inside the callback,
+`dd()` the `$_SERVER` superglobal. That variable contains a *lot* of information,
+*including* any environment variables.
+
+Ok, spin over and refresh. Big list! Search for `DATABASE_URL` and... there it is!
+But that is *not* the value that we have in our `.env` file: the port is *not*
+what we have there. Nope, it's the *correct* port needed to talk to the Docker
+container!
+
+Yup, the Symfony binary detects that Docker is running and sets a *real*
+`DATABASE_URL` environment variable that *points* to that container. And remember,
+since this is a *real* environment variable, it will win over any value placed
+in the `.env` or `.env.local` files.
+
+The point is: *just* by starting Docker, everything is already set up: we didn't
+need to touch *any* config files.
+
+By the way, if you want to see all the environment variables the Symfony binary
+is setting, you can run:
+
+```terminal
+symfony var:export --multiline
+```
+
+But the most important one by far is `DATABASE_URL`.
+
+Ok: Doctrine is configured! Next, let's create the database itself via a `bin/console`
+command. When we do that, we'll learn a trick for doing that *with* the environment
+variables from the Symfony binary.

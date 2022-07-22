@@ -1,7 +1,73 @@
-# Symfony console
+# The "symfony console" Command & server_version
 
-Doctrine should now be configured to talk to our database, which lives inside a Docker container. Thanks to the fact that these symphony dev server is automatically exposing this database under school URL environment, variable, which points directly into our container on the port for me, port 5, 7 39. Now let's make sure the actual database has been created, which is called app first in index IP. Make sure to remove the D E D and then I'll close that file. Now spin over to your terminal and run bin console with no arguments. This prints all of the bin console commands, including a bunch of new ones that start with the word doctrine. Ooh, most of these aren't very important and we'll walk through the ones that are important along the way. For example, there's one in here called doctrine database create cool. Let's try it. Bin console doctrine, database, create and error. Oh Hmm. And if you look, it's trying to talk to port 5, 4 32, but our environment variable is pointing to port 5, 0 7 3 9 it's. As if it's using the in database URL environment, variable from our do end file. Instead of the real one, that's set by the symphony binary. And in fact, that's exactly what's happening. And it makes sense when we refresh the page in our browser, that's processed through the symphony binary, which gives it the opportunity to add this environment variable.
+Doctrine is now configured to talk to our database, which lives inside a Docker
+container. That's thanks to the fact that the Symfony dev server is exposes
+this `DATABASE_URL` environment, variable, which *points* to the container. For
+me, the container is accessible on port 50739.
 
-But when we run a bin console command where the console is just a PHP file that lives in a bin directory, the symphony binary is never used as part of this process. And so it never has the opportunity to add the environment variable needs. And so it falls back to using the incorrect one in dot N direct one in N to fix this. Whenever you run a bin console command that needs the environment variables instead of running bin console, run symphony console, that's literally a shortcut to running bin console. It's no different, but the fact that you're running it through symphony binary gives it the opportunity to add the missing environment variables. And when we run it, yes, we get an error because the database already exists, but it did successfully connect and talk to the database.
+Now let's make sure the actual database has been created. But first, in `index.php`,
+remove the `dd()`... then close that file.
 
-All right, there's one last little bit of configuration that we need. Open config packages, doctrine, YAML. This is a file that came with the recipe and UN find server version and UN commented. So this 13 here is referring to the version of your database engine. So we're using Postgre version 13. So we put version 13 here. If you're using my SQL version eight, then you would put eight here. This helps doctor determine which features your database does or doesn't support because a newer version of a database might support newer features that an older version doesn't, it's not a particularly interesting video configuration. We just need to make sure this is set. So that doctrine does the best job for us. All right, next, let's create our first entity class, which is the most foundational concept inside of doctrine and the key to creating our first database table. That's next.
+Spin over to your terminal and run:
+
+```terminal
+php bin/console
+```
+
+This prints *every* `bin/console` command that's available *including* a bunch of
+*new* ones that start with the word `doctrine`. Ooh. Most of these aren't very
+important and we'll walk through the ones that *are* along the way.
+
+## bin/console doctrine:database:create
+
+For example, one is called `doctrine:database:create`. Cool, let's try it:
+
+```terminal
+php bin/console doctrine:database:create
+```
+
+And... error! Look closely: it's trying to connect to port 5432. But our environment
+variable is pointing to port 50739! It's as if it's using the `DATABASE_URL`
+value from our `.env` file instead of the *real* one that's set by the Symfony binary.
+
+And, in fact, that's *exactly* what's happening. And, it makes sense! When we refresh
+the page in our browser, that's processed *through* the Symfony binary, which gives
+it the opportunity to add the environment variable.
+
+But when we run a `bin/console` command - where `console` is just a PHP file that
+lives in a `bin/` directory, the Symfony binary is *never* used as part of that
+process. This means it never has the opportunity to add the environment variable.
+And so, Symfony falls back to using the value from `.env`.
+
+To fix this, whenever we run a `bin/console` command that needs the Docker environment
+variables, instead of running `bin/console`, run `symfony console`:
+
+```terminal-silent
+symfony console doctrine:database:create
+```
+
+That's literally a shortcut to running `bin/console`: it's no different. But the
+fact that we're executing it *through* the Symfony binary gives it the opportunity
+to add the environment variables.
+
+When we try this... yes! We *do* get an error because apparently the database already
+exists, but it *did* successfully connect and talk to the database.
+
+## Configuring the server_version
+
+Ok, there's one last bit of configuration that we need to set. Open
+`config/packages/doctrine.yaml`. This file came from the recipe. Find
+`server_version` and un-commented.
+
+This value "13" is referring to the version of your database engine. Since I'm
+using Postgres version 13, I need 13 here. If you're using MySQL, you might be
+8 or 5.7 here.
+
+This helps Doctrine determine which features your database does or doesn't support...
+since a newer version of a database might support features that an older version
+doesn't. It's not a particularly interesting piece of configuration, we just need
+to make sure it's set.
+
+Ok team: all the boring setup is *done*. Next: let's create our first entity class!
+Entities are the most foundational concept in Doctrine and the *key* to talking
+to our first database table.
