@@ -13,7 +13,7 @@ And, the action methods really *do* work *just* like the constructors when it co
 to autowiring. For example, add a `bool $isDebug` argument to the `browse()` action...
 then `dump($isDebug)` below:
 
-[[[ code('d77a8d195f') ]]]
+[[[ code('b6b1e19418') ]]]
 
 And that... doesn't work! So far, the only two things that we know we are allowed
 to have as arguments to our "actions" are (A), any wildcards in the route like
