@@ -1,17 +1,17 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index e4f767d..3ff04f4 100644
+index 81e9101..09a9621 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -4,6 +4,8 @@ namespace App\Controller;
+@@ -3,6 +3,8 @@
+ namespace App\Controller;
  
  use App\Repository\VinylMixRepository;
- use App\Service\MixRepository;
 +use Pagerfanta\Doctrine\ORM\QueryAdapter;
 +use Pagerfanta\Pagerfanta;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Response;
  use Symfony\Component\Routing\Annotation\Route;
-@@ -40,11 +42,17 @@ class VinylController extends AbstractController
+@@ -38,11 +40,17 @@ class VinylController extends AbstractController
      {
          $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
  

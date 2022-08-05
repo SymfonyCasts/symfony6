@@ -876,6 +876,16 @@
             "description": null
         },
         {
+            "id": "querying-delete-old-mixrepository",
+            "name": "Querying: delete old MixRepository",
+            "description": null
+        },
+        {
+            "id": "querying-remove-usages-of-mixrepository",
+            "name": "Querying: remove usages of MixRepository",
+            "description": null
+        },
+        {
             "id": "customquery-uncomment-repository-method",
             "name": "CustomQuery: Uncomment repository method",
             "description": null
@@ -1136,5 +1146,5 @@
             "description": null
         }
     ],
-    "sha": "9bbb476fc1dcc62d664c75a42f9991f6e9aaa76d"
+    "sha": "62d3d5d491e02a224ce31490ce04e32b5f3b2ed7"
 }

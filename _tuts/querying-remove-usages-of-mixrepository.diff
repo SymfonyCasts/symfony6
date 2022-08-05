@@ -1,0 +1,44 @@
+diff --git a/src/Command/TalkToMeCommand.php b/src/Command/TalkToMeCommand.php
+index 0b346b1..4dd0423 100644
+--- a/src/Command/TalkToMeCommand.php
++++ b/src/Command/TalkToMeCommand.php
+@@ -2,7 +2,7 @@
+ 
+ namespace App\Command;
+ 
+-use App\Service\MixRepository;
++use App\Repository\VinylMixRepository;
+ use Symfony\Component\Console\Attribute\AsCommand;
+ use Symfony\Component\Console\Command\Command;
+ use Symfony\Component\Console\Input\InputArgument;
+@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
+ class TalkToMeCommand extends Command
+ {
+     public function __construct(
+-        private MixRepository $mixRepository
++        private VinylMixRepository $mixRepository
+     )
+     {
+         parent::__construct();
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 1f93ba4..9b491ac 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -3,7 +3,6 @@
+ namespace App\Controller;
+ 
+ use App\Repository\VinylMixRepository;
+-use App\Service\MixRepository;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Annotation\Route;
+@@ -12,8 +11,7 @@ use function Symfony\Component\String\u;
+ class VinylController extends AbstractController
+ {
+     public function __construct(
+-        private bool $isDebug,
+-        private MixRepository $mixRepository
++        private bool $isDebug
+     )
+     {}
+ 

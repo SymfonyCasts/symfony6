@@ -1,8 +1,8 @@
 diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
-index 3ff04f4..681e2c3 100644
+index 09a9621..12f4b27 100644
 --- a/src/Controller/VinylController.php
 +++ b/src/Controller/VinylController.php
-@@ -7,6 +7,7 @@ use App\Service\MixRepository;
+@@ -6,6 +6,7 @@ use App\Repository\VinylMixRepository;
  use Pagerfanta\Doctrine\ORM\QueryAdapter;
  use Pagerfanta\Pagerfanta;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +10,7 @@ index 3ff04f4..681e2c3 100644
  use Symfony\Component\HttpFoundation\Response;
  use Symfony\Component\Routing\Annotation\Route;
  use function Symfony\Component\String\u;
-@@ -38,7 +39,7 @@ class VinylController extends AbstractController
+@@ -36,7 +37,7 @@ class VinylController extends AbstractController
      }
  
      #[Route('/browse/{slug}', name: 'app_browse')]
@@ -19,7 +19,7 @@ index 3ff04f4..681e2c3 100644
      {
          $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
  
-@@ -46,7 +47,7 @@ class VinylController extends AbstractController
+@@ -44,7 +45,7 @@ class VinylController extends AbstractController
          $adapter = new QueryAdapter($queryBuilder);
          $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
              $adapter,
