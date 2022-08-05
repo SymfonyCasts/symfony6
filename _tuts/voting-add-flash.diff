@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 9a02913..db76d7b 100644
+index b1c9262..b1a792a 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -51,6 +51,7 @@ class MixController extends AbstractController
+@@ -52,6 +52,7 @@ class MixController extends AbstractController
          }
  
          $entityManager->flush();

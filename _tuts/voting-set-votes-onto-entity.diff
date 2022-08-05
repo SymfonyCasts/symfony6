@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 61e2713..599fb40 100644
+index d5ff784..59be564 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -44,5 +44,11 @@ class MixController extends AbstractController
+@@ -45,5 +45,11 @@ class MixController extends AbstractController
      public function vote(VinylMix $mix, Request $request): Response
      {
          $direction = $request->request->get('direction', 'up');

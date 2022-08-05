@@ -1,5 +1,5 @@
 diff --git a/src/DataFixtures/AppFixtures.php b/src/DataFixtures/AppFixtures.php
-index 987f6fe..cfdd63e 100644
+index 987f6fe..588c3b5 100644
 --- a/src/DataFixtures/AppFixtures.php
 +++ b/src/DataFixtures/AppFixtures.php
 @@ -2,6 +2,7 @@
@@ -10,7 +10,7 @@ index 987f6fe..cfdd63e 100644
  use Doctrine\Bundle\FixturesBundle\Fixture;
  use Doctrine\Persistence\ObjectManager;
  
-@@ -9,8 +10,12 @@ class AppFixtures extends Fixture
+@@ -9,8 +10,13 @@ class AppFixtures extends Fixture
  {
      public function load(ObjectManager $manager): void
      {
@@ -19,7 +19,8 @@ index 987f6fe..cfdd63e 100644
 +        $mix = new VinylMix();
 +        $mix->setTitle('Do you Remember... Phil Collins?!');
 +        $mix->setDescription('A pure mix of drummers turned singers!');
-+        $mix->setGenre('pop');
++        $genres = ['pop', 'rock'];
++        $mix->setGenre($genres[array_rand($genres)]);
 +        $mix->setTrackCount(rand(5, 20));
 +        $mix->setVotes(rand(-50, 50));
  

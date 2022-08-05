@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 1ce3678..79aca5f 100644
+index 8ab5c20..ab630b3 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -38,4 +38,10 @@ class MixController extends AbstractController
+@@ -39,4 +39,10 @@ class MixController extends AbstractController
              'mix' => $mix,
          ]);
      }

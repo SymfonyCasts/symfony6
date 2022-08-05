@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 599fb40..9a02913 100644
+index 59be564..b1c9262 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -41,7 +41,7 @@ class MixController extends AbstractController
+@@ -42,7 +42,7 @@ class MixController extends AbstractController
      }
  
      #[Route('/mix/{id}/vote', name: 'app_mix_vote', methods: ['POST'])]
@@ -11,7 +11,7 @@ index 599fb40..9a02913 100644
      {
          $direction = $request->request->get('direction', 'up');
          if ($direction === 'up') {
-@@ -49,6 +49,11 @@ class MixController extends AbstractController
+@@ -50,6 +50,11 @@ class MixController extends AbstractController
          } else {
              $mix->setVotes($mix->getVotes() - 1);
          }

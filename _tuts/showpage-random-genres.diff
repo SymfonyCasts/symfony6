@@ -1,0 +1,14 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index 9a9acfe..9e7ebbb 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -16,7 +16,8 @@ class MixController extends AbstractController
+         $mix = new VinylMix();
+         $mix->setTitle('Do you Remember... Phil Collins?!');
+         $mix->setDescription('A pure mix of drummers turned singers!');
+-        $mix->setGenre('pop');
++        $genres = ['pop', 'rock'];
++        $mix->setGenre($genres[array_rand($genres)]);
+         $mix->setTrackCount(rand(5, 20));
+         $mix->setVotes(rand(-50, 50));
+ 

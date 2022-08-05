@@ -926,6 +926,11 @@
             "description": null
         },
         {
+            "id": "showpage-random-genres",
+            "name": "ShowPage: random genres",
+            "description": null
+        },
+        {
             "id": "showpage-create-show-action",
             "name": "ShowPage: create show() action",
             "description": null
@@ -1151,5 +1156,5 @@
             "description": null
         }
     ],
-    "sha": "406434630b94268bc442138cb2da3a810fd9f33b"
+    "sha": "4cec8905e1bc2349561a56668d3669141663e633"
 }

@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 8d98dbc..e375b11 100644
+index 69d0cfb..bb3a684 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -32,7 +32,7 @@ class MixController extends AbstractController
+@@ -33,7 +33,7 @@ class MixController extends AbstractController
          ));
      }
  
@@ -11,7 +11,7 @@ index 8d98dbc..e375b11 100644
      public function show(VinylMix $mix): Response
      {
          return $this->render('mix/show.html.twig', [
-@@ -54,7 +54,7 @@ class MixController extends AbstractController
+@@ -55,7 +55,7 @@ class MixController extends AbstractController
          $this->addFlash('success', 'Vote counted!');
  
          return $this->redirectToRoute('app_mix_show', [

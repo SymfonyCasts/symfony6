@@ -1,5 +1,5 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 79aca5f..59931ec 100644
+index ab630b3..a93005b 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
 @@ -6,6 +6,7 @@ use App\Entity\VinylMix;
@@ -10,7 +10,7 @@ index 79aca5f..59931ec 100644
  use Symfony\Component\HttpFoundation\Response;
  use Symfony\Component\Routing\Annotation\Route;
  
-@@ -40,8 +41,8 @@ class MixController extends AbstractController
+@@ -41,8 +42,8 @@ class MixController extends AbstractController
      }
  
      #[Route('/mix/{id}/vote', name: 'app_mix_vote', methods: ['POST'])]

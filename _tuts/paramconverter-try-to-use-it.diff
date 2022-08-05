@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index ba0351c..1ce3678 100644
+index e9b0334..8ab5c20 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -32,14 +32,8 @@ class MixController extends AbstractController
+@@ -33,14 +33,8 @@ class MixController extends AbstractController
      }
  
      #[Route('/mix/{id}', name: 'app_mix_show')]

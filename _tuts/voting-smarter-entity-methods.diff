@@ -1,8 +1,8 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index db76d7b..8d98dbc 100644
+index b1a792a..69d0cfb 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
-@@ -45,9 +45,9 @@ class MixController extends AbstractController
+@@ -46,9 +46,9 @@ class MixController extends AbstractController
      {
          $direction = $request->request->get('direction', 'up');
          if ($direction === 'up') {
