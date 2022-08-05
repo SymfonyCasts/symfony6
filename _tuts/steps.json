@@ -926,16 +926,6 @@
             "description": null
         },
         {
-            "id": "delete-me-1",
-            "name": "Delete me 1",
-            "description": null
-        },
-        {
-            "id": "delete-me-2",
-            "name": "delete me 2",
-            "description": null
-        },
-        {
             "id": "showpage-create-show-action",
             "name": "ShowPage: create show() action",
             "description": null
