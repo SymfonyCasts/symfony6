@@ -12,7 +12,7 @@ index 3c393f6..f54e747 100644
      {
          $mix = $mixRepository->find($id);
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index a3a3ba8..277d577 100644
+index 2d21c54..c977861 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -28,7 +28,9 @@
@@ -23,7 +23,7 @@ index a3a3ba8..277d577 100644
 +                <a href="{{ path('app_mix_show', {
 +                    id: mix.id
 +                }) }}" class="mixed-vinyl-container p-3 text-center">
-                     <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+                     <img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
                      <p class="mt-2"><strong>{{ mix.title }}</strong></p>
                      <span>{{ mix.trackCount }} Tracks</span>
 @@ -38,7 +40,7 @@

@@ -1,0 +1,12 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 85b1e82..6db5227 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -43,7 +43,6 @@ class VinylController extends AbstractController
+ 
+         $mixRepository = $entityManager->getRepository(VinylMix::class);
+         $mixes = $mixRepository->findAll();
+-        dd($mixes);
+ 
+         return $this->render('vinyl/browse.html.twig', [
+             'genre' => $genre,

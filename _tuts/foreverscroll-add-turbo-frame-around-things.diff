@@ -1,5 +1,5 @@
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index d162651..5ab59ef 100644
+index fba22ce..4767f77 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -25,27 +25,29 @@
@@ -12,7 +12,7 @@ index d162651..5ab59ef 100644
 -                <a href="{{ path('app_mix_show', {
 -                    slug: mix.slug
 -                }) }}" class="mixed-vinyl-container p-3 text-center">
--                    <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+-                    <img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
 -                    <p class="mt-2"><strong>{{ mix.title }}</strong></p>
 -                    <span>{{ mix.trackCount }} Tracks</span>
 -                    |
@@ -31,7 +31,7 @@ index d162651..5ab59ef 100644
 +                    <a href="{{ path('app_mix_show', {
 +                        slug: mix.slug
 +                    }) }}" class="mixed-vinyl-container p-3 text-center">
-+                        <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
++                        <img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
 +                        <p class="mt-2"><strong>{{ mix.title }}</strong></p>
 +                        <span>{{ mix.trackCount }} Tracks</span>
 +                        |

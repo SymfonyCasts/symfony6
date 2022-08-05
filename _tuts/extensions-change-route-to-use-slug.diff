@@ -21,7 +21,7 @@ index 8d98dbc..e375b11 100644
      }
  }
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 277d577..05cf3cb 100644
+index c977861..62cd7e3 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -29,7 +29,7 @@
@@ -31,5 +31,5 @@ index 277d577..05cf3cb 100644
 -                    id: mix.id
 +                    slug: mix.slug
                  }) }}" class="mixed-vinyl-container p-3 text-center">
-                     <img src="{{ mix.getImageUrl(300) }}" alt="Square placeholder img">
+                     <img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
                      <p class="mt-2"><strong>{{ mix.title }}</strong></p>

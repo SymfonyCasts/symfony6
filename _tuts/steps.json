@@ -856,6 +856,11 @@
             "description": null
         },
         {
+            "id": "querying-remove-dd",
+            "name": "Querying: remove dd()",
+            "description": null
+        },
+        {
             "id": "querying-dump-the-repository",
             "name": "Querying: dump the repository",
             "description": null
@@ -873,6 +878,16 @@
         {
             "id": "querying-order-by-votes-desc",
             "name": "Querying: order by votes DESC",
+            "description": null
+        },
+        {
+            "id": "custom-method-getvotesstring-method",
+            "name": "Custom Method: getVotesString method",
+            "description": null
+        },
+        {
+            "id": "custom-method-getimageurl-entity-method",
+            "name": "Custom Method: getImageUrl() entity method",
             "description": null
         },
         {
@@ -911,13 +926,13 @@
             "description": null
         },
         {
-            "id": "custom-methods-getvotesstring-method",
-            "name": "Custom Methods: getVotesString method",
+            "id": "delete-me-1",
+            "name": "Delete me 1",
             "description": null
         },
         {
-            "id": "custom-methods-getimageurl-entity-method",
-            "name": "Custom Methods: getImageUrl() entity method",
+            "id": "delete-me-2",
+            "name": "delete me 2",
             "description": null
         },
         {
@@ -1146,5 +1161,5 @@
             "description": null
         }
     ],
-    "sha": "62d3d5d491e02a224ce31490ce04e32b5f3b2ed7"
+    "sha": "406434630b94268bc442138cb2da3a810fd9f33b"
 }
