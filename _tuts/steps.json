@@ -901,6 +901,11 @@
             "description": null
         },
         {
+            "id": "customquery-random-genre",
+            "name": "CustomQuery: random genre",
+            "description": null
+        },
+        {
             "id": "customquery-uncomment-repository-method",
             "name": "CustomQuery: Uncomment repository method",
             "description": null
@@ -926,8 +931,8 @@
             "description": null
         },
         {
-            "id": "showpage-random-genres",
-            "name": "ShowPage: random genres",
+            "id": "delete-me-1",
+            "name": "delete me 1",
             "description": null
         },
         {
@@ -996,8 +1001,13 @@
             "description": null
         },
         {
-            "id": "voting-save-and-redirect",
-            "name": "Voting: Save and redirect",
+            "id": "voting-flush",
+            "name": "Voting: flush()",
+            "description": null
+        },
+        {
+            "id": "voting-redirect",
+            "name": "Voting: Redirect",
             "description": null
         },
         {
@@ -1146,6 +1156,11 @@
             "description": null
         },
         {
+            "id": "foreverscroll-make-frame-id-unique-per-page",
+            "name": "ForeverScroll: make frame id unique per page",
+            "description": null
+        },
+        {
             "id": "foreverscroll-remove-pagerfanta-links",
             "name": "ForeverScroll: Remove pagerfanta links",
             "description": null
@@ -1156,5 +1171,5 @@
             "description": null
         }
     ],
-    "sha": "4cec8905e1bc2349561a56668d3669141663e633"
+    "sha": "23d3b3a50d83ed00f752fb2cb282fd603d2220bc"
 }

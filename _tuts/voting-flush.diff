@@ -1,5 +1,5 @@
 diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
-index 59be564..b1c9262 100644
+index 59be564..a251e36 100644
 --- a/src/Controller/MixController.php
 +++ b/src/Controller/MixController.php
 @@ -42,7 +42,7 @@ class MixController extends AbstractController
@@ -11,16 +11,12 @@ index 59be564..b1c9262 100644
      {
          $direction = $request->request->get('direction', 'up');
          if ($direction === 'up') {
-@@ -50,6 +50,11 @@ class MixController extends AbstractController
+@@ -50,6 +50,8 @@ class MixController extends AbstractController
          } else {
              $mix->setVotes($mix->getVotes() - 1);
          }
--        dd($mix);
 +
 +        $entityManager->flush();
-+
-+        return $this->redirectToRoute('app_mix_show', [
-+            'id' => $mix->getId(),
-+        ]);
+         dd($mix);
      }
  }

@@ -1,0 +1,15 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index a251e36..b1c9262 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -52,6 +52,9 @@ class MixController extends AbstractController
+         }
+ 
+         $entityManager->flush();
+-        dd($mix);
++
++        return $this->redirectToRoute('app_mix_show', [
++            'id' => $mix->getId(),
++        ]);
+     }
+ }
