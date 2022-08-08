@@ -6,3 +6,17 @@ chapters:
     - entity
     - migrations
     - persist
+    - queries
+    - twig
+    - query-builder
+    - show-page
+    - param-converter
+    - request
+    - update
+    - rich-model
+    - timestampable
+    - sluggable
+    - fixtures
+    - foundry
+    - pagination
+    - forever-scroll
