@@ -1,0 +1,178 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:05.066 align:middle
+Ahora tenemos una base de datos Postgres
+ejecutándose dentro de un contenedor Docker.
+
+00:00:05.636 --> 00:00:12.386 align:middle
+Podemos verlo ejecutando: docker-compose ps
+Esto también nos dice que si queremos hablar
+
+00:00:12.386 --> 00:00:18.516 align:middle
+con esta base de datos, podemos conectarnos
+al puerto 50739 en nuestra máquina local.
+
+00:00:19.136 --> 00:00:24.546 align:middle
+Ese será un puerto diferente para ti, porque
+se elige al azar cuando iniciamos Docker.
+
+00:00:25.356 --> 00:00:28.616 align:middle
+También hemos aprendido que podemos hablar
+con la base de datos directamente a través de
+
+00:00:28.676 --> 00:00:33.386 align:middle
+docker-compose exec
+database psql --user symfony
+
+00:00:33.536 --> 00:00:40.006 align:middle
+--password app Para conseguir que nuestra aplicación
+real apunte a la base de datos que se ejecuta
+
+00:00:40.006 --> 00:00:44.756 align:middle
+en este puerto, podríamos
+entrar en .env o .env.local
+
+00:00:44.916 --> 00:00:50.936 align:middle
+y personalizar DATABASE_URL en consecuencia: con
+el usuario symfony la contraseña ChangeMe...
+
+00:00:51.476 --> 00:00:54.246 align:middle
+y con el puerto que tengas actualmente.
+
+00:00:54.806 --> 00:00:59.896 align:middle
+Aunque... tendríamos que actualizar ese puerto
+cada vez que iniciemos y detengamos Docker.
+
+00:01:00.736 --> 00:01:05.796 align:middle
+Por suerte, no necesitamos hacer
+nada de eso porque, sorpresa,
+
+00:01:06.116 --> 00:01:11.696 align:middle
+¡la variable de entorno DATABASE_URL
+ya está correctamente configurada!
+
+00:01:12.546 --> 00:01:17.556 align:middle
+Cuando configuramos nuestro proyecto, iniciamos un servidor
+local de desarrollo utilizando el binario de Symfony.
+
+00:01:18.316 --> 00:01:22.976 align:middle
+Como recordatorio, voy a ejecutar: symfony
+server:stop para detener ese servidor.
+
+00:01:23.476 --> 00:01:29.016 align:middle
+Y luego reiniciarlo con:
+symfony serve -d Menciono esto
+
+00:01:29.316 --> 00:01:34.616 align:middle
+porque el binario symfony tiene un
+superpoder de Docker bastante impresionante.
+
+00:01:35.416 --> 00:01:37.116 align:middle
+Observa: cuando actualices ahora...
+
+00:01:37.546 --> 00:01:39.936 align:middle
+y pasas el ratón por la
+esquina inferior derecha de
+
+00:01:39.936 --> 00:01:45.056 align:middle
+la barra de herramientas de depuración
+de la web, dice "Env Vars: De Docker". En
+
+00:01:45.776 --> 00:01:50.236 align:middle
+resumen, ¡el binario de Symfony se dio
+cuenta de que Docker se estaba ejecutando
+
+00:01:50.606 --> 00:01:56.116 align:middle
+y expuso algunas nuevas variables de
+entorno que apuntaban a la base de datos!
+
+00:01:56.786 --> 00:01:57.316 align:middle
+Te lo mostraré.
+
+00:01:57.846 --> 00:01:59.726 align:middle
+Abre public/index.php.
+
+00:01:59.726 --> 00:02:02.986 align:middle
+Normalmente no nos interesa este archivo...
+
+00:02:03.366 --> 00:02:08.076 align:middle
+pero es un buen lugar para volcar algo de información
+justo cuando nuestra aplicación empieza a arrancar.
+
+00:02:08.946 --> 00:02:13.956 align:middle
+Dentro de la llamada de retorno,
+dd() la superglobal $_SERVER.
+
+00:02:14.686 --> 00:02:20.396 align:middle
+Esa variable contiene mucha información,
+incluyendo cualquier variable de entorno.
+
+00:02:21.146 --> 00:02:22.876 align:middle
+Bien, gira y actualiza.
+
+00:02:23.566 --> 00:02:27.446 align:middle
+¡Una gran lista! Busca DATABASE_URL y...
+
+00:02:27.976 --> 00:02:28.936 align:middle
+¡ahí está!
+
+00:02:29.656 --> 00:02:37.216 align:middle
+Pero ese no es el valor que tenemos en nuestro
+archivo .env: el puerto no es el que tenemos ahí.
+
+00:02:37.816 --> 00:02:42.276 align:middle
+No, ¡es el puerto correcto necesario
+para hablar con el contenedor Docker!
+
+00:02:42.796 --> 00:02:45.916 align:middle
+Sí, el binario de Symfony detecta
+que Docker se está ejecutando
+
+00:02:46.266 --> 00:02:52.486 align:middle
+y establece una variable de entorno real
+DATABASE_URL que apunta a ese contenedor.
+
+00:02:53.316 --> 00:02:56.926 align:middle
+Y recuerda que, al tratarse de
+una variable de entorno real,
+
+00:02:57.246 --> 00:03:03.166 align:middle
+ganará a cualquier valor colocado
+en los archivos .env o .env.local.
+
+00:03:03.926 --> 00:03:09.176 align:middle
+La cuestión es: con sólo iniciar
+Docker, ya está todo configurado:
+
+00:03:09.876 --> 00:03:12.436 align:middle
+no necesitamos tocar ningún
+archivo de configuración.
+
+00:03:12.836 --> 00:03:13.996 align:middle
+Eso está muy bien. Por
+
+00:03:14.926 --> 00:03:19.066 align:middle
+cierto, si quieres ver todas las variables de
+entorno que configura el binario de Symfony
+
+00:03:19.066 --> 00:03:22.426 align:middle
+, puedes ejecutar: symfony var:export
+
+00:03:22.626 --> 00:03:27.316 align:middle
+--multiline Pero la más importante
+con diferencia es DATABASE_URL.
+
+00:03:28.216 --> 00:03:30.526 align:middle
+Bien: ¡Doctrine está configurado!
+
+00:03:31.206 --> 00:03:35.926 align:middle
+A continuación, vamos a crear la base de datos
+propiamente dicha mediante un comando bin/console.
+
+00:03:36.636 --> 00:03:39.056 align:middle
+Cuando lo hagamos, aprenderemos
+un truco para hacerlo
+
+00:03:39.056 --> 00:03:42.646 align:middle
+con las variables de entorno
+del binario de Symfony
