@@ -159,8 +159,8 @@ entorno que configura el binario de Symfony
 , puedes ejecutar: symfony var:export
 
 00:03:22.626 --> 00:03:27.316 align:middle
---multiline Pero la más importante
-con diferencia es DATABASE_URL.
+--multiline Pero por mucho la más 
+importante es DATABASE_URL.
 
 00:03:28.216 --> 00:03:30.526 align:middle
 Bien: ¡Doctrine está configurado!
