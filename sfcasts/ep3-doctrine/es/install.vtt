@@ -1,0 +1,289 @@
+WEBVTT
+
+00:00:02.626 --> 00:00:07.736 align:middle
+¡Bienvenido de nuevo, equipo, al tercer
+episodio de nuestra serie Symfony 6!
+
+00:00:08.376 --> 00:00:14.106 align:middle
+Los dos primeros cursos fueron súper importantes:
+nos llevaron desde los fundamentos hasta el núcleo
+
+00:00:14.106 --> 00:00:19.976 align:middle
+de cómo funciona todo en Symfony: todo lo
+bueno de los "servicios" y la configuración.
+
+00:00:20.776 --> 00:00:26.286 align:middle
+Ahora estás preparado para utilizar cualquier otra parte
+de Symfony y empezar realmente a construir un sitio.
+
+00:00:26.926 --> 00:00:31.016 align:middle
+Y... ¿qué mejor manera de hacerlo
+que añadir una base de datos?
+
+00:00:31.426 --> 00:00:32.246 align:middle
+Porque...
+
+00:00:32.416 --> 00:00:39.966 align:middle
+hasta ahora, a pesar de todas las cosas geniales que hemos
+hecho, el sitio que hemos estado construyendo es 100% estático.
+
+00:00:40.306 --> 00:00:43.046 align:middle
+¡Aburrido! Es hora de cambiar eso.
+
+00:00:43.806 --> 00:00:48.206 align:middle
+Así que sabemos que Symfony es una
+colección de un montón de bibliotecas
+
+00:00:48.276 --> 00:00:50.946 align:middle
+para resolver un montón
+de problemas diferentes.
+
+00:00:51.436 --> 00:00:55.546 align:middle
+Entonces... ¿Symfony tiene algunas herramientas
+para ayudarnos a hablar con la base de datos?
+
+00:00:56.016 --> 00:00:56.886 align:middle
+La respuesta es...
+
+00:00:57.166 --> 00:00:59.156 align:middle
+¡no! Porque...
+
+00:00:59.306 --> 00:01:00.956 align:middle
+¡no tiene que hacerlo!
+
+00:01:01.546 --> 00:01:09.226 align:middle
+¿Por qué? Entra Doctrine: la biblioteca más potente
+del mundo PHP para trabajar con bases de datos.
+
+00:01:09.796 --> 00:01:15.316 align:middle
+Y Symfony y Doctrine funcionan muy
+bien juntos: son los Frodo y Sam Gamgee
+
+00:01:15.316 --> 00:01:21.596 align:middle
+de la Tierra Media de PHP: los Han Solo
+y Chewbacca de la Alianza Rebelde de PHP.
+
+00:01:22.136 --> 00:01:26.916 align:middle
+Symfony y Doctrine son como dos personajes de
+Disney que se acaban los bocadillos el uno al otro
+
+00:01:27.646 --> 00:01:32.506 align:middle
+Para ver a este dúo dinámico en acción,
+vamos a preparar nuestro proyecto.
+
+00:01:33.186 --> 00:01:37.246 align:middle
+Jugar con las bases de datos es
+divertido, ¡así que codifica conmigo!
+
+00:01:37.946 --> 00:01:40.426 align:middle
+Hazlo descargando el código
+del curso desde esta página.
+
+00:01:41.216 --> 00:01:46.516 align:middle
+Tras descomprimirlo, encontrarás un directorio
+start/ con el mismo código que ves aquí.
+
+00:01:47.136 --> 00:01:51.936 align:middle
+Abre este archivo README.MD para obtener
+todas las instrucciones de configuración.
+
+00:01:52.816 --> 00:01:58.186 align:middle
+El último paso será abrir un terminal,
+entrar en tu proyecto y ejecutar:
+
+00:01:58.276 --> 00:02:05.026 align:middle
+symfony serve -d Esto utiliza el binario de
+Symfony para iniciar un servidor web local
+
+00:02:05.476 --> 00:02:10.086 align:middle
+que vive en https://127.0.0.1:8000.
+
+00:02:10.846 --> 00:02:14.826 align:middle
+Tomaré el camino más perezoso
+y haré clic en eso para ver...
+
+00:02:15.446 --> 00:02:16.846 align:middle
+¡Vinilo mezclado!
+
+00:02:17.246 --> 00:02:24.586 align:middle
+Nuestra última idea de startup -y te juro
+que va a ser enorme- combina la nostalgia
+
+00:02:24.586 --> 00:02:30.986 align:middle
+de las "cintas de mezcla" de los años 80 y 90 con
+la experiencia de audio de los discos de vinilo.
+
+00:02:31.586 --> 00:02:36.706 align:middle
+Tú creas tus dulces cintas de mezclas, y
+nosotros las prensamos en un disco de vinilo
+
+00:02:36.876 --> 00:02:40.186 align:middle
+para obtener una experiencia
+de audio totalmente hipster.
+
+00:02:40.876 --> 00:02:47.366 align:middle
+Hasta ahora, nuestro sitio tiene una página de inicio y una
+página para navegar por las mezclas que han creado otras personas.
+
+00:02:47.946 --> 00:02:53.286 align:middle
+Aunque, esa página no es realmente
+dinámica: tira de un repositorio de GitHub...
+
+00:02:53.876 --> 00:03:00.716 align:middle
+y a menos que hayas configurado una clave de API como
+hicimos en el último episodio, ¡esta página está rota!
+
+00:03:01.316 --> 00:03:06.846 align:middle
+Eso es lo primero que vamos a arreglar:
+consultando una base de datos para las mezclas.
+
+00:03:07.676 --> 00:03:09.316 align:middle
+¡Así que vamos a instalar Doctrine!
+
+00:03:09.766 --> 00:03:15.056 align:middle
+Busca tu terminal y ejecuta: composer
+require doctrine Esto es, por supuesto,
+
+00:03:15.246 --> 00:03:20.516 align:middle
+un alias de Flex para una
+biblioteca llamada symfony/orm-pack.
+
+00:03:21.046 --> 00:03:27.246 align:middle
+Y recuerda: un "paquete" es una especie
+de "biblioteca falsa" que sirve como atajo
+
+00:03:27.296 --> 00:03:30.056 align:middle
+para instalar varios paquetes a la vez.
+
+00:03:30.746 --> 00:03:36.236 align:middle
+En este caso, estamos instalando la propia Doctrine,
+pero también algunas otras bibliotecas relacionadas,
+
+00:03:36.646 --> 00:03:39.616 align:middle
+como el excelente sistema Doctrine Migrations.
+
+00:03:40.416 --> 00:03:41.466 align:middle
+Ah, y ¡mira esto!
+
+00:03:41.776 --> 00:03:47.696 align:middle
+El comando pregunta: ¿Quieres incluir
+la configuración Docker de las recetas?
+
+00:03:48.516 --> 00:03:51.586 align:middle
+Así, ocasionalmente,
+cuando instales un paquete,
+
+00:03:51.886 --> 00:03:56.716 align:middle
+la receta de ese paquete contendrá
+la configuración de Docker que puede,
+
+00:03:56.946 --> 00:03:59.756 align:middle
+por ejemplo, iniciar un
+contenedor de base de datos.
+
+00:04:00.506 --> 00:04:05.156 align:middle
+Esto es totalmente opcional, pero voy
+a decir p por sí permanentemente.
+
+00:04:06.046 --> 00:04:09.716 align:middle
+Hablaremos más sobre la
+configuración Docker en unos minutos.
+
+00:04:10.176 --> 00:04:13.306 align:middle
+Pero ahora mismo, vamos a
+comprobar lo que hizo la receta.
+
+00:04:13.876 --> 00:04:20.786 align:middle
+Ejecuta: git status Bien, genial: esto modificó
+los archivos normales como composer.json,
+
+00:04:20.976 --> 00:04:23.116 align:middle
+composer.lock y symfony.lock...
+
+00:04:23.626 --> 00:04:27.036 align:middle
+y también modificó config/bundles.php.
+
+00:04:27.846 --> 00:04:29.206 align:middle
+Si lo compruebas...
+
+00:04:30.046 --> 00:04:37.096 align:middle
+no hay sorpresa: nuestra aplicación tiene ahora dos
+nuevos bundles: DoctrineBundle y DoctrineMigrationsBundle.
+
+00:04:37.846 --> 00:04:44.376 align:middle
+Pero probablemente la parte más importante de la receta
+es el cambio que ha realizado en nuestro archivo .env.
+
+00:04:45.316 --> 00:04:49.796 align:middle
+Recuerda: aquí es donde podemos
+configurar las variables de entorno...
+
+00:04:50.276 --> 00:04:54.856 align:middle
+y la receta nos dio una
+nueva llamada DATABASE_URL.
+
+00:04:55.646 --> 00:05:01.426 align:middle
+Ésta, como puedes ver, contiene todos los detalles de
+la conexión, como el nombre de usuario y la contraseña.
+
+00:05:02.176 --> 00:05:05.046 align:middle
+¿Qué utiliza esta variable de entorno?
+
+00:05:05.576 --> 00:05:06.616 align:middle
+¡Excelente pregunta!
+
+00:05:07.236 --> 00:05:12.236 align:middle
+Echa un vistazo a un nuevo archivo que nos
+dio la receta: config/packages/doctrine.yaml.
+
+00:05:13.036 --> 00:05:17.026 align:middle
+La mayor parte de esta configuración
+no tendrás que pensarla ni cambiarla.
+
+00:05:17.476 --> 00:05:23.756 align:middle
+Pero fíjate en esta clave url: ¡lee la
+variable de entorno DATABASE_URL! La cuestión
+
+00:05:24.446 --> 00:05:31.226 align:middle
+es: la variable de entorno
+DATABASE_URL es la clave para
+
+00:05:31.226 --> 00:05:33.236 align:middle
+configurar tu aplicación para
+que hable con una base de datos...
+
+00:05:33.586 --> 00:05:35.696 align:middle
+y jugaremos con ella en unos minutos.
+
+00:05:36.576 --> 00:05:43.296 align:middle
+La receta también ha añadido unos cuantos directorios
+nuevos: migrations/ src/Entity/ y src/Repository/.
+
+00:05:44.046 --> 00:05:49.456 align:middle
+Ahora mismo, aparte de un archivo .gitignore
+sin sentido, están todos vacíos.
+
+00:05:50.106 --> 00:05:52.546 align:middle
+Pronto empezaremos a llenarlos.
+
+00:05:53.376 --> 00:05:55.686 align:middle
+Bien: Doctrine ya está instalado.
+
+00:05:56.286 --> 00:05:57.826 align:middle
+Pero para hablar con una base de datos...
+
+00:05:58.116 --> 00:06:01.086 align:middle
+tenemos que asegurarnos de que tenemos
+una base de datos en funcionamiento
+
+00:06:01.446 --> 00:06:05.826 align:middle
+y que la variable de entorno
+DATABASE_URL apunta a ella.
+
+00:06:06.546 --> 00:06:10.706 align:middle
+Hagamos eso a continuación, pero
+con un giro opcional y delicioso:
+
+00:06:11.106 --> 00:06:14.016 align:middle
+vamos a utilizar Docker para
+iniciar la base de datos
