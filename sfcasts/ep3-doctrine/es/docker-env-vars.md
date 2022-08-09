@@ -16,7 +16,7 @@ docker-compose exec database psql --user symfony --password app
 
 Para conseguir que nuestra aplicación real apunte a la base de datos que se ejecuta en este puerto, podríamos entrar en `.env` o `.env.local` y personalizar `DATABASE_URL`en consecuencia: con el usuario `symfony` la contraseña `ChangeMe`... y con el puerto que tengas actualmente. Aunque... tendríamos que actualizar ese puerto cada vez que iniciemos y detengamos Docker.
 
-## Binarios de Symfony y vares de Docker Env
+## El Binario de Symfony y variables de entorno de Docker
 
 Afortunadamente, no necesitamos hacer nada de eso porque, sorpresa, ¡la variable de entorno `DATABASE_URL`ya está correctamente configurada! Cuando configuramos nuestro proyecto, iniciamos un servidor local de desarrollo utilizando el binario de Symfony.
 
@@ -50,6 +50,6 @@ Por cierto, si quieres ver todas las variables de entorno que configura el binar
 symfony var:export --multiline
 ```
 
-Pero la más importante con diferencia es `DATABASE_URL`.
+Pero por mucho la más importante es `DATABASE_URL`.
 
 Bien: ¡Doctrine está configurado! A continuación, vamos a crear la base de datos propiamente dicha mediante un comando `bin/console`. Cuando lo hagamos, aprenderemos un truco para hacerlo con las variables de entorno del binario de Symfony.
