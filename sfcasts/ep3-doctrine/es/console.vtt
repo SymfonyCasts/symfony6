@@ -1,0 +1,185 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.986 align:middle
+Doctrine está ahora configurado para hablar con nuestra
+base de datos, que vive dentro de un contenedor Docker.
+
+00:00:06.516 --> 00:00:12.946 align:middle
+Esto es gracias a que el servidor de desarrollo
+Symfony expone esta variable de entorno DATABASE_URL
+
+00:00:12.946 --> 00:00:15.526 align:middle
+, que apunta al contenedor.
+
+00:00:16.176 --> 00:00:20.456 align:middle
+En mi caso, el contenedor es
+accesible en el puerto 50739.
+
+00:00:21.196 --> 00:00:24.956 align:middle
+Ahora vamos a asegurarnos de que
+la base de datos real se ha creado.
+
+00:00:25.466 --> 00:00:28.916 align:middle
+Pero primero, en index.php, elimina el dd()...
+
+00:00:29.476 --> 00:00:30.686 align:middle
+y cierra ese archivo.
+
+00:00:31.506 --> 00:00:33.096 align:middle
+Ve a tu terminal y ejecuta:
+
+00:00:33.096 --> 00:00:40.936 align:middle
+php bin/console Esto imprime todos los comandos de
+bin/console que están disponibles, incluyendo un montón
+
+00:00:40.936 --> 00:00:44.386 align:middle
+de nuevos comandos que empiezan
+con la palabra doctrine.
+
+00:00:44.516 --> 00:00:49.326 align:middle
+Ooh. La mayoría de ellos no
+son muy importantes y ya iremos
+
+00:00:49.326 --> 00:00:51.386 align:middle
+viendo los que sí lo son.
+
+00:00:52.206 --> 00:00:56.526 align:middle
+Por ejemplo, uno se llama
+doctrine:database:create.
+
+00:00:57.246 --> 00:01:02.436 align:middle
+Genial, vamos a probarlo: php
+bin/console doctrine:database:create Y...
+
+00:01:02.826 --> 00:01:10.136 align:middle
+¡error! Fíjate bien: está
+intentando conectarse al puerto 5432.
+
+00:01:10.746 --> 00:01:16.026 align:middle
+¡Pero nuestra variable de
+entorno apunta al puerto 50739! Es
+
+00:01:16.846 --> 00:01:23.746 align:middle
+como si utilizara el valor DATABASE_URL
+de nuestro archivo .env en lugar
+
+00:01:23.746 --> 00:01:27.386 align:middle
+del real que establece el binario de Symfony.
+
+00:01:28.216 --> 00:01:31.756 align:middle
+Y, de hecho, eso es exactamente
+lo que está ocurriendo.
+
+00:01:32.316 --> 00:01:33.506 align:middle
+Y, ¡tiene sentido!
+
+00:01:34.146 --> 00:01:39.786 align:middle
+Cuando refrescamos la página en nuestro navegador,
+eso se procesa a través del binario symfony,
+
+00:01:40.386 --> 00:01:43.816 align:middle
+que le da la oportunidad de
+añadir la variable de entorno.
+
+00:01:43.816 --> 00:01:51.076 align:middle
+Pero cuando ejecutamos un comando bin/console
+-donde console es sólo un archivo PHP que vive
+
+00:01:51.076 --> 00:01:57.546 align:middle
+en un directorio bin/, el binario symfony
+nunca se utiliza como parte de ese proceso.
+
+00:01:58.176 --> 00:02:02.886 align:middle
+Esto significa que nunca tiene la oportunidad
+de añadir la variable de entorno.
+
+00:02:03.446 --> 00:02:07.526 align:middle
+Así, Symfony vuelve a
+utilizar el valor de .env.
+
+00:02:08.486 --> 00:02:11.766 align:middle
+Para solucionarlo, siempre que
+ejecutemos un comando bin/console
+
+00:02:11.906 --> 00:02:16.406 align:middle
+que necesite las variables de entorno de
+Docker, en lugar de ejecutar bin/console,
+
+00:02:16.676 --> 00:02:24.136 align:middle
+ejecuta symfony console: Eso es literalmente un
+atajo para ejecutar bin/console: no es diferente.
+
+00:02:25.076 --> 00:02:31.786 align:middle
+Pero el hecho de que lo estemos ejecutando a
+través del binario symfony le da la oportunidad
+
+00:02:31.846 --> 00:02:33.886 align:middle
+de añadir las variables de entorno.
+
+00:02:34.676 --> 00:02:35.986 align:middle
+Cuando probamos esto...
+
+00:02:36.506 --> 00:02:42.536 align:middle
+¡sí! Obtenemos un error porque
+aparentemente la base de datos ya existe,
+
+00:02:42.916 --> 00:02:46.306 align:middle
+pero se conectó con éxito y
+habló con la base de datos.
+
+00:02:47.176 --> 00:02:51.196 align:middle
+Bien, hay una última parte de la
+configuración que tenemos que establecer.
+
+00:02:51.846 --> 00:02:54.886 align:middle
+Abre config/packages/doctrine.yaml.
+
+00:02:55.606 --> 00:02:57.616 align:middle
+Este archivo procede de la receta.
+
+00:02:58.246 --> 00:03:02.266 align:middle
+Busca server_version y desactívalo.
+
+00:03:02.946 --> 00:03:08.646 align:middle
+Este valor "13" se refiere a la
+versión de mi motor de base de datos.
+
+00:03:09.476 --> 00:03:14.176 align:middle
+Como estoy usando la versión 13
+de Postgres, necesito el 13 aquí.
+
+00:03:14.706 --> 00:03:19.266 align:middle
+Si utilizas MySQL, puede
+que necesites la 8 o la 5.7.
+
+00:03:20.246 --> 00:03:24.746 align:middle
+Esto ayuda a Doctrine a determinar qué
+características soporta o no tu base de datos...
+
+00:03:25.216 --> 00:03:30.796 align:middle
+ya que una versión más reciente de una base de datos puede
+admitir funciones que una versión más antigua no admite.
+
+00:03:31.416 --> 00:03:35.286 align:middle
+No es una pieza de configuración
+especialmente interesante,
+
+00:03:35.576 --> 00:03:37.896 align:middle
+sólo tenemos que asegurarnos
+de que está configurada.
+
+00:03:38.916 --> 00:03:42.486 align:middle
+Ok equipo: toda la configuración
+aburrida está hecha.
+
+00:03:43.146 --> 00:03:46.456 align:middle
+Siguiente: ¡creemos nuestra
+primera clase de entidad!
+
+00:03:46.956 --> 00:03:51.946 align:middle
+Las entidades son el concepto más
+fundamental de Doctrine y la clave
+
+00:03:52.046 --> 00:03:54.656 align:middle
+para hablar con nuestra primera
+tabla de la base de datos
