@@ -1,0 +1,331 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.616 align:middle
+Tenemos que poner en marcha una base de
+datos: MySQL, Postgresql, lo que sea.
+
+00:00:06.246 --> 00:00:09.086 align:middle
+Si ya tienes una en marcha, ¡genial!
+
+00:00:09.446 --> 00:00:13.516 align:middle
+Todo lo que tienes que hacer es copiar
+tu variable de entorno DATABASE_URL,
+
+00:00:13.916 --> 00:00:18.126 align:middle
+abrir o crear un archivo .env.local, pegarlo,
+
+00:00:18.676 --> 00:00:21.986 align:middle
+y luego cambiarlo para que coincida con lo
+que esté usando tu configuración local.
+
+00:00:22.806 --> 00:00:27.506 align:middle
+Si decides hacer esto, no dudes
+en saltar al final del capítulo 4
+
+00:00:27.886 --> 00:00:29.876 align:middle
+, donde configuramos el server_version.
+
+00:00:30.596 --> 00:00:34.746 align:middle
+En mi caso, no tengo una base de datos
+funcionando localmente en mi sistema...
+
+00:00:34.976 --> 00:00:37.316 align:middle
+y no voy a instalar una.
+
+00:00:37.776 --> 00:00:40.156 align:middle
+En su lugar, quiero utilizar Docker.
+
+00:00:40.676 --> 00:00:43.326 align:middle
+Y vamos a utilizar Docker
+de una forma interesante.
+
+00:00:43.996 --> 00:00:49.046 align:middle
+Tengo PHP instalado localmente:
+Así que no voy a usar Docker
+
+00:00:49.046 --> 00:00:51.546 align:middle
+para crear un contenedor
+específicamente para PHP.
+
+00:00:51.546 --> 00:01:00.116 align:middle
+En su lugar, voy a utilizar Docker simplemente para ayudar a
+arrancar cualquier servicio que mi aplicación necesite localmente.
+
+00:01:00.656 --> 00:01:03.366 align:middle
+Y en este momento, necesito
+un servicio de base de datos.
+
+00:01:03.986 --> 00:01:10.486 align:middle
+Gracias a cierta magia entre Docker y el
+binario de Symfony, esto va a ser súper fácil.
+
+00:01:11.216 --> 00:01:16.716 align:middle
+Para empezar, ¿recuerdas cuando la receta de Doctrine
+nos preguntó si queríamos la configuración de Docker?
+
+00:01:17.356 --> 00:01:21.496 align:middle
+Como dijimos que sí, la receta nos
+dio los archivos docker-compose.yml
+
+00:01:21.676 --> 00:01:25.056 align:middle
+y docker-compose.override.yml.
+
+00:01:25.716 --> 00:01:29.016 align:middle
+Cuando Docker arranque, leerá ambos...
+
+00:01:29.346 --> 00:01:33.286 align:middle
+y están divididos en dos partes por si quieres
+
+00:01:33.286 --> 00:01:36.356 align:middle
+usar también Docker para
+desplegar en producción.
+
+00:01:37.006 --> 00:01:40.596 align:middle
+Pero no vamos a preocuparnos por
+eso: sólo queremos usar Docker para
+
+00:01:40.596 --> 00:01:43.256 align:middle
+facilitar la vida en el desarrollo local.
+
+00:01:43.946 --> 00:01:48.606 align:middle
+Estos archivos dicen que arrancarán un
+único contenedor de base de datos Postgres
+
+00:01:48.946 --> 00:01:52.786 align:middle
+con un usuario llamado symfony
+y una contraseña ChangeMe.
+
+00:01:53.776 --> 00:02:01.136 align:middle
+También expondrá el puerto 5432 del
+contenedor -que es el puerto normal de Postgres-
+
+00:02:01.646 --> 00:02:05.336 align:middle
+a nuestra máquina anfitriona
+en un puerto aleatorio.
+
+00:02:06.036 --> 00:02:11.076 align:middle
+Esto significa que podremos hablar
+con el contenedor Docker de Postgresql
+
+00:02:11.396 --> 00:02:14.026 align:middle
+como si se estuviera ejecutando
+en nuestra máquina local...
+
+00:02:14.456 --> 00:02:18.116 align:middle
+siempre que conozcamos el puerto
+aleatorio que ha elegido Docker.
+
+00:02:18.586 --> 00:02:20.166 align:middle
+Veremos cómo funciona en un minuto.
+
+00:02:21.016 --> 00:02:26.316 align:middle
+Por cierto, si quieres utilizar MySQL
+en lugar de Postgres, puedes hacerlo.
+
+00:02:26.876 --> 00:02:28.586 align:middle
+Puedes actualizar estos archivos...
+
+00:02:28.856 --> 00:02:33.076 align:middle
+o eliminar ambos y ejecutar php
+bin/console make:docker:database
+
+00:02:33.446 --> 00:02:37.666 align:middle
+para generar un nuevo archivo de
+composición para MySQL o MariaDB.
+
+00:02:37.666 --> 00:02:41.856 align:middle
+Yo me voy a quedar con Postgres
+porque es increíble. Llegados a
+
+00:02:42.656 --> 00:02:47.096 align:middle
+este punto, vamos a poner en marcha Docker
+y aprender un poco sobre cómo comunicarse
+
+00:02:47.096 --> 00:02:48.886 align:middle
+con la base de datos que vive dentro.
+
+00:02:49.616 --> 00:02:54.116 align:middle
+Si te sientes bastante cómodo con Docker,
+no dudes en pasar al siguiente capítulo.
+
+00:02:55.016 --> 00:02:57.016 align:middle
+De todos modos, vamos a poner
+en marcha nuestro contenedor.
+
+00:02:57.616 --> 00:03:01.946 align:middle
+Primero, asegúrate de que tienes Docker
+realmente instalado en tu máquina:
+
+00:03:02.676 --> 00:03:05.886 align:middle
+No lo mostraré porque varía
+según el sistema operativo.
+
+00:03:06.516 --> 00:03:12.436 align:middle
+Luego, busca tu terminal y ejecuta:
+docker-compose up -d El -d significa
+
+00:03:12.546 --> 00:03:14.916 align:middle
+"ejecutar en segundo plano como demonio".
+
+00:03:15.746 --> 00:03:19.696 align:middle
+La primera vez que lo ejecutes, probablemente
+descargará un montón de cosas.
+
+00:03:20.216 --> 00:03:23.556 align:middle
+Pero al final, ¡nuestro
+contenedor debería arrancar!
+
+00:03:23.886 --> 00:03:26.316 align:middle
+¡Genial! ¿Pero ahora qué?
+
+00:03:26.876 --> 00:03:28.756 align:middle
+¿Cómo podemos hablar con el contenedor?
+
+00:03:29.576 --> 00:03:34.426 align:middle
+Ejecuta un comando llamado: docker-compose
+ps Esto muestra información
+
+00:03:34.426 --> 00:03:36.596 align:middle
+sobre todos los contenedores que
+se están ejecutando actualmente...
+
+00:03:36.876 --> 00:03:38.236 align:middle
+sólo uno para nosotros.
+
+00:03:38.846 --> 00:03:45.186 align:middle
+Lo realmente importante es que el
+puerto 5432 del contenedor está
+
+00:03:45.186 --> 00:03:49.516 align:middle
+conectado al puerto 50700
+de mi máquina anfitriona.
+
+00:03:50.176 --> 00:03:56.176 align:middle
+Esto significa que si hablamos con este puerto, estaremos
+hablando realmente con esa base de datos Postgres.
+
+00:03:56.936 --> 00:04:01.326 align:middle
+Ah, y este puerto es aleatorio:
+será diferente en tu máquina...
+
+00:04:01.646 --> 00:04:05.726 align:middle
+e incluso cambiará cada vez que paremos
+y arranquemos nuestro contenedor.
+
+00:04:06.086 --> 00:04:07.346 align:middle
+Pronto hablaremos de ello.
+
+00:04:08.136 --> 00:04:14.536 align:middle
+Pero ahora que conocemos el puerto 50700, podemos
+utilizarlo para conectarnos a la base de datos.
+
+00:04:15.076 --> 00:04:22.826 align:middle
+Por ejemplo, como estoy utilizando Postgres, podría
+ejecutar Esto significa: conectar con Postgres
+
+00:04:22.826 --> 00:04:35.986 align:middle
+en el puerto 127.0.0.1 50700 utilizando el usuario
+symfony y hablando con la base de datos app.
+
+00:04:35.986 --> 00:04:41.066 align:middle
+Todo esto está configurado en
+el archivo docker-compose.yml.
+
+00:04:41.066 --> 00:04:56.226 align:middle
+Copia la contraseña de ChangeMe porque esa última
+bandera le dice a Postgres que te pida esa contraseña.
+
+00:04:56.846 --> 00:04:57.926 align:middle
+Pégala y...
+
+00:04:58.276 --> 00:05:04.796 align:middle
+¡estamos dentro! Si utilizas MySQL, podemos
+hacer esto mismo con un comando mysql.
+
+00:05:05.446 --> 00:05:12.156 align:middle
+Pero, esto sólo funciona si tenemos ese comando
+psql instalado en nuestra máquina local.
+
+00:05:12.676 --> 00:05:14.256 align:middle
+Así que vamos a probar con otro comando.
+
+00:05:14.846 --> 00:05:16.826 align:middle
+Ejecuta: docker-compose ps de nuevo.
+
+00:05:17.636 --> 00:05:23.216 align:middle
+El contenedor se llama database, que proviene
+de nuestro archivo docker-compose.yml.
+
+00:05:23.796 --> 00:05:30.586 align:middle
+Así que podemos cambiar el comando anterior
+por: docker-compose exec database psql
+
+00:05:31.396 --> 00:05:35.796 align:middle
+--username symfony --password
+app Esta vez, estamos ejecutando
+
+00:05:35.916 --> 00:05:39.916 align:middle
+el comando psql dentro del contenedor, por
+
+00:05:40.376 --> 00:05:42.456 align:middle
+lo que no necesitamos instalarlo localmente.
+
+00:05:43.246 --> 00:05:45.826 align:middle
+Escribe ChangeMe como contraseña y...
+
+00:05:46.046 --> 00:05:47.586 align:middle
+¡volvemos a estar dentro! La cuestión
+
+00:05:48.316 --> 00:05:51.866 align:middle
+es: ¡sólo con ejecutar docker-compose up,
+
+00:05:52.246 --> 00:05:56.456 align:middle
+tenemos un contenedor de base de datos
+Postgres con el que podemos hablar!
+
+00:05:57.216 --> 00:06:02.266 align:middle
+Por cierto, cuando estés preparado para detener el
+contenedor más adelante, puedes ejecutar: docker-compose stop
+
+00:06:02.816 --> 00:06:05.216 align:middle
+Que básicamente apaga el contenedor.
+
+00:06:05.716 --> 00:06:08.436 align:middle
+O puedes ejecutar el más común docker-compose
+
+00:06:08.436 --> 00:06:12.326 align:middle
+down que apaga los contenedores y los elimina.
+
+00:06:13.076 --> 00:06:18.266 align:middle
+Para volver a arrancar, es lo mismo:
+docker-compose up -d ¡Pero fíjate
+
+00:06:18.266 --> 00:06:21.016 align:middle
+que cuando volvemos a
+ejecutar docker-compose ps,
+
+00:06:21.606 --> 00:06:25.766 align:middle
+el puerto de mi máquina anfitriona
+es un puerto aleatorio diferente!
+
+00:06:26.446 --> 00:06:32.176 align:middle
+Así que, en teoría, podríamos configurar
+la variable DATABASE_URL para que ap unte
+
+00:06:32.176 --> 00:06:36.366 align:middle
+a nuestra base de datos Postgres,
+incluyendo el uso del puerto correcto.
+
+00:06:37.106 --> 00:06:41.556 align:middle
+¡Pero ese puerto aleatorio que
+sigue cambiando va a ser molesto!
+
+00:06:42.236 --> 00:06:44.656 align:middle
+Afortunadamente, ¡hay un truco para esto!
+
+00:06:45.346 --> 00:06:50.716 align:middle
+Resulta que nuestra aplicación ya está
+configurada, ¡sin que nosotros hagamos nada!
+
+00:06:51.346 --> 00:06:52.316 align:middle
+Eso a continuación
