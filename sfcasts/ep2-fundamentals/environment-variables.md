@@ -1,9 +1,12 @@
 # Environment Variables
 
 Open `config/packages/framework.yaml`. We don't need to be authenticated to use this
-raw user content part of GitHub's API. But if we hit this endpoint a lot, we
-*might* hit their rate-limiting, which is pretty low for anonymous users. So let's
-*authenticate* our request.
+raw user content part of GitHub's API:
+
+[[[ code('d0e2649747') ]]]
+
+But if we hit this endpoint a lot, we *might* hit their rate-limiting, which is pretty low 
+for anonymous users. So let's *authenticate* our request.
 
 ## Adding an Authorization Header to the HTTP Request
 
@@ -12,7 +15,9 @@ personal access token. Once you've done that, open up `MixRepository` and go dow
 to where we make the HTTP request. To attach the access token to the request pass
 a *third* argument, which is an array. Inside, add a `headers` key set to another
 array, with an `Authorization` header assigned to the word `Token` and then the
-access token. Start by using a fake token.
+access token. Start by using a fake token:
+
+[[[ code('9cb7084ddc') ]]]
 
 You can tell this is working because, when we go back over to the page and
 refresh... it explodes! Our API call now *fails* with a 404 because it recognizes
@@ -29,9 +34,13 @@ HTTP Client service in multiple places. Can we do that? You bet!
 
 Copy the `Token` line, head into `framework.yaml`, and after `base_uri`, pass
 a `headers` key with `Authorization` set to our long string. Actually, let me put a
-*fake* token in there temporarily.
+*fake* token in there temporarily:
 
-Back in `MixRepository`, remove that third argument.
+[[[ code('63d8ced9e1') ]]]
+
+Back in `MixRepository`, remove that third argument:
+
+[[[ code('614d5f78d4') ]]]
 
 And now, when we try this... great! Things are broken, which proves we're sending
 that header... just with the wrong value. If we change to our *real* token... once
@@ -59,7 +68,9 @@ But, before we talk about *setting* environment variables, how do we
 it, put single quotes around `Token`, and then we're going to use a very special
 syntax to *read* an environment variable. It's actually going to look like a
 parameter. Start and end with `%`, and inside, say `env()` with the name of the
-environment variable. How about `GITHUB_TOKEN`. I just made that name up.
+environment variable. How about `GITHUB_TOKEN`. I just made that name up:
+
+[[[ code('812eee7285') ]]]
 
 If we head back and refresh... we are now *reading* that `GITHUB_TOKEN` environment
 variable... but we haven't *set* it yet, so we get this "Environment variable not
@@ -75,6 +86,8 @@ your computer.
 *That* is why this `.env` file exists. Very simply, when Symfony boots up, it reads
 the `.env` file and turns all of these into environment variables. This means we
 can say `GITHUB_TOKEN=` and paste our token... and now... it works!
+
+[[[ code('6de74e6cd7') ]]]
 
 By the way, if there were a *real* `GITHUB_TOKEN` environment variable set on my
 system that real environment variable would win over what we have in this file.
