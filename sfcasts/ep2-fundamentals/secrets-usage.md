@@ -55,7 +55,9 @@ syntax, this `GITHUB_TOKEN` could be a *real* environment variable, or it could
 be a *secret* in our vault.
 
 To see if this is working, head to `MixRepository` and
-`dd($this->githubContentClient)`.
+`dd($this->githubContentClient)`:
+
+[[[ code('53828c9ece') ]]]
 
 Move over, refresh, and... let's see if we can find the Authorization header in
 this. Actually, there's a really cool trick with dump. Click on this area and
