@@ -13,11 +13,15 @@ with autowiring!
 Add `public function __construct()` with `private MixRepository $mixRepository`
 to create and set that property all at once.
 
+[[[ code('628bac0c7d') ]]]
+
 Though, if you hover over `__construct()`, it says:
 
 > Missing parent constructor call.
 
-To fix this, call `parent::__construct()`.
+To fix this, call `parent::__construct()`:
+
+[[[ code('f2801b5b65') ]]]
 
 This is a *super* rare situation where the base class has a constructor that we
 need to call. In fact, this is the *only* situation I can think of in Symfony
@@ -29,17 +33,22 @@ Down here, let's output a mix recommendation... but make it even *cooler* by
 first asking the user *if* they want this recommendation.
 
 We can ask interactive questions by leveraging the `$io` object. I'll say
-`if ($io->confirm('Do you want a mix recommendation?'))`. This will ask that
-question, and if the user answers "yes", return true. The `$io` object is *full*
-of cool stuff like this, including asking multiple choice questions, and
-auto-completing answers. Heck, we can even build a progress bar!
+`if ($io->confirm('Do you want a mix recommendation?'))`:
+
+[[[ code('cdef6583b7') ]]]
+
+This will ask that question, and if the user answers "yes", return true. 
+The `$io` object is *full* of cool stuff like this, including asking multiple 
+choice questions, and auto-completing answers. Heck, we can even build a progress bar!
 
 Inside the if, get all of the mixes with
 `$mixes = $this->mixRepository->findAll()`. Then... we need just a bit of ugly
 code - `$mix = $mixes[array_rand($mixes)]` - to get a random mix.
 
 Print the mix with one more `$io` method `$io->note()` passing
-`I recommend the mix` and then pop in `$mix['title']`.
+`I recommend the mix` and then pop in `$mix['title']`:
+
+[[[ code('bb2cf7650b') ]]]
 
 And... done! By the way, notice this `return Command::SUCCESS`? That controls
 the exit code of your command, so you'll always want to have `Command::SUCCESS` at
