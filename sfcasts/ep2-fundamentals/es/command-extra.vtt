@@ -1,0 +1,245 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:02.686 align:middle
+¡Equipo del último capítulo!
+
+00:00:02.906 --> 00:00:03.986 align:middle
+¡Hagamos esto!
+
+00:00:04.546 --> 00:00:08.296 align:middle
+Vale, ¿y si necesitamos un servicio
+desde dentro de nuestro comando?
+
+00:00:08.986 --> 00:00:13.156 align:middle
+Por ejemplo, digamos que
+queremos utilizar MixRepository
+
+00:00:13.486 --> 00:00:16.356 align:middle
+para imprimir una recomendación
+de mezcla de vinilo.
+
+00:00:17.006 --> 00:00:18.106 align:middle
+¿Cómo podemos hacerlo?
+
+00:00:18.876 --> 00:00:22.276 align:middle
+Bueno, estamos dentro de un
+servicio y necesitamos acceder
+
+00:00:22.276 --> 00:00:26.576 align:middle
+a otro servicio, lo que
+significa que necesitamos...
+
+00:00:26.576 --> 00:00:29.556 align:middle
+la temida inyección de dependencia.
+
+00:00:30.196 --> 00:00:34.356 align:middle
+Es broma, no es temible, ¡es
+fácil con el autocableado!
+
+00:00:35.166 --> 00:00:42.506 align:middle
+Añade public function __construct() con
+private MixRepository $mixRepository para crear
+
+00:00:42.506 --> 00:00:44.656 align:middle
+y establecer esa propiedad de una sola vez.
+
+00:00:45.416 --> 00:00:50.726 align:middle
+Aunque, si pasas el ratón por encima de __construct(),
+dice Falta la llamada al constructor padre.
+
+00:00:51.396 --> 00:00:54.366 align:middle
+Para solucionarlo, llama
+a parent::__construct():
+
+00:00:55.086 --> 00:01:00.826 align:middle
+Esta es una situación súper rara en la que la clase
+base tiene un constructor al que tenemos que llamar.
+
+00:01:01.686 --> 00:01:06.386 align:middle
+De hecho, esta es la única situación
+que se me ocurre en Symfony como esta...
+
+00:01:06.466 --> 00:01:09.666 align:middle
+así que normalmente no es algo
+de lo que debas preocuparte.
+
+00:01:10.476 --> 00:01:13.396 align:middle
+Aquí abajo, vamos a emitir
+una recomendación de mezcla...
+
+00:01:13.716 --> 00:01:19.726 align:middle
+pero hazlo aún más genial preguntando primero
+al usuario si quiere esta recomendación.
+
+00:01:20.346 --> 00:01:24.466 align:middle
+Podemos hacer preguntas interactivas
+aprovechando el objeto $io.
+
+00:01:25.076 --> 00:01:30.506 align:middle
+Diré if ($io->confirm('Do you
+want a mix recommendation?')):
+
+00:01:32.176 --> 00:01:36.886 align:middle
+Esto hará esa pregunta, y si el
+usuario responde "sí", devolverá true.
+
+00:01:37.776 --> 00:01:40.986 align:middle
+El objeto $io está lleno de
+cosas geniales como ésta,
+
+00:01:41.436 --> 00:01:46.226 align:middle
+incluyendo la formulación de preguntas de opción
+múltiple y el autocompletado de las respuestas.
+
+00:01:46.816 --> 00:01:49.756 align:middle
+Incluso podemos crear una barra de progreso
+
+00:01:50.546 --> 00:01:57.096 align:middle
+Dentro del if, obtén todas las mezclas con
+$mixes = $this->mixRepository->findAll().
+
+00:01:57.906 --> 00:02:00.666 align:middle
+Luego... sólo necesitamos
+un poco de código feo -
+
+00:02:01.116 --> 00:02:07.676 align:middle
+$mix = $mixes[array_rand($mixes)] -
+para obtener una mezcla aleatoria.
+
+00:02:08.356 --> 00:02:15.116 align:middle
+Imprime la mezcla con un método más $io
+$io->note() pasando por I recommend the mix
+
+00:02:15.116 --> 00:02:18.356 align:middle
+y luego introduce $mix['title']:
+
+00:02:19.076 --> 00:02:20.556 align:middle
+Y... ¡listo!
+
+00:02:21.076 --> 00:02:25.156 align:middle
+Por cierto, ¿te has fijado en
+este return Command::SUCCESS?
+
+00:02:25.876 --> 00:02:30.336 align:middle
+Eso controla el código de salida de
+tu comando, así que siempre querrás
+
+00:02:30.666 --> 00:02:34.336 align:middle
+tener Command::SUCCESS al final de tu comando.
+
+00:02:35.176 --> 00:02:38.856 align:middle
+Si hubiera un error, podrías
+return Command::ERROR.
+
+00:02:39.576 --> 00:02:41.456 align:middle
+Bien, ¡probemos esto!
+
+00:02:42.116 --> 00:02:43.636 align:middle
+Dirígete a tu terminal y ejecuta:
+
+00:02:43.636 --> 00:02:49.036 align:middle
+php bin/console app:talk-to-me
+--yell Obtenemos la salida...
+
+00:02:49.386 --> 00:02:52.996 align:middle
+y luego obtenemos: ¿Quieres
+una recomendación de mezcla?
+
+00:02:53.486 --> 00:02:54.916 align:middle
+¡Pues sí, la queremos!
+
+00:02:55.576 --> 00:02:57.796 align:middle
+¡Y qué excelente recomendación!
+
+00:02:58.766 --> 00:02:59.456 align:middle
+¡Muy bien, equipo!
+
+00:02:59.506 --> 00:03:00.436 align:middle
+¡Lo hemos conseguido!
+
+00:03:00.946 --> 00:03:07.626 align:middle
+¡Hemos terminado el que creo que es el tutorial
+de Symfony más importante de todos los tiempos!
+
+00:03:08.176 --> 00:03:10.956 align:middle
+No importa lo que necesites
+construir en Symfony,
+
+00:03:11.216 --> 00:03:15.536 align:middle
+los conceptos que acabamos de
+aprender serán la base para hacerlo.
+
+00:03:16.136 --> 00:03:22.096 align:middle
+Por ejemplo, si necesitas añadir una función o
+un filtro personalizado a Twig, ¡no hay problema!
+
+00:03:22.786 --> 00:03:25.966 align:middle
+Lo harás creando una clase
+de extensión de Twig...
+
+00:03:26.496 --> 00:03:30.756 align:middle
+y puedes utilizar MakerBundle para
+generarla por ti o construirla a mano. Es
+
+00:03:31.366 --> 00:03:36.096 align:middle
+muy similar a la creación de un comando
+de consola personalizado: en ambos casos,
+
+00:03:36.176 --> 00:03:39.586 align:middle
+estás construyendo algo para
+"engancharse" a una parte de Symfony.
+
+00:03:40.166 --> 00:03:45.176 align:middle
+Así que, para crear una extensión
+Twig , crearías una nueva clase PHP,
+
+00:03:47.436 --> 00:03:50.856 align:middle
+harías que implementara
+cualquier interfaz o clase base
+
+00:03:50.946 --> 00:03:55.136 align:middle
+que necesiten las extensiones Tw ig
+(la documentación te lo dirá)...
+
+00:03:55.976 --> 00:03:58.936 align:middle
+y luego simplemente rellenas la lógica...
+
+00:03:58.936 --> 00:04:00.296 align:middle
+que no mostraré aquí.
+
+00:04:01.006 --> 00:04:01.956 align:middle
+Y ya está
+
+00:04:02.546 --> 00:04:07.886 align:middle
+Entre bastidores, tu extensión Twig se
+vería automáticamente como un servicio,
+
+00:04:08.176 --> 00:04:12.836 align:middle
+y la autoconfiguración se
+encargaría de integrarla en Tw ig...
+
+00:04:13.366 --> 00:04:15.696 align:middle
+exactamente igual que el comando de la consola.
+
+00:04:16.486 --> 00:04:22.126 align:middle
+En el próximo curso, pondremos en práctica nuestros
+nuevos superpoderes añadiendo una base de datos
+
+00:04:22.126 --> 00:04:25.016 align:middle
+a nuestra aplicación para poder
+cargar datos reales y dinámicos.
+
+00:04:25.016 --> 00:04:29.676 align:middle
+Y si tienes alguna pregunta real y
+dinámica, estamos aquí para ti,
+
+00:04:29.906 --> 00:04:32.096 align:middle
+como siempre, abajo en la
+sección de comentarios.
+
+00:04:32.796 --> 00:04:33.406 align:middle
+Muy bien, amigos.
+
+00:04:33.746 --> 00:04:37.456 align:middle
+Muchas gracias por codificar
+conmigo y nos vemos la próxima vez
