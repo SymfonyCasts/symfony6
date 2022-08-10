@@ -37,7 +37,11 @@ This will interactively ask you for the name of the command. Let's say
 commands with `app:`. And... done!
 
 That created exactly *one* new file: `src/Command/TalkToMeCommand.php`. Let's go
-open that up. Cool! On top, you can see that the name and description of the
+open that up:
+
+[[[ code('01fe532ac9') ]]]
+
+Cool! On top, you can see that the name and description of the
 command are done in a PHP attribute! Then, down in this `configure()` method,
 which we'll talk about more in a minute, we can configure arguments and options
 that can be passed from the command line.
@@ -64,11 +68,14 @@ Symfony scans for classes that live here? Nope! We could rename this directory t
 `ThereAreDefinitelyNoCommandsInHere`... and Symfony would *still* see the command.
 
 The way this works is *much* cooler. Open up `config/services.yaml` and
-look at the `_defaults` section. We talked about what `autowire: true` means, but
-I didn't explain the purpose of `autoconfigure: true`. Because this is below
-`_defaults`, autoconfiguration *is* active on all of our services, including our
-new `TalkToMeCommand` service. When `autoconfiguration` is enabled, it basically
-tells Symfony:
+look at the `_defaults` section:
+
+[[[ code('99a7530291') ]]]
+
+We talked about what `autowire: true` means, but I didn't explain the purpose of 
+`autoconfigure: true`. Because this is below `_defaults`, autoconfiguration *is* 
+active on all of our services, including our new `TalkToMeCommand` service. 
+When `autoconfiguration` is enabled, it basically tells Symfony:
 
 > Hey, please look at the base class or interface of each service, and if it
 > *looks* like a class should be a console command... or an event subscriber...
