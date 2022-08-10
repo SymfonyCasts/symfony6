@@ -8,6 +8,8 @@ a description... which shows up next to the command. Let me change ours to
 
 > A self-aware command that can do... only one thing.
 
+[[[ code('0665b762f7') ]]]
+
 ## Configuring Arguments and Options
 
 Our command is called `app:talk-to-me` because, when we run this, I want to make
@@ -34,6 +36,8 @@ this name when passing the option at the command line to use it. The
 `--yell=` some value. If your option accepts a value, you would change this to
 `VALUE_REQUIRED`. Finally, give this a description.
 
+[[[ code('8001eef9d6') ]]]
+
 Beautiful! We're not *using* this argument and option yet... but we can already
 re-run our command with a `--help` option:
 
@@ -58,12 +62,16 @@ easier... and fancier.
 
 Ok: let's start by saying `$name = $input->getArgument('name')`. If we don't
 have a name, I'll default this to `whoever you are`. Below, read the
-option: `$shouldYell = $input->getOption('yell')`.
+option: `$shouldYell = $input->getOption('yell')`:
+
+[[[ code('c25283b263') ]]]
 
 Cool. Let's clear out this stuff down here and start our message:
 `$message = sprintf('Hey %s!', $name)`. Then if we want to yell, you know what
 to do: `$message = strtoupper($message)`. Below, use `$io->success()` and
 put the message there.
+
+[[[ code('e396b4e104') ]]]
 
 This is one of the many helper methods on the `SymfonyStyle` class that help
 format your output. There's also `$io->warning()`, `$io->note()`, and several others.
