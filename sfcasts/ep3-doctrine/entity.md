@@ -1,10 +1,31 @@
 # Entity Class
 
-One of the coolest, but maybe most *surprising* things about Doctrine is that it basically wants you to pretend like the database doesn't exist. Instead of thinking about tables and columns, all we need to do is think about objects and properties. For example, let's say that we want to save some product data. The way you do that in Doctrine is by creating a product class with some properties that hold the data. Then you create that property object, set the data onto it, and then politely ask Doctrine to save that for you. We don't have to worry about *how* Doctrine does that. Behind the scenes, however, Doctrine will save that object to a table where each property is mapped to a column. This is called the Object Relational Mapper, or *ORM*, which literally means that it maps the data on an object to a row on a table.
+One of the coolest, but maybe most *surprising* things about Doctrine, is that it
+wants you to pretend like the database doesn't exist! Yea, instead of thinking
+about tables and columns, Doctrine wants us to think about objects and properties.
 
-Later, when you want to get that data back, you don't need to query that table and its columns. Instead, you just ask Doctrine to find the object that you had earlier. What it's *actually* doing is querying that table to get all of the data and then recreates and gives us that data object. So all *we* have to do is deal with classes and objects, and Doctrine takes care of all of the saving and querying *automatically*.
+For example, let's say that we want to save some product data. The way we do that
+in Doctrine is by creating a `Product` class with *properties* that hold the data.
+Then you create a `Product` object, set some data onto it and politely ask Doctrine
+to save that for you. *We* don't have to worry about *how* Doctrine does that.
 
-This means that if we ever need to save something to the database with Doctrine, we need to create a special class to *model* it, like a product class. In Doctrine, these classes are given a special name: *Entities*. They're really just normal PHP classes, and while you *can* create them by hand, there's a MakerBundle command that makes this *much* simpler.
+But, of course, behind the scenes Doctrine *is* talking to a database. It will
+INSERT the data from the `Product` object into a `product` table where each property
+is mapped to a column. This is called an Object Relational Mapper, or *ORM*.
+
+Later, when we want to get that data back, we don't think about "querying" that table
+and its columns. Nope, we simply ask Doctrine to find the object that we had earlier.
+Of course, it *will* query that table... then recreate the object with that data.
+But that's not a detail we think about: we ask for the `Product` object, and it
+gives it to us. Doctrine handles all of the saving and querying *automatically*.
+
+## Generating the Entity with make:entity
+
+*Anyways*, when you use an ORM like Doctrine, when you want to save something to
+the database, we need to create class that *models* what we want to save, like
+a `Product` class. In Doctrine, these classes are given a special name: *entities*.
+Though, they're really just normal PHP classes. And while you *can* create these
+entity classes by hand, there's a MakerBundle command that makes life *much* nicer.
 
 Spin over to your terminal and run:
 
@@ -12,41 +33,99 @@ Spin over to your terminal and run:
 ./bin/console make:entity
 ```
 
-In this case, we don't have to run
+In this case, we don't have to run `symfony console make:entity` because this
+command doesn't talk to the database: it *just* generates code.
 
-```terminal
-symfony console make:entity
-```
+Okay, we want to create a class to store all of the vinyl mixes in our system. So
+let's create a new class called `VinylMix`. Then answer `no` for broadcasting
+entity updates: that's an extra feature related to Symfony Turbo.
 
-because this command doesn't need to talk to the database. It *just* generates code.
+Ok, now here's the important part: it asks which properties we want. We're going
+to add *several*. Start with one called `title`. Next it asks which *type* this
+field is. Hit `?` to see the full list.
 
-Okay, we want to create a class where we're able to save all of the vinyl mixes in our system, so let's create a new class called `VinylMix`, and then click `no` for broadcasting entity updates. That's an extra thing related to Symfony Turbo. Then it asks which properties we want, so we can interactively start adding properties to our class. We're going to add *several*, and I'll start with one called `title`.
+These are *Doctrine* types... and each one will map to a different column type
+in your database, depending on which database you're using, like MySQL or
+Postgres. The basic types are on top like `string` and `text` - which can hold
+*more* than a string) - `boolean`, `integer`, `float`. Then relationship fields -
+we'll talk about those in the next tutorial. Some special fields, like storing
+JSON in a column and date fields.
 
-Next, it's going to ask for the field type. This is referring to a Doctrine type and you can hit `?` to show you all of the different Doctrine types. You have the basic types up here, like `string` and `text` (which can hold *more* than a string), `boolean`, `integer`, `float`, and their relationship fields. We'll talk about those in a future tutorial. You also have some special fields here for things like storing JSON or the `DateTime`.
+For `title`, use `string`, which can hold up to 255 characters. I'll keep the default
+length... then it asks us if the field can be null in the database. I'll answer `no`.
+This means that the column *cannot* be null. In other words, the column will be
+*required* in the database.
 
-In our case, I'm going to use a `string` field, which can hold up to 255 characters, and I'll keep the default length. Then it asks us if the field can be null in the database. I'll answer `no`, which means it will be *not* null, or *required* in the database. And... done!
+And... one field done! Let's add a few more. We need a `description`, and make this
+a `text` type. `string` maxes out at 255 characters, `text` can hold a ton more.
+This time, I'll say `yes` to making it nullable. So this will be an *optional*
+column in the database. Another one down!
 
-We can add as many properties like this as we want, so let's add a few more. We need a description, so let's make this a `text` type, which can store more text than the string. This time, I'll say `yes` to making it nullable, which will make this an *optional* field in the database. Another one down!
+For the next property, call it `trackCount`. It will be an `integer` and will
+be *not* null. Next add `genre`, as a `string`, length 255... and also not null
+so that it's required in the database.
 
-For the next property, let's call it `trackCount`. This will be an `integer` type and we will have this be *not* null. I'll also add `genre`, which will be a `string` type with a length of 255 characters, and I'll also set it to *not* null so that it's required in the database.
+*Finally*, add a `createdAt` field so we can know when each vinyl mix was
+originally created. This time, because the field name ends in "At", the command
+suggests a `datetime_immutable` type. Hit "enter" to use that, and also make this
+*not* null in the database.
 
-*Finally*, let's add a `createdAt` field so we'll know when these vinyl mixes were originally created. This time, because the field name, which ends in "At", sounds like a date field, the command suggests it be a `datetime_immutable`. I'll hit "enter" to use that, and I'll also make this *not* null in the database. We don't have any more properties to add right now, but we can add more later if needed. Hit "enter" one more time to exit the command.
+We don't need to add any more properties right now so hit "enter" one more time to
+exit the command.
 
-To be clear, this didn't talk to or interact with our database *at all*. All this command did was generate two classes. The first is `src/Entity/VinylMix.php`. The *second* is `src/Repository/VinylMixRepository.php`. Ignore the `/Repository` one for now. We'll talk about that in a few minutes.
+Done! What did this do? Well first, I can tell you that this did *not* talk to
+our change our database at *all*. Nope, it simply generated two classes. The first
+is `src/Entity/VinylMix.php`. The *second* is `src/Repository/VinylMixRepository.php`.
+Ignore the `Repository` one for now... we'll talk about its purpose in a few minutes.
 
-Go open up the `VinylMix.php` entity. For the most part, this is a normal, boring PHP class. You can see that it created a `private` property for all of the different fields that we added, including an extra `private ?int $id` property. It also added a getter and setter method for each of those private properties. So this is basically just a class that holds data, and we can access and set that data via the getter and setter methods.
+## Checking out the Entity Class & Attributes
 
-The only thing that makes this class special *at all* are these annotations. This `ORM\Entity` above the class tells Doctrine
+Go open up the `VinylMix.php` entity. Say hello to... a... wow, pretty normal, boring
+PHP class! You can see that it created a `private` property for each field we added,
+plus an extra `id` property. The command also added a getter and setter method for
+each of these. So... this is basically just a class that holds data and we can access
+and set that data via the getter and setter methods
 
-`Hey! I want to be able to save the objects of
-this class to the database. This is an *entity*.`
+The *only* thing that makes this class special are the attributes. The `ORM\Entity`
+above the class tells Doctrine:
 
-Then, above each property, we have `ORM\Column`, which tells Doctrine that we want to save this property as a column in the table. This also communicates other things, like the *length* that the column should be and whether or not it should be nullable in the database (`nullable: false` is the default). You can see that it only generated `nullable: true` on a single column where we needed that value.
+> Hey! I want to be able to save objects of this class to the database. This
+> is an *entity*.
 
-The other thing `ORM\Column` controls is the *type* of field that that will be in the database, like whether it's a `string` field, a `datetime` field, a `blob` field, etc. And *that's* controlled via this `type` option. This doesn't refer directly to a MySQL or Postgres type. It's more like a Doctrine typing system. There's a `TEXT` *type* in Doctrine.
+Then, above each property, we use `ORM\Column` to tell Doctrine that we want to
+save this property as a *column* in the table. This also communicates other options
+like the *length* of the column and whether or not it should be *nullable*.
+`nullable: false` is the default... so the command only generated `nullable: true`
+on the *one* property that needed it.
 
-Notice that this `type` option only shows up on the `$description` field. The reason for that is really cool. Doctrine is *smart*. It's able to look at the type on your property and *guess* the type from it. So when you have a `STRING` property type, Doctrine assumes that you want that to be its string type. You *could* put this `Types: STRING` up here in `ORM\Column`, but it's not needed because Doctrine is *already* guessing that. We *do* need it below here though, because in this case, we want to use the `TEXT` type, *not* the `STRING` type. But in every *other* situation, it works. Doctrine guesses the correct type from this `?int` property type, and the same thing happens down here for the `?\DateTimeImmutable`, which tells it that it should be a `datetime_immutable` type. So, for the most part, Doctrine  is *really* good at figuring out the type automatically.
+The other thing `ORM\Column` controls is the field *type*. That's set via this `type`
+option. As I mentioned, this doesn't refer directly to a MySQL or Postgres type...
+its a *Doctrine* type that will then *map* to something specific based on tour
+database.
 
-In addition to controlling things about each column, we can *also* control the *name* of this table if we want to, by adding an `ORM\Table` above this with the name set to, for example, `vinyl_mix`. But, *surprise*! We don't even need to do that, because Doctrine is really good at guessing that by default *too*. It takes your class names and turns them into lower camel case. So even *without* this `ORM\Table`, that will be the name that this table saves to. The same thing applies to your property `$trackCount` here, which will end up being `track_count`. This is *awesome*. It just takes care of all of that for you, and you don't need to think about your table or column names at all.
+## Field Type Guessing
 
-At this point, we've run that command and it generated this class for us. Yay! But we don't actually *have* a `vinyl_mix` table in our database with all of these columns yet. How do we create one? With a *database migration*. That's next.
+But, interesting: the `type` option only shows up on the `$description` field.
+The reason for that is *really* cool... and new! Doctrine is smart. It looks at the
+type on your *property* and *guesses* the field type from that. So when you have
+a `string` property type, Doctrine assumes that you want that to be *its* `string`
+type. You *could* write `Types: STRING` inside `ORM\Column`... but that would be
+totally redundant.
+
+We *do* need it for the `description` field, however... because we want to use the
+`TEXT` type, *not* the `STRING` type. But in every *other* situation, it works.
+Doctrine guesses the correct type from the `?int` property type... and the same thing
+happens down here for the `?\DateTimeImmutable` type.
+
+In addition to controlling things about each column, we can *also* control the *name*
+of the table by adding an `ORM\Table` above the class with name set to, for example,
+`vinyl_mix`. But, *surprise*! We don't need to do that! Why? Because Doctrine is
+really good at generating great names. It generates the table name by transforming
+the class into snake case. So even *without* `ORM\Table`, this will be the name
+of the table. The same applies to properties. `$trackCount` will map to a
+`track_count` column. Doctrinetakes care of all of this for us: we don't need to
+think about our table or column names at all.
+
+At this point, we've run `make:entity` and it generated an entity class for us. Yay!
+But... we don't actually *have* a `vinyl_mix` table in our database yet. How do we
+create one? With the magic of *database migrations*. That's next.
