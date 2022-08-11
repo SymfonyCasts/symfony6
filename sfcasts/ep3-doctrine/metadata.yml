@@ -4,8 +4,8 @@ chapters:
     - docker-env-vars
     - console
     - entity
-    - add-property
     - migrations
+    - add-property
     - persist
     - queries
     - twig
