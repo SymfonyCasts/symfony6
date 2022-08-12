@@ -3,7 +3,7 @@
 We created an entity class! But... *that's it*. The corresponding table does
 not *yet* exist in our database.
 
-Let's think. In theory, Doctrine knows about our entity, all of the properties
+Let's think. In theory, Doctrine knows about our entity, all of its properties
 and their `ORM\Column` attributes. So... shouldn't Doctrine be able to make that
 table *for* us automatically? Yes! It *can*.
 
@@ -31,7 +31,7 @@ all of the columns. That was *so* easy.
 
 ## Executing the Migration
 
-Ok... so how do we now *execute* this migration? Back at your terminal, run:
+Ok... so how do we *execute* this migration? Back at your terminal, run:
 
 ```terminal
 symfony console doctrine:migrations:migrate
@@ -39,21 +39,16 @@ symfony console doctrine:migrations:migrate
 
 Say `y` to confirm and... beautiful! It tells us that it's `Migrating up to`
 that specific version. It seems... like that worked! To make sure, you can
-let's try another `bin/console` command:
+try another `bin/console` command: `symfony console doctrine:query:sql`
+with `SELECT * FROM vinyl_mix`.
 
-```terminal
-symfony consult doctrine:query:sql
+```terminal-silent
+symfony console doctrine:query:sql 'SELECT * FROM vinyl_mix'
 ```
 
-At the end, we can say:
-
-```terminal
-'SELECT * FROM vinyl_mix'
-```
-
-When we try that... whoops! Pardon my typo...  nothing to see here. Try that again
-and... perfect! We didn't get an error! It just says
-that `The query yielded an empty result set`. If that table did *not* exist, like
+When we try that... whoops! Pardon my typo... nothing to see here. Try that again
+and... perfect! We didn't get an error! It just says that
+`The query yielded an empty result set`. If that table did *not* exist, like
 `vinyl_foo`, Doctrine would have *screamed* at us.
 
 So, the migration *did* run!
@@ -66,9 +61,8 @@ This beautiful system deserves some explanation. Run
 symfony console doctrine:migrations:migrate
 ```
 
-again. Check it out! It's smart enough to *avoid* executing that migration again!
-It *knows* that it already did that. How... does it know that? Try running a
-different command:
+again. Check it out! It's smart enough to *avoid* executing that migration a second
+time! It *knows* that it already did that. But... how? Try running a different command:
 
 ```terminal
 symfony console doctrine:migrations:status
@@ -81,8 +75,9 @@ Here's the deal: the first time we executed the migration, Doctrine *created* th
 special table, which literally stores a list of all of the migration classes
 that *have* been executed. Then, each time we run `doctrine:migrations:migrate`,
 it looks in our `migrations/` directory, finds all the classes, checks the database
-to see which *have* already been executed, and only calls the ones that *haven't*.
-Once those have run, it adds them to the list.
+to see which have *not* already been executed, and only calls those.
+Once the new migrations finish, it adds them as rows to the `doctrine_migration_versions`
+table.
 
 You can visualize this table by running:
 
