@@ -55,7 +55,7 @@ La forma de decirle a Twig dónde poner nuestro contenido dentro de `base.html.t
 
 Para ponerlo ahí, en nuestra plantilla, rodea todo el contenido con`{% block body %}`... y luego `{% endblock %}`.
 
-[[ code('01d2fbf6f5') ]]
+[[[ code('01d2fbf6f5') ]]]
 
 A esto se le llama herencia de la plantilla porque estamos sobrescribiendo ese bloque `body` con este nuevo contenido. Así que ahora, cuando Twig renderice `base.html.twig`... y llegue a esta parte `block body`, va a imprimir el HTML `block body` de nuestra plantilla
 
