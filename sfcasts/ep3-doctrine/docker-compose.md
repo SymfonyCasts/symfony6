@@ -28,6 +28,10 @@ these... and they're split into two pieces just in case you want to *also*
 use Docker to deploy to production. But we're not going to worry about that: we
 just want to use Docker to make life easier for local development.
 
+[[[ code('6190b9c37f') ]]]
+
+[[[ code('4a4d66d50e') ]]]
+
 These files say that they will boot a single Postgres database container
 with a user called `symfony` and password `ChangeMe`. It will also expose port
 5432 of the container - that's Postgres's normal port - to our *host* machine on
