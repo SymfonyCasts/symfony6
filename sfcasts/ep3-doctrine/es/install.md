@@ -20,13 +20,13 @@ El último paso será abrir un terminal, entrar en tu proyecto y ejecutar:
 symfony serve -d
 ```
 
-Esto utiliza el binario de Symfony para iniciar un servidor web local que vive en https://127.0.0.1:8000. Tomaré el camino más perezoso y haré clic en eso para ver... ¡Vinilo mezclado! Nuestra última idea de startup -y te juro que va a ser enorme- combina la nostalgia de las "cintas de mezcla" de los años 80 y 90 con la experiencia de audio de los discos de vinilo. Tú creas tus dulces cintas de mezclas, y nosotros las prensamos en un disco de vinilo para obtener una experiencia de audio totalmente hipster.
+Esto utiliza el binario de Symfony para iniciar un servidor web local que vive en https://127.0.0.1:8000. Tomaré el camino más perezoso y haré clic en eso para ver... ¡Vinilo mezclado! Nuestra última idea de startup -y te juro que va a ser enorme- combina la nostalgia de las "cintas de mezcla" de los años 80 y 90 con la experiencia de audio de los discos de vinilo. Tú creas tus dulces cintas de mezcla, y nosotros las prensamos en un disco de vinilo para obtener una experiencia de audio totalmente hipster.
 
-Hasta ahora, nuestro sitio tiene una página de inicio y una página para navegar por las mezclas que han creado otras personas. Sin embargo, esa página no es realmente dinámica: se extrae de un repositorio de GitHub... y a menos que hayas configurado una clave API como hicimos en el último episodio, ¡esta página está rota! Eso es lo primero que vamos a arreglar: consultando una base de datos para las mezclas.
+Hasta ahora, nuestro sitio tiene una página de inicio y una página para navegar por las mezclas que han creado otras personas. Sin embargo, esa página no es realmente dinámica: se extrae de un repositorio de GitHub... y a menos que hayas configurado una clave API como hicimos en el último episodio, ¡esta página está rota! Eso es lo primero que vamos a arreglar: consultar una base de datos para las mezclas.
 
 ## Instalar Doctrine
 
-¡Así que vamos a instalar Doctrine! Busca tu terminal y ejecuta:
+¡Así que vamos a instalar Doctrine! Busca tu terminal y ejecútalo:
 
 ```terminal
 composer require doctrine
@@ -40,7 +40,7 @@ Ah, y ¡mira esto! El comando pregunta:
 
 > ¿Quieres incluir la configuración Docker de las recetas?
 
-Así, ocasionalmente, cuando instales un paquete, la receta de ese paquete contendrá la configuración de Docker que puede, por ejemplo, iniciar un contenedor de base de datos. Esto es totalmente opcional, pero voy a decir `p` por sí permanentemente. Hablaremos más sobre la configuración Docker en unos minutos.
+Así, ocasionalmente, cuando instales un paquete, la receta de ese paquete contendrá la configuración de Docker que puede, por ejemplo, iniciar un contenedor de base de datos. Esto es totalmente opcional, pero voy a decir `p` por sí mismo permanentemente. Hablaremos más sobre la configuración Docker en unos minutos.
 
 ## Las recetas de Doctrine
 
@@ -52,7 +52,7 @@ git status
 
 Muy bien: esto modificó los archivos normales como `composer.json`, `composer.lock` y`symfony.lock`... y también modificó `config/bundles.php`. Si lo compruebas... no es ninguna sorpresa: nuestra aplicación tiene ahora dos nuevos bundles: DoctrineBundle y DoctrineMigrationsBundle.
 
-Pero probablemente la parte más importante de la receta es el cambio que ha realizado en nuestro archivo`.env`. Recuerda: aquí es donde podemos configurar las variables de entorno... y la receta nos dio una nueva llamada `DATABASE_URL`. Ésta, como puedes ver, contiene todos los detalles de la conexión, como el nombre de usuario y la contraseña.
+Pero probablemente la parte más importante de la receta es el cambio que se ha realizado en nuestro archivo`.env`. Recuerda: aquí es donde podemos configurar las variables de entorno... y la receta nos dio una nueva llamada `DATABASE_URL`. Ésta, como puedes ver, contiene todos los detalles de la conexión, como el nombre de usuario y la contraseña.
 
 ¿Qué utiliza esta variable de entorno? ¡Excelente pregunta! Mira el nuevo archivo que nos dio la receta: `config/packages/doctrine.yaml`. La mayor parte de esta configuración no tendrás que pensarla ni cambiarla. Pero fíjate en esta clave `url`: ¡lee la variable de entorno `DATABASE_URL`!
 
@@ -60,4 +60,4 @@ La cuestión es: la variable de entorno `DATABASE_URL` es la clave para configur
 
 La receta también ha añadido unos cuantos directorios nuevos: `migrations/` `src/Entity/` y`src/Repository/`. Ahora mismo, aparte de un archivo `.gitignore` sin sentido, están todos vacíos. Pronto empezaremos a llenarlos.
 
-Bien: Doctrine ya está instalado. Pero para hablar con una base de datos... tenemos que asegurarnos de que tenemos una base de datos en funcionamiento y que la variable de entorno `DATABASE_URL` apunta a ella. Hagamos eso a continuación, pero con un giro opcional y delicioso: vamos a utilizar Docker para iniciar la base de datos.
+Bien: Doctrine ya está instalado. Pero para hablar de una base de datos... tenemos que asegurarnos de que tenemos una base de datos en funcionamiento y que la variable de entorno `DATABASE_URL` apunta a ella. Hagamos eso a continuación, pero con un giro opcional y delicioso: vamos a utilizar Docker para iniciar la base de datos.
