@@ -14,7 +14,7 @@ Por ejemplo, hay un filtro llamado `upper`. Usar un filtro es como usar la tecla
 
 ¡Vamos a probar esto! Imprime `track.artist|upper`.
 
-[[ code('73974377cd') ]]
+[[[ code('73974377cd') ]]]
 
 Y ahora... ¡está en mayúsculas! Si quieres confundir a tus compañeros de trabajo, puedes canalizarlo a `lower`... que devuelve las cosas a minúsculas. No hay ninguna razón real para hacer esto, pero los filtros pueden encadenarse así.
 
