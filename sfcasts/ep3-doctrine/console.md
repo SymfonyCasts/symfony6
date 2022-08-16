@@ -59,6 +59,8 @@ Ok, there's one last bit of configuration that we need to set. Open
 `config/packages/doctrine.yaml`. This file came from the recipe. Find
 `server_version` and un-comment it.
 
+[[[ code('e49193f024') ]]]
+
 This value "13" is referring to the version of my database engine. Since I'm
 using Postgres version 13, I need 13 here. If you're using MySQL, you might need
 8 or 5.7.
