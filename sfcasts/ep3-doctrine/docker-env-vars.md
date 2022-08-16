@@ -48,8 +48,11 @@ Watch: when you refresh now... and hover over the bottom right corner of the web
 debug toolbar, it says "Env Vars: From Docker".
 
 In short, the Symfony binary *noticed* that Docker was running and exposed some
-new environment variables pointing to the database! I'll show you. Open up
-`public/index.php`. We don't normally care about this file... but it's a great
+new environment variables pointing to the database! I'll show you. Open up `public/index.php`. 
+
+[[[ code('debfa901f6') ]]]
+
+We don't normally care about this file... but it's a great
 spot to dump some info *right* when our app starts booting. Inside the callback,
 `dd()` the `$_SERVER` superglobal. That variable contains a *lot* of information,
 *including* any environment variables.
