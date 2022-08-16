@@ -85,15 +85,21 @@ Okay cool: this modified the normal files like `composer.json`, `composer.lock` 
 out... no surprise: our app now has *two* new bundles: DoctrineBundle and
 DoctrineMigrationsBundle.
 
+[[[ code('0dca528440') ]]]
+
 But probably the most important part of the recipe is the change it made to our
 `.env` file. Remember: this is where we can configure environment variables... and
 the recipe gave us a *new* one called `DATABASE_URL`. This, as you can see, holds
 all the connection details, like the username and password.
 
+[[[ code('c05f3c21ff') ]]]
+
 What *uses* this environment variable? Excellent question! Check out a new file
 the recipe gave us: `config/packages/doctrine.yaml`. Most of this config you
 won't need to think about or change. But notice this `url` key: it reads
 that `DATABASE_URL` environment variable!
+
+[[[ code('e64af17f6d') ]]]
 
 The point is: the `DATABASE_URL` env var is the *key* to setting up your app to
 talk to a database... and we'll play with it in a few minutes.
