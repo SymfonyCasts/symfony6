@@ -28,13 +28,13 @@ Llegados a este punto, vamos a poner en marcha Docker y aprender un poco sobre c
 
 ## Iniciar el contenedor
 
-De todos modos, vamos a poner en marcha nuestro contenedor. Primero, asegúrate de que tienes Docker realmente instalado en tu máquina: No lo mostraré porque varía según el sistema operativo. Luego, busca tu terminal y ejecuta:
+De todas formas, vamos a poner en marcha nuestro contenedor. Primero, asegúrate de que tienes Docker realmente instalado en tu máquina: No lo mostraré porque varía según el sistema operativo. Luego, busca tu terminal y ejecuta:
 
 ```terminal
 docker-compose up -d
 ```
 
-El `-d` significa "ejecutar en segundo plano como demonio". La primera vez que lo ejecutes, probablemente descargará un montón de cosas. Pero al final, ¡nuestro contenedor debería arrancar!
+El `-d` significa "ejecutar en segundo plano como un demonio". La primera vez que lo ejecute, probablemente descargará un montón de cosas. Pero al final, ¡tu contenedor debería arrancar!
 
 ## Comunicarse con el contenedor
 
@@ -56,25 +56,25 @@ Esto significa: conectar con Postgres en el puerto 127.0.0.1 50700 utilizando el
 
 Si utilizas MySQL, podemos hacer esto mismo con un comando `mysql`.
 
-Pero, esto sólo funciona si tenemos ese comando `psql` instalado en nuestra máquina local. Así que vamos a probar con otro comando. Ejecuta
+Pero esto sólo funciona si tenemos ese comando `psql` instalado en nuestra máquina local. Así que vamos a probar con otro comando. Ejecuta
 
 ```terminal
 docker-compose ps
 ```
 
-de nuevo. El contenedor se llama `database`, que proviene de nuestro archivo `docker-compose.yml`. Así que podemos cambiar el comando anterior por:
+de nuevo. El contenedor se llama `database`, que proviene de nuestro archivo `docker-compose.yml`. Así podremos cambiar el comando anterior por:
 
 ```terminal
 docker-compose exec database psql --username symfony --password app
 ```
 
-Esta vez, estamos ejecutando el comando `psql` dentro del contenedor, por lo que no necesitamos instalarlo localmente. Escribe `ChangeMe` como contraseña y... ¡volvemos a estar dentro!
+Esta vez, estamos ejecutando el comando `psql` dentro del contenedor, por lo que no necesitamos instalarlo localmente. Escribe `ChangeMe` como contraseña y... ¡vamos a estar dentro!
 
 La cuestión es: ¡sólo con ejecutar `docker-compose up`, tenemos un contenedor de base de datos Postgres con el que podemos hablar!
 
 ## Detener el contenedor
 
-Por cierto, cuando estés preparado para detener el contenedor más adelante, puedes ejecutar:
+Por cierto, cuando estés preparado para detener el contenedor más adelante, puedes ejecutarlo:
 
 ```terminal
 docker-compose stop
