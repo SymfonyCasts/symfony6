@@ -44,4 +44,4 @@ Este valor "13" se refiere a la versión de mi motor de base de datos. Como esto
 
 Esto ayuda a Doctrine a determinar qué características soporta tu base de datos o no... ya que una versión más reciente de una base de datos podría soportar características que una versión más antigua no soporta. No es una pieza de configuración especialmente interesante, sólo tenemos que asegurarnos de que está configurada.
 
-Ok equipo: toda la configuración aburrida está hecha. Lo siguiente: ¡creemos nuestra primera clase de entidad! Las entidades son el concepto más fundamental de Doctrine y la clave para hablar con nuestra primera tabla de la base de datos.
+Ok equipo: toda la configuración aburrida está hecha. Lo siguiente: ¡creamos nuestra primera clase de entidad! Las entidades son el concepto más fundamental de Doctrine y la clave para hablar con nuestra primera tabla de la base de datos.
