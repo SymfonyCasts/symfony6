@@ -18,7 +18,7 @@ Para conseguir que nuestra aplicación real apunte a la base de datos que se eje
 
 ## El Binario de Symfony y variables de entorno de Docker
 
-Afortunadamente, no necesitamos hacer nada de eso porque, sorpresa, ¡la variable de entorno `DATABASE_URL`ya está correctamente configurada! Cuando configuramos nuestro proyecto, iniciamos un servidor local de desarrollo utilizando el binario de Symfony.
+Afortunadamente, no tenemos que hacer nada de eso porque, sorpresa, ¡la variable de entorno `DATABASE_URL`ya está correctamente configurada! Cuando configuramos nuestro proyecto, iniciamos un servidor local de desarrollo utilizando el binario de Symfony.
 
 Como recordatorio, voy a ejecutar
 
@@ -44,7 +44,7 @@ Sí, el binario de Symfony detecta que Docker se está ejecutando y establece un
 
 La cuestión es que, con sólo iniciar Docker, ya está todo configurado: no hemos tenido que tocar ningún archivo de configuración. Eso está muy bien.
 
-Por cierto, si quieres ver todas las variables de entorno que configura el binario de Symfony, puedes ejecutar:
+Por cierto, si quieres ver todas las variables de entorno que configura el binario de Symfony, puedes ejecutarlo:
 
 ```terminal
 symfony var:export --multiline
