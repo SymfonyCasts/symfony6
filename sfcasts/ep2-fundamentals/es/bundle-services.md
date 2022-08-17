@@ -1,4 +1,4 @@
-# Encontrar y utilizar los servicios de un bundle
+# Encontrar y Utilizar los Servicios de un Bundle
 
 Acabamos de instalar KnpTimeBundle. ¡Hurra! Pero... eh... ¿qué significa eso? ¿Qué nos da eso?
 
