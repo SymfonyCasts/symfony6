@@ -2,7 +2,7 @@
 
 ¡Hola amigos! Bienvenidos de nuevo al Episodio 2 de nuestra serie de tutoriales sobre Symfony 6. Este es el episodio en el que subimos de nivel en serio y desbloqueamos nuestro potencial para hacer todo lo que queramos. Eso es porque, en este curso, nos sumergimos en los fundamentos detrás de todo en Symfony. Hablamos de servicios, bundles, configuración, entornos, variables de entorno - lo que realmente hace que Symfony funcione. Vamos a abrir el capó de Symfony y descubrir lo que hay dentro.
 
-## ¡Configuración del sitio!
+## ¡Configuración del Sitio!
 
 Para sacar el máximo provecho de este tutorial de fundamentos, te invito a que te acerques al fuego, descargues el código del curso desde esta página y codifiques conmigo. ¡Será divertido! Después de descomprimir el archivo, encontrarás un directorio `start/` con el mismo código que ves aquí. Sigue nuestro archivo`README.md` hecho a mano y de origen local para obtener todas las instrucciones de configuración. El último paso será abrir un terminal, entrar en el proyecto y ejecutar
 
