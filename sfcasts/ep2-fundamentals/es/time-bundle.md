@@ -1,4 +1,4 @@
-# Nuevo bundle, nuevo servicio: KnpTimeBundle
+# Nuevo Bundle, nuevo servicio: KnpTimeBundle
 
 En nuestro sitio, puedes crear tu propia mezcla de vinilo. (O podrás hacerlo con el tiempo... ahora mismo, este botón no hace nada). Pero otra gran característica de nuestro sitio es la posibilidad de explorar las mezclas de otros usuarios.
 
