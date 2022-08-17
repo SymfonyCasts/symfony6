@@ -26,7 +26,7 @@ Y, aunque ya no tenemos el código en `VinylController`, utilizamos brevemente e
 
 Así que un servicio no es más que un objeto que hace trabajo... y todo el trabajo que se hace en Symfony lo hace un servicio. Incluso el código central que calcula qué ruta coincide con la URL actual es un servicio, llamado servicio "router".
 
-## Hola bundles
+## Hola Bundles
 
 Así que la siguiente pregunta es: ¿de dónde vienen estos servicios? La respuesta es Mordor. Me refiero a los bundles... los servicios vienen de los bundles.
 
