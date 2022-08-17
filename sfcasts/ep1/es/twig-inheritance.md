@@ -24,7 +24,7 @@ De todos modos, echa un vistazo a la lista de filtros porque probablemente haya 
 
 Y... ¡eso es todo! Además de las funciones, también hay algo llamado "pruebas", que son útiles en las sentencias if: puedes decir cosas como "si el número es divisible por 5".
 
-## Herencia de plantillas
+## Herencia de Plantillas
 
 Vale, sólo una cosa más que aprender sobre Twig, y es genial.
 
