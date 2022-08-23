@@ -1,19 +1,101 @@
-# Queries
+# Querying the Database
 
-Now that we've saved some stuff to the database, how can we read or query for it? Once again, at least for simple stuff, Doctrine doesn't want you to worry about querying. Instead, we just ask *Doctrine* for the objects.
+Now that we've saved some stuff to the database, how can we read or query for it?
+Once again, at least for simple stuff, Doctrine doesn't want you to worry about
+querying. Instead, we just *ask* Doctrine for the *objects*.
 
-Head over to `/src/Controller/VinylController.php` and find the `browse()` action. Here, we're loading all of the current `$mixes` in our project, and we're currently doing it via this `mixRepository` service class that we created in the last episode. This class actually queries a GitHub repository for a hard-coded text file.
+Head over to `src/Controller/VinylController.php` and find the `browse()` action.
+Here, we're loading all of the `$mixes` in our project... and we're currently
+doing it via this `MixRepository` service class that we created in the last episode.
+This class queries a GitHub repository for a hard-coded text file.
 
-We're going to *stop* using this `mixRepository` and load these `$mixes` from the database. To *save* objects, we leverage the `EntityManagerInterface` service, which is *the* most important service *by far* in Doctrine. This service can also *query* for objects, so let's take advantage of that. Add a new argument to `browse`, typehinted with `EntityManagerInterface` and call it `$entityManager`. Then, down here, we're going to replace that `$mixes` line with *two* lines. First, we're going to say `$mixRepository = $entityManager->getRepository()`, and *then*, we're going to pass this the name of the class we want to query from. In our case, we want to query from `VinylMix::class`. We'll talk more about that repository concept in a second. Then, to get the mixes *themselves*, you can say `$mixes = $mixRepository->` and call one of the methods on it, which is `findAll()`. And then, just to see what this gives us, let's `dd($mixes)`.
+We're going to *stop* using this `MixRepository` and instead load these `$mixes`
+from the database.
 
-Okay, spin over, head back to the homepage, click "Browse mixes" to hit that action, and... voila! We get six results, and *each* of them, *most importantly*, is a `VinylMix` object. Behind the scenes, Doctrine queried the table and the columns, but *we* get objects back. If we remove that `dd` and allow that array of `$mixes` to be passed into our template... that *still* works. Though, these images are broken because *apparently* the service we're using to load those is down right now. Ah... the joys of recording. But that won't stop us!
+## Querying through the Entity Manager
 
-The fact that this works is actually kind of by *luck*. When we render the template - `/templates/vinyl/browse.html.twig` - inside of here, we loop over all of those mixes. The template works because the old GitHub repository text file has the same properties (like `title`, `trackCount`, and `genre`) as our `VinylMix` class. There *is* one cool thing happening here, though. Notice when we say `mix.genre`, `mix` is now an *object*, and this `genre` property is *private*, meaning you cannot access this directly. *But* Twig is smart. It realizes that this is private and looks for a `getGenre()` method. So in our template, we can say `mix.genre`, but in reality, it's calling the `getGenre()` method, which is pretty awesome.
+Ok: to *save* objects, we leveraged the `EntityManagerInterface` service, which is
+*the* most important service *by far* in Doctrine. Whelp, this service can also
+*query* for objects. Let's take advantage of that. Add a new argument to `browse()`,
+typehinted with `EntityManagerInterface`... and call it `$entityManager`.
 
-Know what else is awesome? We can actually *see* the query this page made down in the web debug toolbar. Doctrine gives us a fancy new web debug toolbar icon, and if we click into that... tah dah! There's one database query, and we can even see what it is. You can also see a *formatted* version of it (which requires a page refresh to work), a *runnable* version, or we could even run "Explain" on that.
+Then, below, replace the `$mixes` line with *two* lines. Start with
+`$mixRepository = $entityManager->getRepository()` passing this the name of the
+*class* that we want to query from. Yes, we think about querying from an entity
+*class*, not a table. In this case, we want to query from `VinylMix::class`.
 
-All right, back in the controller, even though we can query through the `EntityManagerInterface`, like we just did, we normally query through something called the *repository*. So let's `dd()` this `$mixRepository` object to get more info about that. Head back to the `/browse` page and... check this out! It's an object called `App\Repository\VinylMixRepository`. We *know* that class! That lives in our code in the `/src/Repository` directory, and this was generated by MakerBundle. Inside the `ORM\Entity`, there's a little `repositoryClass` option that points to this. Thanks to this config, our entity, `VinylMix`, is tied to this `VinylMixRepository`. So when you ask Doctrine to give us the repository for the `VinylMix` class, it knows to return the `VinylMixRepository` object. And that object has a bunch of useful methods on it for doing some basic queries, like `findAll()`, `findOneBy()`, and several others. In a little bit, we'll start adding new *custom* methods to the repository to do custom queries. More on that later.
+We'll talk more about this repository concept in a minute. Then, to get the mixes
+*themselves*, say `$mixes = $mixRepository->` and call one of the methods
+on it: `findAll()`.
 
-Anyway, `VinylMixRepository` is actually a service in the container, so we can get it more easily by just autowiring it *directly*. I'll say `VinylMixRepository $mixRepository`, and then we don't need this line at all. That is *much* simpler and still works. The takeaway is that if you want to query from a table, you actually do that through the repository of the class that you want the data for.
+To see what this gives us, let's `dd($mixes)`.
 
-Next: The fact that we changed our code to load from the database and didn't need to update our Twig template *at all* was kind of awesome, courtesy of some Twig magic. Let's talk *more* about that magic and create a virtual property that we can print in the template.
+Ok, testing time! Spin over, head back to the homepage, click "Browse mixes" to hit
+that action, and... voila! We get six results! And *each* of them, *most importantly*,
+is a `VinylMix` *object*.
+
+Behind the scenes, Doctrine *did* query the table and the columns. But instead of
+giving us that that raw data, it put it onto *objects* and gave us *those*, which
+is much nicer.
+
+## Working with Objects in Twig
+
+If we remove the `dd()`... this array of `VinylMix` object will be passed into the
+template, instead of the array of array data that we had before. But... the pagae
+*still* works. Though, these images are broken because *apparently* the service we're
+using to load them is down right now. Ah... the joys of video recording. But that
+won't stop us!
+
+The fact that all the data still renders without any errors is... actually kind of
+by *luck*. When we render the template - `templates/vinyl/browse.html.twig` -
+we loop over all of those `mixes`. The template works because the old GitHub repository
+text file had the same *keys* (like `title`, `trackCount`, and `genre`) as our
+`VinylMix` class.
+
+There *is* one cool thing happening here, though. When we say `mix.genre`,
+`mix` is now an *object*... and this `genre` property is *private*. That means we
+*cannot* access it directly. *But* Twig is smart. It realizes that this is private
+and looks for a `getGenre()` method. So in our template, we say `mix.genre`,
+but in reality, it calls the `getGenre()` method. That's pretty awesome.
+
+## Visualizing the Queries for the Page
+
+Know what else is awesome? We can actually *see* the query this page made! Down in
+the web debug toolbar, doctrine gives us a fancy new icon. Oooo. And if we click
+into that... tah dah! There's one database query... and we can even see what it is.
+You can also see a *formatted* version of it (which requires a page refresh to work
+due to Turbo not playing nicely with this area), a *runnable* version, or we could
+even run "Explain" on that.
+
+## The "Repository"
+
+All right, back in the controller, even though we *can* query through the
+`EntityManagerInterface`, we normally query through something called the *repository*.
+`dd()` this `$mixRepository` object to get more info about that. Then go back
+to the `/browse` page and... woh! It's an
+`App\Repository\VinylMixRepository` object. Hey! We *know* that class! It lives
+in *our* code, in the `src/Repository/` directory. And it was generated by MakerBundle.
+
+Inside the `ORM\Entity` attribute above our entity class, MakerBundle *also*
+generated a `repositoryClass` option that *points* to this. Thanks to this config,
+our entity, `VinylMix`, is tied to `VinylMixRepository`. So when you ask Doctrine
+to give us the *repository* for the `VinylMix` class, it knows to return the
+`VinylMixRepository` object.
+
+The repository for an entity knows *everything* about how to query for that data.
+And, without us doing *anything*, it already has a bunch of useful methods on it
+for basic queries, like `findAll()`, `findOneBy()` and several others. In a bit,
+we'll learn how to add *new* methods to the repository to make custom queries.
+
+Anyway, `VinylMixRepository` is actually a service in the container... so we can
+get it more easily by autowiring it *directly*. Add a
+`VinylMixRepository $mixRepository` argument... and then we don't need this line
+at all. That is simpler... and it still works!
+
+The takeaway is this: if you want to query from a table, you'll do that through
+the *repository* of the entity whose data you need.
+
+Next: The fact that we changed our code to load from the database and didn't need to
+update our Twig template *at all* was kind of awesome! An courtesy of some Twig magic.
+Let's talk *more* about that magic and create a virtual property that we can print in
+the template.
