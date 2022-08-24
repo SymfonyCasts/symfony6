@@ -1,0 +1,470 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:06.656 align:middle
+Una de las cosas más chulas, y quizá más
+sorprendentes, de Doctrine es que quiere que
+
+00:00:06.656 --> 00:00:09.896 align:middle
+finjas que la base de datos no existe
+
+00:00:10.606 --> 00:00:13.786 align:middle
+Sí, en lugar de pensar en tablas y columnas,
+
+00:00:14.046 --> 00:00:17.376 align:middle
+Doctrine quiere que pensemos
+en objetos y propiedades.
+
+00:00:18.136 --> 00:00:22.286 align:middle
+Por ejemplo, supongamos que queremos guardar
+los datos de un producto. La forma de
+
+00:00:22.946 --> 00:00:26.666 align:middle
+hacerlo con Doc trine es
+creando una clase Product
+
+00:00:26.886 --> 00:00:29.056 align:middle
+con propiedades que contengan los datos.
+
+00:00:29.676 --> 00:00:33.396 align:middle
+Luego instanciamos un objeto
+Product, le ponemos los datos
+
+00:00:33.776 --> 00:00:37.256 align:middle
+y pedimos amablemente a Doctrine
+que los guarde por nosotros.
+
+00:00:37.776 --> 00:00:40.966 align:middle
+No tenemos que preocuparnos
+de cómo lo hace Doctrine.
+
+00:00:41.646 --> 00:00:46.586 align:middle
+Pero, por supuesto, entre bastidores Doctrine
+está hablando con una base de datos.
+
+00:00:46.986 --> 00:00:51.516 align:middle
+Insertará los datos del objeto
+Product en una tabla product en
+
+00:00:52.086 --> 00:00:54.696 align:middle
+la que cada propiedad está
+asignada a una columna.
+
+00:00:55.246 --> 00:00:58.976 align:middle
+Esto se llama mapeador
+relacional de objetos, o ORM.
+
+00:00:59.986 --> 00:01:02.616 align:middle
+Más tarde, cuando queramos
+recuperar esos datos, no pensaremos
+
+00:01:02.946 --> 00:01:06.146 align:middle
+en "consultar" esa tabla y sus columnas.
+
+00:01:06.646 --> 00:01:11.876 align:middle
+No, simplemente pedimos a Doctrine que
+encuentre el objeto que teníamos antes.
+
+00:01:12.716 --> 00:01:15.056 align:middle
+Por supuesto, consultará la tabla...
+
+00:01:15.416 --> 00:01:18.056 align:middle
+y luego volverá a crear
+el objeto con los datos.
+
+00:01:18.746 --> 00:01:25.876 align:middle
+Pero no es un detalle en el que pensemos:
+le pedimos el objeto Product, y nos lo da.
+
+00:01:26.446 --> 00:01:29.596 align:middle
+Doctrine se encarga de guardar y
+consultar todo automáticamente. De
+
+00:01:30.406 --> 00:01:35.876 align:middle
+todos modos, cuando utilizamos un ORM como Doc trine
+, si queremos guardar algo en la base de datos,
+
+00:01:36.276 --> 00:01:42.036 align:middle
+tenemos que crear una clase que modele lo
+que queremos guardar, como una clase Product.
+
+00:01:42.836 --> 00:01:46.876 align:middle
+En Doctrine, estas clases reciben
+un nombre especial: entidades.
+
+00:01:47.546 --> 00:01:50.416 align:middle
+Aunque, en realidad, son
+clases normales de PHP.
+
+00:01:50.966 --> 00:01:54.426 align:middle
+Y aunque puedes crear estas
+clases de entidad a mano, hay
+
+00:01:54.746 --> 00:01:58.456 align:middle
+un comando MakerBundle que te
+hace la vida mucho más agradable.
+
+00:01:59.246 --> 00:02:04.196 align:middle
+Ve a tu terminal y ejecuta: php
+bin/console make:entity En este caso,
+
+00:02:04.196 --> 00:02:09.546 align:middle
+no tenemos que ejecutar symfony console
+make:entity porque este comando no hablará
+
+00:02:09.546 --> 00:02:12.096 align:middle
+con la base de datos: sólo genera código.
+
+00:02:12.516 --> 00:02:16.686 align:middle
+Pero, si alguna vez no estás seguro,
+usar symfony console siempre es seguro.
+
+00:02:17.536 --> 00:02:22.456 align:middle
+Bien, queremos crear una clase para almacenar
+todas las mezclas de vinilos de nuestro sistema.
+
+00:02:22.806 --> 00:02:25.736 align:middle
+Así que vamos a crear una
+nueva clase llamada VinylMix.
+
+00:02:26.406 --> 00:02:29.506 align:middle
+A continuación, responde a no para transmitir
+las actualizaciones de las entidades:
+
+00:02:29.806 --> 00:02:32.586 align:middle
+que es una característica extra
+relacionada con Symfony Turbo.
+
+00:02:33.476 --> 00:02:37.966 align:middle
+Bien, aquí está la parte importante:
+nos pregunta qué propiedades queremos.
+
+00:02:38.536 --> 00:02:40.126 align:middle
+Vamos a añadir varias.
+
+00:02:40.606 --> 00:02:42.016 align:middle
+Empezamos con una llamada title.
+
+00:02:42.716 --> 00:02:45.576 align:middle
+A continuación nos pregunta
+de qué tipo es este campo.
+
+00:02:45.976 --> 00:02:47.966 align:middle
+Pulsa ? para ver la lista completa.
+
+00:02:48.646 --> 00:02:50.816 align:middle
+Son tipos de Doctrine...
+
+00:02:51.176 --> 00:02:55.136 align:middle
+y cada uno se asignará a un tipo de
+columna diferente en tu base de datos,
+
+00:02:55.346 --> 00:02:59.876 align:middle
+dependiendo de la base de datos que
+estés utilizando, como MySQL o Postgres.
+
+00:03:00.646 --> 00:03:05.446 align:middle
+Los tipos básicos están en la parte superior
+como string, text - que puede contener más
+
+00:03:05.446 --> 00:03:07.936 align:middle
+que una cadena) - boolean, integer y float.
+
+00:03:08.776 --> 00:03:12.686 align:middle
+Luego los campos de relación -de los
+que hablaremos en el próximo tutorial-,
+
+00:03:13.166 --> 00:03:16.906 align:middle
+algunos campos especiales, como el
+almacenamiento de JSON y los campos de fecha.
+
+00:03:17.716 --> 00:03:22.496 align:middle
+Para title, utiliza string, que
+puede contener hasta 255 caracteres.
+
+00:03:23.046 --> 00:03:24.696 align:middle
+Mantendré la longitud por defecto...
+
+00:03:25.246 --> 00:03:29.246 align:middle
+entonces nos pregunta si el campo
+puede ser nulo en la base de datos.
+
+00:03:29.686 --> 00:03:31.186 align:middle
+Responderé no.
+
+00:03:31.886 --> 00:03:34.756 align:middle
+Esto significa que la
+columna no puede ser nula.
+
+00:03:35.336 --> 00:03:39.316 align:middle
+En otras palabras, la columna será
+obligatoria en la base de datos.
+
+00:03:39.946 --> 00:03:42.386 align:middle
+Y... ¡un campo hecho!
+
+00:03:43.256 --> 00:03:44.126 align:middle
+Vamos a añadir algunos más.
+
+00:03:44.576 --> 00:03:48.356 align:middle
+Necesitamos un description,
+y que sea del tipo text.
+
+00:03:48.946 --> 00:03:54.026 align:middle
+string tiene un máximo de 255 caracteres,
+text puede contener un montón más.
+
+00:03:54.946 --> 00:03:57.746 align:middle
+Esta vez, diré yes para que sea anulable.
+
+00:03:58.346 --> 00:04:00.986 align:middle
+Así será una columna
+opcional en la base de datos.
+
+00:04:01.716 --> 00:04:02.926 align:middle
+¡Otra más para abajo!
+
+00:04:03.576 --> 00:04:06.526 align:middle
+Para la siguiente propiedad,
+llámala trackCount.
+
+00:04:07.126 --> 00:04:10.526 align:middle
+Será un integer y será no nulo.
+
+00:04:11.176 --> 00:04:14.676 align:middle
+Luego añade genre, como un
+string, de longitud 255...
+
+00:04:15.316 --> 00:04:18.616 align:middle
+y también not null para que sea
+obligatorio en la base de datos.
+
+00:04:19.496 --> 00:04:26.216 align:middle
+Por último, añade un campo createdAt para que podamos
+saber cuándo se creó originalmente cada mezcla de vinilo.
+
+00:04:27.076 --> 00:04:33.836 align:middle
+Esta vez, como el nombre del campo termina en "At",
+el comando sugiere un tipo datetime_immutable.
+
+00:04:34.516 --> 00:04:38.586 align:middle
+Pulsa "intro" para utilizarlo, y también para
+que no sea nulo en la base de datos. Ahora no
+
+00:04:39.466 --> 00:04:42.296 align:middle
+necesitamos añadir más
+propiedades, así que pulsa "intro"
+
+00:04:42.386 --> 00:04:44.726 align:middle
+una vez más para salir del comando.
+
+00:04:45.576 --> 00:04:48.306 align:middle
+Ya está ¿Qué ha hecho esto?
+
+00:04:48.806 --> 00:04:55.656 align:middle
+Bueno, en primer lugar, puedo decirte que esto no habló
+con nuestra base de datos ni la modificó en absoluto.
+
+00:04:56.376 --> 00:04:59.786 align:middle
+No, simplemente ha generado dos clases.
+
+00:05:00.446 --> 00:05:04.246 align:middle
+La primera es src/Entity/VinylMix.php.
+
+00:05:04.246 --> 00:05:10.126 align:middle
+La segunda es
+src/Repository/VinylMixRepository.php.
+
+00:05:10.126 --> 00:05:12.586 align:middle
+Ignora el Repository por ahora...
+
+00:05:12.946 --> 00:05:15.116 align:middle
+hablaremos de su propósito en unos minutos.
+
+00:05:15.806 --> 00:05:18.156 align:middle
+Ve a abrir la entidad VinylMix.php.
+
+00:05:18.776 --> 00:05:19.856 align:middle
+Saluda a...
+
+00:05:20.166 --> 00:05:24.726 align:middle
+una... ¡vaya, una clase PHP
+bastante normal y aburrida!
+
+00:05:25.316 --> 00:05:30.756 align:middle
+Generó una propiedad private para cada campo
+que añadimos, además de una propiedad extra id.
+
+00:05:31.316 --> 00:05:35.306 align:middle
+El comando también añadió un método
+getter y setter para cada una de ellas.
+
+00:05:35.946 --> 00:05:40.106 align:middle
+Así que... esto es básicamente
+una clase que contiene datos...
+
+00:05:40.546 --> 00:05:47.566 align:middle
+y podemos acceder y establecer esos datos
+mediante los métodos getter y setter Lo único
+
+00:05:47.566 --> 00:05:50.836 align:middle
+que hace especial a esta
+clase son los atributos.
+
+00:05:51.446 --> 00:05:55.406 align:middle
+El ORM\Entity sobre la clase
+le dice a Doctrine: ¡Oye!
+
+00:05:55.766 --> 00:06:00.176 align:middle
+Quiero poder guardar objetos de
+esta clase en la base de datos.
+
+00:06:00.636 --> 00:06:02.256 align:middle
+Esto es una entidad.
+
+00:06:02.946 --> 00:06:09.696 align:middle
+Luego, encima de cada propiedad, utilizamos
+ORM\Column para decirle a Doctrine que queremos
+
+00:06:09.696 --> 00:06:13.026 align:middle
+guardar esta propiedad como
+una columna en la tabla.
+
+00:06:13.836 --> 00:06:18.276 align:middle
+Esto también comunica otras opciones
+como la longitud de la columna
+
+00:06:18.706 --> 00:06:21.186 align:middle
+y si debe ser anulable o no.
+
+00:06:21.806 --> 00:06:23.936 align:middle
+nullable: false es el valor por defecto...
+
+00:06:24.396 --> 00:06:30.036 align:middle
+para que el comando sólo genere nullable:
+true en la única propiedad que lo necesita.
+
+00:06:30.916 --> 00:06:34.536 align:middle
+La otra cosa que controla
+ORM\Column es el tipo de campo.
+
+00:06:35.106 --> 00:06:37.346 align:middle
+Eso se establece a través
+de esta opción type.
+
+00:06:38.146 --> 00:06:44.036 align:middle
+Como he mencionado, esto no se refiere
+directamente a un tipo MySQL o Postgres...
+
+00:06:44.626 --> 00:06:50.786 align:middle
+es un tipo Doctrine que luego se asignará a algo
+específico en función de nuestra base de datos.
+
+00:06:51.516 --> 00:06:56.866 align:middle
+Pero, interesante: la opción type
+sólo aparece en el campo $description.
+
+00:06:57.746 --> 00:06:59.856 align:middle
+La razón de esto es realmente genial...
+
+00:07:00.176 --> 00:07:03.336 align:middle
+¡y nueva! Doctrine es inteligente.
+
+00:07:03.806 --> 00:07:10.516 align:middle
+Mira el tipo de tu propiedad y adivina
+el tipo de campo a partir de él.
+
+00:07:11.246 --> 00:07:13.276 align:middle
+Así que cuando tienes un
+tipo de propiedad string,
+
+00:07:13.746 --> 00:07:17.266 align:middle
+Doctrine asume que quieres
+que ese sea su tipo string.
+
+00:07:18.046 --> 00:07:22.776 align:middle
+Podrías escribir Types::STRING
+dentro de ORM\Column...
+
+00:07:23.306 --> 00:07:26.096 align:middle
+pero eso sería totalmente redundante.
+
+00:07:26.786 --> 00:07:29.806 align:middle
+Sin embargo, lo necesitamos
+para el campo description...
+
+00:07:30.246 --> 00:07:34.366 align:middle
+porque queremos utilizar el
+tipo TEXT, no el tipo STRING.
+
+00:07:34.986 --> 00:07:37.946 align:middle
+Pero en cualquier otra situación, funciona.
+
+00:07:38.506 --> 00:07:41.506 align:middle
+Doctrine adivina el tipo correcto a
+partir del tipo de propiedad ?int...
+
+00:07:42.016 --> 00:07:45.936 align:middle
+y lo mismo ocurre aquí abajo
+para el tipo ?\DateTimeImmutable.
+
+00:07:46.786 --> 00:07:52.246 align:middle
+Además de controlar las cosas de cada
+columna, también podemos controlar el nombre
+
+00:07:52.246 --> 00:08:00.926 align:middle
+de la tabla añadiendo un ORM\Table encima de la clase
+con el nombre establecido, por ejemplo, vinyl_mix.
+
+00:08:01.546 --> 00:08:03.216 align:middle
+Pero, ¡sorpresa!
+
+00:08:03.676 --> 00:08:04.906 align:middle
+¡No necesitamos hacer eso!
+
+00:08:05.576 --> 00:08:10.146 align:middle
+¿Por qué? Porque Doctrine es muy
+bueno generando grandes nombres.
+
+00:08:10.816 --> 00:08:15.906 align:middle
+Genera el nombre de la tabla transformando
+la clase en caso de serpiente.
+
+00:08:16.416 --> 00:08:21.916 align:middle
+Así que incluso sin ORM\Table,
+éste será el nombre de la tabla.
+
+00:08:22.746 --> 00:08:24.426 align:middle
+Lo mismo ocurre con las propiedades.
+
+00:08:24.826 --> 00:08:29.026 align:middle
+$trackCount se asignará a
+una columna de track_count.
+
+00:08:29.726 --> 00:08:33.596 align:middle
+Doctrine se encarga de todo esto
+por nosotros: no tenemos que
+
+00:08:33.596 --> 00:08:36.386 align:middle
+pensar en absoluto en los nombres
+de nuestras tablas o columnas.
+
+00:08:37.316 --> 00:08:42.816 align:middle
+Llegados a este punto, hemos ejecutado make:entity
+y nos ha generado una clase de entidad.
+
+00:08:43.286 --> 00:08:45.276 align:middle
+¡Bien! Pero...
+
+00:08:45.276 --> 00:08:51.046 align:middle
+todavía no tenemos una tabla
+vinyl_mix en nuestra base de datos.
+
+00:08:51.716 --> 00:08:53.246 align:middle
+¿Cómo creamos una?
+
+00:08:53.776 --> 00:08:57.116 align:middle
+Con la magia de las
+migraciones de bases de datos.
+
+00:08:57.376 --> 00:08:58.406 align:middle
+Eso a continuación
