@@ -1,0 +1,227 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.196 align:middle
+¡Hemos creado una clase de entidad!
+
+00:00:03.486 --> 00:00:05.296 align:middle
+Pero... eso es todo.
+
+00:00:05.676 --> 00:00:09.456 align:middle
+La tabla correspondiente aún no
+existe en nuestra base de datos.
+
+00:00:10.016 --> 00:00:10.536 align:middle
+Pensemos.
+
+00:00:11.156 --> 00:00:14.176 align:middle
+En teoría, Doctrine conoce nuestra entidad,
+
+00:00:14.466 --> 00:00:18.796 align:middle
+todas sus propiedades y
+sus atributos ORM\Column.
+
+00:00:18.796 --> 00:00:24.396 align:middle
+Entonces... ¿no debería Doctrine ser capaz de
+crear esa tabla por nosotros automáticamente?
+
+00:00:24.976 --> 00:00:26.856 align:middle
+Sí, puede hacerlo.
+
+00:00:27.656 --> 00:00:33.186 align:middle
+Cuando instalamos Doctrine antes, venía con
+una biblioteca de migraciones que es increíble.
+
+00:00:33.786 --> 00:00:34.266 align:middle
+¡Compruébalo!
+
+00:00:34.876 --> 00:00:39.706 align:middle
+Cada vez que hagas un cambio en la estructura de tu
+base de datos, como añadir una nueva clase de entidad,
+
+00:00:40.086 --> 00:00:46.156 align:middle
+o incluso añadir una nueva propiedad a una
+entidad existente, debes ir a tu terminal
+
+00:00:46.316 --> 00:00:51.726 align:middle
+y ejecutar symfony console make:migration En
+este caso, estoy ejecutando symfony console
+
+00:00:51.846 --> 00:00:55.566 align:middle
+porque esto va a hablar
+con nuestra base de datos.
+
+00:00:55.566 --> 00:00:56.666 align:middle
+Ejecuta eso y...
+
+00:00:57.116 --> 00:01:01.676 align:middle
+¡perfecto! Se ha creado un nuevo
+archivo en el directorio migrations/
+
+00:01:02.106 --> 00:01:04.236 align:middle
+con una marca de tiempo para la fecha de hoy.
+
+00:01:04.966 --> 00:01:05.706 align:middle
+¡Vamos a comprobarlo!
+
+00:01:05.706 --> 00:01:08.786 align:middle
+Busca migrations/ y abre el nuevo archivo.
+
+00:01:09.546 --> 00:01:12.396 align:middle
+Éste contiene una clase con
+los métodos up() y down()...
+
+00:01:12.676 --> 00:01:18.376 align:middle
+aunque nunca ejecuto las migraciones en sentido
+"descendente", así que nos centraremos sólo en up().
+
+00:01:19.186 --> 00:01:21.316 align:middle
+Y... ¡esto es genial!
+
+00:01:21.676 --> 00:01:27.756 align:middle
+El comando de migraciones vio nuestra entidad
+VinylMix, se dio cuenta de que faltaba su tabla
+
+00:01:27.756 --> 00:01:31.936 align:middle
+en la base de datos y generó
+el SQL necesario en Postgres
+
+00:01:32.186 --> 00:01:35.396 align:middle
+para crearla, incluyendo todas las columnas.
+
+00:01:35.806 --> 00:01:37.436 align:middle
+Ha sido muy fácil.
+
+00:01:38.306 --> 00:01:41.196 align:middle
+Vale... entonces, ¿cómo
+ejecutamos esta migración?
+
+00:01:41.976 --> 00:01:48.606 align:middle
+De vuelta a tu terminal, ejecuta: symfony
+console doctrine:migrations:migrate Di y
+
+00:01:48.606 --> 00:01:50.146 align:middle
+para confirmar y...
+
+00:01:50.476 --> 00:01:51.256 align:middle
+¡guapísimo!
+
+00:01:51.656 --> 00:01:55.556 align:middle
+Nos dice que es Migrating
+up to esa versión concreta.
+
+00:01:56.106 --> 00:01:57.076 align:middle
+Parece...
+
+00:01:57.076 --> 00:01:58.056 align:middle
+¡que ha funcionado!
+
+00:01:58.786 --> 00:02:01.776 align:middle
+Para asegurarte, puedes probar
+con otro comando bin/console:
+
+00:02:02.016 --> 00:02:07.976 align:middle
+symfony console doctrine:query:sql
+con SELECT * FROM vinyl_mix.
+
+00:02:08.776 --> 00:02:09.876 align:middle
+Cuando probamos eso...
+
+00:02:10.546 --> 00:02:12.236 align:middle
+¡Ups! Perdona mi error tipográfico...
+
+00:02:12.516 --> 00:02:13.706 align:middle
+no hay nada que ver aquí.
+
+00:02:14.446 --> 00:02:15.736 align:middle
+Inténtalo de nuevo y...
+
+00:02:16.246 --> 00:02:18.586 align:middle
+¡perfecto! ¡No hay ningún error!
+
+00:02:19.006 --> 00:02:23.006 align:middle
+Sólo dice que The query
+yielded an empty result set.
+
+00:02:23.776 --> 00:02:30.196 align:middle
+Si esa tabla no existiera, como
+vinyl_foo, Doctrine nos habría gritado.
+
+00:02:30.196 --> 00:02:32.926 align:middle
+Así pues, ¡la migración sí se ejecutó!
+
+00:02:33.806 --> 00:02:37.186 align:middle
+Este hermoso sistema
+merece alguna explicación.
+
+00:02:37.846 --> 00:02:41.256 align:middle
+Ejecuta de nuevo symfony console
+doctrine:migrations:migrate.
+
+00:02:42.556 --> 00:02:43.176 align:middle
+¡Compruébalo!
+
+00:02:43.516 --> 00:02:48.426 align:middle
+¡Es lo suficientemente inteligente como para
+evitar ejecutar esa migración por segunda vez!
+
+00:02:49.046 --> 00:02:51.506 align:middle
+Sabe que ya lo hizo.
+
+00:02:52.146 --> 00:02:53.306 align:middle
+Pero... ¿cómo?
+
+00:02:54.046 --> 00:03:00.816 align:middle
+Prueba a ejecutar otro comando: symfony console
+doctrine:migrations:status Esto da alguna
+
+00:03:00.816 --> 00:03:02.896 align:middle
+información general sobre
+el sistema de migración.
+
+00:03:03.546 --> 00:03:12.066 align:middle
+La parte más importante está en Storage donde
+dice Table Name y doctrine_migration_versions. El
+
+00:03:12.876 --> 00:03:19.696 align:middle
+asunto es el siguiente: la primera vez que ejecutamos
+la migración, Doctrine creó esta tabla especial,
+
+00:03:20.106 --> 00:03:26.766 align:middle
+que almacena literalmente una lista de todas
+las clases de migración que se han ejecutado.
+
+00:03:27.516 --> 00:03:30.376 align:middle
+Entonces, cada vez que ejecutamos
+doctrine:migrations:migrate,
+
+00:03:30.806 --> 00:03:37.316 align:middle
+busca en nuestro directorio migrations/, encuentra
+todas las clases, comprueba en la base de datos
+
+00:03:37.316 --> 00:03:42.786 align:middle
+cuáles no se han ejecutado
+ya, y sólo llama a esas.
+
+00:03:43.506 --> 00:03:49.556 align:middle
+Una vez terminadas las nuevas migraciones, las añade
+como filas a la tabla doctrine_migration_versions.
+
+00:03:50.286 --> 00:03:52.326 align:middle
+Puedes visualizar esta tabla ejecutando:
+
+00:03:52.536 --> 00:03:59.836 align:middle
+symfony console doctrine:migrations:list Ve nuestra
+única migración y sabe que ya la ha ejecutado.
+
+00:04:00.386 --> 00:04:01.816 align:middle
+¡Incluso tiene la fecha!
+
+00:04:02.606 --> 00:04:03.326 align:middle
+Esto es genial...
+
+00:04:03.716 --> 00:04:05.496 align:middle
+pero vamos a ir más allá.
+
+00:04:06.376 --> 00:04:12.976 align:middle
+A continuación, añadamos una nueva propiedad a nuestra entidad
+y generemos una segunda migración para añadir la columna
