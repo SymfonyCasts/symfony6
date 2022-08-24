@@ -1,37 +1,154 @@
-# Query Builder
+# The Query Builder
 
-The `/browse` page is working, but what if we click on one of these genres? Well... it *kind of* works. It shows the name of the genre, but no matter what we click, we just get all of the mixes. What we *really* want is to filter these mixes by genre and only show the ones that match. Right now, all of the mixes are in the "Pop" genre, so to make our data a little more interesting, head back into `MixController.php`, find our fake method that creates new mixes, and let's create a `$genres` variable with "Pop" *and* "Rock" included.
+The `/browse` page is working... but what if we click on one of these genres? Well...
+it *kind of* works. It shows the *name* of the genre... but we always get a list
+of *all* the mixes. What we *really* want is to filter these to only show the mixes
+for *that* specific genre.
 
-We'll start by randomly choosing one of those genres with `$mix->setGenre()`. Then we'll say `$genres` and we can use use `array_rand($genres)`. Cool! Now we can go to `/mix/new`, refresh this a few times so we get about 15 mixes, and then, back on the `/browse` page... yes! We have a mix of some "Rock" and some "Pop" in here, but it *still* doesn't filter correctly.
+Right now, every mix in the database is in the "Pop" genre. So to make our data a
+bit more interesting, head back into `MixController`, find the fake method
+that creates new mixes, and add a `$genres` variable with "Pop" *and* "Rock"
+included. Then select a random with with `$genres[array_rand($genres)]`.
 
-So how can we customize the query to *only* return the results for a certain genre? We can actually do that in `VinylController.php` via this `findBy()` method. The genre is in the URL as this `$slug` wild card, so we can use this to our advantage. We *could* add an "if" statement so we can query where the `genre` matches the `$slug`. *But* this is a great opportunity to learn how to create custom queries, so let me undo that. When you want to create a custom query, you're going to do that in the repository. If we need to query for the `VinylMix` entity, for example, we're going to do that in `VinylMixRepository.php`. There are already a few example methods in here with custom queries. Let's un-comment the first one, and then start *simple*. I'm going to say `findAllOrderedByVotes()`. We won't worry about the genre at all yet. I just want to make a query that returns all of the mixes ordered by votes. I'll also remove that argument. This is going to return an array and the PHP documentation up here helps it know that it's going to be an array of `VinylMix` objects.
+Cool! Now go to `/mix/new` and refresh a few times... until we have about 15
+mixes. Back on `/browse`... yup! We have a mix of "Rock" and "Pop" genres... they
+just don't *filter* yet.
 
-There are a few different ways to create a custom query in Doctrine. Doctrine eventually makes SQL queries, but it works with MySQL and Postgres SQL, and all of the SQL for each of those look a little different. Internally, Doctrine has its own query language (which will feel very familiar) called Doctrine Query Language or "DQL". If you saw DQL as a string, it would look something like `SELECT * FROM vinyl_mix`. So you *can* write this string DQL by hand, but it's more common to create something called a "QueryBuilder", which is this nice object that helps you build a query step-by-step.
+So our mission is clear: to customize the database query to *only* return the results
+for a specific genre? Ok, we can actually do that super easily in `VinylController`
+via the `findBy()` method. The genre is in the URL as the `$slug` wildcard.
 
-Let's do that. We can start with `$this->createQueryBuilder()`, and then this first argument is going to be the alias. This could be anything, but let's say `mix`. Since we're in the `VinylMixRepository`, it knows we're going to query from the `vinyl_mix` table. So, once again, this is basically like `SELECT * FROM vinyl_mix AS mix`.
+So we *could* add an "if" statement where if there *is* a genre, we return all
+the results where `genre` matches `$slug`. *But* this is a *great* opportunity to
+learn how to create a custom query. So let me undo that.
 
-Then, one of the methods we can call here is `->orderBy()`, and we can pass this `mix`, since that's our alias, with `.votes`. I'll follow this with `DESC`, and *that's it*. When we're done with the QueryBuilder, we always call `->getQuery()` (that turns it into a query object), and then `->getResult()`.
+## Custom Repository Method
 
-There are a number of methods you can call in here to get the results. The main two that you need to know about are `getResult()`, which returns an array of results, or `getOneOrNullResult()`, which is what you would use if you were querying for a specific vinyl mix. It would return that *one* object or "null". In our case, we want to return the array of results, so we'll use `getResult()`.
+The best way to do a custom query, is to create a new method in the *repository*
+class for whatever entity you're fetching data for. In this case, that means
+`VinylMixRepository`. This are holds a few example methods. Let's un-comment
+the first... and then start *simple*. Call it `findAllOrderedByVotes()`. We won't
+worry about the genre quite yet, I just want to make a query that returns all of
+the mixes ordered by votes. Remove the argument, this will return an array and the
+PHPdoc above helps my editor know that this will be an array of `VinylMix` objects
 
-All right, let's try that! Over in `VinylController.php` (let me close `MixController.php`...), instead of `findBy()`, we're going to call `findAllOrderedByVotes()`. *Immediately*, I love how clear that method is. I can see *exactly* what I'm querying for. And when we try it... it still works! It's not filtering yet, but you can see that the order is correct.
+## DQL and the QueryBuilder
 
-Okay, on our new method, let's add an optional `string $genre` argument. Say `string $genre = null`, and then, if the genre is passed, we're going to add a "where" statement. I'm going to break this statement onto multiple lines, and then I'll replace this `return` with `$queryBuilder =`. Below, we'll say `return $queryBuilder` with `->getQuery()`, and `->getResult()`.
+There are a few different ways to execute a custom query in Doctrine. Doctrine,
+of course, eventually makes SQL queries. But because Doctrine works with MySQL,
+Postgres and other database engines... all the SQL needed for each of those will
+look a little different.
 
-So far, this makes *no* change. We're just breaking this onto multiple lines. *Now*, we can say `if ($genre)`, and we'll add our "where" statement. How do we do that? It's a method on our QueryBuilder! Say `$queryBuilder->andWhere()`.
+To handle this, internally, Doctrine has its own query language called Doctrine Query
+Language or "DQL", which looks something like:
 
-A word of warning here: There's *also* a `where()` method. I *never* use that method. When you call `where()`, it will clear out any other "where" statements you might have, so you might accidentally *remove* a "where" statement that you added earlier. *Always* use `andWhere()`. And even though we don't have a "where" statement yet, Doctrine is smart enough to figure that out and avoid causing an error.
+> SELECT v FROM App\Entity\VinylMix v WHERE v.genre = 'pop';
 
-Inside of the `andWhere()`, we'll pass `mix.genre =`, but we don't actually put the genre right here. That is a *huge* no-no. Never *ever* do that. That opens you up for SQL injection attacks and that is *bad news*. Instead, whenever you put a dynamic value into a query, you always use a prepared statement, which is a fancy way of saying that you put a little placeholder here, like `:genre`, and the name of this could be *anything*. You could call it "dinosaur" if you want, but whatever you put here, you'll then fill in the placeholder by saying `->setParameter()` with the *name* of the parameter - so `genre` - and then whatever value that needs - in our case, our *dynamic* `$genre`. Beautiful! Now, over in `VinylController.php`, we can pass our `$slug` genre.
+You *can* write these strings by hand. But usually I leverage Doctrine's
+"QueryBuilder": a nice object that helps *build* this string step-by-step.
 
-Okay, let's try this! I'm going to click back to the `/browse` page first. Awesome! We get all of the results. Now we'll click "Rock" and... nice! Less results, and the genre is only "Rock"! If I filter by "Pop"... awesome! And we can even see the query for this if we want to. Here it is, and it's got the "where" statement for the genre, equaling "Pop". Woo!
+## Creating the QueryBuilder
 
-As your project gets bigger and bigger, you're going to create more and more custom methods in here for custom queries. And you may find that you start repeating the same query logic over and over again. For example, we might eventually order by the votes in a bunch of different methods inside of this repository. To avoid duplication, we can isolate this into a private method. Check this out! We can say `private function addOrderByVotesQueryBuilder()`, and then this will accept a `QueryBuilder` argument (we want the one from `Doctrine\ORM`), but let's make it *optional*. And this method itself will return a `QueryBuilder`.
+Let's do that. Start with `$this->createQueryBuilder()` and pass this an *alias*
+for this class. This could be anything... but let's say `mix`.
 
-The job of this method will be to basically add this `->orderBy()` line here. We can pass it a `$queryBuilder` that it will modify, and if we don't, it will just create a new one. So we can start here by saying `$queryBuilder = $queryBuilder ?? $this->createQueryBuilder()`, and we want to use that same `mix` alias every time we create a QueryBuilder. This might look a little weird, but it basically says "If there *is* a QueryBuilder, then just use it. Else, create a new one".
+Because we're calling this from inside of `VinylMixRepository`, the QueryBuilder
+already knows to query from the `VinylMix` entity using "mix" as the alias. If
+we executed this query builder right now, it would basically be:
 
-Then, down here, we'll say `return $queryBuilder`, and I'm going to go steal this `->orderBy()` logic from up here and... paste. Awesome! And you can see that PhpStorm is a little angry with me right now. This is just because my PhpStorm is erroring out and needs to be restarted. So if you're a little confused by PhpStorm here, that's what's happening.
+> SELECT * FROM vinyl_mix AS mix
 
-Anyway, up here, we can simply say `$queryBuilder = $this->addOrderByVotesQueryBuilder()` and we'll pass it *nothing*. It will create that QueryBuilder for us, add the `orderBy()`, and when we refresh... that *still* works.
+The query builder is *loaded* with methods to control the query. For example,
+call `->orderBy()` and pass this `mix` - since that's our alias - `.votes` then
+`DESC`.
 
-Next, let's add a "mix show" page where we can view a *single* vinyl mix. For the first time, we'll query for a single object from the database, and deal with what happens if *no* matching mix is found.
+Done! Now that our query is built, to execute it we always call `->getQuery()` (that
+turns it into a `Query` object) and then `->getResult()`.
+
+Well actually, there are a number of methods you can call to get the results.
+The main two are `getResult()` - which returns an *array* of the matching objects -
+or `getOneOrNullResult()`, which is what you would use if you were querying for
+one *specific* `VinylMix`. Because we want to return an array of matching mixes,
+we're using `getResult()`.
+
+Ok, let's try that! Over in `VinylController` (let me close `MixController`...),
+instead of `findBy()`, call `findAllOrderedByVotes()`.
+
+I *love* how clear that method is: it makes it super obvious exactly *what*
+we're querying for. And when we try it... it still works! It's not filtering yet,
+but the order *is* correct.
+
+## Adding the WHERE Statement
+
+Okay, back to our new method. Add an optional `string $genre = null` argument.
+*If* a genre is passed, we need to add a "where" statement. I'm going to break this
+onto multiple lines... and then replace `return` with `$queryBuilder =`. Below,
+say `return $queryBuilder` with `->getQuery()`, and `->getResult()`.
+
+*Now* we can say `if ($genre)`, and add the "where" statement. How? Easy!
+`$queryBuilder->andWhere()`.
+
+Oh, but a word of warning. There is *also* a `where()` method... but I *never* use
+that. When you call `where()`, it will *clear* any existing "where" statements
+that the query builder might have... so you might accidentally *remove* something
+you added earlier. So, *always* use `andWhere()`. Doctrine is smart enough to figure
+out that, because this is the *first* WHERE, it doesn't actually need to add the
+`AND`.
+
+Inside of `andWhere()`, pass `mix.genre =`... but *don't* actually put the genre
+right in the string. That is a *huge* no-no. Never *ever* do that. That opens you
+up for SQL injection attacks... which is *bad news*. Instead, whenever you need
+to put a dynamic value into a query, use a "prepared statement"... which is a fancy
+way of saying that you put a placeholder here, like `:genre`. The name of this could
+be *anything*... you could call it "dinosaur" if you want. But *whatever* you put
+here, you'll then fill *in* the placeholder by saying `->setParameter()` with the
+*name* of the parameter - so `genre` - and then whatever value is - in our case,
+`$genre`.
+
+Beautiful! Back over in `VinylController`, pass `$slug` as the genre.
+
+Okay, let's try this! Click back to the `/browse` page first. Awesome! We get all
+the results. Now click "Rock" and... nice! Less results, all genres show "Rock"!
+If I filter by "Pop"... got it! We can even see the query for this... here it is.
+It has the "where" statement for genre, equaling "Pop". Woo!
+
+## Reusing Query Builder Logic
+
+As your project gets bigger and bigger, you're going to create more and more methods
+in your repository for custom queries. And you may start repeating the same query
+logic over and over again. For example, we might eventually order by the votes in
+a *bunch* of different methods in this class.
+
+To avoid duplication, we can isolate that logic into a private method. Check oit
+out! Add `private function addOrderByVotesQueryBuilder()`. This will accept a
+`QueryBuilder` argument (we want the one from `Doctrine\ORM`), but let's make it
+*optional*. And we will also *return* a `QueryBuilder`.
+
+The job of this method is to add this `->orderBy()` line. And for convenience,
+if we don't pass in a `$queryBuilder`, we'll create a new one.
+
+To handle that, start by saying
+`$queryBuilder = $queryBuilder ?? $this->createQueryBuilder('mix')`. I'm
+purposely using `mix` again for the alias. To keep life simple, choose an alias
+for an entity and *consistently* use it everywhere.
+
+Anyways, this line itself may look weird, but it basically says:
+
+> If there *is* a QueryBuilder, then just use it. Else, create a new one.
+
+Below `return $queryBuilder`... and then go steal the `->orderBy()` logic from up
+here and... paste. Awesome!
+
+PhpStorm is a little angry with me... but that's just because PhpStorm is having
+a rough morning and needs a restart: our code is, hopefully, just fine.
+
+
+Back up in the original method, now we can simplify to
+`$queryBuilder = $this->addOrderByVotesQueryBuilder()` pass it *nothing*. *It* will
+create that QueryBuilder and add the `orderBy()`.
+
+When we refresh... it *still* works.
+
+Next, let's add a "mix show" page where we can view a *single* vinyl mix. For the
+first time, we'll query for a single object from the database and deal with what
+happens if *no* matching mix is found.
