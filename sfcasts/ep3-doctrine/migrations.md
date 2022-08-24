@@ -23,6 +23,8 @@ database. Run that and... perfect! It created one new file in a `migrations/`
 directory with a timestamp for today's date. Let's go check it out!
 Find `migrations/` and open the new file.
 
+[[[ code('2a34551803') ]]]
+
 This holds a class with `up()` and `down()` methods... though I never run migrations
 in the "down" direction, so we'll focus only on `up()`. And... this is great! The
 migrations command saw our `VinylMix` entity, *realized* that its table was missing
