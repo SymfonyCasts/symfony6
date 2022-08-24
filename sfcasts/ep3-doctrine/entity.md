@@ -79,6 +79,8 @@ or change our database at *all*. Nope, it simply generated two classes. The firs
 is `src/Entity/VinylMix.php`. The *second* is `src/Repository/VinylMixRepository.php`.
 Ignore the `Repository` one for now... we'll talk about its purpose in a few minutes.
 
+[[[ code('33b9a4adde') ]]]
+
 ## Checking out the Entity Class & Attributes
 
 Go open up the `VinylMix.php` entity. Say hello to... a... wow, pretty normal, boring
