@@ -54,6 +54,10 @@ And... done! By the way, notice this `return Command::SUCCESS`? That controls
 the exit code of your command, so you'll always want to have `Command::SUCCESS` at
 the bottom of your command. If there was an error, you could `return Command::ERROR`.
 
+***TIP
+Whoops, the correct constant name if the command fails is `Command::FAILURE`!
+***
+
 Okay, let's try this! Head over to your terminal and run:
 
 ```terminal
