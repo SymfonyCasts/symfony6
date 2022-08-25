@@ -33,11 +33,16 @@ just want to use Docker to make life easier for local development.
 [[[ code('4a4d66d50e') ]]]
 
 These files say that they will boot a single Postgres database container
-with a user called `symfony` and password `ChangeMe`. It will also expose port
-5432 of the container - that's Postgres's normal port - to our *host* machine on
-a *random* port. This means that we're going to be able to talk to the Postgresql
-Docker container as *if* it were running on our local machine... as long as we know
-the random port that Docker chose. We'll see how that works in a minute.
+with a user called `symfony` and password `ChangeMe`:
+
+***TIP
+The username changed from `symfony` to `app` in the newest recipe version.
+***
+
+It will also expose port 5432 of the container - that's Postgres's normal port - to our
+*host* machine on a *random* port. This means that we're going to be able to talk to the
+Postgresql Docker container as *if* it were running on our local machine... as long as
+we know the random port that Docker chose. We'll see how that works in a minute.
 
 By the way, if you want to use MySQL instead of Postgres, you absolutely can.
 Feel free to update these files... or delete both of them and run:
