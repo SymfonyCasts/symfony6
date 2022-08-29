@@ -1,0 +1,255 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:06.476 align:middle
+En nuestra entidad VinylMix, olvidé
+añadir antes una propiedad: votes.
+
+00:00:07.076 --> 00:00:12.636 align:middle
+Vamos a llevar la cuenta del número de votos a
+favor o en contra que tiene una determinada mezcla.
+
+00:00:13.496 --> 00:00:17.556 align:middle
+Bien... ¿cómo podemos añadir
+una nueva propiedad a una entidad?
+
+00:00:18.316 --> 00:00:23.456 align:middle
+Bueno, podemos hacerlo a mano: todo lo que
+tenemos que hacer es crear la propiedad
+
+00:00:23.636 --> 00:00:25.636 align:middle
+y los métodos getter y setter.
+
+00:00:26.246 --> 00:00:31.596 align:middle
+Pero, una forma mucho más fácil es volver
+a nuestro comando favorito make:entity:
+
+00:00:32.506 --> 00:00:37.326 align:middle
+Éste se utiliza para crear entidades, pero
+también podemos utilizarlo para actualizarlas.
+
+00:00:38.146 --> 00:00:40.566 align:middle
+Escribe VinylMix como nombre de la clase y...
+
+00:00:41.056 --> 00:00:43.306 align:middle
+¡vea que existe!
+
+00:00:44.016 --> 00:00:45.776 align:middle
+Añade una nueva propiedad: votes...
+
+00:00:46.486 --> 00:00:49.776 align:middle
+haz que sea un integer, di "no" a anulable..
+
+00:00:50.306 --> 00:00:51.956 align:middle
+y pulsa "enter" para terminar.
+
+00:00:52.576 --> 00:00:53.976 align:middle
+¿El resultado final?
+
+00:00:54.516 --> 00:00:56.106 align:middle
+Nuestra clase tiene una nueva propiedad...
+
+00:00:56.576 --> 00:00:58.426 align:middle
+y métodos getter y setter a continuación.
+
+00:00:59.416 --> 00:01:01.056 align:middle
+Bien, pensemos.
+
+00:01:01.616 --> 00:01:05.576 align:middle
+Tenemos una tabla vinyl_mix
+en la base de datos...
+
+00:01:05.946 --> 00:01:10.356 align:middle
+pero aún no tiene la nueva columna votes.
+
+00:01:11.106 --> 00:01:13.486 align:middle
+Tenemos que modificar la tabla para añadirla.
+
+00:01:14.176 --> 00:01:15.586 align:middle
+¿Cómo podemos hacerlo?
+
+00:01:16.116 --> 00:01:19.856 align:middle
+Exactamente igual que
+antes: ¡con una migración!
+
+00:01:20.436 --> 00:01:25.886 align:middle
+En tu terminal, ejecuta: symfony console
+make:migration Luego ve a ver la nueva clase.
+
+00:01:27.006 --> 00:01:28.856 align:middle
+¡Esto es increíble!
+
+00:01:29.316 --> 00:01:35.496 align:middle
+Dentro del método up(), dice ALTER
+TABLE vinyl_mix ADD votes INT NOT NULL
+
+00:01:36.086 --> 00:01:42.606 align:middle
+Así que vio nuestra entidad VinylMix,
+comprobó la tabla vinyl_mix en la base de datos
+
+00:01:43.026 --> 00:01:45.786 align:middle
+y generó una diferencia entre ellas.
+
+00:01:46.416 --> 00:01:51.266 align:middle
+Se dio cuenta de que, para que la base
+de datos se pareciera a nuestra entidad,
+
+00:01:51.896 --> 00:01:55.786 align:middle
+tenía que alterar la tabla
+y añadir esa columna votes.
+
+00:01:56.506 --> 00:01:58.846 align:middle
+Eso es sencillamente asombroso. De
+
+00:01:59.736 --> 00:02:05.836 align:middle
+vuelta al terminal, si ejecutas symfony
+console doctrine:migrations:list verás
+
+00:02:05.836 --> 00:02:12.156 align:middle
+que reconoce ambas migraciones y
+sabe que no ha ejecutado la segunda.
+
+00:02:13.006 --> 00:02:19.026 align:middle
+Para ello, ejecuta: symfony console doctrine:migrations:migrate
+Doctrine es lo suficientemente inteligente como
+
+00:02:19.026 --> 00:02:22.826 align:middle
+para saltarse la primera y ejecutar la segunda.
+
+00:02:23.176 --> 00:02:26.016 align:middle
+¡Qué bien! Cuando despliegues a producción,
+
+00:02:26.376 --> 00:02:30.086 align:middle
+todo lo que tienes que hacer es ejecutar
+doctrine:migrations:migrate cada vez. Se
+
+00:02:30.686 --> 00:02:33.946 align:middle
+encargará de ejecutar todas
+y cada una de las migraciones
+
+00:02:34.006 --> 00:02:37.836 align:middle
+que la base de datos de
+producción aún no haya ejecutado.
+
+00:02:38.756 --> 00:02:41.186 align:middle
+Vale, una cosa más rápida
+mientras estamos aquí.
+
+00:02:41.776 --> 00:02:46.686 align:middle
+Dentro de VinylMix, la nueva propiedad
+votes tiene por defecto null.
+
+00:02:47.326 --> 00:02:53.486 align:middle
+Pero cuando creamos un nuevo VinylMix, tendría
+mucho sentido poner por defecto los votos a cero.
+
+00:02:54.006 --> 00:02:56.526 align:middle
+Así que cambiemos esto a = 0.
+
+00:02:57.246 --> 00:03:04.586 align:middle
+¡Genial! Y si hacemos eso, la propiedad
+en PHP ya no necesita permitir null...
+
+00:03:04.916 --> 00:03:10.016 align:middle
+así que elimina el ?. Como
+estamos inicializando a un entero,
+
+00:03:10.446 --> 00:03:14.856 align:middle
+esta propiedad siempre será
+un int: nunca será nula.
+
+00:03:15.736 --> 00:03:17.026 align:middle
+Pero... Me pregunto...
+
+00:03:17.636 --> 00:03:21.986 align:middle
+como he hecho este cambio, ¿tengo que
+modificar algo en mi base de datos?
+
+00:03:22.676 --> 00:03:24.426 align:middle
+La respuesta es no.
+
+00:03:25.066 --> 00:03:30.766 align:middle
+Puedo comprobarlo ejecutando un comando muy
+útil: symfony console doctrine:schema:update
+
+00:03:30.936 --> 00:03:36.966 align:middle
+--dump-sql Es muy parecido
+al comando make:migration...
+
+00:03:37.466 --> 00:03:43.156 align:middle
+pero en lugar de generar un archivo con
+el SQL, sólo imprime el SQL necesario
+
+00:03:43.216 --> 00:03:44.646 align:middle
+para actualizar tu base de datos.
+
+00:03:44.646 --> 00:03:50.106 align:middle
+En este caso, muestra que nuestra base de datos
+ya está sincronizada con nuestra entidad.
+
+00:03:50.916 --> 00:03:55.346 align:middle
+La cuestión es: si inicializamos
+el valor de una propiedad en PHP...
+
+00:03:55.346 --> 00:03:57.476 align:middle
+eso es sólo un cambio en PHP.
+
+00:03:58.086 --> 00:04:00.406 align:middle
+No cambia la columna en la base de datos
+
+00:04:00.826 --> 00:04:04.986 align:middle
+ni le da un valor por defecto,
+lo cual está totalmente bien.
+
+00:04:05.906 --> 00:04:08.836 align:middle
+Vamos a inicializar otro campo: $createdAt.
+
+00:04:09.516 --> 00:04:16.396 align:middle
+Sería increíble que algo estableciera automáticamente
+esta propiedad cada vez que creamos un nuevo
+
+00:04:16.396 --> 00:04:17.886 align:middle
+objetoVinylMix...
+
+00:04:18.376 --> 00:04:21.046 align:middle
+en lugar de tener que establecerla manualmente.
+
+00:04:21.706 --> 00:04:28.566 align:middle
+Podemos hacerlo creando un método
+PHP __construct() a la vieja usanza.
+
+00:04:29.206 --> 00:04:34.156 align:middle
+Dentro, digamos $this->createdAt
+= new \DateTimeImmutable(),
+
+00:04:34.536 --> 00:04:36.856 align:middle
+que por defecto será ahora mismo.
+
+00:04:37.676 --> 00:04:38.236 align:middle
+Y ya está
+
+00:04:38.866 --> 00:04:44.616 align:middle
+Y... ya no necesitamos el = null ya
+que se inicializará aquí abajo...
+
+00:04:45.006 --> 00:04:51.786 align:middle
+y tampoco necesitamos el ?, porque
+siempre será un objeto DateTimeImmutable.
+
+00:04:52.446 --> 00:04:59.436 align:middle
+¡Muy bien! Gracias a esto, la propiedad $createdAt
+se establecerá automáticamente cada vez que
+
+00:04:59.436 --> 00:05:01.016 align:middle
+instanciemos nuestro objeto.
+
+00:05:01.636 --> 00:05:06.616 align:middle
+Y eso es sólo un cambio en PHP: no
+cambia la columna en la base de datos.
+
+00:05:07.546 --> 00:05:12.356 align:middle
+Muy bien, tenemos una entidad
+VinylMix y la tabla correspondiente.
+
+00:05:13.016 --> 00:05:18.396 align:middle
+A continuación, vamos a instanciar un objeto
+VinylMix y guardarlo en la base de datos
