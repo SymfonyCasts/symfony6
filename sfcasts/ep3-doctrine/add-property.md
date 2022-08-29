@@ -21,6 +21,8 @@ then hit "enter" to finish.
 
 The end result? Our class has a new property... and getter and setter methods below.
 
+[[[ code('c4d23cc903') ]]]
+
 ## Generating a Second Migration
 
 Ok, let's think. We have a `vinyl_mix` table in the database... but it does *not*
@@ -32,6 +34,8 @@ symfony console make:migration
 ```
 
 Then go check out the new class.
+
+[[[ code('4d17ed3986') ]]]
 
 This is amazing! Inside the `up()` method, it says
 
@@ -71,6 +75,8 @@ Cool! And if we do that, the property in PHP no longer needs to allow `null`...
 so remove the `?`. Because we're initializing to an integer, this property will
 *always* be an `int`: it will never be null.
 
+[[[ code('cb3daa06fb') ]]]
+
 But... I wonder... because I made this change, do I need to alter anything in my
 database? The answer is *no*. I can prove it by running a helpful command:
 
@@ -97,9 +103,13 @@ Whelp, we can do that by creating a good, old-fashioned PHP `__construct()` meth
 Inside, say `$this->createdAt = new \DateTimeImmutable()`, which will default to
 *right now*.
 
+[[[ code('9527d880e7') ]]]
+
 That's it! And... we don't need the `= null` anymore since it will be initialized
 down here... and we also don't need the `?`, because it will *always* be a
 `DateTimeImmutable` object.
+
+[[[ code('0598821470') ]]]
 
 Nice! Thanks to this, the `$createdAt` property will automatically be set
 *every time* we instantiate our object. And that's just a PHP change: it doesn't
