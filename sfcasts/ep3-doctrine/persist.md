@@ -15,6 +15,8 @@ To make this a page, above, use the `#[Route]` attribute, hit "tab" to
 autocomplete that and let's call the URL `/mix/new`. Finally, to see if this
 is working, `dd('new mix')`.
 
+[[[ code('550f9491ea') ]]]
+
 In the real world, this page might render a form. Then, when we submit that form,
 we would take its data, create a `VinylMix()` object and save it. We'll work on
 stuff like that in a future tutorial. For now, let's just see if this page works.
@@ -27,6 +29,8 @@ set, at the very least, all of the properties that have *required* columns in th
 database. For `trackCount`, how about some randomness for fun. And, for `votes`,
 the same thing... including *negative* votes... though the Internet would *never*
 be so cruel as to downvote any of my mixes *that* much. Finally, `dd($mix)`.
+
+[[[ code('1fe585eee9') ]]]
 
 So far, this has *nothing* to do with Doctrine. We're just creating an object and
 setting data onto it. This data is hard-coded, but you can imagine replacing this
@@ -60,6 +64,8 @@ going to use it to *save*, *and* indirectly when we *query*. To save, call
 `$entityManager->persist()` and pass it the object that we want to save (in this
 case, `$mix`). Then we also need to call `$entityManager->flush()` with *no* arguments.
 
+[[[ code('7fcf0dd0be') ]]]
+
 But... wait. Why do we have to call *two* methods?
 
 Here's the deal. When we call `persist()`, that doesn't actually *save* the object
@@ -78,6 +84,8 @@ Okay, to make this a valid page, let's `return new Response()` from
 HttpFoundation and I'll use `sprintf` to return a message:
 `mix %d is %d tracks of pure 80\'s heaven`... and for those two wildcards,
 pass `$mix->getId()` and `$mix->getTrackCount()`.
+
+[[[ code('120c0e0334') ]]]
 
 Let's try it! Move over, refresh and... yes! We see "Mix 1". That's so cool! *We*
 never actually *set* the ID (which makes sense). But when we *saved*, Doctrine
