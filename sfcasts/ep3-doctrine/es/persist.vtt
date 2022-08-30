@@ -1,0 +1,340 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:02.596 align:middle
+Ahora que tenemos una clase de entidad
+
+00:00:02.596 --> 00:00:06.716 align:middle
+y la tabla correspondiente, ¡estamos
+listos para guardar algunas cosas!
+
+00:00:07.416 --> 00:00:10.696 align:middle
+Entonces... ¿cómo
+insertamos filas en la tabla?
+
+00:00:11.316 --> 00:00:12.756 align:middle
+¡Pregunta equivocada!
+
+00:00:13.306 --> 00:00:18.256 align:middle
+Sólo vamos a centrarnos en
+crear objetos y guardarlos.
+
+00:00:18.816 --> 00:00:21.836 align:middle
+Doctrine se encargará de las
+consultas de inserción por nosotros.
+
+00:00:22.646 --> 00:00:28.886 align:middle
+Para ayudar a hacer esto de la forma más sencilla posible,
+vamos a hacer una página falsa de "nueva mezcla de vinilo".
+
+00:00:29.726 --> 00:00:34.076 align:middle
+En el directorio src/Controller/,
+crea una nueva clase MixController
+
+00:00:35.576 --> 00:00:38.986 align:middle
+y haz que ésta extienda la
+normal AbstractController.
+
+00:00:39.676 --> 00:00:43.516 align:middle
+Perfecto Dentro, añade un
+public function llamado new()
+
+00:00:44.046 --> 00:00:47.486 align:middle
+que devolverá un Response de HttpFoundation.
+
+00:00:48.336 --> 00:00:53.786 align:middle
+Para que sea una página, arriba, utiliza el
+atributo #[Route], dale a "tab" para autocompletarlo
+
+00:00:53.786 --> 00:00:57.716 align:middle
+y llamemos a la URL /mix/new.
+
+00:00:58.476 --> 00:01:02.866 align:middle
+Por último, para ver si
+esto funciona, dd('new mix').
+
+00:01:03.746 --> 00:01:06.986 align:middle
+En el mundo real, esta página
+podría mostrar un formulario.
+
+00:01:07.446 --> 00:01:11.386 align:middle
+Luego, al enviar ese formulario,
+tomaríamos sus datos,
+
+00:01:11.606 --> 00:01:14.566 align:middle
+crearíamos un objeto
+VinylMix() y lo guardaríamos.
+
+00:01:15.176 --> 00:01:17.986 align:middle
+Trabajaremos en cosas así
+en un futuro tutorial.
+
+00:01:18.726 --> 00:01:21.576 align:middle
+Por ahora, vamos a ver
+si esta página funciona.
+
+00:01:22.006 --> 00:01:24.866 align:middle
+Dirígete a /mix/new y...
+
+00:01:25.286 --> 00:01:29.646 align:middle
+¡lo tienes! Bien, ¡vamos a
+crear un objeto VinylMix()!
+
+00:01:30.046 --> 00:01:32.666 align:middle
+Hazlo con $mix = new VinylMix()...
+
+00:01:33.166 --> 00:01:35.406 align:middle
+¡y luego podemos empezar a poner datos en él!
+
+00:01:36.246 --> 00:01:40.646 align:middle
+Vamos a crear una mezcla de uno de
+mis artistas favoritos de la infancia.
+
+00:01:41.386 --> 00:01:43.946 align:middle
+Voy a establecer rápidamente
+algunas otras propiedades...
+
+00:01:44.646 --> 00:01:48.286 align:middle
+tenemos que establecer, como
+mínimo, todas las propiedades
+
+00:01:48.286 --> 00:01:51.406 align:middle
+que tienen columnas necesarias
+en la base de datos.
+
+00:01:52.346 --> 00:01:55.596 align:middle
+Para trackCount, qué tal un poco
+de aleatoriedad para divertirse.
+
+00:01:56.776 --> 00:01:59.386 align:middle
+Y, para votes, lo mismo...
+
+00:01:59.386 --> 00:02:01.246 align:middle
+incluyendo los votos negativos...
+
+00:02:01.646 --> 00:02:08.116 align:middle
+aunque Internet nunca sería tan cruel como
+para votar negativamente alguna de mis mezclas.
+
+00:02:08.986 --> 00:02:10.686 align:middle
+Por último, dd($mix).
+
+00:02:11.266 --> 00:02:14.086 align:middle
+Hasta ahora, esto no tiene
+nada que ver con la Doctrine.
+
+00:02:14.446 --> 00:02:17.766 align:middle
+Sólo estamos creando un
+objeto y poniendo datos en él.
+
+00:02:18.606 --> 00:02:22.456 align:middle
+Estos datos están codificados, pero
+puedes imaginar que se sustituyen
+
+00:02:22.456 --> 00:02:25.786 align:middle
+por lo que el usuario acaba de
+enviar a través de un formulario.
+
+00:02:26.616 --> 00:02:29.966 align:middle
+Independientemente de dónde obtengamos
+los datos, cuando actualicemos...
+
+00:02:30.376 --> 00:02:32.936 align:middle
+tenemos un objeto con datos en él.
+
+00:02:33.546 --> 00:02:37.616 align:middle
+¡Genial! Por cierto, nuestra
+clase de entidad, VinylMix,
+
+00:02:38.026 --> 00:02:42.666 align:middle
+es la primera clase que hemos
+creado que no es un servicio.
+
+00:02:43.386 --> 00:02:46.306 align:middle
+En general, hay dos tipos de clases. En
+
+00:02:46.616 --> 00:02:51.166 align:middle
+primer lugar, están los objetos
+de servicio, como TalkToMeCommand
+
+00:02:51.216 --> 00:02:54.956 align:middle
+o el MixRepository que creamos
+en el último tutorial.
+
+00:02:55.776 --> 00:02:58.336 align:middle
+Estos objetos funcionan...
+
+00:02:58.716 --> 00:03:03.916 align:middle
+pero no contienen ningún dato, aparte
+de quizás alguna configuración básica.
+
+00:03:04.616 --> 00:03:09.556 align:middle
+Y siempre obtenemos los servicios del
+contenedor, normalmente mediante autoconexión.
+
+00:03:10.106 --> 00:03:12.726 align:middle
+Nunca los instanciamos directamente.
+
+00:03:13.676 --> 00:03:18.416 align:middle
+El segundo tipo de clases son las
+clases de datos como VinylMix.
+
+00:03:19.016 --> 00:03:23.396 align:middle
+El trabajo principal de estas
+clases es mantener los datos.
+
+00:03:24.046 --> 00:03:29.686 align:middle
+No suelen hacer ningún trabajo, salvo
+quizá alguna manipulación básica de datos.
+
+00:03:30.306 --> 00:03:34.986 align:middle
+Y a diferencia de los servicios, no
+obtenemos estos objetos del contenedor.
+
+00:03:35.516 --> 00:03:41.856 align:middle
+En su lugar, los creamos manualmente donde y
+cuando los necesitemos, ¡como acabamos de hacer!
+
+00:03:42.716 --> 00:03:46.786 align:middle
+De todos modos, ahora que tenemos un
+objeto, ¿cómo podemos guardarlo?
+
+00:03:47.546 --> 00:03:50.836 align:middle
+Bueno, guardar algo en la
+base de datos es un trabajo.
+
+00:03:51.216 --> 00:03:55.836 align:middle
+Y por eso, no es de extrañar,
+¡ese trabajo lo hace un servicio!
+
+00:03:56.566 --> 00:04:01.456 align:middle
+Añade un argumento al método,
+indicado con EntityManagerInterface.
+
+00:04:01.976 --> 00:04:03.616 align:middle
+Llamémoslo $entityManager.
+
+00:04:04.406 --> 00:04:09.926 align:middle
+EntityManagerInterface es, con mucho, el
+servicio más importante para Doctrine.
+
+00:04:10.476 --> 00:04:15.326 align:middle
+Lo vamos a utilizar para guardar, e
+indirectamente cuando hagamos una consulta.
+
+00:04:16.246 --> 00:04:21.386 align:middle
+Para guardar, llamamos a
+$entityManager->persist() y le pasamos el objeto
+
+00:04:21.386 --> 00:04:24.386 align:middle
+que queremos guardar (en este caso, $mix).
+
+00:04:25.016 --> 00:04:31.276 align:middle
+Luego también tenemos que llamar a
+$entityManager->flush() sin argumentos.
+
+00:04:31.976 --> 00:04:32.796 align:middle
+Pero... espera.
+
+00:04:33.106 --> 00:04:35.536 align:middle
+¿Por qué tenemos que llamar a dos métodos?
+
+00:04:36.276 --> 00:04:36.886 align:middle
+Esto es lo que pasa.
+
+00:04:37.486 --> 00:04:44.526 align:middle
+Cuando llamamos a persist(), en realidad no
+guarda el objeto ni habla con la base de datos.
+
+00:04:45.136 --> 00:04:47.316 align:middle
+Sólo le dice a Doctrine: ¡Oye!
+
+00:04:47.666 --> 00:04:51.146 align:middle
+Quiero que seas "consciente" de este objeto,
+
+00:04:51.546 --> 00:04:55.436 align:middle
+para que luego, cuando llamemos a
+flush(), sepas que debes guardarlo.
+
+00:04:56.176 --> 00:05:01.146 align:middle
+La mayoría de las veces, verás estas dos
+líneas juntas: persist() y luego flush().
+
+00:05:01.876 --> 00:05:07.086 align:middle
+La razón por la que se divide en dos métodos
+es para ayudar a la carga de datos por lotes...
+
+00:05:07.586 --> 00:05:14.446 align:middle
+donde podrías persistir un centenar de objetos de
+$mix y luego vaciarlos en la base de datos todos
+
+00:05:14.446 --> 00:05:16.606 align:middle
+a la vez, lo que es más eficiente.
+
+00:05:17.146 --> 00:05:20.686 align:middle
+Pero la mayoría de las veces,
+llamarás a persist() y luego a flush().
+
+00:05:21.616 --> 00:05:28.016 align:middle
+Bien, para que esto sea una página válida,
+vamos a return new Response() de HttpFoundation
+
+00:05:28.416 --> 00:05:37.016 align:middle
+y usaré sprintf para devolver un mensaje:
+mix %d is %d tracks of pure 80\'s heaven...
+
+00:05:37.726 --> 00:05:44.466 align:middle
+y para esos dos comodines, pasa
+$mix->getId() y $mix->getTrackCount().
+
+00:05:45.396 --> 00:05:46.066 align:middle
+¡Vamos a probarlo!
+
+00:05:46.556 --> 00:05:48.556 align:middle
+Muévete, refresca y...
+
+00:05:48.976 --> 00:05:51.656 align:middle
+¡sí! Vemos el "Mix 1".
+
+00:05:51.946 --> 00:05:53.246 align:middle
+¡Qué bien!
+
+00:05:54.106 --> 00:05:58.186 align:middle
+En realidad, nunca establecimos
+el ID (lo que tiene sentido).
+
+00:05:58.616 --> 00:06:05.286 align:middle
+Pero cuando guardamos, Doctrine cogió
+el nuevo ID y lo puso en la propiedad id.
+
+00:06:06.156 --> 00:06:11.346 align:middle
+Si refrescamos unas cuantas veces más,
+obtendremos las mezclas 2, 3, 4, 5 y 6.
+
+00:06:11.936 --> 00:06:13.546 align:middle
+Eso es súper divertido.
+
+00:06:14.266 --> 00:06:17.516 align:middle
+Lo único que hemos tenido que hacer
+es persistir y vaciar el objeto.
+
+00:06:18.046 --> 00:06:21.466 align:middle
+Doctrine se encarga de todas
+las consultas por nosotros.
+
+00:06:22.376 --> 00:06:25.056 align:middle
+Otra forma de demostrar que
+esto funciona es ejecutando
+
+00:06:25.196 --> 00:06:28.926 align:middle
+symfony console doctrine:query:sql 'SELECT *
+
+00:06:28.926 --> 00:06:33.906 align:middle
+FROM vinyl_mix' Esta vez
+sí vemos los resultados.
+
+00:06:34.466 --> 00:06:40.296 align:middle
+¡Genial! Bien, ahora que tenemos cosas en
+la base de datos, ¿cómo las consultamos?
+
+00:06:40.846 --> 00:06:42.526 align:middle
+Vamos a abordar eso a continuación
