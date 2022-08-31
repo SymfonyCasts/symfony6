@@ -1,36 +1,133 @@
-# Show Page
+# Querying for a Single Entity for a "Show" Page
 
-If a user on our site likes one of the mixes, it would be cool if they could click on it and navigate to a page with more information about it. Let's do it! Let's create a page to display just one mix's detail. Head over to `src/Controller/MixController.php`. We already have our `new` action down here. Let's add a new `public function show()` and then add the `#Route['']` above. The URL for this will be... how about `/mix/{id}`, where `id` will be the ID of that mix in the database. Down here, I'll add a corresponding `$id` argument. And, just to see if this is working, let's `dd($id)`. Cool! Spin over and let's go to `/mix/7`. Awesome! Our route and controller are hooked up!
+To get more info, our users *really* need to be able to click on a mix and navigate
+to a page with more information about it... like eventually its track list! Let's
+do that: let's create a page to display just *one* mix's details.
 
-All right, now that we have this ID, what we need to do is query for the vinyl mix in the database *for* that ID. And we know how to query - via the *repository*. Let's add a second argument here, type hinted with `VinylMixRepository`, and let's call it `$mixRepository`. Then, we're going to replace this `dd` with `$mix = $mixRepository->`, and for the first time, we're going to use the `find()` method. This method is set up to find something by its primary key, so let's pass it `$id`. And to make sure *this* is working, `dd($mix)`.
+## Creating the new Route & Controller
 
-We don't know which IDs we have in our database right now, so a temporary solution is to go to `/mix/new`, which creates a *new* mix with, in my case, ID 16. I'll put "16" in the URL and... hello `VinylMix` `id: 16`! Notice that this returns a `VinylMix` object. Doctrine always gives us objects back by default.
+Head over to `src/Controller/MixController.php`. After the `new` action, add
+`public function show()` with the `#Route['']` above. The URL for this will be...
+how about `/mix/{id}`, where `id` will be the ID of that mix in the database. Below,
+add the corresponding `$id` argument. And... just to see if this is working,
+`dd($id)`.
 
-Now that we have the mix object, all we need to do is render a template, pass that into the template, and start printing out data. Say `return $this->render()`, and let's call the template `mix/show.html.twig`. Once again, this is `MixController.php`, so I'm calling the directory `mix`. This is it's `show` action, so I used `show.html.twig`. That naming convention is totally optional, but you'll make lots of friends if you keep things nice and predictable in your code. Let's pass in a variable called `mix` set to our `VinylMix` object, `$mix`.
+Coolio! Spin over and go to, how about, `/mix/7`. Awesome! Our route and controller
+are hooked up!
 
-All right, let's go create that template. In `/templates`, create a new directory called `/mix`. Inside of *that*, create a new file called `show.html.twig`. Pretty much every template is going to start the same way. We'll begin by saying `{% extends 'base.html.twig' %}`. As a reminder, `base.html.twig` has several blocks in it, and the most important `block` down here is `block body`. That's what we'll override with our content. At the top, there's also a `block title`, which allows us to control the title of the page. Let's override *both* of those.
+## Querying for a Single Object
 
-I'll say `{% block title %}{% endblock %}`. In between, say `{{ mix.title }} Mix`. Let's also override `{% block body %}` here and `{% endblock %}` below. Inside, just to get started, I'll add a `<h1>` with `{{ mix.title }}`. When we try that... hello page! This is *super* simple. The `<h1>` isn't even in the right place, but it's *working*. Now we can add a little *pizzazz*.
+Ok, now that we have the ID, we need to query for the *one* `VinylMix` in the
+database matching that. And we know how to query - via the *repository*. Add a
+second argument to the method type-hinted with `VinylMixRepository` and call it
+`$mixRepository`. Now replace the `dd()` with `$mix = $mixRepository->` and, for
+the first time, we're going to use the `find()` method. This method is dead simple:
+it finds a single object using the primary key. Sopass it `$id`. To make sure *this*
+is working, `dd($mix)`.
 
-I'm going to head back to my template and paste in a bunch of new contents. You can copy all of this from the code block on this page. The top of this is *exactly* the same. It extends the same `base.html.twig` and the `block title` is the same. But then, it pulls in a bunch of markup and prints the mix title. Down here, I have a couple of `TODO`s for us, where we'll print out more details. If you refresh this... nice! We now have a cute little record SVG here, which you probably recognize from the homepage. Awesome! The only *not-awesome* thing is now we have this SVG duplicated on *both* of those pages. While we're here, let's clean that up.
+We don't know which IDs we actually *have* in our database right now, so as a
+temporary solution, go to `/mix/new`, which creates a *new* mix with. In my
+case, it has ID 16. Cool: go to `/mix/16` and... hello `VinylMix` `id: 16`!
+The important thing to notice is that returns a `VinylMix` *object*. Unless you
+do something custom, Doctrine *always* gives us back either a *single* object
+or an *array* of objects, depending on which method you call.
 
-I'm going to select all of this `<svg>` content, copy it, and over in the `/mix` directory, create a new file called `_recordSvg.html.twig`. Paste that in here and... beautiful! The reason I put an `_` at the beginning of this template is to indicate that it's a template *partial*. That means it's a template that doesn't include a whole page - just *part* of a page. The `_` is totally optional and just something that's commonly done as convention, but it doesn't actually change any behavior.
+## Rendering the Template
 
-Thanks to this, we can go into our `show.html.twig` template and `{{ include('mix/_recordSvg.html.twig) }}`. Let's go do the same thing in the homepage template: `/templates/vinyl/homepage.html.twig`. This is the *same* SVG here, so we'll include that same template. Nice! If we go check the homepage... it *still* looks great! And if I head back to the `/mix` page and refresh... that looks great too!
+Now that we have the `VinylMix` object, lets render a template and pass thatin.
+Do that with `return $this->render()` and call the template `mix/show.html.twig`.
+The template path *could* be anything, but since we're inside `MixController`,
+the directory `mix` makes sense. And since we're in the `show` action,
+`show.html.twig` *also* makes sense. Consistency is a great way to make friends
+with your fellow teammates.
 
-The last thing we need to do to get our show page working is fill in some of the details here, so let's print out a few things! Add a `<h2>` with `class="mb-4"`, and inside, say `{{ mix.trackCount }} songs`, followed by a `<small>` tag where we'll say `(genre: {{ mix.genre }})`. Then, below this, I'll add a `<p>` tag and say `{{ mix.description }}`. And now... awesome! This is really starting to come to life! We don't have a track list here yet because that's another database table we'll need to create in a future tutorial, but we have a really nice start.
+Pass in a variable called `mix` set to the `VinylMix` object `$mix`.
 
-All right, the last obvious thing to do here is *link*, meaning when we're on the `/browse` page, we can click certain items to get to our information page. Open `/templates/vinyl/browse.html.twig` and scroll down to where we loop. Here's what we're going to do: Let's change the `<div>` that surrounds everything to an `<a>` tag. Then, let's break this onto multiple lines and add `href=""`. As you can see, PhpStorm is smart enough to update the closing tag *automatically*.
+All right, let's go create that template. In `templates/`, add a new directory
+called `mix/`... and inside of *that*, a new file called `show.html.twig`. Pretty
+much every template is going to start the same way. Begin by saying
+`{% extends 'base.html.twig' %}`.
 
-When we link to something from Twig, we use the `path()` function, and then we pass the name of the route right here. So what's the name of the route to our show page? The answer is... it doesn't *have* a name. In reality, Symfony is auto-generating one, but we don't want to rely on that. As soon as we want to link to a route, we want to give it a proper name, so how about `app_mix_show`. Copy that, head back to `browse.html.twig`, and *paste*.
+As a reminder, `base.html.twig` has several blocks in it. The most important `block`
+down here is `block body`. *That's* what we'll override with our content. At the top,
+there's also a `block title`, which allows us to control the title of the page. Let's
+override *both*.
 
-The only thing that's unique in this case is that just *pasting* the route name isn't going to be enough. We're going to get a giant error:
+Say `{% block title %}{% endblock %}` and, in between, `{{ mix.title }} Mix`.
+Then override `{% block body %}` with `{% endblock %}` below. Inside, just
+to get started, add an `<h1>` with `{{ mix.title }}`.
 
-`An exception has been thrown during the rendering
-of a template ("Some mandatory parameters are
-missing ("id") to generate a URL for route
-"app_mix_show".")`
+When we try that... hello page! This is *super* simple... the `<h1>` isn't even in
+the right place, but it's *working*. Now we can add a little *pizzazz*.
 
-That makes *perfect* sense. It's trying to generate the URL to this route, but we need to pass it the wildcard to fill in for ID. We do that by passing a second argument with `{}` with `id: mix.id`. And now... the page works! Awesome! And we can click any of these to hop to that particular page.
+## Making the Page All Fancy Looking
 
-Okay, we've got the path working, but what if *no* mix can be found for a given ID? We need to talk about the 404 page and a way that we can query for this `VinylMix` object without doing any work from our controller. That's *next*.
+I'm going to head back to my template and paste in a bunch of new content. You can
+cop this from the code block on this page. The top of this is *exactly* the same:
+it extends `base.html.twig` and the `block title` looks like it did before. But
+then, in the body, we have a bunch of new markup, we print the mix title... and
+down here, I have a few `TODO`s for us, where we'll print out more details.
+
+If you refresh now... nice! We even have the cute little record SVG... which you
+probably recognize from the homepage. That's awesome... except that duplicating
+this entire SVG in both templates is... *not* so awesome. Let's fix that duplication.
+
+## Avoiding Duplication with a Template Partial
+
+Select all of this `<svg>` content, copy it, and over in the `mix/` directory, create
+a new file called `_recordSvg.html.twig`. Paste that here!
+
+The reason I prefixed the name with `_` is to indicate that this is a template
+*partial*. That means it's a template that doesn't include a whole page - just *part*
+of a page. The `_` is an optional and just something that's commonly done as
+convention, but it doesn't change any behavior.
+
+Thanks to this, we can go into `show.html.twig` and
+`{{ include('mix/_recordSvg.html.twig) }}`. Let's go do the same thing in the homepage
+template: `templates/vinyl/homepage.html.twig`. This is the *same* SVG here, so
+we'll include that same template.
+
+Nice! If we go check the homepage... it *still* looks great! And if I head back to
+the mix page and refresh... that looks great too!
+
+To finish the template, let's fill in the missing details. Add an `<h2>` with
+`class="mb-4"`, and inside, say `{{ mix.trackCount }} songs`, followed by a `<small>`
+tag with `(genre: {{ mix.genre }})`. Below this, add a `<p>` tag with
+`{{ mix.description }}`.
+
+And now... this is starting to come to life! We don't have a track list here yet...
+because that's another database table we'll create in a future tutorial. But it's
+a nice start
+
+## Linking to the Show Page
+
+To complete the new feature, when we're on the `/browse` page, we need to add a
+*link* to the new page. Open `templates/vinyl/browse.html.twig` and scroll down to
+where we loop. Ok: change the `<div>` that surrounds everything to an `<a>` tag.
+Then... break this onto multiple lines and add `href=""`. As you can see, PhpStorm
+was clever enough to update the closing tag to an `a` *automatically*.
+
+To link to a page in Twig, we use the `path()` function and pass the name of the
+route. What... *is* the name of the route to our show page? The answer is...
+it doesn't *have* one! Ok, the truth is that Symfony is auto-generating a name...
+but we don't want to rely on that. As soon as we want to link to a route, we should
+give that route a proper name. Jow about `app_mix_show`.
+
+Copy that, head back to `browse.html.twig` and *paste*.
+
+But this time, just pasting the route name isn't going to be enough! Check out
+this sweet error:
+
+> Some mandatory parameters are missing ("id") to generate a URL for route
+> "app_mix_show".
+
+That makes *perfect* sense. Symfony is trying to generate the URL to this route,
+but we need to tell it what *wildcard* value to use for the `{id}`. We do that by
+passing a second array argument with `{}`. Inside set `id` to `mix.id`.
+
+And now... the page works! Awesome! And we can click any of these to hop in and
+see more details.
+
+Okay, we've got the happy path working! But what if *no* mix can be found for a given
+ID? Next: let's talk 404 pages *and* a way that we can be even *lazier* by getting
+Symfony to query for the `VinylMix` object *for* us.
