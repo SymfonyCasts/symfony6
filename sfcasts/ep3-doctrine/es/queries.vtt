@@ -1,0 +1,346 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:06.086 align:middle
+Ahora que hemos guardado algunas cosas en la base
+de datos, ¿cómo podemos leerlas o consultarlas?
+
+00:00:06.906 --> 00:00:12.816 align:middle
+Una vez más, al menos para las cosas sencillas,
+Doctrine no quiere que te preocupes de hacer consultas.
+
+00:00:13.346 --> 00:00:17.806 align:middle
+En lugar de eso, simplemente pedimos
+a Doctrine los objetos que queremos.
+
+00:00:18.646 --> 00:00:23.656 align:middle
+Dirígete a src/Controller/VinylController.php
+y busca la acción browse().
+
+00:00:24.386 --> 00:00:27.816 align:middle
+Aquí, estamos cargando todos
+los $mixes de nuestro proyecto...
+
+00:00:28.406 --> 00:00:32.836 align:middle
+y lo estamos haciendo a través de
+esta clase de servicio MixRepository
+
+00:00:33.116 --> 00:00:35.396 align:middle
+que creamos en el último episodio.
+
+00:00:36.146 --> 00:00:42.286 align:middle
+Esta clase habla con un repositorio de GitHub
+y lee desde un archivo de texto codificado.
+
+00:00:43.116 --> 00:00:50.286 align:middle
+Vamos a dejar de usar este MixRepository y en su
+lugar cargaremos estos $mixes desde la base de datos.
+
+00:00:51.236 --> 00:00:56.736 align:middle
+Bien: para guardar los objetos, aprovechamos
+el servicio EntityManagerInterface,
+
+00:00:57.176 --> 00:01:01.716 align:middle
+que es el más importante
+con diferencia en Doctrine.
+
+00:01:02.646 --> 00:01:06.336 align:middle
+Además, este servicio también
+puede consultar los objetos.
+
+00:01:06.886 --> 00:01:08.366 align:middle
+Aprovechemos eso.
+
+00:01:09.026 --> 00:01:13.526 align:middle
+Añade un nuevo argumento a browse(),
+de tipo EntityManagerInterface...
+
+00:01:14.186 --> 00:01:15.826 align:middle
+y llámalo $entityManager.
+
+00:01:16.686 --> 00:01:21.336 align:middle
+A continuación, sustituye la
+línea $mixes por dos líneas.
+
+00:01:21.976 --> 00:01:28.446 align:middle
+Empieza con $mixRepository =
+$entityManager->getRepository() pasándole el
+
+00:01:28.446 --> 00:01:32.156 align:middle
+nombre de la clase desde
+la que queremos consultar.
+
+00:01:32.806 --> 00:01:38.026 align:middle
+Sí, pensamos en consultar desde una
+clase de entidad, no desde una tabla.
+
+00:01:38.836 --> 00:01:42.326 align:middle
+En este caso, queremos
+consultar desde VinylMix::class.
+
+00:01:42.326 --> 00:01:47.496 align:middle
+Hablaremos más sobre este concepto
+de repositorio en un minuto.
+
+00:01:48.246 --> 00:01:53.686 align:middle
+A continuación, para obtener las mezclas
+en sí, digamos $mixes = $mixRepository->
+
+00:01:53.746 --> 00:01:57.786 align:middle
+y llamemos a uno de los
+métodos de la misma: findAll().
+
+00:01:58.646 --> 00:02:02.516 align:middle
+Para ver qué nos da esto, vamos a dd($mixes).
+
+00:02:03.446 --> 00:02:04.616 align:middle
+Bien, ¡es hora de probar!
+
+00:02:04.906 --> 00:02:12.286 align:middle
+Gira, vuelve a la página de inicio, haz clic en
+"Examinar las mezclas" para acceder a esa acción, y...
+
+00:02:12.606 --> 00:02:15.656 align:middle
+¡voilá! ¡Obtenemos seis resultados!
+
+00:02:16.216 --> 00:02:21.966 align:middle
+Y cada uno de ellos, lo más
+importante, es un objeto VinylMix.
+
+00:02:22.516 --> 00:02:26.626 align:middle
+Entre bastidores, Doctrine ha
+consultado la tabla y las columnas.
+
+00:02:27.046 --> 00:02:32.306 align:middle
+Pero en lugar de darnos esos datos
+en bruto, los puso en objetos
+
+00:02:32.376 --> 00:02:36.196 align:middle
+y nos los dio, lo cual es mucho más bonito.
+
+00:02:37.006 --> 00:02:38.646 align:middle
+Si eliminamos el dd()...
+
+00:02:39.046 --> 00:02:45.896 align:middle
+esta matriz de objetos VinylMix se pasará
+a la plantilla, en lugar de la matriz
+
+00:02:45.896 --> 00:02:48.486 align:middle
+de datos que teníamos antes.
+
+00:02:49.386 --> 00:02:52.346 align:middle
+Pero... la página sigue funcionando.
+
+00:02:52.846 --> 00:02:55.016 align:middle
+Aunque, estas imágenes están rotas
+
+00:02:55.356 --> 00:03:00.506 align:middle
+porque aparentemente el servicio que estoy usando
+para cargarlas está caído en este momento.
+
+00:03:01.176 --> 00:03:03.886 align:middle
+Ah... las alegrías de la grabación de vídeo.
+
+00:03:04.516 --> 00:03:06.026 align:middle
+¡Pero eso no nos detendrá!
+
+00:03:06.676 --> 00:03:11.446 align:middle
+El hecho de que todos los datos se
+sigan mostrando sin errores es...
+
+00:03:11.706 --> 00:03:13.786 align:middle
+en realidad es un poco por suerte.
+
+00:03:14.576 --> 00:03:15.966 align:middle
+Cuando renderizamos la plantilla -
+
+00:03:16.286 --> 00:03:22.226 align:middle
+templates/vinyl/browse.html.twig -
+hacemos un bucle sobre todos los mixes.
+
+00:03:23.016 --> 00:03:29.866 align:middle
+La plantilla funciona porque el antiguo archivo de texto
+del repositorio de GitHub tenía las mismas claves (como
+
+00:03:29.946 --> 00:03:34.876 align:middle
+title, trackCount y genre)
+que nuestra clase VinylMix.
+
+00:03:35.586 --> 00:03:38.276 align:middle
+Sin embargo, aquí ocurre algo interesante.
+
+00:03:38.986 --> 00:03:43.516 align:middle
+Cuando decimos mix.genre,
+mix es ahora un objeto...
+
+00:03:44.026 --> 00:03:47.166 align:middle
+y esta propiedad genre es privada.
+
+00:03:47.846 --> 00:03:50.876 align:middle
+Eso significa que no podemos
+acceder a ella directamente.
+
+00:03:51.476 --> 00:03:53.356 align:middle
+Pero Twig es inteligente.
+
+00:03:54.256 --> 00:03:59.656 align:middle
+Se da cuenta de que es privada
+y busca un método getGenre().
+
+00:04:00.406 --> 00:04:08.586 align:middle
+Así que en nuestra plantilla, decimos mix.genre,
+pero en realidad, llama al método getGenre().
+
+00:04:09.146 --> 00:04:10.716 align:middle
+Eso es bastante asombroso.
+
+00:04:11.506 --> 00:04:13.726 align:middle
+¿Sabes qué más es impresionante?
+
+00:04:14.146 --> 00:04:17.226 align:middle
+¡Podemos ver las consultas
+que hace cualquier página!
+
+00:04:18.046 --> 00:04:22.646 align:middle
+En la barra de herramientas de depuración de la
+web, Doctrine nos ofrece un nuevo y elegante icono.
+
+00:04:22.646 --> 00:04:26.306 align:middle
+Oooo. Y si hacemos clic en él...
+
+00:04:26.706 --> 00:04:29.686 align:middle
+¡tah dah! Hay una consulta
+a la base de datos...
+
+00:04:30.086 --> 00:04:32.346 align:middle
+e incluso podemos ver de qué se trata.
+
+00:04:33.136 --> 00:04:35.616 align:middle
+También puedes ver una versión
+formateada de la misma...
+
+00:04:35.776 --> 00:04:38.756 align:middle
+aunque tengo que actualizar la
+página para que esto funcione...
+
+00:04:39.236 --> 00:04:42.446 align:middle
+porque la librería Turbo
+JavaScript que instalamos
+
+00:04:42.446 --> 00:04:47.656 align:middle
+en el primer tutorial no siempre se
+lleva bien con esta zona del perfilador.
+
+00:04:48.536 --> 00:04:53.956 align:middle
+De todos modos, también podemos ver una versión
+ejecutable de la consulta o ejecutar "Explicar" sobre ella.
+
+00:04:54.846 --> 00:05:00.226 align:middle
+Muy bien, de vuelta en el controlador, aunque podemos
+consultar a través del EntityManagerInterface,
+
+00:05:00.446 --> 00:05:05.286 align:middle
+normalmente consultamos a través
+de algo llamado el repositorio
+
+00:05:06.146 --> 00:05:10.366 align:middle
+dd() este objeto $mixRepository para
+obtener más información sobre él.
+
+00:05:11.136 --> 00:05:14.496 align:middle
+Entonces vuelve a la página /browse y...
+
+00:05:15.156 --> 00:05:20.286 align:middle
+es un objeto App\Repository\VinylMixRepository.
+
+00:05:20.746 --> 00:05:23.036 align:middle
+¡Ya conocemos esa clase!
+
+00:05:23.596 --> 00:05:28.386 align:middle
+Vive en nuestro código, en
+el directorio src/Repository/.
+
+00:05:29.036 --> 00:05:31.216 align:middle
+Fue generada por MakerBundle.
+
+00:05:32.046 --> 00:05:35.926 align:middle
+Dentro del atributo ORM\Entity
+sobre nuestra clase de entidad,
+
+00:05:36.346 --> 00:05:42.216 align:middle
+MakerBundle generó una opción
+repositoryClass que apunta a esto.
+
+00:05:43.146 --> 00:05:49.856 align:middle
+Gracias a esta configuración, nuestra entidad,
+VinylMix, está vinculada a VinylMixRepository.
+
+00:05:50.536 --> 00:05:55.706 align:middle
+Así que cuando le pides a Doctrine que nos
+dé el repositorio de la clase VinylMix,
+
+00:05:56.196 --> 00:06:00.156 align:middle
+sabe que debe devolver el
+objeto VinylMixRepository.
+
+00:06:00.956 --> 00:06:06.856 align:middle
+El repositorio de una entidad lo sabe
+todo sobre cómo consultar sus datos.
+
+00:06:07.406 --> 00:06:15.076 align:middle
+Y, sin que nosotros hagamos nada, ya tiene un montón
+de métodos útiles para las consultas básicas,
+
+00:06:15.586 --> 00:06:20.336 align:middle
+como findAll(), findOneBy() y varios más.
+
+00:06:21.096 --> 00:06:27.416 align:middle
+Dentro de un rato, aprenderemos a añadir nuevos métodos
+al repositorio para realizar consultas personalizadas.
+
+00:06:28.336 --> 00:06:33.346 align:middle
+De todos modos, VinylMixRepository es en
+realidad un servicio del cont enedor...
+
+00:06:33.816 --> 00:06:38.486 align:middle
+así que podemos obtenerlo más
+fácilmente autoconectándolo directamente.
+
+00:06:39.266 --> 00:06:43.006 align:middle
+Añade un argumento
+VinylMixRepository $mixRepository...
+
+00:06:43.586 --> 00:06:46.596 align:middle
+y entonces no necesitaremos
+esta línea en absoluto.
+
+00:06:47.506 --> 00:06:48.726 align:middle
+Esto es más sencillo...
+
+00:06:50.126 --> 00:06:52.156 align:middle
+¡y sigue funcionando! La conclusión
+
+00:06:53.006 --> 00:07:01.106 align:middle
+es ésta: si quieres consultar una tabla,
+lo harás a través del repositorio
+
+00:07:01.106 --> 00:07:03.896 align:middle
+de la entidad cuyos datos necesitas.
+
+00:07:04.766 --> 00:07:10.446 align:middle
+Siguiente: El hecho de que hayamos cambiado nuestro código
+para cargarlo desde la base de datos y no hayamos tenido
+
+00:07:10.446 --> 00:07:14.856 align:middle
+que actualizar nuestra plantilla Twig
+en absoluto fue algo impresionante
+
+00:07:15.276 --> 00:07:18.086 align:middle
+Y por cortesía de un poco
+de magia de Twig. Vamos a
+
+00:07:18.786 --> 00:07:22.986 align:middle
+hablar más de esa magia y a
+crear una propiedad virtual
+
+00:07:23.216 --> 00:07:24.896 align:middle
+que podemos imprimir en la plantilla
