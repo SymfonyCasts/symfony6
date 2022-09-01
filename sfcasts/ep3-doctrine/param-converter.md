@@ -1,30 +1,80 @@
-# Param Converter
+# Param Converter & 404's
 
-We've programmed the happy path. When I go to `/mix/13`, my database *does* find a mix with ID 13 and life is *good*. But what if I change this to `/99`? *Yikes*. That's a 500 error - *not* something we want our site to ever do. This really *should* be a 404 error. How do we trigger a 404? Easy peasy!
+We've programmed the happy path. When I go to `/mix/13`, my database *does* find a
+mix with that id and... life is *good*. But what if I change this to `/99`? *Yikes*.
+That's a 500 error: *not* something we want our site to *ever* do. This really *should*
+be a 404 error. So, how do we trigger a 404?
 
-Over in our method, this `$mix` object will either be a `$VinylMix` object *or* null if one is not found. We can say `if (!$mix)`, and then, to trigger a 404, say `throw $this->createNotFoundException()`. You can give this a message if you want, but this will only be seen by developers.
+## Triggering a 404 Page
 
-This `createNotFoundException()`, as the name suggests, creates an `Exception` object. So we're actually throwing an exception here. That's nice, because it means that code after this won't be run. Normally, if you or something in your code throws an exception, it will become a 500 error, but this is a *special* type of exception that maps to a 404. Watch! Over here, in the upper right, when I refresh... 404 error! On production, you can customize your error pages, making a separate error page for 404 errors, 403 Access Denied errors, or even... *gasp* ... 500 errors if something goes *really* wrong. Check out the Symfony docs for how to customize error pages.
+Over in the method, this `$mix` variable will either be a `VinylMix` object *or* null
+if one isn't found. So we can say `if (!$mix)`, and then, to trigger a 404,
+`throw $this->createNotFoundException()`. You can give this a message if you want,
+but it'll only be seen by developers.
 
-Okay! We've queried for a single `VinylMix` object and even handled 404 errors. But we can do this with *way* less work. Check it out! Replace the `$id` argument here with a *new* argument, typehinted with our entity, `VinylMix`, and then we'll call it... how about `$mix` to match our variable below. Then delete the query... and also the 404. And now, we don't even need this `$mixRepository` argument, since we're no longer using it.
+This `createNotFoundException()`, as the name suggests, creates an exception
+object. So we're actually *throwing* an exception here... which is nice, because
+it means that code *after* this won't be executed.
 
-All right, this deserves some explanation. So far, the things that are allowed to be arguments to your controller are route wildcards like `$id` *or* services. If you typehint an entity class, Symfony will try to query for that object *automatically*. Because we have have a wildcard called `$id`, it will take this value (so "99" or "16"), and try to query for a vinyl mix whose ID is *equal* to that value. If I go back and refresh... it *doesn't* work:
+Now, *normally* if you or something in your code throws an exception, it will trigger
+a 500 error. But this method creates a *special* type of exception that maps to a 404.
+Watch! Over here, in the upper right, when I refresh... 404!
 
-`Cannot autowire argument $mix of
-"App\Controller\MixController::show()": it
-references class "App\Entity\VinylMix" but no
-such service exists.`
+By the way, this is *not* what the 404 or 500 pages would look like on production.
+If we switched to the `prod` environment, we'd see a pretty generic error page
+with no details. Then you *customize* how those look, even making separate styles
+for 404 errors, 403 Access Denied errors, or even... *gasp* ... 500 errors if
+something goes *really* wrong. Check out the Symfony docs for how to customize
+error pages.
 
-But we *know* this isn't a service. It's supposed to be doing that query logic I just told you about. So, to get this feature to work, you need to install another bundle. In Symfony 6.2, this functionality should work in Symfony itself without that bundle, but installing it is no problem. Find your command line and say:
+## Param Converter: Automatic Query
+
+Okay! We've queried for a single `VinylMix` object and even handled the 404 path.
+But we can do this with *way* less work. Check it out! Replace the `$id` argument
+with a *new* argument, type-hinted with our entity class `VinylMix`. Call it,
+how about, `$mix` to match the variable below. Then... delete the query...
+and also the 404. And now, we don't even need the `$mixRepository` argument at all.
+
+This... deserves some explanation. So far, the "things" that we are "allowed" to
+have as arguments to our controllers are (1) route wildcards like `$id` or (2) services.
+Now we have a *third* thing. When you type-hint an *entity* class, Symfony will
+query for the object *automatically*. Because we have have a wildcard called `{id}`,
+it will take this value (so "99" or "16") and query for a `VinylMix` whose `id`
+is *equal* to that. The name of the wildcard - `id` in this case - needs to match
+the property name it should use for the query.
+
+But if I go back and refresh... it *doesn't* work!?
+
+> Cannot autowire argument `$mix` of `MixController::show()`: it references
+> `VinylMix` but no such service exists.
+
+We *know* this isn't a service... so that make sense. But... why isn't it querying
+for the object like I just said it would?
+
+Because... to get this feature to work, we need to install another bundle! Well,
+if you're using Symfony 6.2 and a new enough DoctrineBundle - probably version 2.8 -
+then this *should* work without needing *anything* else. But since we're using Symfony
+6.1, we need one extra library.
+
+Find your terminal and say:
 
 ```terminal
 composer require sensio/framework-extra-bundle
 ```
 
-This is a bundle full of nice little shortcuts that are slowly being moved into Symfony itself. This bundle will, at some point soon, become deprecated because you won't need it. And now, without doing anything else... it works! And if you go to a bad ID, like `/99`... yes! Check it out! We get a 404 error! This feature is called a "PeramConverter". You can see it says:
+This is a bundle full of nice little shortcuts that, by Symfony 6.2, will all have
+been moved into Symfony itself. So eventually, you won't need this.
 
-`App\Entity\VinylMix object not found by the @PeramConverter annotation.`
+And now... without doing anything else... it works! It automatically queried for
+the `VinylMix` object and the page renders! And if you go to a bad ID, like
+`/99`... yes! Check it out! We get a 404! This feature is called a "ParamConverter"...
+which is mentioned in the error:
 
-We don't actually *have* an `@PeramConverter` annotation. It's really referring to this automatic query functionality. So if I need to query for *multiple* objects, like down in `browse()`, I will use my repository. But if I need to query for a *single* object in a controller, I'll use this trick here.
+> `VinylMix` object not found by the `@ParamConverter` annotation.
 
-Next, let's make it possible to upvote and downvote our mixes by leveraging a simple form.
+*Anyways*, I *love* this feature. If I need to query for *multiple* objects,
+like in the `browse()` action, I'll use the correct repository service. But if I
+need to query for a *single* object in a controller, I use this trick.
+
+Next, let's make it possible to up vote and down vote our mixes by leveraging a simple
+form. To do this, for the first time, we will *update* an entity in the database.
