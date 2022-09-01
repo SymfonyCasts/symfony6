@@ -24,6 +24,8 @@ But for this situation, leave that criteria *empty* so it returns *everything*.
 Why? Because I want to leverage the second argument: the "order". Pass an
 array with `'votes' => 'DESC'`.
 
+[[[ code('e346ea1578') ]]]
+
 And now... nice! The highest votes are first!
 
 ## Adding a Custom Entity Method
@@ -45,12 +47,18 @@ And... let me surround this entire second statement in parenthesis. This is prob
 the fanciest line of code I've ever written... which also means it's the most
 confusing! Feel free to break this onto multiple lines.
 
+[[[ code('dc5b1303a1') ]]]
+
 At the bottom, `return sprintf()` with `%s`, which will be the prefix, and
 `%d`, which will be the vote count. Pass these in: `$prefix` then the absolute value
 of `$this->votes`... since we're adding the negative sign in manually.
 
+[[[ code('c25b180e57') ]]]
+
 We can now use this nice method anywhere in our app... like from inside a template
 with `mix.getVotesString()`. *Or* shorten this to `mix.votesString`.
+
+[[[ code('bb847889bf') ]]]
 
 Twig is smart enough to realize that `votesString` is *not* a real property...
 but that there *is* a `getVotesString()` method. And so, it will call *that*.
@@ -74,11 +82,15 @@ service for dummy images. This looks a bit fancy - but I'm just trying to use th
 id to get a predictable, but random image... skipping the first 50, which are all
 nearly identical on this site.
 
+[[[ code('e77ea4b80b') ]]]
+
 Anyways, now we have this nice reusable method!
 
 Back in the template... up here is where I have the hardcoded image URL. Replace
 this with `mix.imageUrl()`, but this time, we *do* need to pass an argument. Pass
 `300`... and let's update the `alt` attribute as well to `Mix album cover`.
+
+[[[ code('53ce836c2f') ]]]
 
 If we go over and refresh... *lovely*. Our mixes have images!
 
@@ -112,11 +124,15 @@ on top. The `VinylMixRepository` *still* has a `findAll()` method, so this will
 *still* work. This isn't a very efficient way to find a random mix, but it's good
 enough for now.
 
+[[[ code('5c17368962') ]]]
+
 Ok, close that class and go refresh again. The service container found *another*
 problem spot in `VinylController`! Head over there and... up in the constructor...
 yep! We're autowiring it here too. But... we're not even using the property anymore,
 so remove it. Also delete its `use` statement and a couple of other `use`
 statements that are not being... uh... used anymore more.
+
+[[[ code('78a32d8a81') ]]]
 
 And now... the site works again!
 
