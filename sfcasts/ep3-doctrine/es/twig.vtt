@@ -1,0 +1,418 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:04.156 align:middle
+Nuestra entidad VinylMix tiene
+una propiedad entera $votes...
+
+00:00:04.416 --> 00:00:06.786 align:middle
+pero no vamos a imprimirla en la página...
+
+00:00:06.956 --> 00:00:09.266 align:middle
+todavía. Hagámoslo.
+
+00:00:09.916 --> 00:00:14.156 align:middle
+En templates/vinyl/browse.html.twig,
+después de createdAt,
+
+00:00:14.476 --> 00:00:18.076 align:middle
+añade un salto de línea
+e imprime mix.votes...
+
+00:00:18.486 --> 00:00:20.706 align:middle
+(que incluso se ha
+autocompletado para nosotros)
+
+00:00:21.386 --> 00:00:23.396 align:middle
+Si pasamos por encima y refrescamos...
+
+00:00:24.406 --> 00:00:30.366 align:middle
+¡qué bien! Vemos los votos, que pueden ser
+positivos o negativos porque, por desgracia,
+
+00:00:30.576 --> 00:00:34.536 align:middle
+¡internet puede ser un lugar poco amigable!
+
+00:00:35.246 --> 00:00:38.336 align:middle
+Ahora mismo, estamos consultando la
+base de datos y los resultados vuelven
+
+00:00:38.366 --> 00:00:40.726 align:middle
+en el orden que la base de datos quiera.
+
+00:00:41.366 --> 00:00:44.416 align:middle
+¿Podríamos ordenarlos por
+los votos más altos primero?
+
+00:00:44.806 --> 00:00:48.416 align:middle
+Sí, claro Una opción es escribir
+una consulta personalizada dentro
+
+00:00:48.416 --> 00:00:51.886 align:middle
+de VinylMixRepository, de
+la que aprenderemos pronto.
+
+00:00:52.616 --> 00:00:55.356 align:middle
+Pero estas clases de repositorio
+tienen varios métodos
+
+00:00:55.356 --> 00:00:58.846 align:middle
+que nos permiten, al menos,
+hacer algunas cosas básicas
+
+00:00:59.616 --> 00:01:01.856 align:middle
+Por ejemplo, podemos llamar a findAll()...
+
+00:01:02.356 --> 00:01:07.346 align:middle
+o podemos llamar a find() y pasarle un
+ID para encontrar un único VinylMix.
+
+00:01:07.856 --> 00:01:14.376 align:middle
+Y hay otras, como findOneBy() o
+findBy(), en las que le pasas una matriz
+
+00:01:14.376 --> 00:01:17.866 align:middle
+de criterios para utilizarla
+en una cláusula WHERE.
+
+00:01:18.476 --> 00:01:23.516 align:middle
+Por ejemplo, podríamos encontrar todas las
+mezclas DONDE el nombre sea igual a algún valor.
+
+00:01:24.406 --> 00:01:30.816 align:middle
+Pero para esta situación, deja ese
+criterio vacío para que devuelva todo.
+
+00:01:31.436 --> 00:01:35.956 align:middle
+¿Por qué? Porque quiero aprovechar
+el segundo argumento: el "orden".
+
+00:01:36.716 --> 00:01:40.306 align:middle
+Pasa un array con 'votes' => 'DESC'.
+
+00:01:41.286 --> 00:01:42.236 align:middle
+Y ahora...
+
+00:01:43.246 --> 00:01:46.286 align:middle
+¡bien! ¡Los votos más
+altos son los primeros!
+
+00:01:47.116 --> 00:01:50.016 align:middle
+Vale, los votos pueden
+ser positivos o negativos.
+
+00:01:50.476 --> 00:01:56.846 align:middle
+Para que sea súper obvio, quiero imprimir
+un signo más delante de los votos positivos.
+
+00:01:57.546 --> 00:02:00.646 align:middle
+Podríamos hacerlo añadiendo
+algo de lógica en Twig.
+
+00:02:00.646 --> 00:02:04.476 align:middle
+Pero recuerda que tenemos
+esta bonita clase de entidad
+
+00:02:05.176 --> 00:02:08.676 align:middle
+Claro, ahora mismo sólo tiene
+métodos getter y setter.
+
+00:02:09.046 --> 00:02:12.796 align:middle
+Pero podemos añadir nuestros
+propios métodos personalizados.
+
+00:02:13.226 --> 00:02:15.656 align:middle
+Y esa es una gran manera
+de organizar tu código.
+
+00:02:16.346 --> 00:02:19.056 align:middle
+Compruébalo: crea una nueva
+función pública llamada,
+
+00:02:19.376 --> 00:02:23.716 align:middle
+qué tal getVotesString(),
+que devolverá un 🥝.
+
+00:02:23.716 --> 00:02:26.806 align:middle
+Estoy bromeando, devolverá
+un string por supuesto.
+
+00:02:27.576 --> 00:02:32.946 align:middle
+Luego calcula el prefijo "+" o "-" con
+alguna lógica extravagante que diga
+
+00:02:33.366 --> 00:02:36.676 align:middle
+Si los votos son iguales a cero,
+no queremos ningún prefijo.
+
+00:02:37.316 --> 00:02:40.646 align:middle
+Si los votos son mayores que cero,
+queremos un símbolo de más.
+
+00:02:41.146 --> 00:02:43.186 align:middle
+Si no, queremos un símbolo de menos.
+
+00:02:43.876 --> 00:02:47.526 align:middle
+Y... déjame rodear toda esta segunda
+afirmación entre paréntesis.
+
+00:02:48.216 --> 00:02:51.656 align:middle
+Esta es probablemente la línea de código
+más elegante que he escrito nunca...
+
+00:02:52.006 --> 00:02:54.556 align:middle
+lo que también significa
+que es la más confusa
+
+00:02:54.916 --> 00:02:57.796 align:middle
+Siéntete libre de dividir
+esto en varias líneas. En
+
+00:02:58.576 --> 00:03:03.976 align:middle
+la parte inferior, return sprintf()
+con %s, que será el prefijo,
+
+00:03:04.376 --> 00:03:07.186 align:middle
+y %d, que será el recuento de votos.
+
+00:03:07.776 --> 00:03:13.196 align:middle
+Pasa esto: $prefix y luego el valor
+absoluto de $this->votes...
+
+00:03:13.656 --> 00:03:16.986 align:middle
+ya que estamos añadiendo el
+signo negativo manualmente.
+
+00:03:17.806 --> 00:03:21.476 align:middle
+Ahora podemos utilizar este bonito método
+en cualquier parte de nuestra aplicación...
+
+00:03:21.966 --> 00:03:26.486 align:middle
+como desde dentro de una plantilla
+con mix.getVotesString().
+
+00:03:27.086 --> 00:03:31.286 align:middle
+O acortarlo a mix.votesString.
+
+00:03:32.046 --> 00:03:37.686 align:middle
+Twig es lo suficientemente inteligente como para darse
+cuenta de que votesString no es una propiedad real...
+
+00:03:38.176 --> 00:03:41.796 align:middle
+sino que existe un método getVotesString().
+
+00:03:42.246 --> 00:03:44.956 align:middle
+Y por tanto, lo llamará.
+
+00:03:45.626 --> 00:03:48.386 align:middle
+Piensa en esto como una
+propiedad virtual dentro de Twig.
+
+00:03:49.246 --> 00:03:51.046 align:middle
+Si volvemos a volar y refrescamos...
+
+00:03:51.766 --> 00:03:55.046 align:middle
+¡impresionante! Obtenemos
+los signos menos y más. Ya
+
+00:03:56.176 --> 00:03:58.716 align:middle
+que estamos aquí, las imágenes rotas -
+
+00:03:58.986 --> 00:04:04.006 align:middle
+causadas por el sitio de marcador de posición
+que estoy utilizando y que no funciona - son...
+
+00:04:04.156 --> 00:04:05.116 align:middle
+¡un poco molestas!
+
+00:04:05.576 --> 00:04:06.616 align:middle
+¡Es hora de arreglarlas!
+
+00:04:07.216 --> 00:04:11.866 align:middle
+En una aplicación real, probablemente dejaremos
+que nuestros usuarios suban imágenes reales...
+
+00:04:12.206 --> 00:04:15.036 align:middle
+aunque por ahora, nos quedaremos
+con las imágenes ficticias.
+
+00:04:15.716 --> 00:04:21.156 align:middle
+Pero en cualquier caso, probablemente necesitaremos la
+capacidad de obtener la URL de la imagen de una mezcla de vinilo
+
+00:04:21.206 --> 00:04:23.426 align:middle
+desde varios lugares de nuestro código.
+
+00:04:24.246 --> 00:04:29.916 align:middle
+Para facilitarlo y mantener el código
+centralizado, ¡añadamos otro método de entidad!
+
+00:04:30.476 --> 00:04:32.946 align:middle
+¿Qué te parece public function getImageUrl().
+
+00:04:33.746 --> 00:04:37.686 align:middle
+Dale un argumento $width para que
+podamos pedir diferentes tamaños.
+
+00:04:38.416 --> 00:04:43.896 align:middle
+Dentro pegaré algo de código que utiliza un
+servicio diferente para las imágenes ficticias.
+
+00:04:44.376 --> 00:04:48.306 align:middle
+Esto parece un poco elegante,
+pero sólo intento utilizar el id
+
+00:04:48.446 --> 00:04:51.286 align:middle
+para obtener una imagen
+predecible, pero aleatoria...
+
+00:04:51.616 --> 00:04:55.936 align:middle
+omitiendo las primeras 50, que son
+todas casi idénticas en este sitio.
+
+00:04:56.746 --> 00:04:59.856 align:middle
+En cualquier caso, ¡ahora tenemos
+este bonito método reutilizable!
+
+00:05:00.876 --> 00:05:01.886 align:middle
+De vuelta a la plantilla...
+
+00:05:02.396 --> 00:05:05.426 align:middle
+aquí arriba es donde tengo la
+URL de la imagen codificada.
+
+00:05:06.146 --> 00:05:12.066 align:middle
+Sustitúyelo por mix.imageUrl(), pero esta
+vez sí que tenemos que pasar un argumento.
+
+00:05:12.586 --> 00:05:14.026 align:middle
+Pasa 300...
+
+00:05:14.806 --> 00:05:19.186 align:middle
+y actualicemos también el
+atributo alt a Mix album cover.
+
+00:05:20.176 --> 00:05:21.806 align:middle
+Si pasamos y actualizamos...
+
+00:05:22.346 --> 00:05:25.816 align:middle
+es precioso. ¡Nuestras
+mezclas tienen imágenes!
+
+00:05:26.676 --> 00:05:29.286 align:middle
+Bien, una última cosa de limpieza.
+
+00:05:29.876 --> 00:05:35.726 align:middle
+Ya no necesitamos este servicio MixRepository,
+que carga las mezclas desde GitHub.
+
+00:05:36.546 --> 00:05:39.386 align:middle
+Vamos a borrarlo para no confundirnos...
+
+00:05:39.746 --> 00:05:44.196 align:middle
+ya que su nombre es muy parecido
+al nuevo VinylMixRepository.
+
+00:05:45.036 --> 00:05:50.116 align:middle
+Haz clic con el botón derecho del ratón en MixRepository.php,
+ve a "Refactorizar", y haz clic en "Eliminar de forma segura".
+
+00:05:51.906 --> 00:05:53.466 align:middle
+Es fácil Pero...
+
+00:05:53.576 --> 00:05:56.846 align:middle
+puede que todavía lo estemos
+usando en algún sitio, ¿no?
+
+00:05:57.556 --> 00:06:03.406 align:middle
+Si vas a tu terminal y ejecutas: git grep
+MixRepository eso te mostrará dónde se
+
+00:06:03.406 --> 00:06:05.286 align:middle
+sigue mencionando.
+
+00:06:05.806 --> 00:06:11.416 align:middle
+Sin embargo, el contenedor de servicios de Symfony es tan
+inteligente que a menudo nos dirá si hemos metido la pata
+
+00:06:11.416 --> 00:06:17.056 align:middle
+, por ejemplo, si seguimos
+usando un servicio que no existe.
+
+00:06:17.706 --> 00:06:20.436 align:middle
+Observa. Prueba a refrescar cualquier página.
+
+00:06:20.846 --> 00:06:23.896 align:middle
+¡Sí! No se puede autoconectar el
+servicio App\Command\TalkToMeCommand:
+
+00:06:24.086 --> 00:06:28.956 align:middle
+el argumento $mixRepository del método __construct()
+tiene el tipo App\Service\MixRepository.
+
+00:06:29.736 --> 00:06:33.736 align:middle
+Aunque esta página ni siquiera
+utiliza la clase TalkToMeCommand, se ha
+
+00:06:34.176 --> 00:06:36.736 align:middle
+dado cuenta de que hay un problema con ella.
+
+00:06:37.386 --> 00:06:40.276 align:middle
+Ábrelo: src/Command/TalkToMeCommand.php.
+
+00:06:40.276 --> 00:06:43.786 align:middle
+¡Sí! Estábamos utilizando MixRepository...
+
+00:06:44.146 --> 00:06:47.126 align:middle
+para poder llamar a su método findAll().
+
+00:06:47.946 --> 00:06:50.326 align:middle
+Cambia eso por usar VinylMixRepository...
+
+00:06:51.016 --> 00:06:54.006 align:middle
+y entonces podremos eliminar la
+declaración use de la parte superior.
+
+00:06:54.676 --> 00:07:01.156 align:middle
+El VinylMixRepository sigue teniendo un método
+findAll(), así que seguirá funcionando.
+
+00:07:01.746 --> 00:07:06.786 align:middle
+Esta no es una forma muy eficiente de encontrar
+una mezcla aleatoria, pero es suficiente por ahora.
+
+00:07:07.546 --> 00:07:10.106 align:middle
+Bien, cierra esa clase y vuelve a actualizarla.
+
+00:07:10.936 --> 00:07:15.396 align:middle
+¡El contenedor de servicios ha encontrado
+otro punto problemático en VinylController!
+
+00:07:16.076 --> 00:07:17.676 align:middle
+Dirígete allí y...
+
+00:07:17.676 --> 00:07:18.856 align:middle
+arriba en el constructor...
+
+00:07:19.716 --> 00:07:22.756 align:middle
+¡sí! Aquí también estamos autocableando.
+
+00:07:23.286 --> 00:07:27.206 align:middle
+Pero... ya no estamos utilizando
+la propiedad, así que elimínala.
+
+00:07:28.016 --> 00:07:33.556 align:middle
+Elimina también su declaración use y un par de
+otras declaraciones use que ya no se utili zan...
+
+00:07:33.846 --> 00:07:36.216 align:middle
+eh... ya no se usan.
+
+00:07:36.216 --> 00:07:37.146 align:middle
+Y ahora...
+
+00:07:38.146 --> 00:07:39.616 align:middle
+¡el sitio funciona de nuevo!
+
+00:07:40.656 --> 00:07:45.286 align:middle
+A continuación, vamos a aprender a crear consultas
+personalizadas mediante el constructor de consultas
