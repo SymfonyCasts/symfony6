@@ -148,21 +148,21 @@ Para manejar esto, internamente, Doctrine tiene su propio
 lenguaje de consulta llamado Doctrine Query Language
 
 00:02:52.056 --> 00:03:03.106 align:middle
-o "DQL", Tiene un aspecto similar al siguiente SELECT
+o "DQL", Tiene un aspecto similar a SELECT
 v FROM App\Entity\VinylMix v WHERE v.genre = 'pop';
 
 00:03:03.936 --> 00:03:08.436 align:middle
 Puedes escribir estas cadenas a mano, pero
-yo aprovecho el "QueryBuilder" de Doctrine
+yo aprovecho el "QueryBuilder" de Doctrine:
 
 00:03:08.436 --> 00:03:11.636 align:middle
-: un bonito objeto que ayuda...
+un bonito objeto que ayuda...
 
 00:03:11.916 --> 00:03:12.266 align:middle
 ya sabes...
 
 00:03:12.576 --> 00:03:13.896 align:middle
-¡construir esa consulta!
+¡a construir esa consulta!
 
 00:03:14.836 --> 00:03:20.246 align:middle
 Para utilizarlo, empieza con
@@ -491,7 +491,7 @@ y no le pases nada.
 ¿No es bonito?
 
 00:09:42.086 --> 00:09:43.556 align:middle
-Cuando refresquemos...
+Cuando actualizamos...
 
 00:09:44.026 --> 00:09:45.456 align:middle
 ¡no está roto!
