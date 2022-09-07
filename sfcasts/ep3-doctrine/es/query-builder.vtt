@@ -1,0 +1,512 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.356 align:middle
+La página /browse funciona...
+
+00:00:03.716 --> 00:00:06.296 align:middle
+¿pero qué pasa si hacemos
+clic en uno de estos géneros?
+
+00:00:06.816 --> 00:00:08.626 align:middle
+Bueno... eso funciona más o menos.
+
+00:00:08.916 --> 00:00:10.746 align:middle
+Muestra el nombre del género...
+
+00:00:11.176 --> 00:00:13.536 align:middle
+pero obtenemos una lista de todas las mezclas.
+
+00:00:14.046 --> 00:00:19.626 align:middle
+Lo que realmente queremos es filtrarlas para que
+sólo se muestren las mezclas de ese género concreto.
+
+00:00:20.286 --> 00:00:23.956 align:middle
+Ahora mismo, todas las mezclas de la
+base de datos están en el género "Pop".
+
+00:00:24.576 --> 00:00:29.556 align:middle
+Vuelve a MixController y encuentra el método
+falso que crea nuevas mezclas para que
+
+00:00:29.976 --> 00:00:32.966 align:middle
+podamos hacer algunos datos
+ficticios más interesantes.
+
+00:00:33.776 --> 00:00:37.456 align:middle
+Añade una variable $genres
+con "Pop" y "Rock" incluidos...
+
+00:00:38.046 --> 00:00:43.436 align:middle
+Luego selecciona una al azar con
+$genres[array_rand($genres)].
+
+00:00:44.116 --> 00:00:49.216 align:middle
+¡Genial! Ahora ve a /mix/new y
+actualiza unas cuantas veces...
+
+00:00:49.606 --> 00:00:51.976 align:middle
+hasta que tengamos unas 15 mezclas.
+
+00:00:52.816 --> 00:00:54.146 align:middle
+Vuelve a /browse...
+
+00:00:55.176 --> 00:00:58.816 align:middle
+¡sí! Tenemos una mezcla de
+géneros "Rock" y "Pop"...
+
+00:00:59.376 --> 00:01:01.156 align:middle
+sólo que aún no se filtran.
+
+00:01:01.976 --> 00:01:06.136 align:middle
+Así que nuestra misión está clara:
+personalizar la consulta de la base de datos
+
+00:01:06.136 --> 00:01:10.146 align:middle
+para que sólo devuelva los
+resultados de un género concreto.
+
+00:01:11.046 --> 00:01:18.066 align:middle
+Bien, en realidad podemos hacerlo de forma súper sencilla
+en VinylController a través del método findBy().
+
+00:01:18.806 --> 00:01:22.256 align:middle
+El género está en la URL
+como el comodín $slug.
+
+00:01:22.996 --> 00:01:28.116 align:middle
+Así que podríamos añadir una sentencia
+"if" en la que, si hay un género,
+
+00:01:28.516 --> 00:01:32.426 align:middle
+devolvamos todos los resultados en
+los que genre coincida con $slug.
+
+00:01:33.146 --> 00:01:38.456 align:middle
+Pero esta es una gran oportunidad para
+aprender a crear una consulta personalizada.
+
+00:01:38.956 --> 00:01:40.516 align:middle
+Así que vamos a deshacerlo. La
+
+00:01:41.306 --> 00:01:47.186 align:middle
+mejor manera de hacer una consulta personalizada,
+es crear un nuevo método en el repositorio
+
+00:01:47.346 --> 00:01:50.066 align:middle
+para la entidad de la que
+quieras obtener datos.
+
+00:01:50.796 --> 00:01:53.966 align:middle
+En este caso, eso significa VinylMixRepository.
+
+00:01:54.676 --> 00:01:56.756 align:middle
+Esto contiene algunos métodos de ejemplo.
+
+00:01:57.206 --> 00:01:58.446 align:middle
+Descomenta el primero...
+
+00:01:58.936 --> 00:02:00.586 align:middle
+y empieza por el más sencillo.
+
+00:02:01.176 --> 00:02:03.846 align:middle
+Llámalo findAllOrderedByVotes().
+
+00:02:04.656 --> 00:02:09.216 align:middle
+No nos preocuparemos todavía del
+género: Sólo quiero hacer una consulta
+
+00:02:09.216 --> 00:02:12.436 align:middle
+que devuelva todas las
+mezclas ordenadas por votos.
+
+00:02:13.346 --> 00:02:20.646 align:middle
+Quitando el argumento, esto devolverá un array
+y el PHPdoc de arriba ayuda a mi editor a saber
+
+00:02:20.736 --> 00:02:26.416 align:middle
+que se tratará de un array de objetos
+VinylMix Hay algunas formas diferentes
+
+00:02:26.416 --> 00:02:28.826 align:middle
+de ejecutar una consulta
+personalizada en Doctrine.
+
+00:02:29.606 --> 00:02:33.816 align:middle
+Doctrine, por supuesto, acaba
+realizando consultas SQL.
+
+00:02:34.516 --> 00:02:39.786 align:middle
+Pero Doctrine trabaja con MySQL, Postgres
+y otros motores de bases de datos...
+
+00:02:40.226 --> 00:02:44.696 align:middle
+y el SQL necesario para cada uno
+de ellos es ligeramente diferente.
+
+00:02:45.346 --> 00:02:51.886 align:middle
+Para manejar esto, internamente, Doctrine tiene su propio
+lenguaje de consulta llamado Doctrine Query Language
+
+00:02:52.056 --> 00:03:03.106 align:middle
+o "DQL", Tiene un aspecto similar al siguiente SELECT
+v FROM App\Entity\VinylMix v WHERE v.genre = 'pop';
+
+00:03:03.936 --> 00:03:08.436 align:middle
+Puedes escribir estas cadenas a mano, pero
+yo aprovecho el "QueryBuilder" de Doctrine
+
+00:03:08.436 --> 00:03:11.636 align:middle
+: un bonito objeto que ayuda...
+
+00:03:11.916 --> 00:03:12.266 align:middle
+ya sabes...
+
+00:03:12.576 --> 00:03:13.896 align:middle
+¡construir esa consulta!
+
+00:03:14.836 --> 00:03:20.246 align:middle
+Para utilizarlo, empieza con
+$this->createQueryBuilder() y pasa un alias
+
+00:03:20.246 --> 00:03:25.026 align:middle
+que se utilizará para identificar
+esta clase dentro de la consulta.
+
+00:03:25.946 --> 00:03:31.186 align:middle
+Hazlo corto, pero único entre
+tus entidades - algo como mix.
+
+00:03:32.146 --> 00:03:35.926 align:middle
+Como estamos llamando a esto desde
+dentro de VinylMixRepository,
+
+00:03:36.346 --> 00:03:40.886 align:middle
+el QueryBuilder ya sabe que debe
+consultar la entidad VinylMix...
+
+00:03:41.316 --> 00:03:43.696 align:middle
+y utilizará mix como alias.
+
+00:03:44.376 --> 00:03:50.886 align:middle
+Si ejecutáramos este constructor de consultas ahora
+mismo, sería básicamente SELECT * FROM vinyl_mix
+
+00:03:51.026 --> 00:03:56.086 align:middle
+AS mix El constructor de consultas está
+cargado de métodos para controlar la consulta.
+
+00:03:56.696 --> 00:04:05.136 align:middle
+Por ejemplo, llama a ->orderBy() y pasa a mix
+-ya que es nuestro alias- .votes y luego DESC.
+
+00:04:06.026 --> 00:04:13.306 align:middle
+Ya está Ahora que nuestra consulta está construida,
+para ejecutarla llama a ->getQuery() (que la convierte
+
+00:04:13.306 --> 00:04:17.656 align:middle
+en un objeto Query ) y
+luego a ->getResult().
+
+00:04:18.386 --> 00:04:23.066 align:middle
+Bueno, en realidad, hay varios métodos a los
+que puedes llamar para obtener los resultados.
+
+00:04:23.606 --> 00:04:29.596 align:middle
+Los dos principales son getResult() -que
+devuelve un array de los objetos coincidentes-
+
+00:04:30.086 --> 00:04:36.216 align:middle
+o getOneOrNullResult(), que es el que
+utilizarías si estuvieras consultando
+
+00:04:36.286 --> 00:04:39.696 align:middle
+un VinylMix específico o nulo.
+
+00:04:40.586 --> 00:04:45.486 align:middle
+Como queremos devolver una matriz de
+mezclas coincidentes, utiliza getResult().
+
+00:04:46.076 --> 00:04:47.886 align:middle
+Ahora podemos utilizar este método. En
+
+00:04:48.686 --> 00:04:52.016 align:middle
+VinylController (déjame
+cerrar MixController...),
+
+00:04:52.876 --> 00:04:57.476 align:middle
+en lugar de findBy(), llama
+a findAllOrderedByVotes().
+
+00:04:58.176 --> 00:05:05.006 align:middle
+Me encanta lo claro que es este método: hace que sea
+súper obvio lo que estamos consultando exactamente.
+
+00:05:05.916 --> 00:05:07.216 align:middle
+Y cuando lo probamos...
+
+00:05:09.236 --> 00:05:10.366 align:middle
+¡sigue funcionando!
+
+00:05:10.816 --> 00:05:14.086 align:middle
+Todavía no está filtrando,
+pero el orden es correcto.
+
+00:05:14.906 --> 00:05:16.586 align:middle
+Bien, volvamos a nuestro nuevo método.
+
+00:05:17.356 --> 00:05:20.756 align:middle
+Añade un argumento opcional
+string $genre = null.
+
+00:05:21.506 --> 00:05:25.256 align:middle
+Si se pasa un género, tenemos que
+añadir una declaración "where".
+
+00:05:25.846 --> 00:05:28.686 align:middle
+Para dejar espacio para ello,
+divide esto en varias líneas...
+
+00:05:29.316 --> 00:05:37.176 align:middle
+y sustituye return por $queryBuilder =.
+A continuación , return $queryBuilder
+
+00:05:37.176 --> 00:05:38.826 align:middle
+con ->getQuery(), y ->getResult().
+
+00:05:39.646 --> 00:05:44.146 align:middle
+Ahora podemos decir if ($genre),
+y añadir la declaración "where".
+
+00:05:44.746 --> 00:05:49.456 align:middle
+¿Cómo? Apuesto a que puedes
+adivinar: $queryBuilder->andWhere().
+
+00:05:50.046 --> 00:05:51.486 align:middle
+Pero una advertencia.
+
+00:05:51.876 --> 00:05:54.556 align:middle
+También existe el método where()...
+
+00:05:55.146 --> 00:05:56.866 align:middle
+pero yo nunca lo uso.
+
+00:05:57.646 --> 00:06:02.306 align:middle
+Cuando llames a where(), borrará
+cualquier sentencia "where" existente
+
+00:06:02.456 --> 00:06:04.476 align:middle
+que pueda tener el constructor de consultas...
+
+00:06:05.016 --> 00:06:09.316 align:middle
+por lo que podrías eliminar accidentalmente
+algo que hayas añadido antes.
+
+00:06:09.866 --> 00:06:12.296 align:middle
+Por tanto, utiliza siempre andWhere().
+
+00:06:13.046 --> 00:06:17.576 align:middle
+Doctrine es lo suficientemente inteligente como
+para darse cuenta de que, al ser el primer WHERE,
+
+00:06:17.846 --> 00:06:20.796 align:middle
+no necesita añadir el AND.
+
+00:06:21.546 --> 00:06:25.076 align:middle
+Dentro de andWhere(), pasa mix.genre =.
+
+00:06:25.446 --> 00:06:29.516 align:middle
+pero no pongas el género
+dinámico justo en la cadena.
+
+00:06:30.076 --> 00:06:33.126 align:middle
+Eso es un gran no-no: nunca lo hagas.
+
+00:06:33.646 --> 00:06:37.056 align:middle
+Eso te abre a los ataques de inyección SQL.
+
+00:06:37.706 --> 00:06:41.046 align:middle
+En su lugar, siempre que
+necesites poner un valor dinámico
+
+00:06:41.046 --> 00:06:44.516 align:middle
+en una consulta, utiliza
+una "sentencia preparada"...
+
+00:06:44.846 --> 00:06:50.986 align:middle
+que es una forma elegante de decir que pones
+un marcador de posición aquí, como :genre.
+
+00:06:51.816 --> 00:06:53.886 align:middle
+El nombre de éste puede ser cualquier cosa...
+
+00:06:53.996 --> 00:06:55.506 align:middle
+como "dinosaurio" si quieres.
+
+00:06:56.056 --> 00:07:01.856 align:middle
+Pero lo llames como lo llames, luego rellenarás el
+marcador de posición diciendo ->setParameter()
+
+00:07:02.246 --> 00:07:06.916 align:middle
+con el nombre del parámetro -así
+que genre - y luego el valor: $genre.
+
+00:07:07.876 --> 00:07:08.476 align:middle
+¡Qué bonito!
+
+00:07:09.066 --> 00:07:13.396 align:middle
+De nuevo en VinylController,
+pasa $slug como género.
+
+00:07:14.246 --> 00:07:15.086 align:middle
+¡Vamos a probar esto!
+
+00:07:15.646 --> 00:07:17.756 align:middle
+Vuelve a la página de navegación primero.
+
+00:07:18.916 --> 00:07:21.266 align:middle
+¡Genial! Obtenemos todos los resultados.
+
+00:07:22.076 --> 00:07:24.086 align:middle
+Ahora haz clic en "Rock" y...
+
+00:07:24.406 --> 00:07:28.956 align:middle
+¡bien! ¡Menos resultados y todos
+los géneros muestran "Rock"!
+
+00:07:29.776 --> 00:07:31.366 align:middle
+Si filtro por "Pop"...
+
+00:07:31.976 --> 00:07:35.916 align:middle
+¡lo tengo! Incluso podemos
+ver la consulta para esto...
+
+00:07:37.006 --> 00:07:37.636 align:middle
+aquí está.
+
+00:07:38.106 --> 00:07:42.066 align:middle
+Tiene la sentencia "where"
+para el género igual a "Pop".
+
+00:07:42.576 --> 00:07:48.376 align:middle
+¡Vaya! A medida que tu proyecto se haga más
+y más grande, vas a crear más y más métodos
+
+00:07:48.376 --> 00:07:50.556 align:middle
+en tu repositorio para las
+consultas personalizadas.
+
+00:07:51.186 --> 00:07:55.426 align:middle
+Y puede que empieces a repetir la misma
+lógica de consulta una y otra vez.
+
+00:07:56.176 --> 00:08:01.846 align:middle
+Por ejemplo, podríamos ordenar por los votos en
+un montón de métodos diferentes de esta clase.
+
+00:08:02.746 --> 00:08:07.256 align:middle
+Para evitar la duplicación, podemos
+aislar esa lógica en un método privado.
+
+00:08:08.076 --> 00:08:08.466 align:middle
+¡Compruébalo!
+
+00:08:08.846 --> 00:08:13.386 align:middle
+Añade private function
+addOrderByVotesQueryBuilder().
+
+00:08:14.246 --> 00:08:18.176 align:middle
+Esto aceptará un argumento
+QueryBuilder (queremos el
+
+00:08:18.176 --> 00:08:23.356 align:middle
+de Doctrine\ORM), pero hagámoslo opcional.
+
+00:08:24.136 --> 00:08:27.006 align:middle
+Y también devolveremos un QueryBuilder.
+
+00:08:28.606 --> 00:08:32.456 align:middle
+El trabajo de este método es
+añadir esta línea ->orderBy().
+
+00:08:33.116 --> 00:08:38.526 align:middle
+Y por comodidad, si no pasamos un
+$queryBuilder, crearemos uno nuevo.
+
+00:08:39.306 --> 00:08:44.186 align:middle
+Para permitirlo, empieza con
+$queryBuilder = $queryBuilder ??
+
+00:08:44.186 --> 00:08:47.836 align:middle
+$this->createQueryBuilder('mix').
+
+00:08:48.466 --> 00:08:52.616 align:middle
+Vuelvo a utilizar a
+propósito mix para el alias.
+
+00:08:53.446 --> 00:08:59.776 align:middle
+Para simplificar la vida, elige un alias para una
+entidad y utilízalo sistemáticamente en todas partes.
+
+00:09:00.716 --> 00:09:05.096 align:middle
+En cualquier caso, esta línea puede
+parecer extraña, pero básicamente dice
+
+00:09:05.386 --> 00:09:08.366 align:middle
+Si existe un QueryBuilder, utilízalo.
+
+00:09:08.776 --> 00:09:10.426 align:middle
+Si no, crea uno nuevo.
+
+00:09:11.306 --> 00:09:12.996 align:middle
+Por debajo de return $queryBuilder...
+
+00:09:13.666 --> 00:09:17.626 align:middle
+ve a robar la lógica de
+->orderBy() de aquí arriba y...
+
+00:09:17.786 --> 00:09:19.826 align:middle
+pega. ¡Impresionante!
+
+00:09:20.636 --> 00:09:22.956 align:middle
+PhpStorm está un poco enfadado conmigo...
+
+00:09:23.176 --> 00:09:26.866 align:middle
+pero eso es sólo porque está teniendo
+una mañana difícil y necesita reiniciar:
+
+00:09:27.296 --> 00:09:29.486 align:middle
+nuestro código está, esperemos, bien.
+
+00:09:30.316 --> 00:09:32.776 align:middle
+Vuelve al método original, simplifica
+
+00:09:32.776 --> 00:09:37.546 align:middle
+a $queryBuilder =
+$this->addOrderByVotesQueryBuilder()
+
+00:09:37.686 --> 00:09:39.686 align:middle
+y no le pases nada.
+
+00:09:40.376 --> 00:09:41.286 align:middle
+¿No es bonito?
+
+00:09:42.086 --> 00:09:43.556 align:middle
+Cuando refresquemos...
+
+00:09:44.026 --> 00:09:45.456 align:middle
+¡no está roto!
+
+00:09:45.786 --> 00:09:47.316 align:middle
+¡Toma ese PhpStorm!
+
+00:09:48.256 --> 00:09:53.926 align:middle
+A continuación, vamos a añadir una página de "show de
+mezclas" en la que podamos ver una única mezcla de vinilos.
+
+00:09:54.516 --> 00:09:59.906 align:middle
+Por primera vez, consultaremos un único
+objeto de la base de datos y nos ocuparemos
+
+00:09:59.906 --> 00:10:03.266 align:middle
+de lo que ocurre si no se encuentra
+ninguna mezcla que coincida
