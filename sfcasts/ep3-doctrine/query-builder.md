@@ -10,6 +10,8 @@ Right now, every mix in the database is in the "Pop" genre. Head back to
 make some more interesting dummy data. Add a `$genres` variable with "Pop" *and* "Rock"
 included... Then select a random one with `$genres[array_rand($genres)]`.
 
+[[[ code('54c99ad8bd') ]]]
+
 Cool! Now go to `/mix/new` and refresh a few times... until we have about 15
 mixes. Back on `/browse`... yup! We have a mix of "Rock" and "Pop" genres... they
 just don't *filter* yet.
@@ -27,10 +29,16 @@ learn how to create a custom query. So let's undo that.
 The best way to make a custom query, is to create a new method in the *repository*
 for whatever entity you're fetching data for. In this case, that means
 `VinylMixRepository`. This holds a few example methods. Un-comment the first...
-and then start *simple*. Call it `findAllOrderedByVotes()`. We won't worry about
+and then start *simple*. 
+
+[[[ code('e4d05ab545') ]]]
+
+Call it `findAllOrderedByVotes()`. We won't worry about
 the genre quite yet: I just want to make a query that returns all of the mixes
 ordered by votes. Remove the argument, this will return an array and the
 PHPdoc above helps my editor know that this will be an array of `VinylMix` objects
+
+[[[ code('fb27ae3d1b') ]]]
 
 ## DQL and the QueryBuilder
 
@@ -53,6 +61,8 @@ To use it, start with `$this->createQueryBuilder()` and pass an *alias* that wil
 be used to identify this class within the query. Make this short, but unique
 among your entities - something like `mix`.
 
+[[[ code('d129b30819') ]]]
+
 Because we're calling this from inside of `VinylMixRepository`, the QueryBuilder
 already knows to query from the `VinylMix` entity... and will use `mix` as the alias.
 If we executed this query builder right now, it would basically be:
@@ -63,8 +73,12 @@ The query builder is *loaded* with methods to control the query. For example,
 call `->orderBy()` and pass `mix` - since that's our alias - `.votes` then
 `DESC`.
 
+[[[ code('1cb0df88e1') ]]]
+
 Done! Now that our query is built, to execute call `->getQuery()` (that
 turns it into a `Query` object) and then `->getResult()`.
+
+[[[ code('ce9df562c0') ]]]
 
 Well actually, there are a number of methods you can call to get the results.
 The main two are `getResult()` - which returns an *array* of the matching objects -
@@ -74,6 +88,8 @@ mixes, use `getResult()`.
 
 *Now* we can use this method. Over in `VinylController` (let me close `MixController`...),
 instead of `findBy()`, call `findAllOrderedByVotes()`.
+
+[[[ code('b6870c6a31') ]]]
 
 I *love* how clear that method is: it makes it super obvious exactly *what*
 we're querying for. And when we try it... it still works! It's not filtering yet,
@@ -85,6 +101,8 @@ Okay, back to our new method. Add an optional `string $genre = null` argument.
 *If* a genre is passed, we need to add a "where" statement. To make space for
 that, break this onto multiple lines... and replace `return` with `$queryBuilder =`.
 Below, `return $queryBuilder` with `->getQuery()`, and `->getResult()`.
+
+[[[ code('4d59046ba3') ]]]
 
 *Now* we can say `if ($genre)`, and add the "where" statement. How? I bet you
 could guess: `$queryBuilder->andWhere()`.
@@ -105,6 +123,8 @@ like "dinosaur" if you want. But *whatever* you call it, you'll then fill *in* t
 placeholder by saying `->setParameter()` with the *name* of the parameter - so
 `genre` - and then the value: `$genre`.
 
+[[[ code('d847ca105b') ]]]
+
 Beautiful! Back over in `VinylController`, pass `$slug` as the genre.
 
 Let's try this! Click back to the browse page first. Awesome! We get all
@@ -124,6 +144,8 @@ out! Add `private function addOrderByVotesQueryBuilder()`. This will accept a
 `QueryBuilder` argument (we want the one from `Doctrine\ORM`), but let's make it
 *optional*. And we will also *return* a `QueryBuilder`.
 
+[[[ code('0b62ed3f29') ]]]
+
 The job of this method is to add this `->orderBy()` line. And for convenience,
 if we don't pass in a `$queryBuilder`, we'll create a new one.
 
@@ -132,6 +154,8 @@ To allow that, start with
 purposely using `mix` again for the alias. To keep life simple, choose an alias
 for an entity and *consistently* use it everywhere.
 
+[[[ code('64c4b20a01') ]]]
+
 Anyways, this line itself may look weird, but it basically says:
 
 > If there *is* a QueryBuilder, then use it. Else, create a new one.
@@ -139,11 +163,15 @@ Anyways, this line itself may look weird, but it basically says:
 Below `return $queryBuilder`... go steal the `->orderBy()` logic from up here
 and... paste. Awesome!
 
+[[[ code('642635ef7b') ]]]
+
 PhpStorm is a little angry with me... but that's just because it's having
 a rough morning and needs a restart: our code is, hopefully, just fine.
 
 Back up in the original method, simplify to
 `$queryBuilder = $this->addOrderByVotesQueryBuilder()` and pass it *nothing*.
+
+[[[ code('7e289b4487') ]]]
 
 Isn't that nice? When we refresh... it's not broken! Take *that* PhpStorm!
 
