@@ -189,10 +189,10 @@ y utilizará mix como alias.
 
 00:03:44.376 --> 00:03:50.886 align:middle
 Si ejecutáramos este constructor de consultas ahora
-mismo, sería básicamente SELECT * FROM vinyl_mix
+mismo, sería básicamente SELECT * FROM vinyl_mix AS mix
 
 00:03:51.026 --> 00:03:56.086 align:middle
-AS mix El constructor de consultas está
+El constructor de consultas está
 cargado de métodos para controlar la consulta.
 
 00:03:56.696 --> 00:04:05.136 align:middle
@@ -491,7 +491,7 @@ y no le pases nada.
 ¿No es bonito?
 
 00:09:42.086 --> 00:09:43.556 align:middle
-Cuando actualizamos...
+Cuando refresquemos...
 
 00:09:44.026 --> 00:09:45.456 align:middle
 ¡no está roto!
