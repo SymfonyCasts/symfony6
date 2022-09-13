@@ -1,0 +1,254 @@
+WEBVTT
+
+00:00:01.006 --> 00:00:03.876 align:middle
+Hemos programado el camino feliz.
+
+00:00:03.876 --> 00:00:10.576 align:middle
+Cuando voy a /mix/13, mi base de datos sí
+encuentra una mezcla con esa identificación y...
+
+00:00:10.676 --> 00:00:12.256 align:middle
+la vida es buena.
+
+00:00:12.936 --> 00:00:16.326 align:middle
+¿Pero qué pasa si lo cambio a /99?
+
+00:00:17.146 --> 00:00:24.056 align:middle
+Vaya. Eso es un error 500: no es algo que
+queramos que nuestro sitio haga nunca.
+
+00:00:24.736 --> 00:00:27.756 align:middle
+En realidad debería ser un error 404.
+
+00:00:27.756 --> 00:00:30.996 align:middle
+Entonces, ¿cómo provocamos un 404?
+
+00:00:31.786 --> 00:00:37.166 align:middle
+En el método, esta variable
+$mix será un objeto VinylMix
+
+00:00:37.416 --> 00:00:40.906 align:middle
+o será nula si no se encuentra ninguno.
+
+00:00:40.906 --> 00:00:49.826 align:middle
+Así que podemos decir if (!$mix), y luego, para activar
+un 404, throw $this->createNotFoundException().
+
+00:00:50.676 --> 00:00:55.046 align:middle
+Puedes darle un mensaje si quieres, pero
+sólo lo verán los desarrolladores.
+
+00:00:55.806 --> 00:01:02.606 align:middle
+Este createNotFoundException(), como su
+nombre indica, crea un objeto de excepción.
+
+00:01:02.606 --> 00:01:06.246 align:middle
+Así que en realidad estamos
+lanzando una excepción aquí...
+
+00:01:06.606 --> 00:01:12.176 align:middle
+lo que está bien, porque significa que el
+código que sigue a esto no se ejecutará.
+
+00:01:12.936 --> 00:01:17.596 align:middle
+Ahora bien, normalmente si tú o algo
+de tu código lanza una excepción,
+
+00:01:17.836 --> 00:01:20.626 align:middle
+provocará un error 500.
+
+00:01:21.076 --> 00:01:26.196 align:middle
+Pero este método crea un tipo especial de
+excepción que se corresponde con un 404.
+
+00:01:26.946 --> 00:01:31.206 align:middle
+¡Fíjate! Aquí, en la parte
+superior derecha, cuando refresco...
+
+00:01:31.206 --> 00:01:40.356 align:middle
+¡404! Por cierto, este no es el aspecto que
+tendrían las páginas 404 o 500 en producción.
+
+00:01:41.016 --> 00:01:48.626 align:middle
+Si pasáramos al entorno prod, veríamos una
+página de error bastante genérica y sin detalles.
+
+00:01:49.276 --> 00:01:55.936 align:middle
+Luego puedes personalizar su aspecto, incluso
+haciendo estilos separados para los errores 404,
+
+00:01:55.936 --> 00:01:59.526 align:middle
+403 Acceso denegado, o incluso...
+
+00:01:59.796 --> 00:02:04.456 align:middle
+jadeo... 500 errores si algo va realmente mal.
+
+00:02:05.306 --> 00:02:08.836 align:middle
+Consulta la documentación de Symfony para
+saber cómo personalizar las páginas de error.
+
+00:02:09.696 --> 00:02:16.876 align:middle
+¡Muy bien! Hemos consultado un único objeto
+VinylMix e incluso hemos gestionado la ruta 404.
+
+00:02:16.876 --> 00:02:20.106 align:middle
+Pero podemos hacer esto
+con mucho menos trabajo.
+
+00:02:20.706 --> 00:02:21.206 align:middle
+¡Compruébalo!
+
+00:02:21.576 --> 00:02:29.246 align:middle
+Sustituye el argumento $id por un nuevo argumento, de
+tipo "type-hinted" con nuestra clase de entidad VinylMix.
+
+00:02:30.046 --> 00:02:33.926 align:middle
+Llámalo, qué tal, $mix para que
+coincida con la variable de abajo.
+
+00:02:34.746 --> 00:02:36.276 align:middle
+Luego... borra la consulta...
+
+00:02:36.906 --> 00:02:38.696 align:middle
+y también el 404.
+
+00:02:39.426 --> 00:02:43.986 align:middle
+Y ahora, ni siquiera necesitamos
+el argumento $mixRepository.
+
+00:02:44.676 --> 00:02:47.426 align:middle
+Esto... merece alguna explicación. Hasta
+
+00:02:48.046 --> 00:02:52.746 align:middle
+ahora, las "cosas" que se nos
+"permiten" como argumentos
+
+00:02:52.746 --> 00:02:59.746 align:middle
+de nuestros controladores son (1)
+comodines de ruta como $id o (2) servicios.
+
+00:03:00.476 --> 00:03:02.796 align:middle
+Ahora tenemos una tercera cosa.
+
+00:03:03.346 --> 00:03:09.426 align:middle
+Cuando escribes una clase de entidad, Symfony
+consultará el objeto automáticamente.
+
+00:03:10.106 --> 00:03:19.926 align:middle
+Como tenemos un comodín llamado {id}, tomará
+este valor (por ejemplo "99" o "16") y buscará
+
+00:03:19.926 --> 00:03:24.266 align:middle
+un VinylMix cuyo id sea igual a ese.
+
+00:03:25.106 --> 00:03:28.086 align:middle
+El nombre del comodín - id en este caso -
+
+00:03:28.446 --> 00:03:32.296 align:middle
+debe coincidir con el nombre de la propiedad
+que debe utilizar para la consulta.
+
+00:03:33.236 --> 00:03:35.276 align:middle
+Pero si vuelvo y actualizo...
+
+00:03:35.916 --> 00:03:37.536 align:middle
+¿¡no funciona!?
+
+00:03:38.176 --> 00:03:41.546 align:middle
+No se puede autoconducir el argumento
+$mix de MixController::show():
+
+00:03:41.946 --> 00:03:47.616 align:middle
+hace referencia a VinylMix
+pero no existe tal servicio.
+
+00:03:47.616 --> 00:03:50.036 align:middle
+Sabemos que no es un servicio...
+
+00:03:50.036 --> 00:03:51.656 align:middle
+así que tiene sentido.
+
+00:03:52.146 --> 00:03:56.506 align:middle
+Pero... ¿por qué no consulta
+el objeto como acabo de decir?
+
+00:03:57.246 --> 00:03:58.196 align:middle
+Porque...
+
+00:03:58.546 --> 00:04:02.956 align:middle
+para que esta función funcione,
+¡tenemos que instalar otro bundle!
+
+00:04:03.686 --> 00:04:11.306 align:middle
+Bueno, si estás usando Symfony 6.2 y un DoctrineBundle
+suficientemente nuevo - probablemente la versión 2.8 -
+
+00:04:11.806 --> 00:04:15.796 align:middle
+entonces esto debería funcionar
+sin necesidad de nada más.
+
+00:04:16.446 --> 00:04:21.706 align:middle
+Pero como estamos usando Symfony
+6.1, necesitamos una librería extra.
+
+00:04:21.706 --> 00:04:30.186 align:middle
+Busca tu terminal y di: composer require
+sensio/framework-extra-bundle Este es un bundle
+
+00:04:30.186 --> 00:04:34.956 align:middle
+lleno de pequeños y bonitos atajos
+que, para Symfony 6.2, se habrán
+
+00:04:35.306 --> 00:04:39.416 align:middle
+trasladado al propio Symfony.
+
+00:04:39.416 --> 00:04:42.896 align:middle
+Así que, con el tiempo, no necesitarás esto.
+
+00:04:42.896 --> 00:04:43.596 align:middle
+Y ahora...
+
+00:04:43.906 --> 00:04:45.776 align:middle
+sin hacer nada más...
+
+00:04:46.006 --> 00:04:53.726 align:middle
+¡funciona! ¡Se ha consultado automáticamente
+el objeto VinylMix y la página se renderiza!
+
+00:04:54.376 --> 00:04:58.086 align:middle
+Y si vas a un ID malo, como /99...
+
+00:04:58.546 --> 00:04:59.966 align:middle
+¡sí! ¡Compruébalo!
+
+00:05:00.146 --> 00:05:02.086 align:middle
+¡Obtenemos un 404!
+
+00:05:02.946 --> 00:05:05.606 align:middle
+Esta función se llama "ParamConverter"...
+
+00:05:05.846 --> 00:05:11.826 align:middle
+que se menciona en el error: VinylMix objeto no
+encontrado por la anotación @ParamConverter.
+
+00:05:12.696 --> 00:05:15.226 align:middle
+En cualquier caso, me encanta esta
+función. Si necesito consultar
+
+00:05:16.006 --> 00:05:20.956 align:middle
+varios objetos, como en la acción browse(),
+
+00:05:21.446 --> 00:05:24.396 align:middle
+utilizaré el servicio de repositorio correcto.
+
+00:05:24.976 --> 00:05:30.466 align:middle
+Pero si necesito consultar un solo objeto
+en un controlador, utilizo este truco.
+
+00:05:31.366 --> 00:05:37.586 align:middle
+A continuación, vamos a hacer posible que nuestras mezclas sean
+votadas por arriba y por abajo aprovechando un simple formulario.
+
+00:05:38.316 --> 00:05:43.726 align:middle
+Para ello, por primera vez, actualizaremos
+una entidad en la base de datos
