@@ -12,6 +12,8 @@ will be... how about `/mix/{id}`, where `id` will be the ID of that mix in the
 database. Below, add the corresponding `$id` argument. And... just to see if this
 is working, `dd($id)`.
 
+[[[ code('32d49a76d0') ]]]
+
 Coolio! Spin over and go to, how about, `/mix/7`. Awesome! Our route and controller
 are hooked up!
 
@@ -24,6 +26,8 @@ second argument to the method type-hinted with `VinylMixRepository` and call it
 the first time, we're going to use the `find()` method. It's dead simple:
 it finds a single object using the primary key. So pass it `$id`. To make sure *this*
 is working, `dd($mix)`.
+
+[[[ code('859cc66b54') ]]]
 
 We don't know which IDs we actually *have* in our database right now, so as a
 workaround, go to `/mix/new` to create a *new* mix. In my case, it has ID 16.
@@ -43,10 +47,14 @@ with your fellow teammates!
 
 Pass in a variable called `mix` set to the `VinylMix` object `$mix`.
 
+[[[ code('a2f566cccc') ]]]
+
 All right, let's go create that template. In `templates/`, add a new directory
 called `mix/`... and inside of *that*, a new file called `show.html.twig`. Pretty
 much every template is going to start the same way. Begin by saying
 `{% extends 'base.html.twig' %}`.
+
+[[[ code('8faba2464f') ]]]
 
 As a reminder, `base.html.twig` has several blocks in it. The most important one
 down here is `block body`. *That's* what we'll override with our content. At the top,
@@ -56,6 +64,8 @@ override *both*.
 Say `{% block title %}{% endblock %}` and, in between, `{{ mix.title }} Mix`.
 Then override `{% block body %}` with `{% endblock %}` below. Inside, just
 to get started, add an `<h1>` with `{{ mix.title }}`.
+
+[[[ code('f7e4f8ec72') ]]]
 
 When we try that... hello page! This is *super* simple - the `<h1>` isn't even in
 the right place - but it's *working*. Now we can add some *pizzazz*.
@@ -68,6 +78,8 @@ it extends `base.html.twig` and the `block title` looks like it did before. But
 then, in the body, we have a bunch of new markup, we print the mix title... and
 down here, I have a few `TODO`s for us where we'll print out more details.
 
+[[[ code('29a9b90ee9') ]]]
+
 If you refresh now... nice! We even have the cute little record SVG... which you
 probably recognize from the homepage. That's awesome... except that duplicating
 this entire SVG in both templates is... *not* so awesome. Let's fix that duplication.
@@ -77,15 +89,23 @@ this entire SVG in both templates is... *not* so awesome. Let's fix that duplica
 Select all of this `<svg>` content, copy it, and over in the `mix/` directory, create
 a new file called `_recordSvg.html.twig`. Paste that here!
 
+[[[ code('25e389c19c') ]]]
+
 The reason I prefixed the name with `_` is to indicate that this is a template
 *partial*. That means it's a template that doesn't include a whole page - just *part*
 of a page. The `_` is optional... and just something that's done as a common
 convention: it doesn't change any behavior.
 
 Thanks to this, we can go into `show.html.twig` and
-`{{ include('mix/_recordSvg.html.twig) }}`. Let's go do the same thing in the homepage
+`{{ include('mix/_recordSvg.html.twig) }}`. 
+
+[[[ code('d32f13df1d') ]]]
+
+Let's go do the same thing in the homepage
 template: `templates/vinyl/homepage.html.twig`. This is the *same* SVG here, so
 we'll include that same template.
+
+[[[ code('1887b55a99') ]]]
 
 Nice! If we go check the homepage... it *still* looks great! And if we head back to
 the mix page and refresh... that looks great too!
@@ -94,6 +114,8 @@ To finish the template, let's fill in the missing details. Add an `<h2>` with
 `class="mb-4"`, and inside, say `{{ mix.trackCount }} songs`, followed by a `<small>`
 tag with `(genre: {{ mix.genre }})`... and below this, a `<p>` tag with
 `{{ mix.description }}`.
+
+[[[ code('ec3ff968e2') ]]]
 
 And now... this is starting to come to life! We don't have a track list yet...
 because that's another database table we'll create in a future tutorial. But it's
@@ -113,6 +135,8 @@ it doesn't *have* one! Ok, Symfony auto-generates a name... but we don't want to
 rely on that. As soon as we want to link to a route, we should give that route a
 proper name. How about `app_mix_show`.
 
+[[[ code('46272d3c62') ]]]
+
 Copy that, head back to `browse.html.twig` and *paste*.
 
 But this time, just pasting the route name isn't going to be enough! Check out
@@ -124,6 +148,8 @@ this sweet error:
 That makes sense! Symfony is trying to generate the URL to this route,
 but we need to tell it what *wildcard* value to use for `{id}`. We do that by
 passing a second array argument with `{}`. Inside set `id` to `mix.id`.
+
+[[[ code('4ef34eaf67') ]]]
 
 And now... the page works! And we can click any of these to hop in and
 see more details.
