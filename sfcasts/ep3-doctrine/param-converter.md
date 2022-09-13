@@ -12,6 +12,8 @@ if one isn't found. So we can say `if (!$mix)`, and then, to trigger a 404,
 `throw $this->createNotFoundException()`. You can give this a message if you want,
 but it'll only be seen by developers.
 
+[[[ code('743daf7827') ]]]
+
 This `createNotFoundException()`, as the name suggests, creates an exception
 object. So we're actually *throwing* an exception here... which is nice, because
 it means that code *after* this won't be executed.
@@ -34,6 +36,8 @@ But we can do this with *way* less work. Check it out! Replace the `$id` argumen
 with a *new* argument, type-hinted with our entity class `VinylMix`. Call it,
 how about, `$mix` to match the variable below. Then... delete the query...
 and also the 404. And now, we don't even need the `$mixRepository` argument at all.
+
+[[[ code('11e978077a') ]]]
 
 This... deserves some explanation. So far, the "things" that we are "allowed" to
 have as arguments to our controllers are (1) route wildcards like `$id` or (2) services.
