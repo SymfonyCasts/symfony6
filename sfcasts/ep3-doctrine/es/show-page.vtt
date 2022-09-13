@@ -1,0 +1,438 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:05.626 align:middle
+Nuestros usuarios realmente necesitan poder
+hacer clic en una mezcla y navegar a una página
+
+00:00:05.626 --> 00:00:07.166 align:middle
+con más información sobre ella...
+
+00:00:07.476 --> 00:00:09.736 align:middle
+como, por ejemplo, su lista de canciones
+
+00:00:10.416 --> 00:00:12.386 align:middle
+¡Así que hagamos eso posible!
+
+00:00:12.876 --> 00:00:16.286 align:middle
+Vamos a crear una página para
+mostrar los detalles de una mezcla.
+
+00:00:16.936 --> 00:00:18.986 align:middle
+Dirígete a src/Controller/MixController.php.
+
+00:00:18.986 --> 00:00:28.126 align:middle
+Después de la acción new, añade public function
+show() con el atributo [#Route()] anterior.
+
+00:00:28.946 --> 00:00:30.426 align:middle
+La URL para esto será...
+
+00:00:30.706 --> 00:00:37.566 align:middle
+como /mix/{id}, donde id será el ID
+de esa mezcla en la base de datos.
+
+00:00:38.276 --> 00:00:40.886 align:middle
+A continuación, añade el
+argumento $id correspondiente.
+
+00:00:41.346 --> 00:00:44.586 align:middle
+Y... sólo para ver si esto funciona, dd($id).
+
+00:00:45.916 --> 00:00:50.916 align:middle
+¡Genial! Gira y ve a, qué tal, /mix/7.
+
+00:00:51.516 --> 00:00:54.366 align:middle
+¡Genial! ¡Nuestra ruta y el
+controlador están conectados!
+
+00:00:55.226 --> 00:00:58.336 align:middle
+Bien, ahora que tenemos el
+ID, tenemos que consultar
+
+00:00:58.386 --> 00:01:01.956 align:middle
+el VinylMix en la base de
+datos que coincida con él.
+
+00:01:02.606 --> 00:01:06.026 align:middle
+Y ya sabemos cómo consultar:
+a través del repositorio.
+
+00:01:06.706 --> 00:01:09.426 align:middle
+Añade un segundo argumento
+al método que se ha indicado
+
+00:01:09.426 --> 00:01:13.186 align:middle
+con VinylMixRepository y
+llámalo $mixRepository.
+
+00:01:14.016 --> 00:01:20.556 align:middle
+Ahora sustituye el dd() por $mix =
+$mixRepository-> y, por primera vez, vamos a
+
+00:01:20.666 --> 00:01:23.256 align:middle
+utilizar el método find().
+
+00:01:23.906 --> 00:01:28.956 align:middle
+Es muy sencillo: busca un único
+objeto utilizando la clave primaria.
+
+00:01:29.346 --> 00:01:30.756 align:middle
+Así que pásale $id.
+
+00:01:31.576 --> 00:01:35.226 align:middle
+Para asegurarnos de que funciona, dd($mix).
+
+00:01:36.006 --> 00:01:41.096 align:middle
+Ahora mismo no sabemos qué IDs tenemos en
+nuestra base de datos, así que como solución,
+
+00:01:41.476 --> 00:01:46.106 align:middle
+ve a /mix/new para crear una nueva mezcla.
+
+00:01:46.646 --> 00:01:48.826 align:middle
+En mi caso, tiene el ID 16.
+
+00:01:49.376 --> 00:01:53.156 align:middle
+Genial: ve a /mix/16 y...
+
+00:01:53.406 --> 00:01:56.516 align:middle
+¡hola VinylMix id: 16 !
+
+00:01:57.136 --> 00:02:02.276 align:middle
+Lo importante es que esto
+devuelve un objeto VinylMix.
+
+00:02:02.876 --> 00:02:10.906 align:middle
+A menos que hagas algo personalizado, Doctrine
+siempre nos devuelve un único objeto o una matriz
+
+00:02:10.906 --> 00:02:13.706 align:middle
+de objetos, dependiendo del método que llames.
+
+00:02:13.706 --> 00:02:18.726 align:middle
+Ahora que tenemos el objeto VinylMix, vamos
+a renderizar una plantilla y a pasarla.
+
+00:02:19.256 --> 00:02:25.986 align:middle
+Hazlo con return $this->render() y
+llama a la plantilla mix/show.html.twig.
+
+00:02:26.806 --> 00:02:28.856 align:middle
+La ruta de la plantilla
+podría ser cualquier cosa,
+
+00:02:29.316 --> 00:02:34.646 align:middle
+pero como estamos dentro de MixController,
+el directorio mix tiene sentido.
+
+00:02:35.346 --> 00:02:40.486 align:middle
+Y como estamos en la acción show,
+show.html.twig también tiene sentido.
+
+00:02:40.976 --> 00:02:45.476 align:middle
+¡La coherencia es una buena manera de
+hacer amigos con tus compañeros de equipo!
+
+00:02:46.216 --> 00:02:50.746 align:middle
+Pasa una variable llamada mix
+ajustada al objeto VinylMix $mix .
+
+00:02:51.756 --> 00:02:53.766 align:middle
+Muy bien, vamos a crear esa plantilla.
+
+00:02:54.216 --> 00:02:57.136 align:middle
+En templates/, añade un nuevo
+directorio llamado mix/...
+
+00:02:57.516 --> 00:03:02.126 align:middle
+y dentro de éste, un nuevo
+archivo llamado show.html.twig.
+
+00:03:03.006 --> 00:03:05.526 align:middle
+Casi todas las plantillas van
+a empezar de la misma manera.
+
+00:03:05.986 --> 00:03:10.766 align:middle
+Empieza diciendo {% extends
+'base.html.twig' %}.
+
+00:03:10.766 --> 00:03:14.956 align:middle
+Como recordatorio, base.html.twig
+tiene varios bloques.
+
+00:03:15.636 --> 00:03:18.686 align:middle
+El más importante aquí abajo es block body.
+
+00:03:19.206 --> 00:03:21.906 align:middle
+Eso es lo que anularemos con nuestro contenido.
+
+00:03:22.706 --> 00:03:28.206 align:middle
+En la parte superior, también hay un block title,
+que nos permite controlar el título de la página.
+
+00:03:28.546 --> 00:03:30.216 align:middle
+Anulemos ambos.
+
+00:03:30.216 --> 00:03:38.816 align:middle
+Digamos {% block title %}{% endblock
+%} y, en medio, {{ mix.title }} Mix.
+
+00:03:39.676 --> 00:03:43.476 align:middle
+Luego anula {% block body %}
+con {% endblock %} debajo.
+
+00:03:44.316 --> 00:03:50.026 align:middle
+Dentro, para empezar, añade un
+<h1> con {{ mix.title }}.
+
+00:03:50.946 --> 00:03:52.416 align:middle
+Cuando probemos eso...
+
+00:03:53.076 --> 00:03:54.476 align:middle
+¡hola página!
+
+00:03:55.046 --> 00:04:01.356 align:middle
+Esto es súper simple -el <h1> ni siquiera
+está en el lugar correcto- pero está funcionando.
+
+00:04:01.946 --> 00:04:03.596 align:middle
+Ahora podemos añadir algo de dinamismo.
+
+00:04:04.746 --> 00:04:08.406 align:middle
+Voy a volver a mi plantilla y a
+pegar un montón de contenido nuevo.
+
+00:04:09.136 --> 00:04:11.776 align:middle
+Puedes copiar esto desde el bloque
+de código de esta página. La parte
+
+00:04:12.476 --> 00:04:18.046 align:middle
+superior es exactamente igual:
+se extiende base.html.twig
+
+00:04:18.476 --> 00:04:21.086 align:middle
+y el block title tiene el
+mismo aspecto que antes.
+
+00:04:21.846 --> 00:04:27.416 align:middle
+Pero luego, en el cuerpo, tenemos un montón de
+marcas nuevas, imprimimos el título de la mezcla...
+
+00:04:27.846 --> 00:04:33.416 align:middle
+y aquí abajo, tengo unos cuantos TODOen
+los que imprimiremos más detalles.
+
+00:04:34.116 --> 00:04:35.536 align:middle
+Si refrescas ahora...
+
+00:04:36.276 --> 00:04:40.366 align:middle
+¡qué bien! Incluso tenemos
+el simpático SVG del disco...
+
+00:04:40.746 --> 00:04:43.776 align:middle
+que probablemente reconozcas
+de la página de inicio.
+
+00:04:44.476 --> 00:04:45.656 align:middle
+Eso es genial...
+
+00:04:45.976 --> 00:04:51.536 align:middle
+excepto que duplicar todo este
+SVG en ambas plantillas es...
+
+00:04:51.576 --> 00:04:52.756 align:middle
+no es tan impresionante.
+
+00:04:53.306 --> 00:04:55.026 align:middle
+Vamos a arreglar esa duplicación.
+
+00:04:55.876 --> 00:05:02.256 align:middle
+Selecciona todo este contenido de <svg>,
+cópialo, y en el directorio mix/,
+
+00:05:02.506 --> 00:05:07.626 align:middle
+crea un nuevo archivo
+llamado _recordSvg.html.twig.
+
+00:05:08.376 --> 00:05:09.686 align:middle
+Pégalo aquí
+
+00:05:10.616 --> 00:05:17.426 align:middle
+La razón por la que he prefijado el nombre con _ es
+para indicar que se trata de una plantilla parcial.
+
+00:05:18.076 --> 00:05:24.036 align:middle
+Eso significa que es una plantilla que no incluye una
+página completa, sino sólo parte de una página.
+
+00:05:24.846 --> 00:05:26.226 align:middle
+El _ es opcional...
+
+00:05:26.516 --> 00:05:31.716 align:middle
+y sólo es algo que se hace como convención
+común: no cambia ningún comportamiento.
+
+00:05:32.546 --> 00:05:41.596 align:middle
+Gracias a esto, podemos entrar en show.html.twig
+y {{ include('mix/_recordSvg.html.twig) }}.
+
+00:05:42.576 --> 00:05:47.996 align:middle
+Vamos a hacer lo mismo en la plantilla de la página
+de inicio: templates/vinyl/homepage.html.twig.
+
+00:05:48.806 --> 00:05:53.936 align:middle
+Aquí está el mismo SVG, así que
+incluiremos esa misma plantilla.
+
+00:05:54.716 --> 00:05:57.376 align:middle
+Muy bien Si vamos a comprobar
+la página de inicio...
+
+00:05:57.916 --> 00:05:59.786 align:middle
+¡sigue teniendo un aspecto estupendo!
+
+00:06:00.576 --> 00:06:03.146 align:middle
+Y si volvemos a la página de
+la mezcla y la actualizamos...
+
+00:06:03.686 --> 00:06:05.186 align:middle
+¡también se ve muy bien!
+
+00:06:05.986 --> 00:06:09.106 align:middle
+Para terminar la plantilla, vamos a
+completar los detalles que faltan.
+
+00:06:10.806 --> 00:06:18.306 align:middle
+Añade un <h2> con class="mb-4", y dentro, digamos
+{{ mix.trackCount }} songs, seguido de una etiqueta
+
+00:06:19.046 --> 00:06:24.376 align:middle
+<small> con (genre: {{ mix.genre }})...
+
+00:06:25.656 --> 00:06:30.856 align:middle
+y debajo de ésta, una etiqueta
+<p> con {{ mix.description }}.
+
+00:06:31.746 --> 00:06:32.646 align:middle
+Y ahora...
+
+00:06:33.276 --> 00:06:35.646 align:middle
+¡esto empieza a cobrar vida!
+
+00:06:36.276 --> 00:06:38.096 align:middle
+Todavía no tenemos una lista de canciones...
+
+00:06:38.406 --> 00:06:42.396 align:middle
+porque esa es otra tabla de la base de
+datos que crearemos en un futuro tutorial.
+
+00:06:42.736 --> 00:06:44.286 align:middle
+Pero es un buen comienzo.
+
+00:06:45.176 --> 00:06:48.306 align:middle
+Para completar la nueva función,
+cuando estemos en la página /browse,
+
+00:06:48.646 --> 00:06:51.596 align:middle
+tenemos que enlazar cada mezcla
+con su página de espectáculo.
+
+00:06:52.476 --> 00:06:58.336 align:middle
+Abre templates/vinyl/browse.html.twig y desplázate
+hacia abajo hasta donde se encuentra el bucle.
+
+00:06:59.276 --> 00:07:03.226 align:middle
+Bien: cambia la etiqueta <div> que
+rodea todo por una etiqueta <a>.
+
+00:07:03.906 --> 00:07:07.856 align:middle
+Luego... rompe esto en varias
+líneas y añade href="".
+
+00:07:08.706 --> 00:07:15.546 align:middle
+Como puedes ver, PhpStorm ha sido lo suficientemente inteligente
+como para actualizar la etiqueta de cierre a un a automáticamente.
+
+00:07:16.456 --> 00:07:21.726 align:middle
+Para enlazar a una página en Twig, utilizamos la
+función path() y pasamos el nombre de la ruta.
+
+00:07:22.276 --> 00:07:25.626 align:middle
+¿Cuál... es el nombre de la ruta
+a nuestra página de presentación?
+
+00:07:26.276 --> 00:07:27.176 align:middle
+La respuesta es...
+
+00:07:27.446 --> 00:07:29.256 align:middle
+¡no tiene ninguno!
+
+00:07:29.676 --> 00:07:32.286 align:middle
+Vale, Symfony autogenera un nombre...
+
+00:07:32.716 --> 00:07:35.186 align:middle
+pero no queremos confiar en eso.
+
+00:07:36.086 --> 00:07:40.856 align:middle
+En cuanto queramos enlazar a una ruta,
+debemos darle un nombre adecuado.
+
+00:07:41.306 --> 00:07:43.986 align:middle
+¿Qué te parece app_mix_show.
+
+00:07:44.706 --> 00:07:49.756 align:middle
+Copia eso, vuelve a browse.html.twig y pégalo.
+
+00:07:50.476 --> 00:07:54.506 align:middle
+Pero esta vez, ¡pegar el nombre
+de la ruta no va a ser suficiente!
+
+00:07:55.146 --> 00:08:00.996 align:middle
+Fíjate en este bonito error: Faltan
+algunos parámetros obligatorios ("id")
+
+00:08:01.246 --> 00:08:04.486 align:middle
+para generar una URL para
+la ruta "app_mix_show".
+
+00:08:05.176 --> 00:08:06.486 align:middle
+¡Eso tiene sentido!
+
+00:08:07.046 --> 00:08:09.816 align:middle
+Symfony está intentando
+generar la URL de esta ruta,
+
+00:08:10.236 --> 00:08:16.316 align:middle
+pero tenemos que decirle qué valor
+comodín debe utilizar para {id}.
+
+00:08:16.316 --> 00:08:21.826 align:middle
+Lo hacemos pasando un segundo
+argumento de matriz con {}.
+
+00:08:22.516 --> 00:08:24.966 align:middle
+Dentro ponemos id a mix.id.
+
+00:08:25.076 --> 00:08:27.386 align:middle
+Y ahora...
+
+00:08:28.336 --> 00:08:30.226 align:middle
+¡la página funciona!
+
+00:08:30.646 --> 00:08:34.416 align:middle
+Y podemos hacer clic en cualquiera de
+ellas para entrar y ver más detalles.
+
+00:08:36.036 --> 00:08:38.886 align:middle
+Bien, ¡ya tenemos el camino feliz funcionando!
+
+00:08:39.436 --> 00:08:42.866 align:middle
+¿Pero qué pasa si no se puede encontrar
+ninguna mezcla para un determinado ID?
+
+00:08:43.756 --> 00:08:51.196 align:middle
+Siguiente: hablemos de las páginas 404 y aprendamos
+cómo podemos ser aún más perezosos haciendo que Symfony
+
+00:08:51.196 --> 00:08:54.276 align:middle
+consulte el objeto VinylMix por nosotros
