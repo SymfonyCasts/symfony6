@@ -1,0 +1,445 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:05.756 align:middle
+Nuevo equipo de objetivos: permitir que los
+usuarios voten a favor y en contra de una mezcla.
+
+00:00:06.316 --> 00:00:12.886 align:middle
+Para conseguirlo, en la entidad VinylMix, cuando un
+usuario vota, tenemos que enviar una consulta UPDATE
+
+00:00:12.986 --> 00:00:16.286 align:middle
+para cambiar la propiedad $votes
+integer en la base de datos.
+
+00:00:16.986 --> 00:00:19.386 align:middle
+Centrémonos primero en la interfaz de usuario.
+
+00:00:19.686 --> 00:00:22.676 align:middle
+Abre templates/mix/show.html.twig.
+
+00:00:24.506 --> 00:00:29.956 align:middle
+Para empezar, imprime {{ mix.votesString
+}} votes para que podamos verlo aquí.
+
+00:00:31.046 --> 00:00:32.356 align:middle
+Y... ¡perfecto!
+
+00:00:33.016 --> 00:00:38.226 align:middle
+Para añadir la funcionalidad de upvote y downvote,
+podríamos utilizar algo de JavaScript sofisticado.
+
+00:00:38.226 --> 00:00:43.056 align:middle
+Pero vamos a hacerlo sencillo añadiendo
+un botón que publique un formulario.
+
+00:00:43.696 --> 00:00:46.726 align:middle
+En realidad, esto será más
+elegante de lo que parece.
+
+00:00:47.096 --> 00:00:51.026 align:middle
+En el primer tutorial, instalamos
+la biblioteca Turbo JavaScript.
+
+00:00:51.806 --> 00:00:55.156 align:middle
+Así que aunque usaremos una etiqueta
+y un botón normales de <form>,
+
+00:00:55.646 --> 00:01:00.846 align:middle
+Turbo lo enviará automáticamente
+vía AJAX para una experiencia fluida.
+
+00:01:01.726 --> 00:01:08.156 align:middle
+Por cierto, Symfony tiene un componente de
+formulario y hablaremos de él en un futuro tutorial.
+
+00:01:08.826 --> 00:01:13.776 align:middle
+Pero este formulario va a ser tan
+sencillo que realmente no lo necesitamos.
+
+00:01:14.646 --> 00:01:20.386 align:middle
+Añade una bonita y aburrida etiqueta <form>
+con action establecida en la función path().
+
+00:01:21.136 --> 00:01:24.256 align:middle
+El formulario se enviará a
+un nuevo controlador que...
+
+00:01:24.256 --> 00:01:26.036 align:middle
+¡todavía tenemos que crear!
+
+00:01:26.776 --> 00:01:30.626 align:middle
+Dirígete a MixController y añade un
+nuevo public function llamado vote().
+
+00:01:31.836 --> 00:01:38.026 align:middle
+Dale el atributo #[Route()]
+con la URL /mix/{id}/vote.
+
+00:01:38.886 --> 00:01:44.026 align:middle
+Y como tenemos que enlazar con esto,
+añade un nombre: app_mix_vote.
+
+00:01:44.776 --> 00:01:52.886 align:middle
+El comodín de la ruta {id} contendrá el id del
+VinylMix específico que el usuario está votando.
+
+00:01:53.546 --> 00:01:57.226 align:middle
+Para consultarlo, utiliza el
+truco que hemos aprendido antes
+
+00:01:58.046 --> 00:02:02.926 align:middle
+añade un argumento de tipo
+VinylMix y llámalo $mix.
+
+00:02:03.786 --> 00:02:08.336 align:middle
+Ah, y aunque no es necesario,
+añadiré el tipo de retorno Response.
+
+00:02:08.886 --> 00:02:11.156 align:middle
+Añadir esto es sólo una buena práctica.
+
+00:02:11.856 --> 00:02:15.076 align:middle
+Dentro, para asegurarnos de que
+las cosas funcionan, dd($mix).
+
+00:02:16.106 --> 00:02:19.736 align:middle
+¡Genial! Copia el nombre de la
+ruta, vuelve a la plantilla -
+
+00:02:19.956 --> 00:02:23.556 align:middle
+show.html.twig - y dentro de path(), pega.
+
+00:02:24.246 --> 00:02:30.056 align:middle
+Y como esta ruta tiene un
+comodín {id}, pasa id a mix.id.
+
+00:02:31.136 --> 00:02:33.986 align:middle
+También dale al formulario method="POST"...
+
+00:02:34.586 --> 00:02:38.576 align:middle
+porque siempre que el envío de
+un formulario cambie los datos
+
+00:02:38.576 --> 00:02:41.926 align:middle
+en tu servidor, debe enviarse con POST.
+
+00:02:42.676 --> 00:02:50.056 align:middle
+Incluso podemos imponer este requisito en
+nuestra ruta añadiendo methods: ['POST'].
+
+00:02:50.786 --> 00:02:57.426 align:middle
+Eso es opcional, pero ahora, si alguien, por
+alguna razón, va directamente a esta URL,
+
+00:02:57.846 --> 00:03:01.656 align:middle
+que es una petición GET,
+no coincidirá con la ruta.
+
+00:03:02.146 --> 00:03:04.616 align:middle
+¡Muy útil! Vuelve al formulario.
+
+00:03:05.306 --> 00:03:06.116 align:middle
+Este formulario...
+
+00:03:06.246 --> 00:03:08.406 align:middle
+será un poco extraño.
+
+00:03:09.126 --> 00:03:14.816 align:middle
+En lugar de tener campos en los que el usuario
+pueda escribir, sólo necesitamos un botón.
+
+00:03:15.476 --> 00:03:19.786 align:middle
+Añade <button> con type="submit"...
+
+00:03:20.386 --> 00:03:22.466 align:middle
+y luego algunas clases de estilo.
+
+00:03:24.726 --> 00:03:31.796 align:middle
+Para el texto, utiliza un icono de Font Awesome:
+un <span> con class="fa fa-thumbs-up".
+
+00:03:32.656 --> 00:03:35.036 align:middle
+¡Perfecto! Vamos a comprobarlo.
+
+00:03:35.486 --> 00:03:36.686 align:middle
+Actualiza y...
+
+00:03:37.306 --> 00:03:37.996 align:middle
+¡pulgares arriba!
+
+00:03:38.746 --> 00:03:40.066 align:middle
+Y cuando hagamos clic en él...
+
+00:03:40.736 --> 00:03:41.346 align:middle
+¡precioso!
+
+00:03:41.666 --> 00:03:43.306 align:middle
+¡Llega a la ruta!
+
+00:03:44.036 --> 00:03:46.356 align:middle
+Observa que la URL no ha cambiado...
+
+00:03:46.846 --> 00:03:50.936 align:middle
+eso es porque Turbo envió
+el formulario vía Ajax...
+
+00:03:51.256 --> 00:03:53.626 align:middle
+y entonces nuestro dd() lo detuvo todo.
+
+00:03:54.476 --> 00:04:00.186 align:middle
+Bien, en un minuto, vamos a añadir
+otro botón con el pulgar hacia abajo.
+
+00:04:00.646 --> 00:04:04.556 align:middle
+Así que, de alguna manera, en nuestro
+controlador , vamos a tener que
+
+00:04:04.556 --> 00:04:08.416 align:middle
+averiguar qué botón, el de arriba
+o el de abajo, se acaba de pulsar.
+
+00:04:09.216 --> 00:04:14.836 align:middle
+Para ello, en el botón, añade
+name="direction" y value="up".
+
+00:04:15.646 --> 00:04:19.586 align:middle
+Ahora, si pulsamos este botón, se enviará un
+
+00:04:19.586 --> 00:04:23.996 align:middle
+dato POST llamado direction con el valor up...
+
+00:04:24.576 --> 00:04:28.726 align:middle
+casi como si el usuario escribiera
+la palabra up en un campo de texto.
+
+00:04:29.606 --> 00:04:33.666 align:middle
+Bien... ¿pero cómo leemos
+los datos POST en Symfony?
+
+00:04:34.476 --> 00:04:41.096 align:middle
+Siempre que necesites leer algo de la petición
+-como datos POST, parámetros de consulta,
+
+00:04:41.366 --> 00:04:46.666 align:middle
+archivos subidos o cabeceras-
+necesitarás el objeto Request de Symfony.
+
+00:04:47.116 --> 00:04:49.366 align:middle
+Y hay dos formas de obtenerlo.
+
+00:04:50.016 --> 00:04:54.236 align:middle
+La primera es autocableando un
+servicio llamado RequestStack.
+
+00:04:54.846 --> 00:05:00.026 align:middle
+Entonces puedes obtener la petición actual
+diciendo $requestStack->getCurrentRequest().
+
+00:05:00.856 --> 00:05:04.216 align:middle
+Esto funciona en cualquier lugar
+donde puedas autocablear un servicio.
+
+00:05:04.876 --> 00:05:07.986 align:middle
+Pero en un controlador,
+hay una forma más fácil.
+
+00:05:08.836 --> 00:05:09.666 align:middle
+Deshaz eso...
+
+00:05:10.176 --> 00:05:15.416 align:middle
+y, en su lugar, añade un argumento
+que se indique con Request.
+
+00:05:16.186 --> 00:05:19.466 align:middle
+Consigue el de HttpFoundation de Symfony.
+
+00:05:19.466 --> 00:05:21.546 align:middle
+Llamémoslo $request.
+
+00:05:22.226 --> 00:05:25.566 align:middle
+Al principio, esto parece un autocable, ¿no?
+
+00:05:26.116 --> 00:05:32.256 align:middle
+Parece que Request es un servicio y lo
+estamos autocableando como argumento.
+
+00:05:32.886 --> 00:05:34.536 align:middle
+Pero... ¡sorpresa!
+
+00:05:34.846 --> 00:05:37.086 align:middle
+Request no es un servicio.
+
+00:05:37.676 --> 00:05:42.556 align:middle
+No, es otra "cosa" que
+puedes tener como argumento
+
+00:05:42.606 --> 00:05:44.556 align:middle
+de tu controlador.
+
+00:05:45.286 --> 00:05:45.956 align:middle
+Repasemos.
+
+00:05:46.576 --> 00:05:51.726 align:middle
+Ahora conocemos cuatro tipos diferentes de argumentos
+que puedes tener en un método del controlador.
+
+00:05:52.656 --> 00:05:55.936 align:middle
+Uno: puedes tener comodines de ruta como $id.
+
+00:05:56.556 --> 00:05:59.216 align:middle
+Dos: Puedes autoconectar servicios.
+
+00:05:59.836 --> 00:06:02.066 align:middle
+Tres: Puedes tener entidades
+con sugerencias de tipo.
+
+00:06:02.456 --> 00:06:06.676 align:middle
+Y cuatro: Puedes teclear la clase Request.
+
+00:06:07.406 --> 00:06:14.616 align:middle
+Sí, el objeto Request es tan importante que
+Symfony ha creado un caso especial sólo para él.
+
+00:06:15.306 --> 00:06:17.426 align:middle
+Y... es bastante bonito.
+
+00:06:18.036 --> 00:06:22.486 align:middle
+Todo nuestro trabajo como desarrolladores
+es "leer la petición entrante"
+
+00:06:22.836 --> 00:06:25.476 align:middle
+y utilizarla para "crear una respuesta".
+
+00:06:26.176 --> 00:06:26.896 align:middle
+Así que es...
+
+00:06:27.096 --> 00:06:31.576 align:middle
+casi poético que podamos tener
+un método que tome el Request
+
+00:06:31.576 --> 00:06:35.096 align:middle
+como argumento y devuelva un Response.
+
+00:06:35.766 --> 00:06:38.546 align:middle
+Entrada Request, salida Response.
+
+00:06:39.516 --> 00:06:40.386 align:middle
+Pero estoy divagando. Hay un
+
+00:06:41.076 --> 00:06:43.496 align:middle
+montón de métodos y propiedades diferentes
+
+00:06:43.496 --> 00:06:46.516 align:middle
+en la petición para obtener lo que necesites.
+
+00:06:47.316 --> 00:06:53.386 align:middle
+Para leer datos POST, di $request->request->get()
+y luego el nombre del campo.
+
+00:06:53.876 --> 00:06:55.156 align:middle
+En este caso, direction.
+
+00:06:56.006 --> 00:06:58.786 align:middle
+No vamos a hablar mucho del objeto Request...
+
+00:06:59.116 --> 00:06:59.976 align:middle
+porque es...
+
+00:07:00.146 --> 00:07:03.026 align:middle
+un simple objeto que contiene datos.
+
+00:07:03.646 --> 00:07:09.066 align:middle
+Si necesitas leer algo de él, sólo tienes que
+mirar la documentación y te dirá cómo hacerlo.
+
+00:07:09.946 --> 00:07:12.686 align:middle
+Muy bien, vuelve aquí, actualiza la página...
+
+00:07:13.776 --> 00:07:15.216 align:middle
+sube la nota y...
+
+00:07:15.766 --> 00:07:23.706 align:middle
+¡ya está! Bien , quita el dd() y ponlo como
+variable de dirección con $direction =. Si,
+
+00:07:23.906 --> 00:07:31.076 align:middle
+por alguna razón, faltan los datos del POST direction
+(esto no debería ocurrir a menos que alguien esté
+
+00:07:31.076 --> 00:07:33.896 align:middle
+trasteando con nuestro sitio),
+ponlo por defecto en up.
+
+00:07:34.846 --> 00:07:36.816 align:middle
+Ahora vamos a añadir el voto negativo.
+
+00:07:38.376 --> 00:07:39.866 align:middle
+Copia todo el botón...
+
+00:07:41.776 --> 00:07:49.926 align:middle
+pega... cambia el valor a down y actualiza
+la clase del icono a fa fa-thumbs-down.
+
+00:07:50.816 --> 00:07:54.816 align:middle
+Bien, sabemos que el valor será up o down.
+
+00:07:55.456 --> 00:07:57.436 align:middle
+En nuestro controlador, vamos a usar esto.
+
+00:07:57.436 --> 00:08:06.486 align:middle
+if ($direction === 'up'), entonces
+$mix->setVotes($mix->getVotes() + 1).
+
+00:08:07.416 --> 00:08:09.726 align:middle
+Si no, haz lo mismo...
+
+00:08:10.076 --> 00:08:12.056 align:middle
+excepto que será - 1.
+
+00:08:12.646 --> 00:08:14.786 align:middle
+Abajo, dd($mix).
+
+00:08:15.716 --> 00:08:19.956 align:middle
+En un sitio real, probablemente también
+almacenaremos qué usuario está votando
+
+00:08:20.326 --> 00:08:23.586 align:middle
+para que no pueda votar una y otra vez.
+
+00:08:24.336 --> 00:08:26.826 align:middle
+Aprenderemos a hacerlo en un futuro tutorial.
+
+00:08:27.276 --> 00:08:29.556 align:middle
+Pero esto funcionará bien por ahora.
+
+00:08:30.446 --> 00:08:32.476 align:middle
+Muy bien, vuelve a actualizar.
+
+00:08:33.116 --> 00:08:35.146 align:middle
+Tenemos 49 votos.
+
+00:08:35.606 --> 00:08:37.486 align:middle
+Si hacemos clic en el botón de "upvote"...
+
+00:08:37.916 --> 00:08:41.666 align:middle
+¡50! Si refrescamos y hacemos
+clic en el botón de "downvote"...
+
+00:08:42.316 --> 00:08:49.606 align:middle
+¡48! ¡Sí! Pero todavía no hemos
+guardado este valor en la base de datos.
+
+00:08:50.116 --> 00:08:55.756 align:middle
+Cuando actualizamos, siempre
+vuelve al "49" original.
+
+00:08:56.266 --> 00:08:59.066 align:middle
+Así que... a continuación, ¡vamos a hacerlo!
+
+00:08:59.606 --> 00:09:02.216 align:middle
+Haremos una consulta UPDATE a la base de datos
+
+00:09:02.646 --> 00:09:06.936 align:middle
+y también terminaremos la ruta
+redirigiendo a otra página
