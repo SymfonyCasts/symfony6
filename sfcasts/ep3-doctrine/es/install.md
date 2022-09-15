@@ -29,7 +29,7 @@ Hasta ahora, nuestro sitio tiene una página de inicio y una página para navega
 ¡Así que vamos a instalar Doctrine! Busca tu terminal y ejecútalo:
 
 ```terminal
-composer require doctrine:^2.2
+composer require "doctrine:^2.2"
 ```
 
 Esto es, por supuesto, un alias de Flex para una biblioteca llamada `symfony/orm-pack`. Y recuerda: un "paquete" es una especie de "biblioteca falsa" que sirve como atajo para instalar varios paquetes a la vez. En este caso, estamos instalando el propio Doctrine, pero también algunas otras bibliotecas relacionadas, como el excelente sistema Doctrine Migrations.
