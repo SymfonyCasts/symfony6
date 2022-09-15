@@ -9,6 +9,8 @@ change the `$votes` integer property in the database.
 Let's *first* focus on the user interface. Open `templates/mix/show.html.twig`. To
 start, print `{{ mix.votesString }} votes` so we can see that here.
 
+[[[ code('6754b906b7') ]]]
+
 And... perfect! To add the upvote and downvote functionality, we *could* use some
 fancy JavaScript. But we're going to keep it simple by adding a button that posts
 a form. Well this will actually be fancier than it sounds. In the first tutorial,
@@ -27,6 +29,8 @@ Head over to `MixController` and add a new `public function` called `vote()`.
 Give this the `#[Route()]` attribute with the URL `/mix/{id}/vote`. And because
 we need to link to this, add a name: `app_mix_vote`.
 
+[[[ code('83dd0e386e') ]]]
+
 The `{id}` route wildcard will hold the id of the specific `VinylMix` that the
 user is voting on. To query for that, use the trick we learned earlier: add an
 argument type-hinted with `VinylMix` and call it `$mix`. Oh, and while we don't
@@ -34,19 +38,27 @@ argument type-hinted with `VinylMix` and call it `$mix`. Oh, and while we don't
 
 Inside, to make sure things are working, `dd($mix)`.
 
+[[[ code('13482639eb') ]]]
+
 Cool! Copy the name of the route, go back to the template - `show.html.twig` - and
 inside `path()`, paste. And because this route has an `{id}` wildcard, pass
 `id` set to `mix.id`. Also give the form `method="POST"`... because anytime that
 submitting a form will *change* data on your server, it should submit with `POST`.
 
+[[[ code('ea16ec1820') ]]]
+
 Heck, we can even *enforce* this requirement on our route by adding
 `methods: ['POST']`. That's optional, but now, if someone, for some reason, goes
 directly to this URL, which is a GET request, it won't match the route. Handy!
+
+[[[ code('6664c70b9d') ]]]
 
 Head back over to the form. This form... will be kind of strange. Instead of having
 fields the user can type into, all we need is a button. Add `<button>` with
 `type="submit"`... and then some classes for styling. For the text, use a Font Awesome
 icon: a `<span>` with `class="fa fa-thumbs-up"`.
+
+[[[ code('ac3486b8ec') ]]]
 
 Perfecto! Let's go check it out. Refresh and... thumbs up! And when we click it...
 beautiful! It hits the endpoint! Notice that the URL didn't change... that's just
@@ -60,6 +72,8 @@ To do that, on the button, add `name="direction"` and `value="up"`. Now, if we c
 this button, it will send one piece of POST data called `direction` set to the
 value `up`... almost as if the user typed the word `up` into a text field.
 
+[[[ code('1c7b86aadc') ]]]
+
 ## Fetching the Request DAta
 
 Ok... but how do we *read* POST data in Symfony? Whenever you need to read *anything*
@@ -72,6 +86,8 @@ current request by saying `$requestStack->getCurrentRequest()`.
 This works anywhere that you can autowire a service. But in a controller, there's
 an easier way. Undo that... and instead, add an argument that is type-hinted with
 `Request`. Get the one from Symfony's HttpFoundation. Let's call it `$request`.
+
+[[[ code('4365dc9283') ]]]
 
 At first, this looks like autowiring, right? It looks like `Request` is a service
 and we're autowiring that as an argument. *But*... surprise! `Request` is *not* a
@@ -95,6 +111,8 @@ But I digress. There are a lot of different methods and properties on the Reques
 to fetch whatever you need. To read POST data, say `$request->request->get()` and
 then the name of the field. In this case, `direction`.
 
+[[[ code('8171c6f517') ]]]
+
 We're not going to talk a lot about the `Request` object... because it's... just
 a simple object that holds data. If you need to read something from it, just
 look at the docs and it'll tell you how to do it.
@@ -105,13 +123,19 @@ the `dd()` and set this to a direction variable with `$direction =`.
 If, for some reason, the `direction` POST data is missing (this shouldn't happen
 unless someone is messing with our site), default it to `up`.
 
+[[[ code('e208c4c9c2') ]]]
+
 *Now* let's add the downvote. Copy the entire button... paste... change the value
 to `down` and update the icon class to `fa fa-thumbs-down`.
+
+[[[ code('43ef88914d') ]]]
 
 Okay, we know that the value will either be `up` or `down`. In our controller,
 let's use this. `if ($direction === 'up')`, then
 `$mix->setVotes($mix->getVotes() + 1)`. Else, do the same thing... except it
 will be `- 1`. Below, `dd($mix)`.
+
+[[[ code('c300b69e9f') ]]]
 
 On a real site, we'll probably also store *which* user is voting so that they
 can't vote over and over again. We'll learn how to do that in a future tutorial.
