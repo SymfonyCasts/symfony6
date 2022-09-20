@@ -1,0 +1,271 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.786 align:middle
+Estamos cambiando con éxito
+el valor de la propiedad votes.
+
+00:00:05.376 --> 00:00:10.016 align:middle
+Ahora tenemos que hacer una consulta de
+actualización para guardarlo en la base de datos.
+
+00:00:10.686 --> 00:00:15.466 align:middle
+Para insertar un VinylMix, utilizamos
+el servicio EntityManagerInterface,
+
+00:00:15.466 --> 00:00:17.936 align:middle
+y luego llamamos a persist() y flush().
+
+00:00:18.656 --> 00:00:22.816 align:middle
+Para actualizar, utilizaremos
+exactamente el mismo servicio.
+
+00:00:23.386 --> 00:00:28.076 align:middle
+Añade un nuevo argumento al método
+vote(), indicado con EntityManagerInterface.
+
+00:00:28.716 --> 00:00:30.556 align:middle
+Lo llamaré $entityManager.
+
+00:00:31.116 --> 00:00:35.446 align:middle
+Luego, muy sencillamente, después de
+haber establecido la propiedad votes
+
+00:00:35.446 --> 00:00:39.976 align:middle
+al nuevo valor, llama a
+$entityManager->flush().
+
+00:00:40.646 --> 00:00:41.606 align:middle
+¡Eso es todo, gente!
+
+00:00:42.206 --> 00:00:45.776 align:middle
+Antes de explicar esto, vamos
+a asegurarnos de que funciona.
+
+00:00:46.246 --> 00:00:49.886 align:middle
+Actualiza. Ahora mismo tenemos 49 votos.
+
+00:00:50.446 --> 00:00:51.596 align:middle
+Voy a pulsar arriba.
+
+00:00:52.436 --> 00:00:53.516 align:middle
+Dice 50.
+
+00:00:54.026 --> 00:00:57.136 align:middle
+Pero la verdadera prueba es
+que cuando refrescamos...
+
+00:00:57.576 --> 00:00:59.726 align:middle
+¡sigue mostrando 50!
+
+00:00:59.996 --> 00:01:01.556 align:middle
+¡Sí que se ha guardado!
+
+00:01:02.236 --> 00:01:08.116 align:middle
+Vale, cuando antes creamos un nuevo
+VinylMix, tuvimos que llamar a persist()
+
+00:01:08.416 --> 00:01:12.336 align:middle
+-pasando el objeto VinylMix
+- y luego a flush().
+
+00:01:13.166 --> 00:01:15.786 align:middle
+Pero ahora, todo lo que necesitamos es flush().
+
+00:01:16.296 --> 00:01:19.086 align:middle
+¿Por qué? Ésta es la historia completa.
+
+00:01:19.636 --> 00:01:24.366 align:middle
+Cuando llamas a flush(), Doctrine hace un
+bucle sobre todos los objetos de entidad
+
+00:01:24.456 --> 00:01:28.116 align:middle
+que "conoce" y los "guarda".
+
+00:01:28.756 --> 00:01:30.936 align:middle
+Y ese "guardado" es inteligente.
+
+00:01:31.606 --> 00:01:38.586 align:middle
+Si Doctrine determina que una entidad no se ha
+guardado todavía, ejecutará una consulta INSERT.
+
+00:01:39.416 --> 00:01:44.776 align:middle
+Pero si se trata de un objeto que ya
+existe en la base de datos, Doctrine
+
+00:01:44.776 --> 00:01:51.246 align:middle
+averiguará qué ha cambiado en el objeto -si es
+que hay algo- y ejecutará una consulta UPDATE.
+
+00:01:52.096 --> 00:01:57.756 align:middle
+¡Sí! Sólo tenemos que llamar a flush()
+y Doctrine averiguará qué hacer.
+
+00:01:58.276 --> 00:02:01.716 align:middle
+Es... lo mejor desde las gominolas Starburst.
+
+00:02:02.606 --> 00:02:07.116 align:middle
+Pero... ¿por qué no tenemos que llamar
+a persist() cuando estamos actualizando?
+
+00:02:08.016 --> 00:02:13.086 align:middle
+Bueno, puedes decir
+$entityManager->persist($mix) si quieres.
+
+00:02:13.676 --> 00:02:14.516 align:middle
+Es que es...
+
+00:02:14.726 --> 00:02:16.246 align:middle
+¡totalmente redundante!
+
+00:02:17.096 --> 00:02:20.106 align:middle
+Cuando llamas a persist(),
+le dice a Doctrine: ¡Oye!
+
+00:02:20.436 --> 00:02:24.226 align:middle
+Quiero que conozcas este objeto para que,
+
+00:02:24.226 --> 00:02:27.766 align:middle
+la próxima vez que llame a
+flush(), sepas que debes guardarlo.
+
+00:02:28.616 --> 00:02:33.116 align:middle
+Cuando creas un nuevo objeto de
+entidad, Doctrine no conoce realmente
+
+00:02:33.116 --> 00:02:36.386 align:middle
+ese objeto hasta que llamas a persist().
+
+00:02:37.136 --> 00:02:39.456 align:middle
+Pero cuando actualizas una entidad,
+
+00:02:39.886 --> 00:02:45.166 align:middle
+significa que ya has pedido a
+Doctrine que consulte por ese objeto.
+
+00:02:45.546 --> 00:02:48.336 align:middle
+Así que Doctrine ya lo conoce...
+
+00:02:48.866 --> 00:02:55.486 align:middle
+y cuando llamemos a flush() , Doctrine
+comprobará -automáticamente- ese objeto para ver
+
+00:02:55.486 --> 00:02:57.716 align:middle
+si se ha realizado algún cambio en él.
+
+00:02:58.476 --> 00:03:03.726 align:middle
+Así que... ¡hemos guardado con éxito el
+nuevo recuento de votos en la base de datos!
+
+00:03:04.146 --> 00:03:06.466 align:middle
+¿Y ahora qué? Porque...
+
+00:03:06.676 --> 00:03:11.056 align:middle
+No creo que esta declaración die
+vaya a quedar bien en producción.
+
+00:03:11.876 --> 00:03:14.886 align:middle
+Bueno, cada vez que se envía
+un formulario con éxito,
+
+00:03:15.356 --> 00:03:19.006 align:middle
+siempre se hace lo mismo:
+redirigir a otra página.
+
+00:03:19.886 --> 00:03:21.706 align:middle
+¿Cómo redirigimos en Symfony?
+
+00:03:22.416 --> 00:03:28.956 align:middle
+Con return $this->redirect() pasando
+la URL a la que quieras redirigir.
+
+00:03:29.676 --> 00:03:33.996 align:middle
+Aunque, normalmente, estamos redirigiendo
+a otra página de nuestro sitio...
+
+00:03:34.406 --> 00:03:40.116 align:middle
+así que usamos un atajo similar llamado
+redirectToRoute() y luego pasamos un nombre de ruta.
+
+00:03:40.916 --> 00:03:42.666 align:middle
+Vamos a redirigir a la página del programa.
+
+00:03:43.156 --> 00:03:46.826 align:middle
+Copia el nombre de la ruta
+app_mix_show, pégalo...
+
+00:03:47.186 --> 00:03:52.296 align:middle
+y al igual que con la función Twig
+path(), ésta acepta un segundo argumento
+
+00:03:52.886 --> 00:03:56.426 align:middle
+una matriz con los comodines de
+la ruta que tenemos que rellenar.
+
+00:03:56.426 --> 00:03:59.726 align:middle
+En este caso, tenemos un comodín {id}...
+
+00:03:59.986 --> 00:04:03.356 align:middle
+así que pasa id ajustado a $mix->getId().
+
+00:04:04.296 --> 00:04:09.266 align:middle
+Ahora, recuerda: los controladores
+siempre devuelven un objeto Response.
+
+00:04:09.776 --> 00:04:14.846 align:middle
+Y resulta que una
+redirección es una respuesta.
+
+00:04:15.566 --> 00:04:21.936 align:middle
+Es una respuesta que, en lugar de contener HTML,
+básicamente dice Por favor, envía al usuario
+
+00:04:21.936 --> 00:04:27.706 align:middle
+a esta otra URL El método
+redirectToRoute() es un atajo
+
+00:04:27.776 --> 00:04:32.906 align:middle
+que devuelve este objeto de respuesta
+especial, llamado RedirectResponse.
+
+00:04:33.776 --> 00:04:36.886 align:middle
+De todos modos, ¡probemos todo el flujo!
+
+00:04:37.656 --> 00:04:39.396 align:middle
+Refresca, y...
+
+00:04:39.876 --> 00:04:45.086 align:middle
+¡ya está! Después de votar,
+acabamos de nuevo en esta página.
+
+00:04:45.676 --> 00:04:50.926 align:middle
+Y, gracias a Turbo, todo esto
+sucede mediante llamadas Ajax...
+
+00:04:51.106 --> 00:04:52.926 align:middle
+lo que es una buena ventaja.
+
+00:04:53.706 --> 00:04:55.336 align:middle
+El único problema es que... es
+
+00:04:55.546 --> 00:05:01.966 align:middle
+tan suave que no es súper obvio que
+mi voto se haya guardado realmente,
+
+00:05:02.456 --> 00:05:04.566 align:middle
+aparte de ver el cambio del número de voto.
+
+00:05:05.446 --> 00:05:08.776 align:middle
+Sería mejor si mostráramos
+un mensaje de éxito.
+
+00:05:09.486 --> 00:05:12.876 align:middle
+Vamos a hacer eso a continuación,
+aprendiendo sobre los mensajes flash.
+
+00:05:13.736 --> 00:05:17.486 align:middle
+También vamos a hacer más
+moderna nuestra entidad VinylMix
+
+00:05:17.886 --> 00:05:23.366 align:middle
+explorando el concepto de modelos
+inteligentes frente a los anémicos
