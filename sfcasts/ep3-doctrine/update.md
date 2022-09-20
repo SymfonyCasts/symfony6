@@ -12,6 +12,8 @@ Add a new argument to the `vote()` method type-hinted with `EntityManagerInterfa
 I'll call it `$entityManager`. Then, very simply, after we've set the `votes` property
 to the new value, call `$entityManager->flush()`.
 
+[[[ code('4b5e709f1f') ]]]
+
 That's it people! Before I explain this, let's make sure it works. Refresh. We have
 49 votes right now. I'll hit up. It says 50. But the *real* proof is that when we
 refresh... it *still* shows 50! It *did* save!
@@ -58,6 +60,8 @@ Let's redirect back to the show page. Copy the `app_mix_show` route name, paste.
 and just like with the Twig `path()` function, this accepts a second argument: an
 array of the route wildcards that we need to fill in. In this case, we have an
 `{id}` wildcard... so pass `id` set to `$mix->getId()`.
+
+[[[ code('755bd00a27') ]]]
 
 Now, remember: controllers *always* return a `Response` object. And, whelp it turns
 out that a redirect *is* a response. It's a response that, instead of containing HTML,
