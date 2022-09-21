@@ -1,65 +1,133 @@
-# Sluggable
+# Clean URLs with Sluggable
 
-Using a database ID in your URL is kind of lame. You typically see *slugs* instead. These are URL-safe versions of the name of the item. In this case, that's the name of our mix. To support this, all our `VinylMix` entity needs is a slug property that holds that URL-safe string. Then, it's super easy to query for it. The only trick is that something needs to look at the mix's title and set that slug property whenever a mix is saved. That's the job of the `sluggable` behavior.
+Using a database ID in your URL is... kind of lame. Instead, it's more common to
+use *slugs*. A slug is a URL-save version of the name or title of an item.
+In this case, it will be the name of our mix.
 
-Go back to `/config/packages/stof_document_extensions.yaml` and add `sluggable: true`. Once again, that enables a listener that will be looking at our entities, whenever they're saved, to see if the `sluggable` behavior is activated. Before we activate the `sluggable` behavior, the first thing we need to do is create a property called `slug`.
+To make this possible, we only need to do one thing: give our `VinylMix` class
+a `slug` property that *holds* this URL-safe string. Then, it'll be super easy to
+query for it. The only trick is that... something needs to *look* at the mix's title
+and *set* that `slug` property whenever a mix is saved. And, ideally that could
+happen automatically. Whelp, *that* is the job of the sluggable behavior from
+Doctrine Extensions.
 
-At your terminal, run:
+## Activating the Sluggable Listener
+
+Head back to `config/packages/stof_document_extensions.yaml` and add `sluggable:
+true`. Once again, this enables a listener that will be *looking* at our entities,
+whenever they save, to see if the sluggable behavior is activated on it. How
+do we do that?
+
+## Adding the Slug Property
+
+First, we need a `slug` property on our entity. To add it, at your terminal, run:
 
 ```terminal
 ./bin/console make:entity
 ```
 
-Let's update `VinylMix` to add a new `slug` field. This will be a string, and let's limit it to a hundred characters. Having a string in our URL that's 255 characters long *doesn't* really make sense. We'll also make this *not* null, so it's required in the database. And that's it! Hit "enter" one more time to finish. That, not surprisingly, added a `slug` property here with `getSlug()` and `setSlug()` methods at the bottom.
+Update `VinylMix` to add a new `slug` field. This will be a string, and let's
+limit it to a 100 characters. We'll also make this *not* null, so it's required
+in the database. And that's it! Hit "enter" one more time to finish.
 
-One thing that the `make:entity` command *doesn't* ask you is whether or not you want a property to be *unique* in the database. In `slug`'s case, we *do* want it to be unique, so add `unique: true`. That will add a `unique` constraint in the database to make sure that we never get duplicates for this.
+That, not surprisingly, added a `slug` property here `getSlug()` and `setSlug()`
+methods at the bottom.
 
-Okay, we have a new column, and we have a new field on the property. Now we need a migration to add that column to the database. Find your terminal and run:
+One thing the `make:entity` command *doesn't* ask you is whether or not you want
+a property to be *unique* in the database. In `slug`'s case, we *do* want it to be
+unique, so add `unique: true`. That will add a `unique` constraint in the database
+to make sure that we never get duplicates.
+
+Before we think about any sluggable magic, generate a migration for the new property:
 
 ```terminal
 symfony console make:migration
 ```
 
-As usual, I'll open up that new migration file to make sure it looks okay. And... perfect! It adds the `slug`, and then it also adds the `UNIQUE INDEX` on `slug`. And when we run it with
+As usual, I'll open up that new file to make sure it looks okay. And... it does!
+It adds `slug` including a `UNIQUE INDEX` for `slug`. And when we run it with
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-it *explodes*... and for the *same* reason as last time: `Not null violation`. We're adding a new `slug` column to our table that is *not null*, which means that any existing records won't really work. So, as I said before, if your database was already in production, you would need to fix this. But since ours *isn't*, we're just going to reset the database like we did last time:
+it *explodes*... for the *same* reason as last time: `Not null violation`. We're
+adding a new `slug` column to our table that is *not null*... which means that any
+existing records won't work. As I said in the previous chapter, if your database
+is already on production, you would need to fix this. But since ours is *not*, we
+can cheat and reset the database like we did before:
 
 ```terminal
 symfony console doctrine:database:drop --force
 ```
 
-Then we'll recreate the database
+Then:
 
 ```terminal
 symfony console doctrine:database:create
 ```
 
-and finally re-run all of the migrations from the very beginning:
+Finally re-run all of the migrations from the very beginning:
 
 ```terminal
 symfony console doctrine:migrations:migrate
 ```
 
-And... `4 migrations executed`. Perfect!
+And... yes! 4 migrations executed.
 
-At this point, we've activated the `sluggable` listener and added a `slug` column. But we're *still* missing a step. I'll prove it by going to `/mix/new` and... *error*: `[...] column "slug" of relation "vinyl_mix" violates not-null constraint`. So nothing is setting the `slug` property yet. To tell the `stof_doctrine_extensions` library that this is a `slug` property that should be set automatically, we need to add - *surprise* - an attribute. It's called `#[Slug]`. Hit "tab" to autocomplete that, which will add the `use` statement that you need on top. Then, we need to say `fields`, which is set to an array, and inside, just say `title`. This basically says `use the "title" field to generate this slug`. And now... looks like it's working! If we check the database...
+## Adding the Sluggable Attribute
+
+At this point, we've activated the sluggable listener and added a `slug` column.
+But we're *still* missing a step. I'll prove it by going to `/mix/new` and...
+*error*:
+
+> [...] column "slug" of relation "vinyl_mix" violates not-null constraint.
+
+Yup! Nothing is *setting* the `slug` property yet. To tell the extensions library
+that this is a `slug` property that it should set automatically, we need to add -
+*surprise* - an attribute! It's called `#[Slug]`. Hit "tab" to autocomplete that,
+which will add the `use` statement that you need on top. Then, say `fields`, which
+is set to an array, and inside, just `title`.
+
+This says:
+
+> use the "title" field to generate this slug.
+
+And now... it looks like it's working! If we check the database...
 
 ```terminal
 symfony console doctrine:query:sql 'SELECT * FROM vinyl_mix'
 ```
 
-Awesome! The `slug` is down here and you can see the library is also smart enough to add a little `-1`, `-2`, `-3`, and so on to keep it unique.
+Woohoo! The `slug` is down here... and you can see the library is *also* smart enough
+to add a little `-1`, `-2`, `-3` to keep it unique.
 
-Now that we have this `slug` column, over in `MixController.php`, we can change our `show` action to use `slug` here instead. And that's actually all we need to do here. Because we're calling this `slug`, it's now going to use the `slug` property on`VinylMix` to do the query.
+## Updating our Route to use {slug}
 
-The *other* important thing we need to do is make sure that we update our code any time we generate a URL to this route. For example, if I copy `app_mix_show` and search inside this file, we use it down here to redirect after we vote. So now, instead of passing the ID wildcard, we need to pass `slug` set to `$mix->getSlug()`. And if you search, there's one other part in our code that we need to update. It's `/templates/vinyl/browse.html.twig`. Right here, we need to change the link on the "Browse" page to `slug: mix.slug`.
+Now that we have this `slug` column, over in `MixController`, let's make our
+route trendier by using `{slug}`.
 
-Okay, let's try it. Let me refresh a few times here. Then head back to the homepage... click "Browse Mixes", and... awesome! There's a list! If we click one of these items... beautiful! It used this log and it *queried* via this log. Life is good.
+What else do we need to change here? Nothing! Because the route wildcard is
+called `{slug}`, Doctrine will use this value to query from the `slug` property.
+Genius!
 
-Right now, to get dummy data to play with, we've created this new action. But that's a pretty poor way to add dummy data. It's pretty manual and requires us to refresh the page a bunch of times. The data is also a little random and un-interesting.
+## Updating Links to the Route
 
-Next, let's add a proper data fixture system to remedy this.
+Though, we do need to make one more update to any links that we generate *to*
+this route. Watch: copy the route name - `app_mix_show` - and search inside this
+file. Yup! We use it down here to redirect after we vote. Now, instead of passing
+the `id` wildcard, pass `slug` set to `$mix->getSlug()`.
+
+And if you searched, there's one other place we generate a URL to this route:
+`templates/vinyl/browse.html.twig`. Right here, we need to change the link on the
+"Browse" page to `slug: mix.slug`.
+
+Let's try it. Let me refresh a few times here... then head back to the homepage...
+click "Browse Mixes", and... there'a the list! If we click one of these mixes...
+beautiful! It used the slug and it *queried* via the slug. Life is good
+
+Ok, right now, to add dummy data so we can use the site, we've created this `new`
+action. But that's a pretty poor way to add dummy data: it's manual, requires
+refreshing the page and, though we have some randomness, it's pretty boring!
+
+So next, let's add a proper data fixture system to remedy this.
