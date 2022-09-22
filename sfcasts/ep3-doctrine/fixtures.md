@@ -1,10 +1,10 @@
 # Simple Doctrine Data Fixtures
 
 "Data fixtures" is the name given to dummy data that you add to your app while
-developing or running tests to make life easier. It's a lot easier to work on a new
+developing or running tests to make life easier. It's a lot nicer to work on a new
 feature when you actually *have* decent data in your database. We created some
 data fixtures, in a sense, via this `new` action. But Doctrine has a system
-specifically for this.
+specifically designed for this.
 
 # Installing DoctrineFixturesBundle
 
@@ -16,15 +16,15 @@ at your terminal, run it:
 composer require --dev orm-fixtures
 ```
 
-Of course, `orm-fixtures` is an alias, in this case, to
-`doctrine/doctrine-fixtures-bundle`. And... perfect! Run
+`orm-fixtures` is, of course, a Flex alias, in this case, to
+`doctrine/doctrine-fixtures-bundle`. And... done! Run
 
 ```terminal
 git status
 ```
 
 to see that this added a bundle, as well as a new `src/DataFixtures/` directory.
-Go open this up. Inside, we have a single new file called `AppFixtures.php`.
+Go open that up. Inside, we have a single new file called `AppFixtures.php`.
 
 DoctrineFixturesBundle is a delightfully simple bundle. It gives us a new console
 command called `doctrine:fixtures:load`. When we run this, it will empty our database
@@ -32,8 +32,8 @@ and then execute the `load()` method inside of `AppFixtures`. Well, it will actu
 execute the `load()` method on *any* service we have that extends this `Fixture`
 class. So we *could* have multiple classes in this directory if we want.
 
-Check it out: if we run it right now... with an empty `load()` method, it empties
-our database, calls that empty method, and... the result over on the "Browse" page
+If we run it right now... with an empty `load()` method, it clears
+our database, calls that blank method, and... the result over on the "Browse" page
 is that we have nothing!
 
 ```terminal-silent
@@ -48,15 +48,15 @@ to add the `use` statement.
 
 Notice the `load()` method accepts some `ObjectManager` argument. That's actually
 the `EntityManager`, since we're using the ORM. If you look down here, it already
-has the `flush()` call. The only thing we're missing is the `persist()` calls:
+has the `flush()` call. The only thing we're missing is the `persist()` call:
 `$manager->persist($mix)`.
 
 So the variable is *called* `$manager` here... but these two lines are *exactly*
 what we have our controller: `persist()` and `flush()`.
 
-Try the command again.
+Try the command again:
 
-```terminal-silent
+```terminal
 php bin/console doctrine:fixtures:load
 ```
 

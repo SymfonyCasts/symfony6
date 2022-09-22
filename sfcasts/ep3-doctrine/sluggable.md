@@ -1,36 +1,37 @@
 # Clean URLs with Sluggable
 
-Using a database ID in your URL is... kind of lame. Instead, it's more common to
-use *slugs*. A slug is a URL-save version of the name or title of an item.
-In this case, it will be the name of our mix.
+Using a database ID in your URL is... kind of lame. It's more common to
+use *slugs*. A slug is a URL-safe version of the name or title of an item.
+In this case, the title of our mix.
 
 To make this possible, we only need to do one thing: give our `VinylMix` class
 a `slug` property that *holds* this URL-safe string. Then, it'll be super easy to
 query for it. The only trick is that... something needs to *look* at the mix's title
 and *set* that `slug` property whenever a mix is saved. And, ideally that could
-happen automatically. Whelp, *that* is the job of the sluggable behavior from
-Doctrine Extensions.
+happen automatically... cause I'm feeling kinda lazy... and I don't really want
+to do that work manually *everywhere*. Whelp, *that* is the job of the sluggable
+behavior from Doctrine Extensions.
 
 ## Activating the Sluggable Listener
 
-Head back to `config/packages/stof_document_extensions.yaml` and add `sluggable:
-true`. Once again, this enables a listener that will be *looking* at our entities,
-whenever they save, to see if the sluggable behavior is activated on it. How
-do we do that?
+Head back to `config/packages/stof_doctrine_extensions.yaml` and add
+`sluggable: true`. Once again, this enables a listener that will be *looking* at
+each entity, whenever one is saved, to see if the sluggable behavior is activated
+on it. How do we do that?
 
 ## Adding the Slug Property
 
 First, we need a `slug` property on our entity. To add it, at your terminal, run:
 
 ```terminal
-./bin/console make:entity
+php bin/console make:entity
 ```
 
 Update `VinylMix` to add a new `slug` field. This will be a string, and let's
-limit it to a 100 characters. We'll also make this *not* null, so it's required
+limit it to a 100 characters. Also make this *not* nullable: it should be required
 in the database. And that's it! Hit "enter" one more time to finish.
 
-That, not surprisingly, added a `slug` property here `getSlug()` and `setSlug()`
+That, not surprisingly, added a `slug` property.. plus `getSlug()` and `setSlug()`
 methods at the bottom.
 
 One thing the `make:entity` command *doesn't* ask you is whether or not you want
@@ -108,26 +109,26 @@ Now that we have this `slug` column, over in `MixController`, let's make our
 route trendier by using `{slug}`.
 
 What else do we need to change here? Nothing! Because the route wildcard is
-called `{slug}`, Doctrine will use this value to query from the `slug` property.
+now called `{slug}`, Doctrine will use this value to query from the `slug` property.
 Genius!
 
 ## Updating Links to the Route
 
-Though, we do need to make one more update to any links that we generate *to*
-this route. Watch: copy the route name - `app_mix_show` - and search inside this
-file. Yup! We use it down here to redirect after we vote. Now, instead of passing
-the `id` wildcard, pass `slug` set to `$mix->getSlug()`.
+Though, we do need to update any links that we generate *to* this route. Watch:
+copy the route name - `app_mix_show` - and search inside this file. Yup! We use
+it down here to redirect after we vote. Now, instead of passing the `id` wildcard,
+pass `slug` set to `$mix->getSlug()`.
 
 And if you searched, there's one other place we generate a URL to this route:
 `templates/vinyl/browse.html.twig`. Right here, we need to change the link on the
 "Browse" page to `slug: mix.slug`.
 
-Let's try it. Let me refresh a few times here... then head back to the homepage...
-click "Browse Mixes", and... there'a the list! If we click one of these mixes...
-beautiful! It used the slug and it *queried* via the slug. Life is good
+Testing time! Let me refresh a few times... then head back to the homepage...
+click "Browse Mixes", and... there's our list! If we click one of these mixes...
+beautiful! It used the slug and it *queried* via the slug. Life is good.
 
 Ok, right now, to add dummy data so we can use the site, we've created this `new`
-action. But that's a pretty poor way to add dummy data: it's manual, requires
-refreshing the page and, though we have some randomness, it's pretty boring!
+action. But that's a pretty poor way to handle dummy data: it's manual, requires
+refreshing the page and, though we have *some* randomness, it creates boring data!
 
 So next, let's add a proper data fixture system to remedy this.
