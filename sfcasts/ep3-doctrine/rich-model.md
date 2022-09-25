@@ -81,7 +81,7 @@ even need to know or *care* how they work internally.
 
 Entities that *only* have getter and setter methods are sometimes called "anemic
 models". Entities that *remove* these and replace them with specific methods for your
-business logic are sometimes called "smart models". Some people take this to an
+business logic are sometimes called "rich models". Some people take this to an
 extreme and have almost *no* getter or setter methods. Here at SymfonyCasts, we tend
 to be pragmatic. We usually *do* have getter and setter methods, but we always
 look for ways to be more descriptive, like by adding `upVote()` and `downVote()`.
