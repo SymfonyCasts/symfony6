@@ -1,0 +1,330 @@
+WEBVTT
+
+00:00:00.986 --> 00:00:05.186 align:middle
+Después de enviar un formulario
+con éxito, siempre redirigimos.
+
+00:00:05.816 --> 00:00:11.856 align:middle
+A menudo, también querremos mostrar al usuario un
+mensaje de éxito para que sepa que todo ha funcionado.
+
+00:00:12.576 --> 00:00:16.476 align:middle
+Symfony tiene una forma especial de
+manejar esto: los mensajes flash.
+
+00:00:17.236 --> 00:00:22.486 align:middle
+Para establecer un mensaje flash, antes
+de redirigir, llama a $this->addFlash()
+
+00:00:23.116 --> 00:00:26.486 align:middle
+y pasa, en esta situación, success.
+
+00:00:27.466 --> 00:00:30.556 align:middle
+Para el segundo argumento,
+pon el mensaje que quieres
+
+00:00:30.556 --> 00:00:32.926 align:middle
+mostrar al usuario, como Vote counted!.
+
+00:00:33.786 --> 00:00:36.216 align:middle
+La clave success puede ser cualquier cosa...
+
+00:00:36.536 --> 00:00:39.926 align:middle
+es como una especie de "categoría"
+para el mensaje flash...
+
+00:00:40.296 --> 00:00:42.936 align:middle
+y verás cómo la utilizamos dentro
+de un minuto. Los mensajes flash
+
+00:00:43.776 --> 00:00:48.086 align:middle
+tienen un nombre elegante,
+pero son una idea sencilla;
+
+00:00:48.546 --> 00:00:52.686 align:middle
+Symfony almacena los mensajes
+flash en la sesión del usuario.
+
+00:00:53.376 --> 00:00:58.946 align:middle
+Lo que los hace especiales es que Symfony
+eliminará el mensaje automáticamente en cuanto
+
+00:00:59.096 --> 00:01:00.816 align:middle
+lo leamos.
+
+00:01:01.476 --> 00:01:04.186 align:middle
+Son como mensajes que se autodestruyen.
+
+00:01:04.686 --> 00:01:05.316 align:middle
+Muy chulo.
+
+00:01:06.176 --> 00:01:08.486 align:middle
+Entonces... ¿cómo los leemos? La
+
+00:01:09.146 --> 00:01:13.996 align:middle
+forma en que me gusta hacerlo es abriendo
+mi plantilla base - base.html.twig -
+
+00:01:14.446 --> 00:01:16.356 align:middle
+y leyéndolos y renderizándolos aquí.
+
+00:01:17.216 --> 00:01:21.886 align:middle
+Pongámoslo justo después de la
+navegación pero antes del {% block body %}.
+
+00:01:21.996 --> 00:01:24.436 align:middle
+Digamos {% for message in %}.
+
+00:01:25.246 --> 00:01:30.716 align:middle
+A continuación, queremos leer los mensajes
+flash de la categoría success que podamos tener.
+
+00:01:31.546 --> 00:01:37.996 align:middle
+Para ello, podemos aprovechar la única
+variable global Twig de Symfony: app.
+
+00:01:38.816 --> 00:01:43.316 align:middle
+Ésta tiene varios métodos, como
+environment, request, session,
+
+00:01:43.436 --> 00:01:47.846 align:middle
+el actual user, o uno llamado app.flashes.
+
+00:01:48.516 --> 00:01:52.076 align:middle
+Pásale la categoría (en
+nuestro caso,success).
+
+00:01:52.916 --> 00:01:55.886 align:middle
+Como ya he dicho, puede ser cualquier cosa.
+
+00:01:56.516 --> 00:02:03.356 align:middle
+Si pusieras dinosaur como clave en un controlador,
+entonces leerías los mensajes de dinosaur aquí.
+
+00:02:04.086 --> 00:02:05.586 align:middle
+Termina con {% endfor %}.
+
+00:02:06.546 --> 00:02:11.326 align:middle
+Normalmente, sólo tendrás un mensaje
+de éxito en tu flash a la vez,
+
+00:02:11.676 --> 00:02:14.056 align:middle
+pero técnicamente puedes tener varios.
+
+00:02:14.486 --> 00:02:16.326 align:middle
+Por eso estamos haciendo un bucle sobre ellos.
+
+00:02:17.006 --> 00:02:23.846 align:middle
+Dentro de esto, renderiza un <div> con class="alert
+alert-success" para que parezca un mensaje de fe licidad.
+
+00:02:24.506 --> 00:02:26.176 align:middle
+Luego, imprime message.
+
+00:02:26.926 --> 00:02:32.626 align:middle
+Así, si esto funciona correctamente, leerá todos
+nuestros mensajes flash success y los renderizará.
+
+00:02:33.306 --> 00:02:37.456 align:middle
+Y una vez leídos, Symfony
+los eliminará para que no se
+
+00:02:37.676 --> 00:02:41.226 align:middle
+vuelvan a renderizar en la
+siguiente carga de la página.
+
+00:02:42.046 --> 00:02:47.976 align:middle
+Al poner esto en la plantilla base, ahora podemos establecer
+mensajes flash desde cualquier parte de nuestra aplicación
+
+00:02:48.216 --> 00:02:49.976 align:middle
+y se renderizarán en la página.
+
+00:02:50.356 --> 00:02:51.216 align:middle
+Muy bonito.
+
+00:02:52.146 --> 00:02:55.556 align:middle
+Observa. Vuelve a nuestra
+página, sube la nota y...
+
+00:02:56.006 --> 00:02:56.756 align:middle
+¡guapa!
+
+00:02:57.286 --> 00:03:02.576 align:middle
+Probablemente querremos eliminar este margen extra
+en un proyecto real, pero lo dejaremos por ahora.
+
+00:03:03.486 --> 00:03:05.816 align:middle
+Muy bien, vuelve a mirar a MixController.
+
+00:03:06.406 --> 00:03:10.016 align:middle
+La lógica para hacer nuestro voto
+"arriba" y "abajo" es bastante sencilla...
+
+00:03:10.546 --> 00:03:12.256 align:middle
+pero creo que puede ser mejor.
+
+00:03:13.116 --> 00:03:15.186 align:middle
+¡Prueba esto! Abre VinylMix...
+
+00:03:15.416 --> 00:03:17.376 align:middle
+y desplázate hacia abajo hasta setVotes().
+
+00:03:18.016 --> 00:03:21.036 align:middle
+Justo después de esto, para
+mantener las cosas organizadas,
+
+00:03:21.546 --> 00:03:25.406 align:middle
+crea un nuevo public function
+llamado upVote() y devuelve void.
+
+00:03:26.046 --> 00:03:29.416 align:middle
+Dentro, di $this->votes++.
+
+00:03:30.016 --> 00:03:36.366 align:middle
+Copia eso, y crea un segundo método que
+llamaremos - lo has adivinado - downVote()...
+
+00:03:36.766 --> 00:03:39.486 align:middle
+con $this->votes--.
+
+00:03:40.416 --> 00:03:46.086 align:middle
+Gracias a estos métodos, en MixController, en
+lugar de que $mix->setVotes() se convierta
+
+00:03:46.086 --> 00:03:52.546 align:middle
+en $mix->getVotes() + 1, podemos
+decir simplemente $mix->upVote().
+
+00:03:54.106 --> 00:03:56.136 align:middle
+y $mix->downVote().
+
+00:03:56.756 --> 00:03:58.326 align:middle
+Eso está muy bien.
+
+00:03:59.296 --> 00:04:04.466 align:middle
+Nuestro controlador se lee mucho más claramente,
+y hemos encapsulado la lógica de upVote()
+
+00:04:04.466 --> 00:04:07.076 align:middle
+y downVote() en nuestra entidad.
+
+00:04:08.836 --> 00:04:12.086 align:middle
+Si nos dirigimos y
+refrescamos, sigue funcionando.
+
+00:04:12.946 --> 00:04:14.616 align:middle
+Esto pone de manifiesto un tema interesante.
+
+00:04:15.076 --> 00:04:20.206 align:middle
+Ahora hemos añadido cuatro métodos personalizados
+a nuestra entidad: dos que ayudan a leer los datos de
+
+00:04:20.206 --> 00:04:22.956 align:middle
+forma especial, y dos que
+ayudan a establecer los datos.
+
+00:04:22.956 --> 00:04:29.826 align:middle
+Cuando ejecutamos make:entity, se crean métodos
+getter y setter para cada una de las propiedades.
+
+00:04:30.646 --> 00:04:34.896 align:middle
+Eso está bien, porque hace que nuestra
+entidad sea infinitamente flexible.
+
+00:04:35.526 --> 00:04:40.086 align:middle
+Cualquiera, desde cualquier lugar, puede
+leer o establecer cualquier propiedad.
+
+00:04:40.746 --> 00:04:43.836 align:middle
+Pero a veces, puede que no
+quieras o necesites eso.
+
+00:04:44.446 --> 00:04:48.666 align:middle
+Por ejemplo, ¿realmente
+queremos un método setVotes()?
+
+00:04:49.316 --> 00:04:52.766 align:middle
+¿Hay realmente un caso de uso
+en nuestro código para que algo
+
+00:04:52.766 --> 00:04:56.146 align:middle
+establezca el recuento de votos
+a cualquier número que quiera?
+
+00:04:56.746 --> 00:04:57.796 align:middle
+Probablemente no.
+
+00:04:58.486 --> 00:05:01.266 align:middle
+Es probable que sólo necesitemos
+upVote() y downVote().
+
+00:05:01.886 --> 00:05:03.816 align:middle
+Mantendré el método setVotes()...
+
+00:05:03.816 --> 00:05:08.386 align:middle
+porque lo utilizamos cuando generamos
+nuestro objeto ficticio VinylMix.
+
+00:05:09.176 --> 00:05:15.256 align:middle
+Pero, en general, si eliminas los métodos
+getter y setter innecesarios en tu entidad
+
+00:05:15.706 --> 00:05:22.886 align:middle
+y los sustituyes por métodos más descriptivos
+como upVote(), downVote(), getVoteString(),
+
+00:05:23.046 --> 00:05:28.326 align:middle
+o getImageUrl() -métodos que se ajustan
+a tu lógica de negocio- puedes, poco a
+
+00:05:28.576 --> 00:05:31.956 align:middle
+poco, dar más claridad a tus entidades.
+
+00:05:32.676 --> 00:05:36.236 align:middle
+Nuestros métodos upVote() y downVote()
+son súper claros y descriptivos.
+
+00:05:37.076 --> 00:05:42.206 align:middle
+Alguien que los llame no necesita saber ni
+preocuparse de cómo funcionan internamente.
+
+00:05:43.136 --> 00:05:48.436 align:middle
+Las entidades que sólo tienen métodos getter y setter
+se denominan a veces "modelos anémicos". Las entidades
+
+00:05:49.126 --> 00:05:53.686 align:middle
+que las eliminan y las sustituyen
+por métodos específicos
+
+00:05:53.686 --> 00:05:57.506 align:middle
+para su lógica de negocio se
+denominan a veces "modelos ricos".
+
+00:05:58.416 --> 00:06:03.456 align:middle
+Algunas personas llevan esto al extremo y
+casi no tienen métodos getter o setter.
+
+00:06:04.116 --> 00:06:07.036 align:middle
+Aquí, en SymfonyCasts,
+tendemos a ser pragmáticos.
+
+00:06:07.506 --> 00:06:12.076 align:middle
+Normalmente tenemos métodos getter y
+setter, pero siempre buscamos formas
+
+00:06:12.076 --> 00:06:16.266 align:middle
+de ser más descriptivos, como
+añadir upVote() y downVote().
+
+00:06:17.206 --> 00:06:21.996 align:middle
+A continuación, vamos a instalar una impresionante
+biblioteca llamada DoctrineExtensions.
+
+00:06:22.606 --> 00:06:26.056 align:middle
+Se trata de una biblioteca
+mágica llena de superpoderes,
+
+00:06:26.386 --> 00:06:31.176 align:middle
+como los comportamientos automáticos de
+creación de marcas de tiempo y babosas
