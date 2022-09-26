@@ -1,4 +1,4 @@
-# Turbo: Supercharge you App
+# Turbo: Supercharge your App
 
 Welcome to the *final* chapter of our intro to Symfony 6 tutorial. If you're watching
 this, you're crushing it! And it's time to celebrate by installing one more package
