@@ -8,6 +8,8 @@ To *set* a flash message, before redirecting, call `$this->addFlash()` and pass,
 in this situation, `success`. For the second argument, put the message that you
 want to show to the user, like `Vote counted!`.
 
+[[[ code('9733851b63') ]]]
+
 The `success` key could be anything... it's kind of like a "category" for the flash
 message... and you'll see how we use that in a minute.
 
@@ -28,11 +30,15 @@ one called `app.flashes`. Pass *this* the *category* (in our case,`success`). As
 I mentioned, this could be *anything*. If you put `dinosaur` as the key in a controller,
 then you'd read the `dinosaur` messages out *here*. Finish with `{% endfor %}`.
 
+[[[ code('ca33c9b940') ]]]
+
 Typically, you'll only have *one* success message in your flash at a time, but
 *technically* you can have multiple. That's why we're looping over them.
 
 Inside of this, render a `<div>` with `class="alert alert-success"` so it looks
 like a *happy* message. Then, print out `message`.
+
+[[[ code('23490be0be') ]]]
 
 So if this works correctly, it will read all of our `success` flash messages and
 render them. And once they've been read, Symfony will *remove* them so that they
@@ -52,8 +58,12 @@ things organized, create a new `public function` called `upVote()` and return `v
 Inside, say `$this->votes++`. Copy that, and create a *second* method which we'll
 call - you guessed it - `downVote()`... with `$this->votes--`.
 
+[[[ code('f6a52d95fb') ]]]
+
 Thanks to these methods, in `MixController`, instead of having `$mix->setVotes()`
 set to `$mix->getVotes() + 1`, we can just say `$mix->upVote()`... and `$mix->downVote()`.
+
+[[[ code('49312b26a8') ]]]
 
 Now *that's* nice. Our controller reads much more clearly, and we've encapsulated
 the `upVote()` and `downVote()` logic *into* our entity. If we head over and refresh,
