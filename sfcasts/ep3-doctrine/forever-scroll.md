@@ -1,21 +1,101 @@
-# Forever Scroll
+# Forever Scroll with Turbo Frames
 
-You've made it to the final chapter of a Doctrine tutorial! And this chapter is a *total* bonus. Instead of talking about Doctrine, we're going to leverage some JavaScript to turn this page into a "forever scroll". But don't worry! We'll talk more about Doctrine in the next tutorial where we'll cover Doctrine Relations.
+You've made it to the final chapter of the Doctrine tutorial! This chapter is... a
+*total* bonus. Instead of talking about Doctrine, we're going to leverage some
+JavaScript to turn this page into a "forever scroll". But don't worry! We'll talk
+more about Doctrine in the next tutorial when we'll cover Doctrine Relations.
 
-Here's the goal: Instead of pagination *links*, I want this page to load nine results like we see on Page 1. Then, when we scroll to the bottom, I want to make an AJAX request to show the *next* nine results, and so on. The *result* is a "forever scroll". In the first tutorial in the series, we installed a library called Symfony UX Turbo, which enabled a JavaScript library and our application called Turbo. Turbo turns all of our link clicks and form submits into AJAX calls, giving us a really nice single page app-like experience without doing anything special. Turbo actually has two other *optional* superpowers: Turbo Frames and Turbo Streams. You can learn all about these in our Turbo tutorial. But let's get a quick sample of how we could leverage Turbo Frames to add forever scroll without writing a *single* line of JavaScript.
+Here's the goal: instead of pagination *links*, I want this page to load nine results
+like we see on Page 1. Then, when we scroll to the bottom, I want to make an AJAX
+request to show the *next* nine results, and so on. The *result* is a "forever
+scroll".
 
-Frames work by dividing parts of our page into a Turbo Frame element that acts a lot like an iframe. When you surround something in a Turbo Frame, any clicking you do inside of that Turbo Frame only navigates that one frame. For example, let's open the template for this page - `/templates/vinyl/browse.html.twig` - and scroll up to where we have our `for` loop. I'm going to add a new `turbo-frame` element right here. The only rule of a Turbo Frame is that it needs to have a unique ID. So say `id="mix-browse-list"`, and then go all the way to the end of that row and paste the closing tag. And, just for my own sanity, I'm going to indent that row.
+In the first tutorial in the series, we installed a library called Symfony UX Turbo,
+which enabled a JavaScript library called Turbo. Turbo turns all of our link clicks
+and form submits into AJAX calls, giving us a really nice single page app-like
+experience without doing anything special.
 
-Okay, so... what does that *do*? If you refresh the page now, any navigation inside of this frame *stays* inside the frame. Watch! If I click "2"... that *worked*. But notice that made an AJAX request for Page 2, it found the `mix_browse_list` Turbo Frame in the AJAX result, and put that HTML into this frame. It's kind of hard to tell, but the *only* part of the page that's changing is that Turbo Frame. If I... say... messed with the title up here on my page, and then click down here and back to Page 2... that did *not* update that part of the page. Again, it works a lot like iframes, but without the weirdness.
+Whelp, as cool as that is, Turbo has two *other*, *optional* superpowers: Turbo Frames
+and Turbo Streams. You can learn all about these in our Turbo tutorial. But let's
+get a quick sample of how we could leverage Turbo Frames to add forever scroll without
+writing a *single* line of JavaScript.
 
-You can imagine using this to power an "Edit" button that adds inline editing, or many other things. But in this case, this isn't too useful yet, because it works pretty similar to how it worked before. We collect these links and it shows the results. The only difference is that Turbo Frames don't change the URL. So no matter what page I'm on, if I refresh, I'm transported right back to Page 1. So it's *kind of* a step backwards.
+## turbo-frame Basics!
 
-I have a *solution*, but it's a little tricky at first. To start, I'm going to make the ID *unique* to the current page. Add a `-`, and then we can say `pager.currentPage`. After that, down at the bottom, I'm going to remove the Pagerfanta links and replace them with *another* Turbo Frame. Say `{% if pager.hasNextPage %}`, and inside of it, we'll add a `turbo-frame`, just like the above, with that same `id="mix-browse-list-{{ }}"`, but this time, say `pager.nextPage`. Let me break this onto multiple lines here... and then we're also going to tell it what `src` to use for that. I'll quickly fix my typo here... and here we can use another Pagerfanta helper called `pagerfanta_page_url`. Pass that `pager` and then `pager.nextPage`. And *finally*, add `loading="lazy"`.
+Frames work by dividing parts of our page into separate `turbo-frame` elements,
+which acts a lot like an `iframe`... if you're old enough to remember those. When
+you surround something in a `<turbo-frame>`, any clicks inside of that frame will
+only navigate *that* one frame.
 
-Okay, this is kind of wild. What this says is that, whenever you have a Turbo Frame, one of the things you can do is add a `src` attribute. That tells the Turbo Frame to load lazily. It basically says that you're going to start empty, but then as soon as the page loads, you should make an AJAX request to this URL to fill this in. But then, when you add an extra `loading="lazy"` to that, it says that it should make this request for that URL *only* once this Turbo Frame becomes visible. So normally, this Turbo Frame is just going to sit there empty. As soon as we scroll down to it, it's going to make an AJAX request for the next page.
+For example, open the template for this page - `templates/vinyl/browse.html.twig` -
+and scroll up to where we have our `for` loop. Add a new `turbo-frame` element right
+here. The only rule of a Turbo Frame is that it needs to have a unique ID. So say
+`id="mix-browse-list"`, and then go all the way to the end of that row and paste
+the closing tag. And, just for my own sanity, I'm going to indent that row.
 
-Take Page 2, for example. The response of that is actually going to contain *this* Turbo Frame, which is now going to be `mix_browse_list` *two*. Turbo Frame will then *steal* this, put it inside that Turbo Frame, and then we'll have the next set of results. And if there's another page after that, it will include yet *another* Turbo Frame down here that will point at Page 3.
+Okay, so... what does that *do*? If you refresh the page now, any navigation inside
+of this frame *stays* inside the frame. Watch! If I click "2"... that *worked*. It
+made an AJAX request for Page 2, our app returned that *full* HTML page - including
+the header, footer and all, but then Turbo Frame found the matching `mix-browse-list`
+`<turbo-frame>` *inside* of that, grabbed its contents, and put it here.
 
-This might seem a little crazy, so let's try this out. I'm going to scroll up to the top of the page, refresh and... perfect! Now scroll down here and *watch*. You should see an AJAX request show up in the web debug toolbar. As we scroll... down here... ah! *There's* the AJAX request! Scroll down again and... there's a *second* AJAX request, one for Page 2 and one for Page 3. If we keep scrolling, we run out of results and reach the bottom of the page. If you're new to Turb Frames, that concept may have been a little confusing, so it helps to see it in action. I saw this recently on a site and I wanted to share it with all of you.
+Yup, though it's not easy to see in *this* example, the *only* part of the page that's
+changing is this `<turbo-frame>` element. If I... say... messed with the title up
+here on my page, and then click down here and back to Page 2... that did *not* update
+that part of the page. Again, it works a lot like iframes, but without the weirdness.
+You could imagine using this, for example, to power an "Edit" button that adds inline
+editing.
 
-All right, team! Congrats on finishing the Doctrine course! I hope you're feeling *powerful*. You should be! The only missing part of Doctrine now is Doctrine Relations - being able to associate one entity to another through relationships, like many-to-one and many-to-many. We'll cover all of that in the next tutorial. Until then, if you have any questions or have a great riddle you want to ask us, we're here for you in the comments section down below. Thanks a lot, friends! See you next time!
+But in our situation, this isn't very useful yet... because it works pretty much
+the same as before: we click the link, we see new results. The only difference is
+that clicking inside a `<turbo-frames>` doesn't change the URL. So no matter what
+page I'm on, if I refresh, I'm transported right back to Page 1. So this was
+*kind of* a step backwards!
+
+But stick with me. I have a *solution*, but it's a little tricky at first. To start,
+I'm going to make the ID *unique* to the current page. Add a `-`, and then we can
+say `pager.currentPage`.
+
+Then, down at the bottom, remove the Pagerfanta links and replace them with *another*
+Turbo Frame. Say `{% if pager.hasNextPage %}`, and inside of it, add a
+`turbo-frame`, just like above, with that same `id="mix-browse-list-{{ }}"`.
+But this time, say `pager.nextPage`. Let me break this onto multiple lines here...
+and then we're also going to tell it what `src` to use for that. Oh, let me fix my
+typo... and then use another Pagerfanta helper called `pagerfanta_page_url` and pass
+that `pager` and then `pager.nextPage`. *Finally*, add `loading="lazy"`.
+
+Woh! Lemme explain, because this is kind of wild. First, one of the super-powers
+of a `<turbo-frame>` is that you can add a `src` attribute and then leave it empty.
+This tells Turbo:
+
+> Hey! I'm going to be lazy and start this element empty... maybe because it's
+> a little heavy to load. But as *soon* as this element becomes *visible* to
+> the user, make an Ajax request to this URL to get its contents.
+
+So, this `<turbo-frame>` will start empty... but as soon as we scroll down to it,
+Turbo will make an AJAX request for the next page of results.
+
+For example, if this frame is loading for page 2, the Ajax response will contain
+a `<turbo-frame>` with `id="mix-browse-list-2"`. The Turbo Frame system will
+grab that from the Ajax request and put it here at the bottom of our list. And if
+there's a page 3, that will include yet *another* Turbo Frame down here that will
+point to Page 3.
+
+This all might seem a but crazy, so let's try this out. I'm going to scroll up to
+the top of the page, refresh and... perfect! Now scroll down here and *watch*. You
+should see an AJAX request show up in the web debug toolbar. As we scroll... down
+here... ah! *There's* the AJAX request! Scroll down again and... there's a *second*
+AJAX request: one for Page 2 and one for Page 3. If we keep scrolling, we run out
+of results and reach the bottom of the page.
+
+If you're new to Turbo Frames, that concept may have been a little confusing, but
+you can learn more on our Turbo tutorial. And a shout-out to
+[an AppSignal's blog post](https://blog.appsignal.com/2022/07/06/get-started-with-hotwire-in-your-ruby-on-rails-app)
+that introduced this cool concept.
+
+All right, team! Congrats on finishing the Doctrine course! I hope you're feeling
+*powerful*. You should be! The only missing part of Doctrine now is Doctrine
+Relations: being able to associate one entity to another through relationships, like
+many-to-one and many-to-many. We'll cover all of that in the next tutorial. Until
+then, if you have any questions or have a great riddle you want to ask us, we're here
+for you in the comments section. Thanks a lot, friends! See you next time!
