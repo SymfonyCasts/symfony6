@@ -15,7 +15,11 @@ behavior from Doctrine Extensions.
 ## Activating the Sluggable Listener
 
 Head back to `config/packages/stof_doctrine_extensions.yaml` and add
-`sluggable: true`. Once again, this enables a listener that will be *looking* at
+`sluggable: true`. 
+
+[[[ code('35894f3389') ]]]
+
+Once again, this enables a listener that will be *looking* at
 each entity, whenever one is saved, to see if the sluggable behavior is activated
 on it. How do we do that?
 
@@ -34,10 +38,14 @@ in the database. And that's it! Hit "enter" one more time to finish.
 That, not surprisingly, added a `slug` property.. plus `getSlug()` and `setSlug()`
 methods at the bottom.
 
+[[[ code('48c554d427') ]]]
+
 One thing the `make:entity` command *doesn't* ask you is whether or not you want
 a property to be *unique* in the database. In `slug`'s case, we *do* want it to be
 unique, so add `unique: true`. That will add a `unique` constraint in the database
 to make sure that we never get duplicates.
+
+[[[ code('87b124d933') ]]]
 
 Before we think about any sluggable magic, generate a migration for the new property:
 
@@ -90,6 +98,8 @@ that this is a `slug` property that it should set automatically, we need to add 
 which will add the `use` statement that you need on top. Then, say `fields`, which
 is set to an array, and inside, just `title`.
 
+[[[ code('1fd8df0329') ]]]
+
 This says:
 
 > use the "title" field to generate this slug.
@@ -108,6 +118,8 @@ to add a little `-1`, `-2`, `-3` to keep it unique.
 Now that we have this `slug` column, over in `MixController`, let's make our
 route trendier by using `{slug}`.
 
+[[[ code('28ca5110ee') ]]]
+
 What else do we need to change here? Nothing! Because the route wildcard is
 now called `{slug}`, Doctrine will use this value to query from the `slug` property.
 Genius!
@@ -119,9 +131,13 @@ copy the route name - `app_mix_show` - and search inside this file. Yup! We use
 it down here to redirect after we vote. Now, instead of passing the `id` wildcard,
 pass `slug` set to `$mix->getSlug()`.
 
+[[[ code('234578269e') ]]]
+
 And if you searched, there's one other place we generate a URL to this route:
 `templates/vinyl/browse.html.twig`. Right here, we need to change the link on the
 "Browse" page to `slug: mix.slug`.
+
+[[[ code(34ca4a0c54 '') ]]]
 
 Testing time! Let me refresh a few times... then head back to the homepage...
 click "Browse Mixes", and... there's our list! If we click one of these mixes...
