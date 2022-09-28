@@ -1,0 +1,339 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:04.326 align:middle
+Utilizar un ID de base de datos en tu URL es...
+
+00:00:04.326 --> 00:00:05.786 align:middle
+un poco cutre.
+
+00:00:06.216 --> 00:00:08.116 align:middle
+Es más habitual utilizar slugs.
+
+00:00:08.896 --> 00:00:13.696 align:middle
+Un slug es una versión segura de la
+URL del nombre o título de un elemento.
+
+00:00:13.696 --> 00:00:17.106 align:middle
+En este caso, el título de nuestra mezcla.
+
+00:00:18.406 --> 00:00:21.956 align:middle
+Para que esto sea posible,
+sólo tenemos que hacer una cosa
+
+00:00:22.346 --> 00:00:28.936 align:middle
+dar a nuestra clase VinylMix una propiedad slug
+que contenga esta cadena segura para la URL.
+
+00:00:29.376 --> 00:00:32.746 align:middle
+Entonces, será súper fácil consultarla.
+
+00:00:33.476 --> 00:00:34.796 align:middle
+El único truco es que...
+
+00:00:35.086 --> 00:00:42.746 align:middle
+algo tiene que mirar el título de la mezcla y establecer
+esa propiedad slug cada vez que se guarde una mezcla.
+
+00:00:43.296 --> 00:00:46.746 align:middle
+Y, lo ideal sería que eso
+ocurriera automáticamente...
+
+00:00:46.986 --> 00:00:48.946 align:middle
+porque me da un poco de pereza...
+
+00:00:49.096 --> 00:00:52.916 align:middle
+y no quiero hacer ese trabajo
+manualmente en todas partes.
+
+00:00:53.946 --> 00:00:58.806 align:middle
+Pues bien, ese es el trabajo del comportamiento
+de la pereza de las extensiones de Doctrine.
+
+00:00:59.676 --> 00:01:00.046 align:middle
+Vuelve a
+
+00:01:00.046 --> 00:01:05.486 align:middle
+config/packages/stof_doctrine_extensions.yaml
+y añade sluggable: true. Una
+
+00:01:06.476 --> 00:01:13.546 align:middle
+vez más, esto habilita un oyente que mirará
+cada entidad, cada vez que se guarde una,
+
+00:01:14.116 --> 00:01:18.106 align:middle
+para ver si el comportamiento
+sluggable está activado en ella.
+
+00:01:18.976 --> 00:01:20.696 align:middle
+¿Cómo lo hacemos?
+
+00:01:20.836 --> 00:01:24.096 align:middle
+En primer lugar, necesitamos una
+propiedad slug en nuestra entidad.
+
+00:01:24.756 --> 00:01:27.236 align:middle
+Para añadirla, en tu terminal, ejecuta
+
+00:01:27.236 --> 00:01:33.516 align:middle
+php bin/console make:entity Actualizar
+VinylMix para añadir un nuevo campo slug.
+
+00:01:34.136 --> 00:01:38.036 align:middle
+Será una cadena, y
+limitémosla a 100 caracteres.
+
+00:01:39.256 --> 00:01:43.936 align:middle
+Haz también que no sea anulable: debe
+ser obligatorio en la base de datos.
+
+00:01:44.546 --> 00:01:45.616 align:middle
+Y ya está
+
+00:01:45.966 --> 00:01:47.766 align:middle
+Pulsa "intro" una vez más para terminar.
+
+00:01:49.436 --> 00:01:53.226 align:middle
+Esto, como es lógico, ha
+añadido una propiedad slug..
+
+00:01:53.626 --> 00:01:56.906 align:middle
+además de los métodos getSlug()
+y setSlug() en la parte inferior.
+
+00:01:57.896 --> 00:02:02.096 align:middle
+Una cosa que el comando
+make:entity no te pregunta es si
+
+00:02:02.096 --> 00:02:05.786 align:middle
+quieres que la propiedad sea
+única en la base de datos.
+
+00:02:06.526 --> 00:02:11.546 align:middle
+En el caso de slug, sí queremos que sea
+única, así que añade unique: true.
+
+00:02:12.376 --> 00:02:15.246 align:middle
+Eso añadirá una restricción
+unique en la base de datos
+
+00:02:15.586 --> 00:02:17.956 align:middle
+para asegurarnos de que
+nunca tengamos duplicados.
+
+00:02:19.186 --> 00:02:24.026 align:middle
+Antes de pensar en cualquier magia de la babosa,
+genera una migración para la nueva propiedad:
+
+00:02:24.816 --> 00:02:30.026 align:middle
+symfony console make:migration Como siempre,
+
+00:02:30.196 --> 00:02:33.106 align:middle
+abriré ese nuevo archivo para
+asegurarme de que se ve bien.
+
+00:02:33.746 --> 00:02:34.986 align:middle
+Y... ¡lo está!
+
+00:02:35.506 --> 00:02:39.246 align:middle
+Añade slug incluyendo un
+UNIQUE INDEX para slug.
+
+00:02:40.076 --> 00:02:48.036 align:middle
+Y cuando lo ejecutamos con symfony console
+doctrine:migrations:migrate explota...
+
+00:02:48.136 --> 00:02:52.206 align:middle
+por la misma razón que la
+última vez: Not null violation.
+
+00:02:52.876 --> 00:02:57.106 align:middle
+Estamos añadiendo una nueva columna
+slug a nuestra tabla que no es nula...
+
+00:02:57.496 --> 00:03:00.736 align:middle
+lo que significa que los registros
+existentes no funcionarán.
+
+00:03:01.326 --> 00:03:05.326 align:middle
+Como dije en el capítulo anterior,
+si tu base de datos ya está
+
+00:03:05.326 --> 00:03:07.726 align:middle
+en producción, tendrías que arreglar esto.
+
+00:03:08.306 --> 00:03:13.336 align:middle
+Pero como la nuestra no lo está, podemos hacer trampa
+y reiniciar la base de datos como hicimos antes:
+
+00:03:14.236 --> 00:03:16.606 align:middle
+symfony console doctrine:database:drop
+
+00:03:16.706 --> 00:03:23.456 align:middle
+--force Entonces: symfony console doctrine:database:create
+Por último, vuelve a ejecutar todas
+
+00:03:23.456 --> 00:03:25.636 align:middle
+las migraciones desde el principio:
+
+00:03:26.256 --> 00:03:30.166 align:middle
+symfony console
+doctrine:migrations:migrate Y...
+
+00:03:30.416 --> 00:03:32.996 align:middle
+¡sí! 4 migraciones ejecutadas.
+
+00:03:34.006 --> 00:03:39.216 align:middle
+Llegados a este punto, hemos activado el listener
+sluggable y hemos añadido una columna slug.
+
+00:03:39.846 --> 00:03:41.766 align:middle
+Pero aún nos falta un paso.
+
+00:03:42.876 --> 00:03:47.196 align:middle
+Lo probaré yendo a /mix/new y...
+
+00:03:47.586 --> 00:03:48.196 align:middle
+error: [...]
+
+00:03:48.736 --> 00:03:52.886 align:middle
+la columna "slug" de la relación "vinyl_mix"
+viola la restricción de no nulo. ¡Sí!
+
+00:03:53.816 --> 00:03:57.806 align:middle
+Todavía no hay nada que
+establezca la propiedad slug. Para
+
+00:03:58.996 --> 00:04:04.676 align:middle
+indicar a la biblioteca de extensiones que se trata de
+una propiedad slug que debe establecer automáticamente,
+
+00:04:05.116 --> 00:04:08.596 align:middle
+tenemos que añadir
+-sorpresa- ¡un atributo! Se
+
+00:04:08.976 --> 00:04:10.166 align:middle
+llama #[Slug]. Pulsa
+
+00:04:11.106 --> 00:04:16.606 align:middle
+"tab" para autocompletarlo, lo que añadirá la declaración
+use que necesitas en la parte superior. A continuación, di
+
+00:04:18.706 --> 00:04:23.976 align:middle
+fields, que se establece como una
+matriz, y dentro, sólo title. Esto dice
+
+00:04:25.326 --> 00:04:29.106 align:middle
+: utiliza el campo "título"
+para generar este slug. Y
+
+00:04:30.536 --> 00:04:31.546 align:middle
+ahora...
+
+00:04:32.106 --> 00:04:33.876 align:middle
+¡parece que funciona! Si
+
+00:04:35.046 --> 00:04:36.656 align:middle
+comprobamos la base de datos... symfony
+
+00:04:36.966 --> 00:04:43.466 align:middle
+console doctrine:query:sql 'SELECT
+* FROM vinyl_mix' ¡Woohoo! El
+
+00:04:43.876 --> 00:04:45.476 align:middle
+slug está aquí abajo... y
+
+00:04:45.656 --> 00:04:53.866 align:middle
+puedes ver que la biblioteca también es lo suficientemente inteligente
+como para añadir un poco de , , para mantenerlo único. Ahora -1 -2 -3
+
+00:04:53.866 --> 00:04:58.296 align:middle
+que tenemos esta columna , en
+, slug MixController vamos a
+
+00:04:58.796 --> 00:05:02.906 align:middle
+hacer que nuestra ruta sea más
+moderna utilizando . ¿Qué {slug}
+
+00:05:04.186 --> 00:05:06.216 align:middle
+más tenemos que cambiar aquí? Nada
+
+00:05:06.836 --> 00:05:11.656 align:middle
+Como el comodín de la ruta se
+llama ahora , Doc {slug} trine
+
+00:05:12.196 --> 00:05:16.836 align:middle
+utilizará este valor para consultar
+la propiedad . ¡Genial! slug
+
+00:05:17.466 --> 00:05:23.576 align:middle
+Sin embargo, sí que tenemos que actualizar
+los enlaces que generemos a esta ruta. Observa:
+
+00:05:24.376 --> 00:05:29.176 align:middle
+copia el nombre de la ruta - - y busca
+dentro de este archivo. ¡Sí! app_mix_show
+
+00:05:30.366 --> 00:05:33.896 align:middle
+Lo utilizamos aquí abajo para
+redirigir después de votar. Ahora,
+
+00:05:34.506 --> 00:05:41.376 align:middle
+en lugar de pasar el comodín , pasa
+ajustado a . Y id slug $mix->getSlug()
+
+00:05:42.926 --> 00:05:47.486 align:middle
+si has buscado, hay otro lugar donde generamos una
+URL a esta ruta: . templates/vinyl/browse.html.twig
+
+00:05:48.176 --> 00:05:50.926 align:middle
+Justo
+
+00:05:52.236 --> 00:05:58.206 align:middle
+aquí, tenemos que cambiar el enlace de la página
+"Examinar" a slug: mix.slug. ¡Tiempo de prueba
+
+00:05:59.336 --> 00:06:00.186 align:middle
+!
+
+00:06:01.166 --> 00:06:02.926 align:middle
+Déjame refrescar un par de veces... luego
+
+00:06:04.406 --> 00:06:06.166 align:middle
+vuelve a la página de
+inicio... haz clic en "Examinar
+
+00:06:07.096 --> 00:06:09.456 align:middle
+mezclas", y... ¡ahí está
+
+00:06:09.846 --> 00:06:11.126 align:middle
+nuestra lista! Si
+
+00:06:11.876 --> 00:06:13.836 align:middle
+hacemos clic en una de
+estas mezclas... ¡hermoso!
+
+00:06:14.426 --> 00:06:15.066 align:middle
+Ha
+
+00:06:15.646 --> 00:06:19.366 align:middle
+utilizado el slug y ha consultado
+a través del slug. La vida es
+
+00:06:20.016 --> 00:06:21.806 align:middle
+buena. Vale,
+
+00:06:22.476 --> 00:06:29.096 align:middle
+ahora, para añadir datos ficticios y poder utilizar
+el sitio, hemos creado esta acción . Pero new
+
+00:06:29.766 --> 00:06:34.886 align:middle
+esa es una forma bastante pobre de manejar
+datos ficticios: es manual, requiere
+
+00:06:34.976 --> 00:06:41.996 align:middle
+refrescar la página y, aunque tenemos algo de
+aleatoriedad, ¡crea datos aburridos! Así que , a
+
+00:06:42.646 --> 00:06:47.646 align:middle
+continuación, vamos a añadir un sistema de
+fijación de datos adecuado para remediarlo
