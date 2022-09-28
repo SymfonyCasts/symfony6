@@ -13,7 +13,7 @@ composer require babdev/pagerfanta-bundle pagerfanta/doctrine-orm-adapter
 
 This installs a Pagerfanta bundle, which is a wrapper around a really nice library
 called Pagerfanta. Pagerfanta can paginate lots of things, like Doctrine
-results, results from Elasticsearch, and much more. We've also installed its
+results, results from Elasticsearch, and much more. We also installed its
 Doctrine ORM *adapter*, which will give us everything we need to paginate our Doctrine
 results. In this case, when we run
 
@@ -25,9 +25,9 @@ it added a *bundle*, but the recipe didn't need to do anything else. Cool! So ho
 does this library work?
 
 Open up `src/Controller/VinylController` and find the `browse()` action. Instead
-of querying for *all* of the mixes like we're doing now, we're going to tell the
+of querying for *all* of the mixes, like we're doing now, we're going to tell the
 Pagerfanta library *which* page the user is currently on, how many results to show
-*per* page, and then *it* will query for the correct set of results *for* us.
+*per* page, and then *it* will query for the correct results *for* us.
 
 ## Returning a QueryBuilder
 
@@ -38,18 +38,18 @@ To get this working, instead of calling `findAllOrderedByVotes()` and getting ba
 rename it to `createOrderedByVotesQueryBuilder()`... and this will now
 return a `QueryBuilder` - the one from Doctrine ORM. I'll remove the PHP
 documentation on top... and the only thing we need to do down here is remove
-`getQuery()` and `getResult()` so we're *just* returning `$queryBuilder`.
+`getQuery()` and `getResult()` so that we're *just* returning `$queryBuilder`.
 
 Over in `VinylController`, change this to
 `$queryBuilder = $mixRepository->createOrderedByVotesQueryBuilder($slug)`
 
 Initializing Pagerfanta is two lines. First, create the adapter -
 `$adapter = new QueryAdapter()` and pass it `$queryBuilder`. Then create
-a `Pagerfanta` object with
+the `Pagerfanta` object with
 `$pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage()`
 
 That's a *mouthful*. Pass this the `$adapter`, the current page - right now, I'm
-going to hard code `1` - and finally the max results per page that we want. Let's
+going to hardcode `1` - and finally the max results per page that we want. Let's
 use `9` since our mixes show up in three columns.
 
 Now that we have this Pagerfanta object, we're going to pass *that* into the
@@ -57,8 +57,8 @@ Now that we have this Pagerfanta object, we're going to pass *that* into the
 to `$pagerfanta`.
 
 The cool thing about this `$pagerfanta` object is that you can *loop* over it. And
-as soon as you do, it will create the correct query to get the results back. In
-`templates/vinyl/browse.html.twig`, instead of `{% for mix in mixes %}`, say
+as soon as you do, it will execute the correct query to get *just* this pages results.
+In `templates/vinyl/browse.html.twig`, instead of `{% for mix in mixes %}`, say
 `{% for mix in pager %}`.
 
 That's *it*. Each result in the loop will *still* be a `VinylMix` object.
@@ -97,14 +97,14 @@ on Page 1.
 
 What we need to do is *read* this query parameter and pass it as this second argument.
 No problem! How do we read query parameters? Well, that's information from the
-request, so w need the `Request` object.
+request, so we need the `Request` object.
 
 Right before our optional argument, add a new `Request` argument type-hinted with
 `$request`: the one from HttpFoundation. Now, down here, instead of `1`,
 say `$request->query` (that's how you get query parameters), with
 `->get('page')`... and default this to `1` if there is *no* `?query=` on the URL.
 
-By the way, if you want to, you can also add `{page}` up here. This way, Pagerfanta
+By the way, if you want, you can also add `{page}` up here. This way, Pagerfanta
 will *automatically* put the page number inside the URL instead of setting it as
 a query parameter.
 
@@ -115,23 +115,24 @@ we're on Page 2! If we go to the next page... yes! We see a different set of res
 
 Though, this is *still* super ugly. Fortunately, the bundle *does* give us a way
 to control the markup that's used for the pagination links. And it even comes
-with automatic support for Bootstrap CSS friendly markup. We just need to tell
+with automatic support for Bootstrap CSS-friendly markup. We just need to tell
 the bundle to *use* that.
 
-So... we need to configure the bundle... but the bundle didn't give us any new
-configuration file when it was installed. That's okay! Not all new bundles give you
-config files. As soon as you need one, create one! Since this bundle's called
-`BabdevPagerfantaBundle`, I'm going to create a new file called `babdev_pagerfanta.yaml`.
-As we learned in the last tutorial, the *name* of these files *aren't* important.
-What's important is the root key, which should be `babdev_pagerfanta`. To
-change how the pagination renders, add `default_view: twig` and then
-`default_twig_template` set to `@BabDevPagerfanta/Twitter_bootstrap5.html.twig`.
+So... we need to configure the bundle. But... the bundle didn't give us any new
+config files when it was installed. That's okay! Not all new bundles give us
+config files. But as soon as you need one, create one! Since this bundle's called
+`BabdevPagerfantaBundle`, I'm going to create a new file called
+`babdev_pagerfanta.yaml`. As we learned in the last tutorial, the *name* of these
+files *aren't* important. What's important is the root key, which should be
+`babdev_pagerfanta`. To change how the pagination renders, add `default_view: twig`
+and then `default_twig_template` set to
+`@BabDevPagerfanta/Twitter_bootstrap5.html.twig`.
 
 Like any other config, there's no way you would know that this is the *correct*
 configuration just by guessing. You need to check out the docs.
 
 If we go back and refresh... huh, nothing changed. This is a little bug that you
-sometimes run into in Symfony when you create a *new* configuration file: Symfony
+sometimes run into in Symfony when you create a *new* configuration file.  Symfony
 didn't *notice* it... and so it didn't know it needed to rebuild its cache. This
 is a *super* rare situation, but if you ever think it might be happening, it's
 easy enough to manually clear the cache by running:

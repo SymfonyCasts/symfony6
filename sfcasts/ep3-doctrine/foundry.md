@@ -1,7 +1,7 @@
 # Foundry: Fixtures You'll Live
 
 Building fixtures is pretty simple, but *kind of* boring. And it would be *super*
-boring to manually create *25* mixes inside this `load()` method. That's why we're
+boring to manually create *25* mixes inside the `load()` method. That's why we're
 going to install an awesome library called "Foundry". To do that, run:
 
 ```terminal
@@ -15,7 +15,7 @@ tests. When this finishes, run
 git status
 ```
 
-to see that this enabled the bundle and also created a one config file... which
+to see that the recipe enabled a bundle and also created one config file... which
 we won't need to look at.
 
 ## Factories: make:factory
@@ -28,10 +28,10 @@ one), you'll need a corresponding *factory* class. Create that by running
 php bin/console make:factory
 ```
 
-which is a Maker command that comes from the Foundry package. Then, you can select
-which entity class you want to create a factory for... or generate a factory for
-*all* our entities. We'll generate the factory for `VinylMix`. And... that
-created a single file: `VinylMixFactory.php`. Let's go check that out:
+which is a Maker command that comes from Foundry. Then, you can select
+which entity you want to create a factory for... or generate a factory for
+*all* your entities. We'll generate one for `VinylMix`. And... that
+created a single file: `VinylMixFactory.php`. Let's go check it out:
 `src/Factory/VinylMixFactory.php`.
 
 Cool! Above the class, you can see a bunch of methods being described... which
@@ -39,7 +39,9 @@ will help our editor know what super-powers this has. This factory is really goo
 at creating and saving `VinylMix` objects... *or* creating *many* of them, *or*
 finding a *random* one, *or* a random *set*, *or* a random *range*. Phew!
 
-The only thing that's really inside of the class is this `getDefaults(): array`,
+## getDefaults()
+
+The only important code that we see inside this class is `getDefaults()`,
 which returns default data that should be used for each property when a `VinylMix`
 is created. We'll talk more about that in a minute.
 
@@ -57,20 +59,20 @@ And... it *fails*! Boo
 > Expected argument type "DateTime", "null" given at property path "createdAt"
 
 It's telling us that *something* tried to call `setCreatedAt()` on `VinylMix`...
-but instead of passing a `DateTime` object, it passed it `null`. Hmm. Inside of
+but instead of passing a `DateTime` object, it passed `null`. Hmm. Inside of
 `VinylMix`, if you scroll up and open `TimestampableEntity`, yup! We have a
-`setCreatedAt()` method that expects a `DateTime` object. Something called this
-method and passed it `null` instead.
+`setCreatedAt()` method that expects a `DateTime` object. Something called this...
+but passed `null`.
 
 This actually helps show off how Foundry works. When we call
 `VinylMixFactory::createOne()`, it creates a new `VinylMix` and then sets all of
 this data onto it. But remember, all of these properties are *private*. So it doesn't
 set the title property directly. Instead, it calls `setTitle()` and `setTrackCount()`
-Down here, for `createdAt()` and `updatedAt()`, it called `setCreatedAt()`
+Down here, for `createdAt` and `updatedAt`, it called `setCreatedAt()`
 and passed it `null`.
 
-In reality, we don't actually *need* to set those two properties because they're
-set automatically.
+In reality, we don't *need* to set these two properties because they will be
+set automatically by the timestampable behavior.
 
 If we try this now...
 
@@ -78,7 +80,7 @@ If we try this now...
 symfony console doctrine:fixtures:load
 ```
 
-It *works*. And if we go check out our site... *awesome*. You can see it has 928,000
+It *works*! And if we go check out our site... *awesome*. This mix has 928,000
 tracks, a random title, and 301 votes. All of this is coming from the `getDefaults()`
 method.
 
@@ -87,7 +89,7 @@ method.
 To generate interesting data, Foundry leverages *another* library called "Faker",
 whose only job is to... create *fake* data. So if you want some fake text, you
 can say `self::faker()->`, followed by whatever you want to generate. There are
-*many* different methods that you can call on `faker()` to get all *kinds* of fake
+*many* different methods you can call on `faker()` to get all *kinds* of fun fake
 data. Super handy!
 
 ## Creating Many Objects
@@ -96,28 +98,28 @@ Our factory did a *pretty* good job... but let's customize things to make it a
 bit more realistic. Actually, first, having *one* `VinylMix` still isn't very useful.
 So instead, inside `AppFixtures`, change this to `createMany(25)`.
 
-*This* is where Foundry shines. If we reload our fixtures now
+*This* is where Foundry shines. If we reload our fixtures now:
 
 ```terminal-silent
 symfony console doctrine:fixtures:load
 ```
 
-with a *single* line of code, we now have *25* random fixtures to work with! Though,
+With a *single* line of code, we have *25* random fixtures to work with! Though,
 the random data *could* be a bit better... so let's improve that.
 
 ## Customizing getDefaults()
 
-Inside `VinylMixFactory`, change the title. Instead of `text()` - which which can
+Inside `VinylMixFactory`, change the title. Instead of `text()` - which can
 sometimes be a *wall* of text, change to `words()`... and let's use *5* words, and
-then pass *true* so it returns this as a string. Otherwise, the `words()` method
+pass *true* so it returns this as a string. Otherwise, the `words()` method
 returns an array. For `trackCount`, we *do* want a random number, but... probably
-a number between 5 and 20. For the `genre`, let's go for a `randomElement()` to
+a number between 5 and 20. For `genre`, let's go for a `randomElement()` to
 randomly choose either `pop` or `rock`. Those are the two genres that we've been
-working with in our app so far. And, whoops... make sure you call this like a function.
+working with so far. And, whoops... make sure you call this like a function.
 There we go. Finally, for `votes`, choose a random number between -50 and 50.
 
 Much better! Oh, and you can see that `make:factory` added a *bunch* of our properties
-here by default, but it didn't add *all* of them. One that's missing here
+here by default, but it didn't add *all* of them. One that's missing is
 `description`. Add it: `'description' => self::faker()->` and then use `paragraph()`.
 Finally, for `slug`, we don't need that *at all* because it will be set automatically.
 
@@ -128,13 +130,13 @@ symfony console doctrine:fixtures:load
 ```
 
 Then head over and refresh. That looks *so* much better. We *do* have one broken
-image... but that's just because the API we're using has some "gaps" in it...
+image... but that's just because the API I'm using has some "gaps" in it...
 nothing to worry about.
 
-Foundry can do a *ton* of other cool things too, so *definitely* check out
-its docs. It's also super useful when you write tests, and it works *great*
-with database relation. So you'll see us use it again in a more complex way in the
+Foundry can do a *ton* of other cool things, so *definitely* check out
+its docs. It's especially useful when writing tests, and it works *great*
+with database relations. So we'll see it again in a more complex way in the
 next tutorial.
 
-Next, let's add pagination to this page, because eventually, we won't be able list
-*everything* all at once.
+Next, let's add pagination! Because eventually, we won't be able to list
+*every* mix in our database all at once.
