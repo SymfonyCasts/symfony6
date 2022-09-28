@@ -44,12 +44,16 @@ Step one: go into `config/packages/` and open the configuration file
 it just added. Here, add `orm` because we're using Doctrine ORM, then `default`, and
 lastly `timestampable: true`.
 
+[[[ code('05164f0e85') ]]]
+
 This won't really *do* anything yet. It just activates a Doctrine listener that will
 be *looking* for entities that support timestampable each time an entity is
 inserted or updated. How do we make our `VinylMix` support timestampable? The
 easiest way (and the way I like to do it) is via a trait.
 
 At the top of the class, say `use TimestampableEntity`.
+
+[[[ code('11c47f274d') ]]]
 
 That's *it*. We're done! Lunch break!
 
@@ -85,6 +89,8 @@ symfony console make:migration
 Then... let's go check that file... just to make sure it looks like we expect. Let's
 see here... yup! We've got `ALTER TABLE vinyl_mix ADD updated_at`. And apparently
 the `created_at` column will be a *little* bit different than we had before.
+
+[[[ code('6ab7d128f7') ]]]
 
 ## When Migrations Fail
 
