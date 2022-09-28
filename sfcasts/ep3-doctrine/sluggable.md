@@ -137,7 +137,7 @@ And if you searched, there's one other place we generate a URL to this route:
 `templates/vinyl/browse.html.twig`. Right here, we need to change the link on the
 "Browse" page to `slug: mix.slug`.
 
-[[[ code(34ca4a0c54') ]]]
+[[[ code('34ca4a0c54') ]]]
 
 Testing time! Let me refresh a few times... then head back to the homepage...
 click "Browse Mixes", and... there's our list! If we click one of these mixes...
