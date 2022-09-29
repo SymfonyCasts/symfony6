@@ -26,6 +26,8 @@ git status
 to see that this added a bundle, as well as a new `src/DataFixtures/` directory.
 Go open that up. Inside, we have a single new file called `AppFixtures.php`.
 
+[[[ code('766a29102b') ]]]
+
 DoctrineFixturesBundle is a delightfully simple bundle. It gives us a new console
 command called `doctrine:fixtures:load`. When we run this, it will empty our database
 and then execute the `load()` method inside of `AppFixtures`. Well, it will actually
@@ -46,10 +48,14 @@ That's not very interesting, so let's go fill in that `load()` method! Start in
 `MixController`: steal all of the `VinylMix` code... and paste it here. Hit "Ok"
 to add the `use` statement.
 
+[[[ code('76e06fff28') ]]]
+
 Notice the `load()` method accepts some `ObjectManager` argument. That's actually
 the `EntityManager`, since we're using the ORM. If you look down here, it already
 has the `flush()` call. The only thing we're missing is the `persist()` call:
 `$manager->persist($mix)`.
+
+[[[ code('fb84406a7e') ]]]
 
 So the variable is *called* `$manager` here... but these two lines are *exactly*
 what we have our controller: `persist()` and `flush()`.
