@@ -1,0 +1,164 @@
+WEBVTT
+
+00:00:01.046 --> 00:00:06.586 align:middle
+se denomina " Data fixtures" a los datos ficticios
+que añades a tu aplicación mientras desarrollas
+
+00:00:06.586 --> 00:00:09.056 align:middle
+o ejecutas pruebas para facilitarte la vida.
+
+00:00:09.826 --> 00:00:15.356 align:middle
+Es mucho más agradable trabajar en una nueva función
+cuando realmente tienes datos decentes en tu base de datos.
+
+00:00:16.496 --> 00:00:20.856 align:middle
+Hemos creado algunos datos fijos, en cierto
+sentido, mediante esta acción de new.
+
+00:00:21.196 --> 00:00:25.166 align:middle
+Pero Doctrine tiene un sistema
+específicamente diseñado para esto.
+
+00:00:26.316 --> 00:00:30.206 align:middle
+Busca "doctrinefixturesbundle" para
+encontrar su repositorio en GitHub.
+
+00:00:31.636 --> 00:00:36.136 align:middle
+Y puedes leer su documentación en Symfony.com.
+
+00:00:38.736 --> 00:00:44.136 align:middle
+Copia la línea de instalación y, en tu
+terminal, ejecútala: composer require
+
+00:00:44.136 --> 00:00:52.826 align:middle
+--dev orm-fixtures orm-fixtures es, por
+supuesto, un alias de Flex, en este caso,
+
+00:00:52.826 --> 00:00:55.366 align:middle
+a doctrine/doctrine-fixtures-bundle.
+
+00:00:56.206 --> 00:00:57.616 align:middle
+Y... ¡listo!
+
+00:00:58.586 --> 00:01:06.586 align:middle
+Ejecuta git status para ver que esto ha añadido un
+bundle, así como un nuevo directorio src/DataFixtures/.
+
+00:01:07.306 --> 00:01:08.206 align:middle
+Ve a abrirlo.
+
+00:01:09.416 --> 00:01:13.096 align:middle
+Dentro, tenemos un único archivo
+nuevo llamado AppFixtures.php.
+
+00:01:13.096 --> 00:01:18.286 align:middle
+DoctrineFixturesBundle es un
+bundle deliciosamente sencillo.
+
+00:01:18.896 --> 00:01:22.776 align:middle
+Nos proporciona un nuevo comando de
+consola llamado doctrine:fixtures:load.
+
+00:01:23.796 --> 00:01:27.156 align:middle
+Cuando lo ejecutemos,
+vaciará nuestra base de datos
+
+00:01:27.376 --> 00:01:31.816 align:middle
+y luego ejecutará el método
+load() dentro de AppFixtures.
+
+00:01:32.766 --> 00:01:35.896 align:middle
+Bueno, en realidad ejecutará el método load()
+
+00:01:35.896 --> 00:01:40.056 align:middle
+en cualquier servicio que tengamos
+que extienda esta clase Fixture.
+
+00:01:40.756 --> 00:01:44.786 align:middle
+Así que podemos tener varias clases
+en este directorio si queremos.
+
+00:01:46.196 --> 00:01:47.786 align:middle
+Si lo ejecutamos ahora mismo...
+
+00:01:48.216 --> 00:01:55.226 align:middle
+con un método load() vacío, limpia nuestra
+base de datos, llama a ese método vacío y...
+
+00:01:55.226 --> 00:01:59.526 align:middle
+el resultado en la página
+"Examinar" es que no tenemos nada
+
+00:02:00.426 --> 00:02:04.436 align:middle
+Eso no es muy interesante, así que
+¡vamos a rellenar ese método load()!
+
+00:02:04.606 --> 00:02:09.746 align:middle
+Empieza en MixController: roba
+todo el código de VinylMix...
+
+00:02:10.086 --> 00:02:11.536 align:middle
+y pégalo aquí.
+
+00:02:13.876 --> 00:02:15.626 align:middle
+Pulsa "Ok" para añadir la declaración use.
+
+00:02:16.926 --> 00:02:20.746 align:middle
+Fíjate en que el método load() acepta
+algún argumento de ObjectManager.
+
+00:02:21.636 --> 00:02:25.766 align:middle
+En realidad es el EntityManager,
+ya que estamos utilizando el ORM.
+
+00:02:26.806 --> 00:02:30.086 align:middle
+Si miras aquí abajo, ya
+tiene la llamada flush().
+
+00:02:30.526 --> 00:02:36.426 align:middle
+Lo único que nos falta es la llamada
+persist(): $manager->persist($mix).
+
+00:02:37.396 --> 00:02:40.136 align:middle
+Así que la variable se llama aquí $manager...
+
+00:02:40.576 --> 00:02:46.026 align:middle
+pero estas dos líneas son exactamente las que
+tiene nuestro controlador: persist() y flush().
+
+00:02:47.316 --> 00:02:53.476 align:middle
+Prueba de nuevo el comando: php bin/console
+doctrine:fixtures:load Vacía la base de datos,
+
+00:02:53.706 --> 00:02:56.746 align:middle
+ejecuta nuestros accesorios y tenemos...
+
+00:02:56.746 --> 00:02:58.676 align:middle
+¡una nueva mezcla!
+
+00:02:59.476 --> 00:03:01.226 align:middle
+Vale, esto es genial.
+
+00:03:01.766 --> 00:03:04.336 align:middle
+Tenemos un nuevo comando
+bin/console para cargar cosas.
+
+00:03:04.646 --> 00:03:10.166 align:middle
+Pero para el desarrollo, quiero un conjunto
+realmente rico de datos fijos, como...
+
+00:03:10.276 --> 00:03:12.326 align:middle
+tal vez 25 mezclas.
+
+00:03:13.266 --> 00:03:15.276 align:middle
+Podríamos añadirlas a mano aquí...
+
+00:03:15.746 --> 00:03:17.276 align:middle
+o incluso crear un bucle.
+
+00:03:17.986 --> 00:03:22.566 align:middle
+Pero hay una forma mejor, a través
+de una biblioteca llamada "Foundry".
+
+00:03:23.176 --> 00:03:24.556 align:middle
+¡Vamos a explorarla a continuación!
