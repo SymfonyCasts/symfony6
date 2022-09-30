@@ -1,4 +1,4 @@
-# Foundry: Fixtures You'll Live
+# Foundry: Fixtures You'll Love
 
 Building fixtures is pretty simple, but *kind of* boring. And it would be *super*
 boring to manually create *25* mixes inside the `load()` method. That's why we're
