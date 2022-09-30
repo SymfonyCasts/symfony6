@@ -99,10 +99,10 @@ What we need to do is *read* this query parameter and pass it as this second arg
 No problem! How do we read query parameters? Well, that's information from the
 request, so we need the `Request` object.
 
-Right before our optional argument, add a new `Request` argument type-hinted with
-`$request`: the one from HttpFoundation. Now, down here, instead of `1`,
+Right before our optional argument, add a new `$request` argument type-hinted with
+`Request`: the one from HttpFoundation. Now, down here, instead of `1`,
 say `$request->query` (that's how you get query parameters), with
-`->get('page')`... and default this to `1` if there is *no* `?query=` on the URL.
+`->get('page')`... and default this to `1` if there is *no* `?page=` on the URL.
 
 By the way, if you want, you can also add `{page}` up here. This way, Pagerfanta
 will *automatically* put the page number inside the URL instead of setting it as
@@ -126,7 +126,7 @@ config files. But as soon as you need one, create one! Since this bundle's calle
 files *aren't* important. What's important is the root key, which should be
 `babdev_pagerfanta`. To change how the pagination renders, add `default_view: twig`
 and then `default_twig_template` set to
-`@BabDevPagerfanta/Twitter_bootstrap5.html.twig`.
+`@BabDevPagerfanta/twitter_bootstrap5.html.twig`.
 
 Like any other config, there's no way you would know that this is the *correct*
 configuration just by guessing. You need to check out the docs.
