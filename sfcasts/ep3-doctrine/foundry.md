@@ -34,6 +34,8 @@ which entity you want to create a factory for... or generate a factory for
 created a single file: `VinylMixFactory.php`. Let's go check it out:
 `src/Factory/VinylMixFactory.php`.
 
+[[[ code('f4cf88fd24') ]]]
+
 Cool! Above the class, you can see a bunch of methods being described... which
 will help our editor know what super-powers this has. This factory is really good
 at creating and saving `VinylMix` objects... *or* creating *many* of them, *or*
@@ -47,6 +49,8 @@ is created. We'll talk more about that in a minute.
 
 But first... let's run blindly forward and *use* this class! In `AppFixtures`,
 delete *everything* and replace it with `VinylMixFactory::createOne()`.
+
+[[[ code('b572b3c087') ]]]
 
 That's it! Spin over and reload the fixtures with:
 
@@ -98,6 +102,8 @@ Our factory did a *pretty* good job... but let's customize things to make it a
 bit more realistic. Actually, first, having *one* `VinylMix` still isn't very useful.
 So instead, inside `AppFixtures`, change this to `createMany(25)`.
 
+[[[ code('68aa0810e8') ]]]
+
 *This* is where Foundry shines. If we reload our fixtures now:
 
 ```terminal-silent
@@ -118,10 +124,14 @@ randomly choose either `pop` or `rock`. Those are the two genres that we've been
 working with so far. And, whoops... make sure you call this like a function.
 There we go. Finally, for `votes`, choose a random number between -50 and 50.
 
+[[[ code('8aa7ee7c72') ]]]
+
 Much better! Oh, and you can see that `make:factory` added a *bunch* of our properties
 here by default, but it didn't add *all* of them. One that's missing is
 `description`. Add it: `'description' => self::faker()->` and then use `paragraph()`.
 Finally, for `slug`, we don't need that *at all* because it will be set automatically.
+
+[[[ code('5a3fff72f5') ]]]
 
 Phew! Let's try this! Reload the fixtures:
 
