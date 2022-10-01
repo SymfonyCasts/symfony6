@@ -1,0 +1,351 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:04.656 align:middle
+Construir accesorios es bastante
+sencillo, pero algo aburrido.
+
+00:00:05.126 --> 00:00:11.886 align:middle
+Y sería súper aburrido crear manualmente
+25 mezclas dentro del método load().
+
+00:00:12.506 --> 00:00:16.826 align:middle
+Por eso vamos a instalar una impresionante
+biblioteca llamada "Foundry".
+
+00:00:17.476 --> 00:00:23.566 align:middle
+Para ello, ejecuta: composer require
+zenstruck/foundry --dev Ejecuta:
+
+00:00:23.656 --> 00:00:28.796 align:middle
+--dev porque sólo necesitamos esta herramienta
+cuando estamos desarrollando o ejecutando pruebas.
+
+00:00:29.376 --> 00:00:34.546 align:middle
+Cuando termine, ejecuta git status para
+ver que la receta ha habilitado un bundle
+
+00:00:35.066 --> 00:00:37.626 align:middle
+y también ha creado un
+archivo de configuración...
+
+00:00:37.976 --> 00:00:39.886 align:middle
+que no necesitaremos mirar.
+
+00:00:40.686 --> 00:00:45.306 align:middle
+En resumen, Foundry nos ayuda
+a crear objetos de entidad.
+
+00:00:45.896 --> 00:00:49.006 align:middle
+Es... casi más fácil verlo en acción.
+
+00:00:49.686 --> 00:00:54.786 align:middle
+En primer lugar, para cada entidad de tu
+proyecto (ahora mismo, sólo tenemos una),
+
+00:00:55.286 --> 00:00:58.526 align:middle
+necesitarás una clase
+fábrica correspondiente.
+
+00:00:59.446 --> 00:01:02.156 align:middle
+Créala ejecutando php bin/console make:factory
+
+00:01:02.516 --> 00:01:05.656 align:middle
+que es un comando Maker que viene de Foundry.
+
+00:01:06.436 --> 00:01:10.516 align:middle
+Luego, puedes seleccionar para qué
+entidad quieres crear una fábrica...
+
+00:01:10.976 --> 00:01:14.276 align:middle
+o generar una fábrica
+para todas tus entidades.
+
+00:01:14.816 --> 00:01:16.586 align:middle
+Nosotros generaremos una para VinylMix.
+
+00:01:17.246 --> 00:01:22.686 align:middle
+Y... eso creó un único
+archivo: VinylMixFactory.php.
+
+00:01:22.686 --> 00:01:27.556 align:middle
+Vamos a comprobarlo:
+src/Factory/VinylMixFactory.php.
+
+00:01:27.556 --> 00:01:32.786 align:middle
+¡Qué bien! Encima de la clase, puedes ver
+que se describen un montón de métodos...
+
+00:01:33.276 --> 00:01:37.826 align:middle
+que ayudarán a nuestro editor a
+saber qué superpoderes tiene esto.
+
+00:01:38.656 --> 00:01:44.146 align:middle
+Esta fábrica es realmente buena para
+crear y guardar objetos de VinylMix...
+
+00:01:44.656 --> 00:01:53.426 align:middle
+o crear muchos de ellos, o encontrar uno al
+azar, o un conjunto al azar, o un rango al azar.
+
+00:01:53.686 --> 00:01:59.486 align:middle
+¡Uf! El único código importante que
+vemos dentro de esta clase es getDefaults(),
+
+00:01:59.916 --> 00:02:05.026 align:middle
+que devuelve los datos por defecto que deben utilizarse
+para cada propiedad cuando se crea un VinylMix.
+
+00:02:05.646 --> 00:02:07.306 align:middle
+Hablaremos más de eso dentro de un minuto.
+
+00:02:07.946 --> 00:02:09.186 align:middle
+Pero antes...
+
+00:02:09.426 --> 00:02:13.446 align:middle
+¡vamos a avanzar a ciegas
+y a utilizar esta clase!
+
+00:02:14.126 --> 00:02:21.356 align:middle
+En AppFixtures, borra todo y sustitúyelo
+por VinylMixFactory::createOne().
+
+00:02:22.156 --> 00:02:23.296 align:middle
+¡Ya está!
+
+00:02:23.906 --> 00:02:30.766 align:middle
+Gira y vuelve a cargar los accesorios con:
+symfony console doctrine:fixtures:load Y...
+
+00:02:31.196 --> 00:02:38.766 align:middle
+¡falla! Boo Tipo de argumento esperado
+"DateTime", "null" dado en la ruta de la propiedad
+
+00:02:38.866 --> 00:02:45.666 align:middle
+"createdAt" Nos está diciendo que algo
+intentó llamar a setCreatedAt() en VinylMix...
+
+00:02:46.086 --> 00:02:50.866 align:middle
+pero en lugar de pasar un
+objeto DateTime, pasó null.
+
+00:02:51.446 --> 00:02:59.526 align:middle
+Hmm. Dentro de VinylMix, si te desplazas hacia
+arriba y abres TimestampableEntity, ¡sí!
+
+00:03:00.076 --> 00:03:05.056 align:middle
+Tenemos un método setCreatedAt()
+que espera un objeto DateTime.
+
+00:03:05.646 --> 00:03:07.026 align:middle
+Algo llamado así...
+
+00:03:07.246 --> 00:03:08.656 align:middle
+pero que pasa a null.
+
+00:03:09.516 --> 00:03:12.626 align:middle
+Esto ayuda a mostrar cómo funciona Foundry.
+
+00:03:13.216 --> 00:03:18.366 align:middle
+Cuando llamamos a VinylMixFactory::createOne(),
+crea un nuevo VinylMix
+
+00:03:18.646 --> 00:03:21.736 align:middle
+y luego le pone todos estos datos.
+
+00:03:22.356 --> 00:03:26.476 align:middle
+Pero recuerda que todas estas
+propiedades son privadas.
+
+00:03:26.996 --> 00:03:29.716 align:middle
+Así que no establece la propiedad
+del título directamente.
+
+00:03:30.186 --> 00:03:37.756 align:middle
+En su lugar, llama a setTitle() y setTrackCount()
+Aquí abajo, para createdAt y updatedAt,
+
+00:03:38.126 --> 00:03:41.526 align:middle
+llamó a setCreatedAt() y le pasó a null.
+
+00:03:42.346 --> 00:03:46.586 align:middle
+En realidad, no necesitamos
+establecer estas dos propiedades
+
+00:03:46.856 --> 00:03:50.826 align:middle
+porque las establecerá automáticamente
+el comportamiento timestampable.
+
+00:03:51.646 --> 00:03:53.026 align:middle
+Si probamos esto ahora...
+
+00:03:54.346 --> 00:03:58.216 align:middle
+¡Funciona! Y si vamos a
+comprobar nuestro sitio...
+
+00:03:59.256 --> 00:04:07.446 align:middle
+es impresionante. Esta mezcla tiene 928.000
+pistas, un título aleatorio y 301 votos.
+
+00:04:08.116 --> 00:04:10.796 align:middle
+Todo esto procede del método getDefaults().
+
+00:04:11.686 --> 00:04:16.096 align:middle
+Para generar datos interesantes, Foundry
+aprovecha otra biblioteca llamada
+
+00:04:16.096 --> 00:04:18.476 align:middle
+"Faker", cuyo único trabajo es...
+
+00:04:18.706 --> 00:04:20.376 align:middle
+crear datos falsos.
+
+00:04:21.116 --> 00:04:26.026 align:middle
+Así que si quieres un texto falso,
+puedes decir self::faker()->,
+
+00:04:26.476 --> 00:04:28.956 align:middle
+seguido de lo que quieras generar.
+
+00:04:29.606 --> 00:04:36.026 align:middle
+Hay muchos métodos diferentes que puedes invocar en
+faker() para obtener todo tipo de datos falsos divertidos.
+
+00:04:36.506 --> 00:04:37.596 align:middle
+¡Muy útil!
+
+00:04:38.686 --> 00:04:40.926 align:middle
+Nuestra fábrica ha hecho un buen trabajo...
+
+00:04:41.426 --> 00:04:44.826 align:middle
+pero vamos a personalizar las cosas
+para que sea un poco más realista.
+
+00:04:45.476 --> 00:04:50.226 align:middle
+En realidad, primero, tener un
+VinylMix sigue sin ser muy útil.
+
+00:04:50.886 --> 00:04:56.416 align:middle
+Así que en su lugar, dentro de
+AppFixtures, cambia esto por createMany(25).
+
+00:04:57.376 --> 00:04:59.906 align:middle
+Aquí es donde Foundry brilla.
+
+00:05:00.586 --> 00:05:04.756 align:middle
+Si ahora recargamos nuestras instalaciones:
+Con una sola línea de código,
+
+00:05:04.886 --> 00:05:08.426 align:middle
+¡tenemos 25 accesorios
+aleatorios con los que trabajar!
+
+00:05:09.206 --> 00:05:12.456 align:middle
+Aunque, los datos aleatorios
+podrían ser un poco mejores...
+
+00:05:12.786 --> 00:05:14.366 align:middle
+así que vamos a mejorarlo.
+
+00:05:15.046 --> 00:05:17.926 align:middle
+Dentro de VinylMixFactory, cambia el título.
+
+00:05:18.496 --> 00:05:24.796 align:middle
+En lugar de text() -que a veces puede
+ser un muro de texto- cambia a words()...
+
+00:05:25.216 --> 00:05:31.056 align:middle
+y usemos 5 palabras, y pasemos true
+para que devuelva esto como una cadena.
+
+00:05:31.546 --> 00:05:34.056 align:middle
+De lo contrario, el método
+words() devuelve una matriz.
+
+00:05:34.996 --> 00:05:38.826 align:middle
+Para trackCount, sí queremos
+un número aleatorio, pero...
+
+00:05:38.976 --> 00:05:41.966 align:middle
+probablemente un número entre 5 y 20.
+
+00:05:42.906 --> 00:05:50.056 align:middle
+Para genre, vamos a buscar un randomElement()
+para elegir aleatoriamente pop o rock.
+
+00:05:50.606 --> 00:05:53.956 align:middle
+Esos son los dos géneros con los
+que hemos trabajado hasta ahora.
+
+00:05:54.616 --> 00:05:55.696 align:middle
+Y, vaya...
+
+00:05:56.046 --> 00:05:58.586 align:middle
+asegúrate de llamar a esto como una función.
+
+00:05:59.176 --> 00:05:59.626 align:middle
+Ya está.
+
+00:06:00.446 --> 00:06:05.346 align:middle
+Por último, para votes, elige un
+número aleatorio entre -50 y 50.
+
+00:06:06.146 --> 00:06:07.326 align:middle
+¡Mucho mejor!
+
+00:06:08.076 --> 00:06:12.556 align:middle
+Ah, y puedes ver que make:factory ha añadido
+aquí un montón de nuestras propiedades
+
+00:06:12.556 --> 00:06:15.756 align:middle
+por defecto, pero no las ha añadido todas.
+
+00:06:16.316 --> 00:06:18.526 align:middle
+Una de las que falta es description.
+
+00:06:19.086 --> 00:06:25.226 align:middle
+Añádela: 'description' =>
+self::faker()-> y luego utiliza paragraph().
+
+00:06:26.236 --> 00:06:31.926 align:middle
+Por último, para slug, no lo necesitamos en
+absoluto porque se establecerá automáticamente.
+
+00:06:32.746 --> 00:06:35.156 align:middle
+¡Ufff! ¡Vamos a probarlo!
+
+00:06:35.486 --> 00:06:39.286 align:middle
+Recarga los accesorios: Luego
+dirígete a él y actualízalo.
+
+00:06:40.836 --> 00:06:43.086 align:middle
+Esto se ve mucho mejor.
+
+00:06:43.686 --> 00:06:46.096 align:middle
+Tenemos una imagen rota...
+
+00:06:46.386 --> 00:06:50.966 align:middle
+pero eso es sólo porque la API que estoy
+utilizando tiene algunos "huecos"...
+
+00:06:51.276 --> 00:06:52.526 align:middle
+nada de lo que preocuparse.
+
+00:06:53.316 --> 00:06:58.686 align:middle
+Foundry puede hacer un montón de cosas interesantes,
+así que no dudes en consultar su documentación.
+
+00:06:59.336 --> 00:07:05.326 align:middle
+Es especialmente útil para escribir pruebas, y funciona
+muy bien con las relaciones de la base de datos.
+
+00:07:05.766 --> 00:07:09.586 align:middle
+Así que lo volveremos a ver de forma
+más compleja en el próximo tutorial.
+
+00:07:10.446 --> 00:07:13.086 align:middle
+A continuación, ¡vamos
+a añadir la paginación!
+
+00:07:13.506 --> 00:07:19.176 align:middle
+Porque, al final, no podremos listar todas las
+mezclas de nuestra base de datos de una sola vez
