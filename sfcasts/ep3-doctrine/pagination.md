@@ -40,8 +40,12 @@ return a `QueryBuilder` - the one from Doctrine ORM. I'll remove the PHP
 documentation on top... and the only thing we need to do down here is remove
 `getQuery()` and `getResult()` so that we're *just* returning `$queryBuilder`.
 
+[[[ code('6c1a403e0d') ]]]
+
 Over in `VinylController`, change this to
 `$queryBuilder = $mixRepository->createOrderedByVotesQueryBuilder($slug)`
+
+[[[ code('46e927c5d9') ]]]
 
 Initializing Pagerfanta is two lines. First, create the adapter -
 `$adapter = new QueryAdapter()` and pass it `$queryBuilder`. Then create
@@ -52,14 +56,20 @@ That's a *mouthful*. Pass this the `$adapter`, the current page - right now, I'm
 going to hardcode `1` - and finally the max results per page that we want. Let's
 use `9` since our mixes show up in three columns.
 
+[[[ code('269af6c02f') ]]]
+
 Now that we have this Pagerfanta object, we're going to pass *that* into the
 *template* instead of `mixes`. Replace this with a new variable called `pager` set
 to `$pagerfanta`.
+
+[[[ code('e6c7cdde64') ]]]
 
 The cool thing about this `$pagerfanta` object is that you can *loop* over it. And
 as soon as you do, it will execute the correct query to get *just* this pages results.
 In `templates/vinyl/browse.html.twig`, instead of `{% for mix in mixes %}`, say
 `{% for mix in pager %}`.
+
+[[[ code('27de4f1c48') ]]]
 
 That's *it*. Each result in the loop will *still* be a `VinylMix` object.
 
@@ -84,6 +94,8 @@ install that too. Once you do though, it's pretty simple.
 Back in our template, find the `{% endfor %}`, and right after, say
 `{{ pagerfanta() }}`, passing it the `pager` object.
 
+[[[ code('436293d547') ]]]
+
 Check it out! When we refresh... we have links at the bottom! They're... ugly,
 but we'll fix that in a minute.
 
@@ -103,6 +115,8 @@ Right before our optional argument, add a new `$request` argument type-hinted wi
 `Request`: the one from HttpFoundation. Now, down here, instead of `1`,
 say `$request->query` (that's how you get query parameters), with
 `->get('page')`... and default this to `1` if there is *no* `?page=` on the URL.
+
+[[[ code('e22d104f10') ]]]
 
 By the way, if you want, you can also add `{page}` up here. This way, Pagerfanta
 will *automatically* put the page number inside the URL instead of setting it as
@@ -127,6 +141,8 @@ files *aren't* important. What's important is the root key, which should be
 `babdev_pagerfanta`. To change how the pagination renders, add `default_view: twig`
 and then `default_twig_template` set to
 `@BabDevPagerfanta/twitter_bootstrap5.html.twig`.
+
+[[[ code('80afb85b20') ]]]
 
 Like any other config, there's no way you would know that this is the *correct*
 configuration just by guessing. You need to check out the docs.
