@@ -26,7 +26,7 @@ repository, it asks you if that's okay. I'm going to say `p` for "yes permanentl
 Then run:
 
 ```terminal
-get status
+git status
 ```
 
 Awesome! It enabled a bundle and added a new configuration file that we'll look at
