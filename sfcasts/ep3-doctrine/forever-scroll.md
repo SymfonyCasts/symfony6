@@ -33,6 +33,8 @@ here. The only rule of a Turbo Frame is that it needs to have a unique ID. So sa
 `id="mix-browse-list"`, and then go all the way to the end of that row and paste
 the closing tag. And, just for my own sanity, I'm going to indent that row.
 
+[[[ code('cc5da7cb54') ]]]
+
 Okay, so... what does that *do*? If you refresh the page now, any navigation inside
 of this frame *stays* inside the frame. Watch! If I click "2"... that *worked*. It
 made an AJAX request for Page 2, our app returned that *full* HTML page - including
@@ -56,6 +58,8 @@ But stick with me. I *have* a solution, but it involves a few pieces. To start,
 I'm going to make the ID *unique* to the current page. Add a `-`, and then we can
 say `pager.currentPage`.
 
+[[[ code('310c7b233c') ]]]
+
 Next, down at the bottom, remove the Pagerfanta links and replace them with *another*
 Turbo Frame. Say `{% if pager.hasNextPage %}`, and inside of it, add a
 `turbo-frame`, just like above, with that same `id="mix-browse-list-{{ }}"`.
@@ -63,6 +67,8 @@ But this time, say `pager.nextPage`. Let me break this onto multiple lines here.
 and then we're also going to tell it what `src` to use for that. Oh, let me fix my
 typo... and then use another Pagerfanta helper called `pagerfanta_page_url` and pass
 that `pager` and then `pager.nextPage`. *Finally*, add `loading="lazy"`.
+
+[[[ code('9af460b3a9') ]]]
 
 Woh! Lemme explain, because this is kind of wild. First, one of the super-powers
 of a `<turbo-frame>` is that you can give it a `src` attribute and then leave it
