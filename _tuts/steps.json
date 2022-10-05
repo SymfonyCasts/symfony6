@@ -1166,10 +1166,20 @@
             "description": null
         },
         {
+            "id": "delete-me-2",
+            "name": "delete me 2",
+            "description": null
+        },
+        {
             "id": "foreverscroll-add-lazy-next-turbo-frame",
             "name": "ForeverScroll: Add lazy next turbo-frame",
             "description": null
+        },
+        {
+            "id": "foreverscroll-target-top",
+            "name": "ForeverScroll: target=_top",
+            "description": null
         }
     ],
-    "sha": "23d3b3a50d83ed00f752fb2cb282fd603d2220bc"
+    "sha": "12b378e205eca495dd0d33e907843a0ba258297e"
 }
