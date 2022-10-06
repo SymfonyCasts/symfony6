@@ -1,0 +1,399 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:04.746 align:middle
+¡Has llegado al último capítulo
+del tutorial de Doctrine!
+
+00:00:05.276 --> 00:00:06.376 align:middle
+Este capítulo es...
+
+00:00:06.666 --> 00:00:08.376 align:middle
+un bonus total.
+
+00:00:08.846 --> 00:00:13.186 align:middle
+En lugar de hablar de Doctrine ,
+vamos a aprovechar algo de JavaScript
+
+00:00:13.256 --> 00:00:16.216 align:middle
+para convertir esta página
+en un "scroll eterno".
+
+00:00:16.946 --> 00:00:17.546 align:middle
+Pero no te preocupes
+
+00:00:17.916 --> 00:00:22.026 align:middle
+Hablaremos más de Doctrine en el próximo tutorial,
+cuando tratemos las Relaciones de Doctrine. Éste es el
+
+00:00:22.886 --> 00:00:26.186 align:middle
+objetivo: en lugar de enlaces de paginación,
+
+00:00:26.456 --> 00:00:30.426 align:middle
+quiero que esta página cargue nueve
+resultados como los que vemos en la página 1.
+
+00:00:31.276 --> 00:00:35.266 align:middle
+Luego, cuando nos desplacemos hasta el
+final, quiero hacer una petición AJAX
+
+00:00:35.266 --> 00:00:38.276 align:middle
+para mostrar los nueve resultados
+siguientes, y así sucesivamente.
+
+00:00:38.856 --> 00:00:41.356 align:middle
+El resultado es un "scroll eterno".
+
+00:00:42.226 --> 00:00:47.646 align:middle
+En el primer tutorial de esta serie, instalamos
+una biblioteca llamada Symfony UX Turbo,
+
+00:00:48.106 --> 00:00:51.286 align:middle
+que habilitó un paquete de
+JavaScript llamado Turbo.
+
+00:00:51.936 --> 00:00:56.656 align:middle
+Turbo convierte todos los clics de los enlaces y
+los envíos de formularios en llamadas AJAX, lo que
+
+00:00:57.126 --> 00:01:03.186 align:middle
+nos proporciona una experiencia realmente agradable, similar a
+la de una aplicación de página única, sin hacer nada especial.
+
+00:01:03.946 --> 00:01:08.166 align:middle
+Aunque esto es genial, Turbo tiene otros dos
+
+00:01:08.386 --> 00:01:12.506 align:middle
+superpoderes opcionales:
+Turbo Frames y Turbo Streams.
+
+00:01:13.116 --> 00:01:16.116 align:middle
+Puedes aprender todo sobre ellos
+en nuestro tutorial de Turbo.
+
+00:01:16.816 --> 00:01:21.746 align:middle
+Pero vamos a dar una muestra rápida de cómo podríamos
+aprovechar los Turbo Frames para añadir un desplazamiento eterno
+
+00:01:21.906 --> 00:01:25.316 align:middle
+sin escribir una sola línea de JavaScript.
+
+00:01:26.316 --> 00:01:31.356 align:middle
+Los marcos funcionan dividiendo partes de tu
+página en elementos separados de turbo-frame,
+
+00:01:31.776 --> 00:01:34.426 align:middle
+que actúa de forma muy parecida a un iframe...
+
+00:01:34.746 --> 00:01:36.876 align:middle
+si eres lo suficientemente
+mayor como para recordarlos.
+
+00:01:37.676 --> 00:01:40.116 align:middle
+Cuando rodeas algo en un <turbo-frame>,
+
+00:01:40.516 --> 00:01:45.586 align:middle
+cualquier clic dentro de ese marco
+sólo navegará por ese marco.
+
+00:01:46.316 --> 00:01:51.226 align:middle
+Por ejemplo, abre la plantilla de esta
+página - templates/vinyl/browse.html.twig -
+
+00:01:51.616 --> 00:01:54.156 align:middle
+y desplázate hasta donde
+tenemos nuestro bucle for.
+
+00:01:54.916 --> 00:01:57.166 align:middle
+Añade un nuevo elemento
+turbo-frame justo aquí.
+
+00:01:57.906 --> 00:02:02.486 align:middle
+La única regla de un turbo marco
+es que debe tener un ID único.
+
+00:02:03.056 --> 00:02:08.796 align:middle
+Así que di id="mix-browse-list",
+y luego ve hasta el final
+
+00:02:08.796 --> 00:02:11.116 align:middle
+de esa fila y pega la etiqueta de cierre.
+
+00:02:11.876 --> 00:02:16.756 align:middle
+Y, sólo por mi propia cordura, voy
+a aplicar una sangría a esa fila.
+
+00:02:17.476 --> 00:02:18.666 align:middle
+Bien, entonces...
+
+00:02:18.666 --> 00:02:20.366 align:middle
+¿qué hace eso?
+
+00:02:21.196 --> 00:02:28.016 align:middle
+Si ahora actualizas la página, cualquier navegación
+dentro de este marco se queda dentro del marco.
+
+00:02:28.576 --> 00:02:30.566 align:middle
+¡Fíjate! Si hago clic en "2"...
+
+00:02:31.216 --> 00:02:32.306 align:middle
+ha funcionado.
+
+00:02:32.716 --> 00:02:39.266 align:middle
+Hizo una petición AJAX para la página 2, nuestra
+aplicación devolvió esa página HTML completa
+
+00:02:39.686 --> 00:02:41.936 align:middle
+-incluyendo la cabecera,
+el pie de página y todo-,
+
+00:02:42.446 --> 00:02:49.316 align:middle
+pero luego Turbo Frame encontró el mix-browse-list
+<turbo-frame> correspondiente dentro de eso,
+
+00:02:49.696 --> 00:02:52.396 align:middle
+cogió su contenido y lo puso aquí.
+
+00:02:53.186 --> 00:02:56.416 align:middle
+Y aunque no es fácil de ver en este ejemplo,
+
+00:02:56.806 --> 00:03:01.906 align:middle
+la única parte de la página que está
+cambiando es este elemento <turbo-frame>.
+
+00:03:02.646 --> 00:03:04.056 align:middle
+Si yo... digamos...
+
+00:03:04.176 --> 00:03:13.676 align:middle
+cambiara el título aquí arriba en mi página, y luego
+hiciera clic aquí abajo y volviera a la página 2...
+
+00:03:14.346 --> 00:03:17.176 align:middle
+no actualizaría esa parte de la página.
+
+00:03:17.736 --> 00:03:22.266 align:middle
+De nuevo, funciona muy parecido a
+los iframes, pero sin las rarezas.
+
+00:03:23.036 --> 00:03:28.856 align:middle
+Podrías imaginar usar esto, por ejemplo, para alimentar
+un botón "Editar" que añada edición en línea.
+
+00:03:29.676 --> 00:03:33.406 align:middle
+Pero en nuestra situación,
+esto no es muy útil todavía...
+
+00:03:33.896 --> 00:03:40.726 align:middle
+porque funciona más o menos igual que antes:
+hacemos clic en el enlace, vemos nuevos resultados.
+
+00:03:41.316 --> 00:03:47.056 align:middle
+La única diferencia es que al hacer clic dentro
+de un <turbo-frame> no se cambia la URL.
+
+00:03:47.746 --> 00:03:54.276 align:middle
+Así que, independientemente de la página en la que me
+encuentre, si actualizo, soy transportado de nuevo a la página 1.
+
+00:03:55.086 --> 00:03:58.676 align:middle
+Así que esto fue una especie de paso atrás
+
+00:03:59.016 --> 00:04:00.486 align:middle
+Pero sigue conmigo.
+
+00:04:01.106 --> 00:04:04.876 align:middle
+Tengo una solución, pero
+implica unas cuantas piezas.
+
+00:04:05.726 --> 00:04:10.536 align:middle
+Para empezar, voy a hacer que el ID
+sea único para la página actual.
+
+00:04:11.146 --> 00:04:15.046 align:middle
+Añade un -, y entonces podremos
+decir pager.currentPage.
+
+00:04:15.916 --> 00:04:22.546 align:middle
+A continuación, en la parte inferior, elimina los enlaces
+de Pagerfanta y sustitúyelos por otro Marco Turbo. Di
+
+00:04:22.546 --> 00:04:30.376 align:middle
+{% if pager.hasNextPage %}, y dentro de él,
+añade un turbo-frame, igual que arriba,
+
+00:04:30.816 --> 00:04:34.566 align:middle
+con ese mismo id="mix-browse-list-{{ }}".
+
+00:04:34.776 --> 00:04:39.376 align:middle
+Pero esta vez, di pager.nextPage.
+
+00:04:40.106 --> 00:04:42.206 align:middle
+Permíteme dividir esto
+en varias líneas aquí...
+
+00:04:42.676 --> 00:04:46.536 align:middle
+y también vamos a decirle qué
+src debe utilizar para ello.
+
+00:04:47.256 --> 00:04:48.706 align:middle
+Oh, déjame arreglar mi error tipográfico...
+
+00:04:49.226 --> 00:04:55.736 align:middle
+y luego usaremos otro ayudante de Pagerfanta
+llamado pagerfanta_page_url y le pasaremos
+
+00:04:55.736 --> 00:04:59.246 align:middle
+ese pager y luego pager.nextPage.
+
+00:05:00.066 --> 00:05:03.286 align:middle
+Por último, añade loading="lazy".
+
+00:05:04.046 --> 00:05:08.956 align:middle
+¡Woh! Deja que me explique,
+porque esto es un poco salvaje.
+
+00:05:09.616 --> 00:05:13.616 align:middle
+En primer lugar, uno de los superpoderes
+de un <turbo-frame> es
+
+00:05:13.616 --> 00:05:17.556 align:middle
+que puedes darle un atributo
+src y dejarlo vacío.
+
+00:05:18.286 --> 00:05:20.276 align:middle
+Esto le dice a Turbo: ¡Oye!
+
+00:05:20.656 --> 00:05:23.926 align:middle
+Voy a ser perezoso y empezar
+este elemento vacío...
+
+00:05:24.406 --> 00:05:26.816 align:middle
+quizás porque es un poco pesado de cargar.
+
+00:05:27.506 --> 00:05:31.566 align:middle
+Pero en cuanto este elemento
+sea visible para el usuario,
+
+00:05:32.006 --> 00:05:36.126 align:middle
+haz una petición Ajax a esta
+URL para obtener su contenido.
+
+00:05:36.886 --> 00:05:39.646 align:middle
+Así, este <turbo-frame>
+comenzará vacío...
+
+00:05:40.016 --> 00:05:42.446 align:middle
+pero en cuanto nos desplacemos hasta él,
+
+00:05:42.946 --> 00:05:47.616 align:middle
+Turbo hará una petición AJAX para la
+siguiente página de resultados. Por
+
+00:05:48.336 --> 00:05:52.146 align:middle
+ejemplo, si este marco se está
+cargando para la página 2,
+
+00:05:52.616 --> 00:06:01.006 align:middle
+la respuesta Ajax contendrá un
+<turbo-frame> con id="mix-browse-list-2".
+
+00:06:01.676 --> 00:06:05.706 align:middle
+El sistema Turbo Frame lo
+tomará de la respuesta Ajax
+
+00:06:06.076 --> 00:06:08.786 align:middle
+y lo pondrá aquí, al final de nuestra lista.
+
+00:06:09.446 --> 00:06:14.486 align:middle
+Y si hay una página 3,
+incluirá otro Turbo Frame
+
+00:06:14.486 --> 00:06:17.486 align:middle
+aquí abajo que apuntará a la página 3.
+
+00:06:18.176 --> 00:06:21.916 align:middle
+Todo esto puede parecer un poco
+loco, así que vamos a probarlo.
+
+00:06:21.976 --> 00:06:25.916 align:middle
+Voy a desplazarme hasta la parte
+superior de la página, refresco y...
+
+00:06:26.376 --> 00:06:30.676 align:middle
+¡perfecto! Ahora desplázate
+hacia abajo y observa.
+
+00:06:31.186 --> 00:06:35.836 align:middle
+Deberías ver que aparece una petición AJAX
+en la barra de herramientas de depuración web.
+
+00:06:36.446 --> 00:06:37.786 align:middle
+Mientras nos desplazamos...
+
+00:06:38.076 --> 00:06:38.906 align:middle
+aquí abajo...
+
+00:06:39.256 --> 00:06:41.766 align:middle
+¡ah! ¡Ahí está la petición AJAX!
+
+00:06:42.416 --> 00:06:44.886 align:middle
+Vuelve a desplazarte hacia abajo y...
+
+00:06:45.746 --> 00:06:51.626 align:middle
+hay una segunda petición AJAX: una para
+la página 2 y otra para la página 3.
+
+00:06:52.466 --> 00:06:58.186 align:middle
+Si seguimos desplazándonos, nos quedamos sin
+resultados y llegamos al final de la página.
+
+00:06:58.886 --> 00:07:03.016 align:middle
+Si eres nuevo en Turbo Frames, este
+concepto puede haber sido un poco confuso,
+
+00:07:03.406 --> 00:07:05.716 align:middle
+pero puedes aprender más en
+nuestro tutorial de Turbo.
+
+00:07:06.426 --> 00:07:11.456 align:middle
+Y un saludo a un post del blog de
+AppSignal que introdujo esta genial idea.
+
+00:07:12.476 --> 00:07:13.046 align:middle
+¡Muy bien, equipo!
+
+00:07:13.306 --> 00:07:15.846 align:middle
+¡Enhorabuena por haber
+terminado el curso de Doctrine!
+
+00:07:16.376 --> 00:07:18.316 align:middle
+Espero que te sientas poderoso.
+
+00:07:18.646 --> 00:07:19.286 align:middle
+¡Deberías estarlo!
+
+00:07:20.076 --> 00:07:24.226 align:middle
+La única parte importante que le falta a
+Doctrine ahora es la de Relaciones de Doctrine:
+
+00:07:24.746 --> 00:07:29.136 align:middle
+poder asociar una entidad
+a otra mediante relaciones,
+
+00:07:29.486 --> 00:07:31.616 align:middle
+como las de muchos a uno y muchos a muchos.
+
+00:07:32.336 --> 00:07:34.976 align:middle
+Cubriremos todo eso en el próximo tutorial.
+
+00:07:35.706 --> 00:07:40.746 align:middle
+Hasta entonces, si tienes alguna duda o tienes una
+gran adivinanza que quieras plantearnos, estamos a
+
+00:07:41.176 --> 00:07:43.216 align:middle
+tu disposición en la sección de comentarios.
+
+00:07:43.976 --> 00:07:44.786 align:middle
+¡Muchas gracias, amigos!
+
+00:07:45.006 --> 00:07:45.976 align:middle
+¡Y hasta la próxima vez!
