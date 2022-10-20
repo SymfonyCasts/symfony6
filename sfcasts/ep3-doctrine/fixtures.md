@@ -6,7 +6,7 @@ feature when you actually *have* decent data in your database. We created some
 data fixtures, in a sense, via this `new` action. But Doctrine has a system
 specifically designed for this.
 
-# Installing DoctrineFixturesBundle
+## Installing DoctrineFixturesBundle
 
 Search for "doctrinefixturesbundle" to find its GitHub repository. And you can
 actually read its documentation over on Symfony.com. Copy the install line and,
