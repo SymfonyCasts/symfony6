@@ -142,7 +142,7 @@ Cool! Let's repeat this two more times: `{{ path('app_browse') }}`, pass curly
 braces for an associative array, with `slug` set to `rock`. And then one more time
 down here... which I'll do really quickly.
 
-[[[ code('4fa3d35edf') ]]]
+[[[ code('761700d7e5') ]]]
 
 Let's see if it works! Refresh. Ah! Variable `rock` doesn't exist. I bet some of
 you saw me do that. I forgot my quotes, so this looks like a *variable*.
