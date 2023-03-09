@@ -47,7 +47,7 @@ Our job is to return this as JSON.
 So how *do* we return JSON in Symfony? By returning a new `JsonResponse` and passing
 it the data.
 
-[[[ code('3450058bee') ]]]
+[[[ code('32ff0953ad') ]]]
 
 I know... too easy! Refresh and... hello JSON! Now you *might* be thinking:
 
