@@ -11,7 +11,7 @@ index 1f8b237..f7aab52 100644
          return $this->render('vinyl/browse.html.twig', [
              'genre' => $genre,
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 4b88c8b..66b9faa 100644
+index 86d1b29..1ef556c 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -35,7 +35,7 @@

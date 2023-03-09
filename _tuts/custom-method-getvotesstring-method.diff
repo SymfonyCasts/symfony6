@@ -15,7 +15,7 @@ index 2a3050b..bc4945d 100644
 +    }
  }
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 61fa392..20cfbbd 100644
+index d6db868..cef4120 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -37,7 +37,7 @@

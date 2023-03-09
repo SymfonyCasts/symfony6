@@ -28,7 +28,7 @@ index f7aab52..6e5a397 100644
              'genre' => $genre,
              'mixes' => $mixes,
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 66b9faa..4963013 100644
+index 1ef556c..8d680e4 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -35,7 +35,7 @@

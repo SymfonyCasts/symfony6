@@ -12,7 +12,7 @@ index 54c01d0..c98a2b2 100644
      {
          $mix = $mixRepository->find($id);
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 2d21c54..c977861 100644
+index 93de567..ffd46d5 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -28,7 +28,9 @@

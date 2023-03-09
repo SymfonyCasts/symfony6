@@ -1,5 +1,5 @@
 diff --git a/templates/vinyl/browse.html.twig b/templates/vinyl/browse.html.twig
-index 160992d..0b64729 100644
+index 160992d..2462882 100644
 --- a/templates/vinyl/browse.html.twig
 +++ b/templates/vinyl/browse.html.twig
 @@ -7,13 +7,19 @@
@@ -20,8 +20,8 @@ index 160992d..0b64729 100644
          <li class="d-inline">
 -            <a class="btn btn-primary btn-sm" href="#">Heavy Metal</a>
 +            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
-+                slug: 'all-accordion'
-+            }) }}">All Accordion</a>
++                slug: 'heavy-metal'
++            }) }}">Heavy Metal</a>
          </li>
      </ul>
  
