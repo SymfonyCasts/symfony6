@@ -1,0 +1,473 @@
+WEBVTT
+
+00:00:01.046 --> 00:00:04.016 align:middle
+Al final, esta página
+se va a hacer superlarga.
+
+00:00:04.536 --> 00:00:09.286 align:middle
+Cuando tengamos mil mezclas,
+¡probablemente ni se cargue!
+
+00:00:09.886 --> 00:00:12.016 align:middle
+Podemos solucionarlo añadiendo paginación.
+
+00:00:12.816 --> 00:00:16.466 align:middle
+¿Doctrine permite paginar los resultados?
+
+00:00:17.026 --> 00:00:20.856 align:middle
+Sí, la tiene Aunque yo suelo
+instalar otra biblioteca
+
+00:00:20.946 --> 00:00:23.846 align:middle
+que añade más funciones
+además de las de Doctrine.
+
+00:00:24.646 --> 00:00:34.456 align:middle
+Busca tu terminal y ejecuta: Esto instala un
+bundle de Pagerfanta, que es una envoltura
+
+00:00:34.536 --> 00:00:39.716 align:middle
+de una biblioteca realmente buena
+llamada Pagerfanta. Pagerfanta
+
+00:00:40.416 --> 00:00:44.906 align:middle
+puede paginar muchas cosas,
+como resultados de Doctrine,
+
+00:00:45.116 --> 00:00:47.546 align:middle
+resultados de Elasticsearch y mucho más.
+
+00:00:48.376 --> 00:00:54.216 align:middle
+También hemos instalado su adaptador ORM Doctrine,
+que nos proporcionará todo lo que necesitamos
+
+00:00:54.306 --> 00:00:56.486 align:middle
+para paginar nuestros resultados Doctrine.
+
+00:00:57.276 --> 00:01:01.726 align:middle
+En este caso, cuando ejecutamos
+git status añadió un bundle,
+
+00:01:02.086 --> 00:01:05.016 align:middle
+pero la receta no necesitó hacer nada más.
+
+00:01:05.876 --> 00:01:09.156 align:middle
+¡Genial! Entonces, ¿cómo
+funciona esta biblioteca?
+
+00:01:09.746 --> 00:01:13.586 align:middle
+Abre src/Controller/VinylController
+y busca la acción browse().
+
+00:01:14.286 --> 00:01:18.226 align:middle
+En lugar de consultar todas las mezclas,
+como estamos haciendo ahora, vamos a
+
+00:01:18.686 --> 00:01:23.726 align:middle
+decirle a la biblioteca Pagerfanta en qué
+página se encuentra actualmente el usuario,
+
+00:01:24.106 --> 00:01:31.286 align:middle
+cuántos resultados mostrar por página, y
+entonces nos consultará los resultados correctos.
+
+00:01:32.076 --> 00:01:37.746 align:middle
+Para que esto funcione, en lugar de llamar a
+findAllOrderedByVotes() y obtener de vuelta todos los resultados
+
+00:01:37.746 --> 00:01:43.766 align:middle
+, tenemos que llamar a un método de nuestro
+repositorio que devuelva un QueryBuilder.
+
+00:01:44.686 --> 00:01:50.346 align:middle
+Abre src/Repository/VinylMixRepository y desplázate
+hasta findAllOrderedByVotes(). De momento
+
+00:01:51.006 --> 00:01:54.036 align:middle
+sólo vamos a utilizar este método aquí,
+
+00:01:54.406 --> 00:01:58.056 align:middle
+así que cámbiale el nombre a
+createOrderedByVotesQueryBuilder()...
+
+00:01:58.756 --> 00:02:03.536 align:middle
+y esto devolverá ahora un
+QueryBuilder - el de Doctrine ORM.
+
+00:02:04.466 --> 00:02:07.236 align:middle
+Eliminaré la documentación
+PHP de la parte superior...
+
+00:02:07.776 --> 00:02:12.916 align:middle
+y lo único que tenemos que hacer aquí
+abajo es eliminar getQuery() y getResult()
+
+00:02:13.536 --> 00:02:16.296 align:middle
+para que sólo devolvamos $queryBuilder. En
+
+00:02:17.146 --> 00:02:19.376 align:middle
+VinylController, cambia esto
+
+00:02:19.376 --> 00:02:25.156 align:middle
+por $queryBuilder =
+$mixRepository->createOrderedByVotesQueryBuilder($slug) Inicializar
+
+00:02:26.186 --> 00:02:29.116 align:middle
+Pagerfanta son dos líneas. Primero,
+
+00:02:29.576 --> 00:02:35.786 align:middle
+crea el adaptador - $adapter = new QueryAdapter()
+y pásale $queryBuilder. Luego crea
+
+00:02:36.606 --> 00:02:38.506 align:middle
+el objeto Pagerfanta con
+
+00:02:38.506 --> 00:02:44.956 align:middle
+$pagerfanta =
+Pagerfanta::createForCurrentPageWithMaxPerPage() Eso es
+
+00:02:44.956 --> 00:02:47.486 align:middle
+un trabalenguas. Pásale
+
+00:02:48.286 --> 00:02:53.776 align:middle
+el $adapter, la página actual -ahora
+mismo, voy a hardcodear 1 - y, por último,
+
+00:02:54.196 --> 00:02:58.056 align:middle
+el máximo de resultados por página
+que queremos. Vamos a utilizar
+
+00:02:58.646 --> 00:03:03.166 align:middle
+9 ya que nuestras mezclas aparecen
+en tres columnas. Ahora que
+
+00:03:04.046 --> 00:03:07.716 align:middle
+tenemos este objeto
+Pagerfanta, vamos a pasarlo a
+
+00:03:07.716 --> 00:03:10.886 align:middle
+la plantilla en lugar de mixes. Sustitúyelo
+
+00:03:11.716 --> 00:03:15.406 align:middle
+por una nueva variable llamada pager
+ajustada a $pagerfanta. Lo bueno
+
+00:03:16.436 --> 00:03:21.906 align:middle
+de este objeto $pagerfanta es que puedes
+hacer un bucle sobre él. Y en cuanto lo
+
+00:03:22.486 --> 00:03:29.166 align:middle
+hagas, ejecutará la consulta correcta para obtener sólo los
+resultados de esta página. En templates/vinyl/browse.html.twig , en
+
+00:03:29.956 --> 00:03:34.316 align:middle
+lugar de {% for mix in mixes
+
+00:03:34.316 --> 00:03:38.866 align:middle
+%}, di {% for mix in pager %}. Y ya está.
+
+00:03:38.866 --> 00:03:39.846 align:middle
+Cada resultado
+
+00:03:40.436 --> 00:03:44.476 align:middle
+del bucle seguirá siendo un
+objeto VinylMix. Si volvemos
+
+00:03:45.286 --> 00:03:47.316 align:middle
+y recargamos... ¡ya está!
+
+00:03:48.776 --> 00:03:53.626 align:middle
+Muestra nueve resultados: ¡los
+resultados de la Página 1! Lo que
+
+00:03:54.436 --> 00:03:58.386 align:middle
+necesitamos ahora son enlaces a las páginas
+siguiente y anterior... y esta biblioteca
+
+00:03:58.816 --> 00:04:00.946 align:middle
+también puede ayudarnos con eso. De vuelta a
+
+00:04:01.686 --> 00:04:07.846 align:middle
+tu terminal, ejecuta: composer require pagerfanta/twig
+Una de las cosas más complicadas de la biblioteca
+
+00:04:07.846 --> 00:04:13.676 align:middle
+Pagerfanta es que, en lugar de ser
+una biblioteca gigante que tiene
+
+00:04:13.676 --> 00:04:18.346 align:middle
+todo lo que necesitas, está dividida en un
+montón de bibliotecas más pequeñas. Así que si
+
+00:04:19.116 --> 00:04:24.496 align:middle
+quieres el soporte del adaptador ORM, tienes que
+instalarlo como hicimos antes. Si quieres la compatibilidad
+
+00:04:25.246 --> 00:04:29.646 align:middle
+con Twig para añadir enlaces, también
+tienes que instalarla. Una vez que lo hayas
+
+00:04:30.476 --> 00:04:32.986 align:middle
+hecho, es bastante sencillo. De vuelta a
+
+00:04:33.776 --> 00:04:37.696 align:middle
+nuestra plantilla, busca el objeto
+{% endfor %}, y justo después, di {{
+
+00:04:38.046 --> 00:04:42.716 align:middle
+pagerfanta() }}, pasándole el
+objeto pager. ¡ Compruébalo
+
+00:04:43.616 --> 00:04:44.016 align:middle
+! Cuando
+
+00:04:44.316 --> 00:04:45.726 align:middle
+actualizamos... ¡tenemos
+
+00:04:46.546 --> 00:04:48.616 align:middle
+enlaces en la parte inferior! Son... feos,
+
+00:04:49.046 --> 00:04:49.646 align:middle
+pero
+
+00:04:49.876 --> 00:04:52.146 align:middle
+lo arreglaremos en un minuto. Si
+
+00:04:52.966 --> 00:04:58.776 align:middle
+haces clic en el enlace "Siguiente", arriba en
+nuestra URL, vemos ?page=2. Aunque... en realidad los
+
+00:04:59.476 --> 00:05:03.246 align:middle
+resultados no cambian. Seguimos
+
+00:05:03.806 --> 00:05:06.486 align:middle
+viendo los mismos resultados
+de la Página 1. Y... eso
+
+00:05:06.966 --> 00:05:08.786 align:middle
+tiene sentido. Recuerda que
+
+00:05:09.346 --> 00:05:14.546 align:middle
+en VinylController, codifiqué
+la página actual en 1. Así que
+
+00:05:15.106 --> 00:05:22.156 align:middle
+aunque tengamos ?page=2 aquí arriba, Pagerfanta sigue
+pensando que estamos en la Página 1. Lo que tenemos que
+
+00:05:23.016 --> 00:05:28.456 align:middle
+hacer es leer este parámetro de consulta y
+pasarlo como segundo argumento. ¡No hay problema!
+
+00:05:29.076 --> 00:05:29.786 align:middle
+¿Cómo leemos los parámetros de consulta
+
+00:05:30.516 --> 00:05:32.366 align:middle
+? Bueno, es
+
+00:05:33.046 --> 00:05:39.166 align:middle
+información de la petición, así que
+necesitamos el objeto Request. Justo antes de
+
+00:05:39.916 --> 00:05:44.826 align:middle
+nuestro argumento opcional, añade un
+nuevo argumento $request de tipo Request:
+
+00:05:44.826 --> 00:05:48.256 align:middle
+el de HttpFoundation. Ahora,
+
+00:05:49.116 --> 00:05:51.456 align:middle
+aquí abajo, en lugar de
+1, pon $request->query
+
+00:05:51.576 --> 00:05:58.286 align:middle
+(así es como se obtienen los parámetros de
+consulta), con ->get('page')... y por defecto
+
+00:05:58.846 --> 00:06:04.456 align:middle
+esto a 1 si no hay ?page= en la URL. Por
+
+00:06:05.316 --> 00:06:10.086 align:middle
+cierto, si quieres, también puedes
+añadir {page} aquí arriba. De esta forma,
+
+00:06:10.646 --> 00:06:16.586 align:middle
+Pagerfanta pondrá automáticamente el número de página
+dentro de la URL en lugar de establecerlo como parámetro de
+
+00:06:16.586 --> 00:06:18.386 align:middle
+consulta. Si nos dirigimos
+
+00:06:19.336 --> 00:06:20.696 align:middle
+y actualizamos... ahora mismo,
+
+00:06:21.746 --> 00:06:24.486 align:middle
+tenemos ?page=2. Aquí abajo...
+
+00:06:25.246 --> 00:06:26.016 align:middle
+¡sabe que estamos
+
+00:06:26.516 --> 00:06:28.786 align:middle
+en la Página 2! Si vamos
+a la página siguiente...
+
+00:06:29.486 --> 00:06:30.916 align:middle
+¡sí! ¡
+
+00:06:31.416 --> 00:06:34.156 align:middle
+Vemos un conjunto diferente
+de resultados! Aunque, esto
+
+00:06:35.016 --> 00:06:37.926 align:middle
+sigue siendo super feo.
+Afortunadamente, el bundle
+
+00:06:38.446 --> 00:06:41.236 align:middle
+nos ofrece una forma de controlar
+
+00:06:41.236 --> 00:06:44.916 align:middle
+el marcado que se utiliza para
+los enlaces de paginación. E
+
+00:06:45.616 --> 00:06:50.476 align:middle
+incluso viene con soporte automático para el
+marcado compatible con CSS de Bootstrap. Sólo
+
+00:06:51.036 --> 00:06:53.506 align:middle
+tenemos que decirle al bundle que
+lo utilice. Así que ... tenemos
+
+00:06:54.326 --> 00:06:56.716 align:middle
+que configurar el bundle. Pero ... el bundle
+
+00:06:57.416 --> 00:07:03.216 align:middle
+no nos ha proporcionado ningún archivo de
+configuración nuevo al instalarlo. ¡No pasa nada!
+
+00:07:03.876 --> 00:07:04.506 align:middle
+No todos los
+
+00:07:05.076 --> 00:07:07.936 align:middle
+bundles nuevos nos dan archivos
+de configuración. Pero en cuanto
+
+00:07:08.346 --> 00:07:10.726 align:middle
+necesites uno, ¡crea uno! Como este bundle se
+
+00:07:11.416 --> 00:07:14.696 align:middle
+llama BabdevPagerfantaBundle , voy a
+
+00:07:15.206 --> 00:07:20.226 align:middle
+crear un nuevo archivo llamado
+babdev_pagerfanta.yaml. Como
+
+00:07:21.146 --> 00:07:26.816 align:middle
+aprendimos en el último tutorial, el nombre de
+estos archivos no es importante. Lo importante
+
+00:07:27.346 --> 00:07:32.766 align:middle
+es la clave raíz, que debe ser
+babdev_pagerfanta. Para cambiar
+
+00:07:33.586 --> 00:07:37.226 align:middle
+la forma en que se muestra la
+paginación, añade default_view: twig y
+
+00:07:37.346 --> 00:07:46.746 align:middle
+luego default_twig_template a
+@BabDevPagerfanta/twitter_bootstrap5.html.twig. Como con cualquier
+
+00:07:47.676 --> 00:07:51.186 align:middle
+otra configuración, no hay
+forma de que sepas que ésta es
+
+00:07:51.186 --> 00:07:54.426 align:middle
+la configuración correcta
+simplemente adivinando. Tienes
+
+00:07:54.946 --> 00:07:56.426 align:middle
+que consultar la documentación. Si
+
+00:07:57.276 --> 00:07:58.616 align:middle
+volvemos atrás y actualizamos...
+eh, no ha cambiado nada.
+
+00:07:59.376 --> 00:08:00.936 align:middle
+Se trata de
+
+00:08:01.576 --> 00:08:05.346 align:middle
+un pequeño error que a veces
+te encuentras en Symfony cuando
+
+00:08:05.486 --> 00:08:07.916 align:middle
+creas un nuevo archivo de
+configuración. Symfony no se
+
+00:08:08.776 --> 00:08:10.816 align:middle
+dio cuenta... y por eso
+
+00:08:11.106 --> 00:08:15.116 align:middle
+no sabía que necesitaba
+reconstruir su caché. Es
+
+00:08:15.816 --> 00:08:20.106 align:middle
+una situación super rara, pero si alguna
+vez crees que puede estar ocurriendo, es
+
+00:08:20.416 --> 00:08:27.186 align:middle
+bastante fácil borrar manualmente la caché
+ejecutando: php bin/console cache:clear Y... oh...
+
+00:08:27.566 --> 00:08:29.886 align:middle
+explota. Probablemente
+
+00:08:30.256 --> 00:08:31.686 align:middle
+te habrás dado cuenta de
+por qué. ¡ Me encanta
+
+00:08:32.056 --> 00:08:33.066 align:middle
+este error!
+
+00:08:33.606 --> 00:08:35.976 align:middle
+No hay ninguna extensión capaz de cargar
+la configuración para "baberdev_pagerfanta"
+
+00:08:35.976 --> 00:08:42.416 align:middle
+Se supone que es babdev_pagerfanta. ¡Ups! Y
+
+00:08:42.716 --> 00:08:44.776 align:middle
+ahora... ¡perfecto! Está
+
+00:08:46.006 --> 00:08:47.826 align:middle
+contento. Y cuando
+
+00:08:48.436 --> 00:08:50.076 align:middle
+actualizamos... ¡lo ve
+
+00:08:51.006 --> 00:08:52.096 align:middle
+! En un
+
+00:08:52.706 --> 00:08:58.216 align:middle
+proyecto real, probablemente querremos añadir algo
+más de CSS para hacer este "modo oscuro"... pero ya
+
+00:08:58.686 --> 00:09:00.396 align:middle
+lo tenemos. Bien equipo,
+
+00:09:01.346 --> 00:09:03.446 align:middle
+¡básicamente hemos terminado! Como
+
+00:09:03.866 --> 00:09:07.186 align:middle
+extra, vamos a refactorizar esta
+paginación para convertirla en un
+
+00:09:07.416 --> 00:09:10.456 align:middle
+desplazamiento eterno con JavaScript...
+¡excepto el giro argumental
+
+00:09:11.046 --> 00:09:12.546 align:middle
+! Vamos a
+
+00:09:12.886 --> 00:09:16.856 align:middle
+hacerlo sin escribir una sola línea
+de JavaScript. Eso a continuación.
