@@ -389,15 +389,15 @@ simplemente adivinando. Tienes
 que consultar la documentación. Si
 
 00:07:57.276 --> 00:07:58.616 align:middle
-volvemos atrás y actualizamos...
+volvemos y actualizamos...
 eh, no ha cambiado nada.
 
 00:07:59.376 --> 00:08:00.936 align:middle
-Se trata de
+Este es un pequeño error
 
 00:08:01.576 --> 00:08:05.346 align:middle
-un pequeño error que a veces
-te encuentras en Symfony cuando
+que a veces te encuentras 
+en Symfony cuando
 
 00:08:05.486 --> 00:08:07.916 align:middle
 creas un nuevo archivo de
@@ -463,10 +463,10 @@ paginación para convertirla en un
 
 00:09:07.416 --> 00:09:10.456 align:middle
 desplazamiento eterno con JavaScript...
-¡excepto el giro argumental
+¡excepto el giro argumental!
 
 00:09:11.046 --> 00:09:12.546 align:middle
-! Vamos a
+Vamos a
 
 00:09:12.886 --> 00:09:16.856 align:middle
 hacerlo sin escribir una sola línea
