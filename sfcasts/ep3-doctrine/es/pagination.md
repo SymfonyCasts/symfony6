@@ -80,13 +80,13 @@ Si nos dirigimos y refrescamos... ahora mismo, tenemos `?page=2`. Aquí abajo...
 
 Aunque, esto sigue siendo súper feo. Afortunadamente, el bundle nos da una forma de controlar el marcado que se utiliza para los enlaces de paginación. E incluso viene con soporte automático para el marcado compatible con CSS de Bootstrap. Sólo tenemos que decirle al bundle que lo utilice.
 
-Así que... tenemos que configurar el bundle. Pero... el bundle no nos ha dado ningún archivo de configuración nuevo cuando se ha instalado. No pasa nada No todos los bundles nuevos nos dan archivos de configuración. Pero en cuanto necesites uno, ¡crea uno! Como este bundle se llama`BabdevPagerfantaBundle`, voy a crear un nuevo archivo llamado`babdev_pagerfanta.yaml`. Como aprendimos en el último tutorial, el nombre de estos archivos no es importante. Lo importante es la clave raíz, que debe ser`babdev_pagerfanta`. Para cambiar la forma en que se muestra la paginación, añade `default_view: twig`y, a continuación, `default_twig_template`, que debe ser`@BabDevPagerfanta/twitter_bootstrap5.html.twig`.
+Así que... tenemos que configurar el bundle. Pero... el bundle no nos ha dado ningún archivo de configuración nuevo cuando se ha instalado. No pasa nada No todos los bundles nuevos nos dan archivos de configuración. Pero en cuanto necesites uno, ¡crea uno! Como este bundle se llama`BabdevPagerfantaBundle`, voy a crear un nuevo archivo llamado`babdev_pagerfanta.yaml`. Como aprendimos en el último tutorial, el nombre de estos archivos no es importante. Lo importante es la clave raíz, que debe ser`babdev_pagerfanta`. Para cambiar la forma en que se muestra la paginación, añade `default_view: twig` y luego `default_twig_template` a `@BabDevPagerfanta/twitter_bootstrap5.html.twig`.
 
 [[[ code('80afb85b20') ]]]
 
-Como cualquier otra configuración, no hay forma de que sepas que ésta es la configuración correcta simplemente adivinando. Tienes que consultar la documentación.
+Como con cualquier otra configuración, no hay forma de que sepas que ésta es la configuración correcta simplemente adivinando. Tienes que consultar la documentación.
 
-Si volvemos y refrescamos... eh, no ha cambiado nada. Este es un pequeño error que a veces se encuentra en Symfony cuando se crea un nuevo archivo de configuración.  Symfony no se dio cuenta... y por eso no sabía que tenía que reconstruir su caché. Esta es una situación súper rara, pero si alguna vez crees que puede estar ocurriendo, es bastante fácil borrar manualmente la caché ejecutando:
+Si volvemos y actualizamos... eh, no ha cambiado nada. Este es un pequeño error que a veces se encuentra en Symfony cuando se crea un nuevo archivo de configuración.  Symfony no se dio cuenta... y por eso no sabía que tenía que reconstruir su caché. Esta es una situación súper rara, pero si alguna vez crees que puede estar ocurriendo, es bastante fácil borrar manualmente la caché ejecutando:
 
 ```terminal
 php bin/console cache:clear
