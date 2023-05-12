@@ -52,7 +52,7 @@ is broken! That's the *first* thing we'll fix: by querying a databasse for the m
 So let's get Doctrine installed! Find your terminal and run:
 
 ```terminal
-composer require "doctrine:^2.2"
+composer require "doctrine:^2.2" "doctrine/annotations:^1.14"
 ```
 
 This is, of course, a Flex alias for a library called `symfony/orm-pack`. And
