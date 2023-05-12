@@ -11,7 +11,7 @@ index e730a53..fb8ca01 100644
          "symfony/maker-bundle": "^1.41",
          "symfony/stopwatch": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index 9274cc6..63facd1 100644
+index 687de91..2596281 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 9274cc6..63facd1 100644
      "packages": [
          {
              "name": "behat/transliterator",
-@@ -5716,6 +5716,171 @@
+@@ -5713,6 +5713,171 @@
          }
      ],
      "packages-dev": [

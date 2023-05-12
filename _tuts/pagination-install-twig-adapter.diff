@@ -11,7 +11,7 @@ index 02fc8b2..a9e59b2 100644
          "stof/doctrine-extensions-bundle": "^1.7",
          "symfony/asset": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index 84194f2..40a6caf 100644
+index b85db7a..8915822 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index 84194f2..40a6caf 100644
      "packages": [
          {
              "name": "babdev/pagerfanta-bundle",
-@@ -2036,6 +2036,52 @@
+@@ -2033,6 +2033,52 @@
              },
              "time": "2022-03-09T00:03:03+00:00"
          },

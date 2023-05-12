@@ -12,7 +12,7 @@ index fb8ca01..964a84f 100644
      }
  }
 diff --git a/composer.lock b/composer.lock
-index 63facd1..aba14e9 100644
+index 2596281..4a3dfa8 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -24,7 +24,7 @@ index 63facd1..aba14e9 100644
      "packages": [
          {
              "name": "behat/transliterator",
-@@ -5881,6 +5881,73 @@
+@@ -5878,6 +5878,73 @@
              ],
              "time": "2022-04-28T17:58:29+00:00"
          },
@@ -98,7 +98,7 @@ index 63facd1..aba14e9 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.14.0",
-@@ -6108,6 +6175,253 @@
+@@ -6105,6 +6172,253 @@
              ],
              "time": "2022-07-13T17:37:04+00:00"
          },
@@ -352,7 +352,7 @@ index 63facd1..aba14e9 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v6.1.2",
-@@ -6185,6 +6499,205 @@
+@@ -6182,6 +6496,205 @@
                  }
              ],
              "time": "2022-06-12T09:53:37+00:00"

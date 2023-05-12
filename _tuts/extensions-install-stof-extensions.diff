@@ -20,7 +20,7 @@ index 4372a5c..e730a53 100644
              "docker": true
          }
 diff --git a/composer.lock b/composer.lock
-index 43eaf52..9274cc6 100644
+index e070625..687de91 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
@@ -196,7 +196,7 @@ index 43eaf52..9274cc6 100644
          {
              "name": "knplabs/knp-time-bundle",
              "version": "v1.19.0",
-@@ -1980,6 +2136,80 @@
+@@ -1977,6 +2133,80 @@
              },
              "time": "2022-01-14T11:51:13+00:00"
          },

@@ -48,7 +48,7 @@ index 6e762ac..c25c261 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 9375997..f74c745 100644
+index 9375997..9e18ccc 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,1460 @@
@@ -1513,35 +1513,35 @@ index 9375997..f74c745 100644
          {
              "name": "knplabs/knp-time-bundle",
              "version": "v1.19.0",
-@@ -79,6 +1531,72 @@
+@@ -79,6 +1531,69 @@
              },
              "time": "2022-05-10T00:14:22+00:00"
          },
 +        {
 +            "name": "laminas/laminas-code",
-+            "version": "4.5.2",
++            "version": "4.10.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/laminas/laminas-code.git",
-+                "reference": "da01fb74c08f37e20e7ae49f1e3ee09aa401ebad"
++                "reference": "ad8b36073f9ac792716478befadca0798cc15635"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/da01fb74c08f37e20e7ae49f1e3ee09aa401ebad",
-+                "reference": "da01fb74c08f37e20e7ae49f1e3ee09aa401ebad",
++                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/ad8b36073f9ac792716478befadca0798cc15635",
++                "reference": "ad8b36073f9ac792716478befadca0798cc15635",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "php": ">=7.4, <8.2"
++                "php": "~8.1.0 || ~8.2.0"
 +            },
 +            "require-dev": {
-+                "doctrine/annotations": "^1.13.2",
++                "doctrine/annotations": "^2.0.0",
 +                "ext-phar": "*",
 +                "laminas/laminas-coding-standard": "^2.3.0",
 +                "laminas/laminas-stdlib": "^3.6.1",
-+                "phpunit/phpunit": "^9.5.10",
-+                "psalm/plugin-phpunit": "^0.16.1",
-+                "vimeo/psalm": "^4.13.1"
++                "phpunit/phpunit": "^10.0.9",
++                "psalm/plugin-phpunit": "^0.18.4",
++                "vimeo/psalm": "^5.7.1"
 +            },
 +            "suggest": {
 +                "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
@@ -1549,9 +1549,6 @@ index 9375997..f74c745 100644
 +            },
 +            "type": "library",
 +            "autoload": {
-+                "files": [
-+                    "polyfill/ReflectionEnumPolyfill.php"
-+                ],
 +                "psr-4": {
 +                    "Laminas\\Code\\": "src/"
 +                }
@@ -1581,12 +1578,12 @@ index 9375997..f74c745 100644
 +                    "type": "community_bridge"
 +                }
 +            ],
-+            "time": "2022-06-06T11:26:02+00:00"
++            "time": "2023-03-08T11:55:01+00:00"
 +        },
          {
              "name": "monolog/monolog",
              "version": "3.1.0",
-@@ -958,6 +2476,121 @@
+@@ -958,6 +2473,121 @@
              ],
              "time": "2022-02-25T11:15:52+00:00"
          },
@@ -1708,7 +1705,7 @@ index 9375997..f74c745 100644
          {
              "name": "symfony/dotenv",
              "version": "v6.1.0",
-@@ -2303,26 +3936,99 @@
+@@ -2303,26 +3933,99 @@
              "provide": {
                  "ext-mbstring": "*"
              },
@@ -1824,7 +1821,7 @@ index 9375997..f74c745 100644
              },
              "notification-url": "https://packagist.org/downloads/",
              "license": [
-@@ -2330,25 +4036,18 @@
+@@ -2330,25 +4033,18 @@
              ],
              "authors": [
                  {
@@ -1854,7 +1851,7 @@ index 9375997..f74c745 100644
              },
              "funding": [
                  {
-@@ -2364,7 +4063,7 @@
+@@ -2364,7 +4060,7 @@
                      "type": "tidelift"
                  }
              ],
@@ -1863,7 +1860,7 @@ index 9375997..f74c745 100644
          },
          {
              "name": "symfony/routing",
-@@ -2615,6 +4314,68 @@
+@@ -2615,6 +4311,68 @@
              ],
              "time": "2022-05-30T19:18:58+00:00"
          },
@@ -1932,7 +1929,7 @@ index 9375997..f74c745 100644
          {
              "name": "symfony/string",
              "version": "v6.1.2",
-@@ -3647,97 +5408,6 @@
+@@ -3647,97 +5405,6 @@
          }
      ],
      "packages-dev": [
@@ -2030,7 +2027,7 @@ index 9375997..f74c745 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.14.0",
-@@ -3965,68 +5635,6 @@
+@@ -3965,68 +5632,6 @@
              ],
              "time": "2022-07-13T17:37:04+00:00"
          },

@@ -11,7 +11,7 @@ index c25c261..4372a5c 100644
          "symfony/console": "6.1.*",
          "symfony/dotenv": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index f74c745..43eaf52 100644
+index 9e18ccc..e070625 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -23,7 +23,7 @@ index f74c745..43eaf52 100644
      "packages": [
          {
              "name": "doctrine/annotations",
-@@ -1902,6 +1902,84 @@
+@@ -1899,6 +1899,84 @@
              },
              "time": "2021-07-14T16:46:02+00:00"
          },

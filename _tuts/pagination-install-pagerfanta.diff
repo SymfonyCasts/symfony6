@@ -16,7 +16,7 @@ index 964a84f..02fc8b2 100644
          "stof/doctrine-extensions-bundle": "^1.7",
          "symfony/asset": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index aba14e9..84194f2 100644
+index 4a3dfa8..b85db7a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
@@ -112,7 +112,7 @@ index aba14e9..84194f2 100644
          {
              "name": "behat/transliterator",
              "version": "v1.5.0",
-@@ -1856,6 +1939,103 @@
+@@ -1853,6 +1936,103 @@
              ],
              "time": "2022-06-09T09:09:00+00:00"
          },
@@ -216,7 +216,7 @@ index aba14e9..84194f2 100644
          {
              "name": "psr/cache",
              "version": "3.0.0",
-@@ -4307,6 +4487,174 @@
+@@ -4304,6 +4484,174 @@
              ],
              "time": "2022-05-24T11:49:31+00:00"
          },
@@ -391,7 +391,7 @@ index aba14e9..84194f2 100644
          {
              "name": "symfony/proxy-manager-bridge",
              "version": "v6.1.0",
-@@ -6254,174 +6602,6 @@
+@@ -6251,174 +6599,6 @@
              ],
              "time": "2022-05-24T11:49:31+00:00"
          },
