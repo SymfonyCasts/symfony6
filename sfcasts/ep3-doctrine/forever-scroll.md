@@ -58,6 +58,11 @@ But stick with me. I *have* a solution, but it involves a few pieces. To start,
 I'm going to make the ID *unique* to the current page. Add a `-`, and then we can
 say `pager.currentPage`.
 
+***TIP
+While you're here, also add `target="_top"` to the `turbo-frame`. That will make link
+clicks (lke to the mix show page) navigate the entire page, like normal.
+***
+
 [[[ code('310c7b233c') ]]]
 
 Next, down at the bottom, remove the Pagerfanta links and replace them with *another*
