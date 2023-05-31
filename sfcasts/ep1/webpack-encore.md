@@ -58,7 +58,7 @@ git commit -m "Look mom! A real app"
 To install Encore, run:
 
 ```terminal
-composer require encore
+composer require encore:1.14.0
 ```
 
 This installs WebpackEncoreBundle. Remember, a bundle is a Symfony plugin.
