@@ -61,6 +61,18 @@ To install Encore, run:
 composer require encore:1.14.0
 ```
 
+***TIP
+If you're using version 2 or higher of `symfony/webpack-encore-bundle`, be sure to also
+run:
+
+```terminal skip-ci
+composer require symfony/stimulus-bundle
+```
+
+The recipe needed to integrate the Symfony UX libraries was moved to this
+new bundle.
+***
+
 This installs WebpackEncoreBundle. Remember, a bundle is a Symfony plugin.
 And this package has a recipe: a very important recipe. Run:
 
