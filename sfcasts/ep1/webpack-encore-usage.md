@@ -52,6 +52,14 @@ Let's see it in action. Find your terminal and run:
 yarn watch
 ```
 
+***TIP
+If you're using npm instead run the following:
+
+```terminal
+npm run watch
+```
+***
+
 This is, as it says, a shortcut for running `encore dev --watch`. If you look
 at your `package.json` file, it came with a `script` section with some
 shortcuts.
