@@ -53,7 +53,7 @@ yarn watch
 ```
 
 ***TIP
-If you're using npm instead run the following:
+If you're using NPM run:
 
 ```terminal
 npm run watch
