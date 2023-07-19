@@ -24,6 +24,14 @@ Since the watch command is running, open a new terminal tab and then run:
 yarn add bootstrap --dev
 ```
 
+***TIP
+If you're using NPM run:
+
+```terminal
+npm add bootstrap --include=dev
+```
+***
+
 This does three things. First, it adds `bootstrap` to our `package.json` file. Second
 it downloads bootstrap into our `node_modules/` directory... you would find it down
 here. And *third*, it updated the `yarn.lock` file with the exact version of bootstrap
