@@ -16,8 +16,8 @@ and form submits into AJAX calls, giving us a really nice single page app-like
 experience without doing anything special.
 
 Whelp, as cool as that is, Turbo has two *other*, *optional* superpowers: Turbo Frames
-and Turbo Streams. You can learn all about these in our Turbo tutorial. But let's
-get a quick sample of how we could leverage Turbo Frames to add forever scroll without
+and Turbo Streams. You can learn all about these in our [Turbo tutorial](https://symfonycasts.com/screencast/turbo).
+But let's get a quick sample of how we could leverage Turbo Frames to add forever scroll without
 writing a *single* line of JavaScript.
 
 ## turbo-frame Basics!
