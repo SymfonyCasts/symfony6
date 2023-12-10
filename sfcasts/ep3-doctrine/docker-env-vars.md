@@ -57,6 +57,13 @@ spot to dump some info *right* when our app starts booting. Inside the callback,
 `dd()` the `$_SERVER` superglobal. That variable contains a *lot* of information,
 *including* any environment variables.
 
+***TIP
+If you don't see the `DATABASE_URL` environment variable, you may be using a
+slightly older version of Docker of the `symfony` binary. If so, you can upgrade
+those or rename `compose.yaml` to `docker-compose.yaml` and `compose.override.yaml`
+to `docker-compose.override.yaml`.
+***
+
 Ok, spin over and refresh. Big list! Search for `DATABASE_URL` and... there it is!
 But that is *not* the value that we have in our `.env` file: the port is *not*
 what we have there. Nope, it's the *correct* port needed to talk to the Docker
