@@ -1,0 +1,95 @@
+diff --git a/.env b/.env
+index 19cd959..e922aaa 100644
+--- a/.env
++++ b/.env
+@@ -24,6 +24,7 @@ APP_SECRET=4777a99cd6c61ce84969bd1338737c38
+ # IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
+ #
+ # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+-# DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7&charset=utf8mb4"
+-DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
++# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"
++# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
++DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=15&charset=utf8"
+ ###< doctrine/doctrine-bundle ###
+diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
+index 9a18675..59de692 100644
+--- a/config/packages/doctrine.yaml
++++ b/config/packages/doctrine.yaml
+@@ -4,13 +4,18 @@ doctrine:
+ 
+         # IMPORTANT: You MUST configure your server version,
+         # either here or in the DATABASE_URL env var (see .env file)
+-        server_version: '13'
++        server_version: '15'
++        profiling_collect_backtrace: '%kernel.debug%'
+     orm:
+         auto_generate_proxy_classes: true
++        enable_lazy_ghost_objects: true
++        report_fields_where_declared: true
++        validate_xml_mapping: true
+         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+         auto_mapping: true
+         mappings:
+             App:
++                type: attribute
+                 is_bundle: false
+                 dir: '%kernel.project_dir%/src/Entity'
+                 prefix: 'App\Entity'
+@@ -26,6 +31,7 @@ when@prod:
+     doctrine:
+         orm:
+             auto_generate_proxy_classes: false
++            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+             query_cache_driver:
+                 type: pool
+                 pool: doctrine.system_cache_pool
+diff --git a/docker-compose.yml b/docker-compose.yml
+index a80a8cf..1067b9c 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -3,19 +3,19 @@ version: '3'
+ services:
+ ###> doctrine/doctrine-bundle ###
+   database:
+-    image: postgres:${POSTGRES_VERSION:-13}-alpine
++    image: postgres:${POSTGRES_VERSION:-15}-alpine
+     environment:
+       POSTGRES_DB: ${POSTGRES_DB:-app}
+       # You should definitely change the password in production
+-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
+-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
++      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
++      POSTGRES_USER: ${POSTGRES_USER:-app}
+     volumes:
+-      - db-data:/var/lib/postgresql/data:rw
++      - database_data:/var/lib/postgresql/data:rw
+       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+       # - ./docker/db/data:/var/lib/postgresql/data:rw
+ ###< doctrine/doctrine-bundle ###
+ 
+ volumes:
+ ###> doctrine/doctrine-bundle ###
+-  db-data:
++  database_data:
+ ###< doctrine/doctrine-bundle ###
+diff --git a/symfony.lock b/symfony.lock
+index 24f2a78..edbded8 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -12,12 +12,12 @@
+         }
+     },
+     "doctrine/doctrine-bundle": {
+-        "version": "2.7",
++        "version": "2.11",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "main",
+-            "version": "2.4",
+-            "ref": "ddddd8249dd55bbda16fa7a45bb7499ef6f8e90e"
++            "version": "2.10",
++            "ref": "0b4a11ee7e60b36227502ed26874edd7e8b66353"
+         },
+         "files": [
+             "config/packages/doctrine.yaml",

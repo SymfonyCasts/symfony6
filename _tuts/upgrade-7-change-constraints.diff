@@ -1,0 +1,54 @@
+diff --git a/composer.json b/composer.json
+index 67e7ec8..001526e 100644
+--- a/composer.json
++++ b/composer.json
+@@ -14,19 +14,19 @@
+         "pagerfanta/doctrine-orm-adapter": "^3.6",
+         "pagerfanta/twig": "^3.6",
+         "stof/doctrine-extensions-bundle": "^1.7",
+-        "symfony/asset": "6.4.*",
+-        "symfony/console": "6.4.*",
+-        "symfony/dotenv": "6.4.*",
++        "symfony/asset": "7.0.*",
++        "symfony/console": "7.0.*",
++        "symfony/dotenv": "7.0.*",
+         "symfony/flex": "^2",
+-        "symfony/framework-bundle": "6.4.*",
+-        "symfony/http-client": "6.4.*",
++        "symfony/framework-bundle": "7.0.*",
++        "symfony/http-client": "7.0.*",
+         "symfony/monolog-bundle": "^3.0",
+-        "symfony/proxy-manager-bridge": "6.4.*",
+-        "symfony/runtime": "6.4.*",
+-        "symfony/twig-bundle": "6.4.*",
++        "symfony/proxy-manager-bridge": "7.0.*",
++        "symfony/runtime": "7.0.*",
++        "symfony/twig-bundle": "7.0.*",
+         "symfony/ux-turbo": "^2.0",
+         "symfony/webpack-encore-bundle": "^2.0",
+-        "symfony/yaml": "6.4.*",
++        "symfony/yaml": "7.0.*",
+         "twig/extra-bundle": "^2.12|^3.0",
+         "twig/twig": "^2.12|^3.0"
+     },
+@@ -81,16 +81,16 @@
+     "extra": {
+         "symfony": {
+             "allow-contrib": true,
+-            "require": "6.4.*",
++            "require": "7.0.*",
+             "docker": true
+         }
+     },
+     "require-dev": {
+         "doctrine/doctrine-fixtures-bundle": "^3.4",
+-        "symfony/debug-bundle": "6.4.*",
++        "symfony/debug-bundle": "7.0.*",
+         "symfony/maker-bundle": "^1.41",
+-        "symfony/stopwatch": "6.4.*",
+-        "symfony/web-profiler-bundle": "6.4.*",
++        "symfony/stopwatch": "7.0.*",
++        "symfony/web-profiler-bundle": "7.0.*",
+         "zenstruck/foundry": "^1.21"
+     }
+ }

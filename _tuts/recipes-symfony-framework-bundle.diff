@@ -1,0 +1,43 @@
+diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
+index 51181fd..7db77b2 100644
+--- a/config/packages/framework.yaml
++++ b/config/packages/framework.yaml
+@@ -2,7 +2,9 @@
+ framework:
+     secret: '%env(APP_SECRET)%'
+     #csrf_protection: true
++    annotations: false
+     http_method_override: false
++    handle_all_throwables: true
+ 
+     # Enables session support. Note that the session will ONLY be started if you read or write from it.
+     # Remove or comment this section to explicitly disable session support.
+@@ -10,7 +12,6 @@ framework:
+         handler_id: null
+         cookie_secure: auto
+         cookie_samesite: lax
+-        storage_factory_id: session.storage.factory.native
+ 
+     #esi: true
+     #fragments: true
+diff --git a/symfony.lock b/symfony.lock
+index 043233f..7a5ab4e 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -171,12 +171,12 @@
+         ]
+     },
+     "symfony/framework-bundle": {
+-        "version": "5.4",
++        "version": "6.4",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+-            "branch": "master",
+-            "version": "5.4",
+-            "ref": "3cd216a4d007b78d8554d44a5b1c0a446dab24fb"
++            "branch": "main",
++            "version": "6.4",
++            "ref": "a91c965766ad3ff2ae15981801643330eb42b6a5"
+         },
+         "files": [
+             "config/packages/cache.yaml",

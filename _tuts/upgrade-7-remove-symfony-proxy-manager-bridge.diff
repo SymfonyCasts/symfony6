@@ -1,0 +1,12 @@
+diff --git a/composer.json b/composer.json
+index 0b30d86..d02efdd 100644
+--- a/composer.json
++++ b/composer.json
+@@ -21,7 +21,6 @@
+         "symfony/framework-bundle": "7.0.*",
+         "symfony/http-client": "7.0.*",
+         "symfony/monolog-bundle": "^3.0",
+-        "symfony/proxy-manager-bridge": "7.0.*",
+         "symfony/runtime": "7.0.*",
+         "symfony/twig-bundle": "7.0.*",
+         "symfony/ux-turbo": "^2.0",

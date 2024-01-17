@@ -1,0 +1,105 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "upgrade-64-update-php-version",
+            "name": "Upgrade 64: update php version",
+            "description": null
+        },
+        {
+            "id": "upgrade-64-upgrade-to-6-4",
+            "name": "Upgrade 64: Upgrade to 6.4",
+            "description": null
+        },
+        {
+            "id": "recipes-doctrine-doctrine-bundle",
+            "name": "Recipes: doctrine\/doctrine-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-doctrine-doctrine-migrations-bundle",
+            "name": "Recipes: doctrine\/doctrine-migrations-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-framework-bundle",
+            "name": "Recipes: symfony\/framework-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-routing",
+            "name": "Recipes: symfony\/routing",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-translation",
+            "name": "Recipes: symfony\/translation",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-twig-bundle",
+            "name": "Recipes: symfony\/twig-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-webpack-encore-bundle",
+            "name": "Recipes: symfony\/webpack-encore-bundle",
+            "description": null
+        },
+        {
+            "id": "recipes-yarn-install",
+            "name": "Recipes: yarn install",
+            "description": null
+        },
+        {
+            "id": "recipes-upgrade-to-encorebundle-2",
+            "name": "Recipes: Upgrade to EncoreBundle 2",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-stimulus-bundle-recipe",
+            "name": "Recipes: symfony\/stimulus-bundle recipe",
+            "description": null
+        },
+        {
+            "id": "recipes-symfony-webpack-encore-bundle-recipe-v2",
+            "name": "Recipes: symfony\/webpack-encore-bundle recipe v2",
+            "description": null
+        },
+        {
+            "id": "sensiofwextra-remove-it",
+            "name": "SensioFWEXtra: Remove it",
+            "description": null
+        },
+        {
+            "id": "deprecations-upgrade-knp-time-bundle",
+            "name": "Deprecations: Upgrade knp-time-bundle",
+            "description": null
+        },
+        {
+            "id": "upgrade-7-change-constraints",
+            "name": "Upgrade 7: Change constraints",
+            "description": null
+        },
+        {
+            "id": "upgrade-7-change-pagerfanta-to-4",
+            "name": "Upgrade 7: Change pagerfanta to 4",
+            "description": null
+        },
+        {
+            "id": "upgrade-7-remove-symfony-proxy-manager-bridge",
+            "name": "Upgrade 7: Remove symfony\/proxy-manager-bridge",
+            "description": null
+        },
+        {
+            "id": "upgrade-7-commit-composer-lock",
+            "name": "Upgrade 7: commit composer.lock",
+            "description": null
+        }
+    ],
+    "sha": "380191cb46593d098be8db71f775bc88a604c22b"
+}

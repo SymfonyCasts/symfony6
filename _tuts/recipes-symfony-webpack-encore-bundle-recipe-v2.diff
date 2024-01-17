@@ -1,0 +1,42 @@
+diff --git a/symfony.lock b/symfony.lock
+index 57f5e90..9c362a0 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -328,18 +328,15 @@
+         ]
+     },
+     "symfony/webpack-encore-bundle": {
+-        "version": "1.17",
++        "version": "2.1",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "main",
+-            "version": "1.10",
+-            "ref": "eff2e505d4557c967b6710fe06bd947ba555cae5"
++            "version": "2.0",
++            "ref": "082d754b3bd54b3fc669f278f1eea955cfd23cf5"
+         },
+         "files": [
+             "assets/app.js",
+-            "assets/bootstrap.js",
+-            "assets/controllers.json",
+-            "assets/controllers/hello_controller.js",
+             "assets/styles/app.css",
+             "config/packages/webpack_encore.yaml",
+             "package.json",
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index bcb842c..72ac50a 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -8,9 +8,11 @@
+         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+         {% block stylesheets %}
++            {{ encore_entry_link_tags('app') }}
+         {% endblock %}
+ 
+         {% block javascripts %}
++            {{ encore_entry_script_tags('app') }}
+         {% endblock %}
+     </head>
+     <body>

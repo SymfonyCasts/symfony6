@@ -1,0 +1,101 @@
+diff --git a/config/packages/webpack_encore.yaml b/config/packages/webpack_encore.yaml
+index 46834f0..4c009ee 100644
+--- a/config/packages/webpack_encore.yaml
++++ b/config/packages/webpack_encore.yaml
+@@ -25,14 +25,10 @@ webpack_encore:
+ 
+     # If you have multiple builds:
+     # builds:
+-        # pass "frontend" as the 3rg arg to the Twig functions
+-        # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
+-
+         # frontend: '%kernel.project_dir%/public/frontend/build'
+ 
+-    # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
+-    # Put in config/packages/prod/webpack_encore.yaml
+-    # cache: true
++        # pass the build name as the 3rd argument to the Twig functions
++        # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
+ 
+ framework:
+     assets:
+diff --git a/package.json b/package.json
+index 9b68411..02bbfc2 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,7 @@
+ {
+     "devDependencies": {
++        "@babel/core": "^7.17.0",
++        "@babel/preset-env": "^7.16.0",
+         "@fontsource/roboto-condensed": "^4.5.2",
+         "@fortawesome/fontawesome-free": "^6.0.0",
+         "@hotwired/stimulus": "^3.0.0",
+@@ -7,11 +9,13 @@
+         "@symfony/stimulus-bridge": "^3.2.0",
+         "@symfony/stimulus-bundle": "file:vendor/symfony/stimulus-bundle/assets",
+         "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
+-        "@symfony/webpack-encore": "^3.0.0",
++        "@symfony/webpack-encore": "^4.0.0",
+         "axios": "^0.27.0",
+         "bootstrap": "^5.1.3",
+         "core-js": "^3.23.0",
+         "regenerator-runtime": "^0.13.9",
++        "webpack": "^5.74.0",
++        "webpack-cli": "^4.10.0",
+         "webpack-notifier": "^1.15.0"
+     },
+     "license": "UNLICENSED",
+diff --git a/symfony.lock b/symfony.lock
+index 99d7cba..2a2f34e 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -323,12 +323,12 @@
+         ]
+     },
+     "symfony/webpack-encore-bundle": {
+-        "version": "1.15",
++        "version": "1.17",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "main",
+             "version": "1.10",
+-            "ref": "2e458cc7e6f1df1dad890eb104b81e4f302c9bd4"
++            "ref": "eff2e505d4557c967b6710fe06bd947ba555cae5"
+         },
+         "files": [
+             "assets/app.js",
+diff --git a/webpack.config.js b/webpack.config.js
+index 056b04a..408012f 100644
+--- a/webpack.config.js
++++ b/webpack.config.js
+@@ -11,7 +11,7 @@ Encore
+     .setOutputPath('public/build/')
+     // public path used by the web server to access the output path
+     .setPublicPath('/build')
+-    // only needed for CDN's or sub-directory deploy
++    // only needed for CDN's or subdirectory deploy
+     //.setManifestKeyPrefix('build/')
+ 
+     /*
+@@ -45,14 +45,15 @@ Encore
+     // enables hashed filenames (e.g. app.abc123.css)
+     .enableVersioning(Encore.isProduction())
+ 
+-    .configureBabel((config) => {
+-        config.plugins.push('@babel/plugin-proposal-class-properties');
+-    })
++    // configure Babel
++    // .configureBabel((config) => {
++    //     config.plugins.push('@babel/a-babel-plugin');
++    // })
+ 
+-    // enables @babel/preset-env polyfills
++    // enables and configure @babel/preset-env polyfills
+     .configureBabelPresetEnv((config) => {
+         config.useBuiltIns = 'usage';
+-        config.corejs = 3;
++        config.corejs = '3.23';
+     })
+ 
+     // enables Sass/SCSS support

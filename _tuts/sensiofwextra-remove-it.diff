@@ -1,0 +1,154 @@
+diff --git a/composer.json b/composer.json
+index 09d36c8..52754bf 100644
+--- a/composer.json
++++ b/composer.json
+@@ -13,7 +13,6 @@
+         "knplabs/knp-time-bundle": "^1.18",
+         "pagerfanta/doctrine-orm-adapter": "^3.6",
+         "pagerfanta/twig": "^3.6",
+-        "sensio/framework-extra-bundle": "^6.2",
+         "stof/doctrine-extensions-bundle": "^1.7",
+         "symfony/asset": "6.4.*",
+         "symfony/console": "6.4.*",
+diff --git a/composer.lock b/composer.lock
+index b121bd4..910bc35 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "0a9d9acd1f534dce36e99031d8fffeda",
++    "content-hash": "3669d1eff1dacd481d6f22f93ebeac21",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -2325,84 +2325,6 @@
+             },
+             "time": "2021-07-14T16:46:02+00:00"
+         },
+-        {
+-            "name": "sensio/framework-extra-bundle",
+-            "version": "v6.2.10",
+-            "source": {
+-                "type": "git",
+-                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+-                "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f"
+-            },
+-            "dist": {
+-                "type": "zip",
+-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/2f886f4b31f23c76496901acaedfedb6936ba61f",
+-                "reference": "2f886f4b31f23c76496901acaedfedb6936ba61f",
+-                "shasum": ""
+-            },
+-            "require": {
+-                "doctrine/annotations": "^1.0|^2.0",
+-                "php": ">=7.2.5",
+-                "symfony/config": "^4.4|^5.0|^6.0",
+-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/http-kernel": "^4.4|^5.0|^6.0"
+-            },
+-            "conflict": {
+-                "doctrine/doctrine-cache-bundle": "<1.3.1",
+-                "doctrine/persistence": "<1.3"
+-            },
+-            "require-dev": {
+-                "doctrine/dbal": "^2.10|^3.0",
+-                "doctrine/doctrine-bundle": "^1.11|^2.0",
+-                "doctrine/orm": "^2.5",
+-                "symfony/browser-kit": "^4.4|^5.0|^6.0",
+-                "symfony/doctrine-bridge": "^4.4|^5.0|^6.0",
+-                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
+-                "symfony/expression-language": "^4.4|^5.0|^6.0",
+-                "symfony/finder": "^4.4|^5.0|^6.0",
+-                "symfony/monolog-bridge": "^4.0|^5.0|^6.0",
+-                "symfony/monolog-bundle": "^3.2",
+-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
+-                "symfony/security-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
+-                "symfony/yaml": "^4.4|^5.0|^6.0",
+-                "twig/twig": "^1.34|^2.4|^3.0"
+-            },
+-            "type": "symfony-bundle",
+-            "extra": {
+-                "branch-alias": {
+-                    "dev-master": "6.1.x-dev"
+-                }
+-            },
+-            "autoload": {
+-                "psr-4": {
+-                    "Sensio\\Bundle\\FrameworkExtraBundle\\": "src/"
+-                },
+-                "exclude-from-classmap": [
+-                    "/tests/"
+-                ]
+-            },
+-            "notification-url": "https://packagist.org/downloads/",
+-            "license": [
+-                "MIT"
+-            ],
+-            "authors": [
+-                {
+-                    "name": "Fabien Potencier",
+-                    "email": "fabien@symfony.com"
+-                }
+-            ],
+-            "description": "This bundle provides a way to configure your controllers with annotations",
+-            "keywords": [
+-                "annotations",
+-                "controllers"
+-            ],
+-            "support": {
+-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.10"
+-            },
+-            "abandoned": "Symfony",
+-            "time": "2023-02-24T14:57:12+00:00"
+-        },
+         {
+             "name": "stof/doctrine-extensions-bundle",
+             "version": "v1.10.1",
+diff --git a/config/bundles.php b/config/bundles.php
+index 0e6fcf2..016c6a1 100644
+--- a/config/bundles.php
++++ b/config/bundles.php
+@@ -13,7 +13,6 @@ return [
+     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
+     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+-    Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
+     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
+     Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
+diff --git a/config/packages/sensio_framework_extra.yaml b/config/packages/sensio_framework_extra.yaml
+deleted file mode 100644
+index 1821ccc..0000000
+--- a/config/packages/sensio_framework_extra.yaml
++++ /dev/null
+@@ -1,3 +0,0 @@
+-sensio_framework_extra:
+-    router:
+-        annotations: false
+diff --git a/symfony.lock b/symfony.lock
+index 9c362a0..03a3e48 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -74,18 +74,6 @@
+     "psr/log": {
+         "version": "3.0.0"
+     },
+-    "sensio/framework-extra-bundle": {
+-        "version": "6.2",
+-        "recipe": {
+-            "repo": "github.com/symfony/recipes",
+-            "branch": "main",
+-            "version": "5.2",
+-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+-        },
+-        "files": [
+-            "config/packages/sensio_framework_extra.yaml"
+-        ]
+-    },
+     "stof/doctrine-extensions-bundle": {
+         "version": "1.7",
+         "recipe": {

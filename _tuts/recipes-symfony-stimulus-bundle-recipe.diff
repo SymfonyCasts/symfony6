@@ -1,0 +1,44 @@
+diff --git a/assets/controllers/hello_controller.js b/assets/controllers/hello_controller.js
+new file mode 100644
+index 0000000..e847027
+--- /dev/null
++++ b/assets/controllers/hello_controller.js
+@@ -0,0 +1,16 @@
++import { Controller } from '@hotwired/stimulus';
++
++/*
++ * This is an example Stimulus controller!
++ *
++ * Any element with a data-controller="hello" attribute will cause
++ * this controller to be executed. The name "hello" comes from the filename:
++ * hello_controller.js -> "hello"
++ *
++ * Delete this file or adapt it for your use!
++ */
++export default class extends Controller {
++    connect() {
++        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
++    }
++}
+diff --git a/symfony.lock b/symfony.lock
+index 2a2f34e..57f5e90 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -258,9 +258,14 @@
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "main",
+-            "version": "2.8",
+-            "ref": "9e33a8a3794b603fb4be6c04ee5ecab901ce549e"
+-        }
++            "version": "2.13",
++            "ref": "6acd9ff4f7fd5626d2962109bd4ebab351d43c43"
++        },
++        "files": [
++            "assets/bootstrap.js",
++            "assets/controllers.json",
++            "assets/controllers/hello_controller.js"
++        ]
+     },
+     "symfony/stopwatch": {
+         "version": "v6.0.3"
