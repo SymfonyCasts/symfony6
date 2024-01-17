@@ -1,0 +1,359 @@
+WEBVTT
+
+00:00:01.176 --> 00:00:03.606 align:middle
+Es hora de instalar nuestro segundo paquete.
+
+00:00:03.906 --> 00:00:05.686 align:middle
+Y éste es divertido. Vamos a
+
+00:00:06.206 --> 00:00:11.266 align:middle
+confirmar nuestros cambios primero: así
+será más fácil comprobar los cambios
+
+00:00:11.416 --> 00:00:14.126 align:middle
+que hace la receta del nuevo paquete.
+
+00:00:15.006 --> 00:00:21.016 align:middle
+Añade todo: Parece que está bien, así que...
+
+00:00:21.096 --> 00:00:24.966 align:middle
+confirmar: Precioso.
+
+00:00:25.526 --> 00:00:34.686 align:middle
+Ahora ejecuta: composer require debug Así
+que sí, este es otro alias de Flex...
+
+00:00:35.116 --> 00:00:39.976 align:middle
+y aparentemente es un alias
+de symfony/debug-pack.
+
+00:00:40.536 --> 00:00:44.876 align:middle
+Y sabemos que un paquete es una
+colección de paquetes. Así que en
+
+00:00:45.356 --> 00:00:50.996 align:middle
+lugar de añadir esta única línea a nuestro archivo
+composer.json, si lo comprobamos, parece que ha
+
+00:00:51.156 --> 00:00:55.476 align:middle
+añadido un nuevo paquete
+arriba, en la sección require -
+
+00:00:55.696 --> 00:00:58.736 align:middle
+esta es una biblioteca de registro - y...
+
+00:00:58.896 --> 00:01:05.796 align:middle
+al final, ha añadido una nueva sección
+require-dev con otras tres bibliotecas.
+
+00:01:06.566 --> 00:01:11.646 align:middle
+La diferencia entre require y
+require-dev no es demasiado importante:
+
+00:01:11.936 --> 00:01:17.636 align:middle
+todos estos paquetes se descargaron en nuestra
+aplicación, pero como mejor práctica,
+
+00:01:17.956 --> 00:01:22.466 align:middle
+si instalas una biblioteca que sólo
+está pensada para el desarrollo local,
+
+00:01:22.756 --> 00:01:24.766 align:middle
+deberías ponerla en require-dev.
+
+00:01:25.446 --> 00:01:27.396 align:middle
+¡El pack lo hizo por nosotros!
+
+00:01:27.646 --> 00:01:28.406 align:middle
+¡Gracias pack!
+
+00:01:29.346 --> 00:01:33.946 align:middle
+De vuelta al terminal, ¡esto
+también instaló tres recetas!
+
+00:01:33.946 --> 00:01:36.986 align:middle
+Ooh. Veamos qué han hecho.
+
+00:01:37.286 --> 00:01:42.846 align:middle
+Limpio la pantalla y corro: git status
+Así que esto me resulta familiar:
+
+00:01:43.206 --> 00:01:48.606 align:middle
+modificó config/bundles.php
+para activar tres nuevos bundles.
+
+00:01:49.016 --> 00:01:54.426 align:middle
+De nuevo, los bundles son plugins de Symfony,
+que añaden más funciones a nuestra aplicación.
+
+00:01:55.096 --> 00:02:00.186 align:middle
+También ha añadido varios archivos de
+configuración al directorio config/packages/.
+
+00:02:00.776 --> 00:02:05.636 align:middle
+Hablaremos más de estos archivos en el
+próximo tutorial, pero, a alto nivel,
+
+00:02:05.826 --> 00:02:08.866 align:middle
+controlan el comportamiento de esos bundles.
+
+00:02:09.726 --> 00:02:12.466 align:middle
+Entonces, ¿qué nos han
+aportado estos nuevos paquetes?
+
+00:02:12.876 --> 00:02:17.096 align:middle
+Para averiguarlo, dirígete a tu navegador
+y actualiza la página de inicio.
+
+00:02:18.026 --> 00:02:19.746 align:middle
+¡Santo cielo, Batman!
+
+00:02:20.106 --> 00:02:22.336 align:middle
+Es la barra de herramientas de depuración web.
+
+00:02:22.886 --> 00:02:27.706 align:middle
+Esto es una locura de depuración: una barra
+de herramientas llena de buena información.
+
+00:02:28.206 --> 00:02:33.956 align:middle
+A la izquierda, puedes ver el controlador al que
+se ha llamado junto con el código de estado HTTP.
+
+00:02:34.616 --> 00:02:38.846 align:middle
+También está la cantidad de tiempo que
+tardó la página, la memoria que utilizó
+
+00:02:39.086 --> 00:02:45.526 align:middle
+y también cuántas plantillas se renderizaron a
+través de Twig: este es el bonito icono de Twig. En el
+
+00:02:46.256 --> 00:02:48.056 align:middle
+lado derecho, tenemos detalles
+
+00:02:48.056 --> 00:02:51.696 align:middle
+sobre el servidor web local Symfony que se
+está ejecutando e información sobre PHP.
+
+00:02:53.006 --> 00:02:59.966 align:middle
+Pero aún no has visto la mejor parte: haz clic en
+cualquiera de estos iconos para saltar al perfilador.
+
+00:03:00.846 --> 00:03:02.956 align:middle
+Esta es la barra de herramientas
+de depuración web...
+
+00:03:03.196 --> 00:03:04.186 align:middle
+que se ha vuelto loca. Está
+
+00:03:04.636 --> 00:03:11.116 align:middle
+llena de datos sobre esa petición , como la petición
+y la respuesta, todos los mensajes de registro
+
+00:03:11.116 --> 00:03:17.706 align:middle
+que se produjeron durante esa petición, información
+sobre las rutas y la ruta a la que se respondió, Twig
+
+00:03:17.996 --> 00:03:22.786 align:middle
+te muestra qué plantillas se renderizaron
+y cuántas veces se renderizaron...
+
+00:03:23.406 --> 00:03:26.636 align:middle
+y hay información de
+configuración aquí abajo.
+
+00:03:26.936 --> 00:03:31.866 align:middle
+¡Uf! Pero mi sección
+favorita es la de Rendimiento.
+
+00:03:32.546 --> 00:03:36.556 align:middle
+Muestra una línea de tiempo de todo lo
+que ha ocurrido durante la petición.
+
+00:03:37.146 --> 00:03:39.186 align:middle
+Esto es genial por dos razones.
+
+00:03:39.726 --> 00:03:44.766 align:middle
+La primera es bastante obvia: puedes usarla para
+encontrar qué partes de tu página son lentas.
+
+00:03:45.246 --> 00:03:49.586 align:middle
+Así, por ejemplo, nuestro
+controlador tardó 20,4 milisegundos.
+
+00:03:49.926 --> 00:03:56.276 align:middle
+Y dentro de la ejecución del controlador, la plantilla
+de la página de inicio se renderizó en 3, 9 milisegundos
+
+00:03:56.396 --> 00:04:00.716 align:middle
+y base.html.twig se renderizó
+en 2,8 milisegundos.
+
+00:04:01.566 --> 00:04:07.496 align:middle
+La segunda razón por la que esto es realmente genial
+es que descubre todas las capas ocultas de Symfony.
+
+00:04:08.526 --> 00:04:10.576 align:middle
+Ajusta este umbral a cero.
+
+00:04:11.936 --> 00:04:17.196 align:middle
+Antes, esto sólo mostraba las cosas
+que tardaban más de un milisegundo.
+
+00:04:17.566 --> 00:04:19.916 align:middle
+Ahora lo muestra todo. No tienes
+
+00:04:20.506 --> 00:04:25.886 align:middle
+que preocuparte por la gran mayoría de
+las cosas, pero es superguay ver las capas
+
+00:04:25.886 --> 00:04:30.086 align:middle
+de Symfony: las cosas que ocurren antes
+
+00:04:30.086 --> 00:04:32.926 align:middle
+y después de que se ejecute tu controlador.
+
+00:04:33.886 --> 00:04:39.636 align:middle
+Tenemos un tutorial de inmersión profunda para
+Symfony si quieres aprender más sobre estas cosas.
+
+00:04:39.706 --> 00:04:43.636 align:middle
+La barra de herramientas de depuración web y el
+perfilador también crecerán con nuestra aplicación.
+
+00:04:44.176 --> 00:04:48.856 align:middle
+En un futuro tutorial, cuando instalemos una
+librería para hablar con la base de datos,
+
+00:04:49.306 --> 00:04:54.376 align:middle
+de repente tendremos una nueva sección que
+enumera todas las consultas a la base de datos
+
+00:04:54.376 --> 00:04:57.536 align:middle
+que ha hecho una página y el
+tiempo que ha tardado cada una.
+
+00:04:58.906 --> 00:05:02.566 align:middle
+Bien, el paquete de depuración instaló la
+barra de herramientas de depuración web.
+
+00:05:03.016 --> 00:05:07.146 align:middle
+También ha instalado una biblioteca de
+registro que utilizaremos más adelante.
+
+00:05:07.526 --> 00:05:13.116 align:middle
+Y ha instalado un paquete que nos proporciona
+dos fantásticas funciones de depuración.
+
+00:05:14.306 --> 00:05:15.896 align:middle
+Dirígete a VinylController.
+
+00:05:17.156 --> 00:05:20.206 align:middle
+Imagina que estamos haciendo
+un desarrollo y necesitamos
+
+00:05:20.206 --> 00:05:22.976 align:middle
+ver cómo es esta variable $tracks.
+
+00:05:23.426 --> 00:05:27.156 align:middle
+En este caso es bastante
+obvio, pero a veces querrás
+
+00:05:27.156 --> 00:05:30.326 align:middle
+ver lo que hay dentro de un objeto complejo.
+
+00:05:31.356 --> 00:05:37.206 align:middle
+Para ello, digamos dd($tracks),
+donde "dd" significa volcar y morir.
+
+00:05:37.506 --> 00:05:39.896 align:middle
+Así que si refrescamos...
+
+00:05:40.886 --> 00:05:44.176 align:middle
+¡sí! Eso vuelca la
+variable y mata la página.
+
+00:05:44.716 --> 00:05:49.766 align:middle
+Y esto es mucho más potente -y
+más bonito- que usar var_dump():
+
+00:05:50.466 --> 00:05:54.506 align:middle
+podemos ampliar las secciones y ver los
+datos en profundidad con mucha facilidad.
+
+00:05:54.506 --> 00:05:58.256 align:middle
+En lugar de dd(), también
+puedes utilizar dump().
+
+00:05:58.776 --> 00:06:00.576 align:middle
+para volcar y vivir.
+
+00:06:01.456 --> 00:06:04.286 align:middle
+Pero esto podría no aparecer donde esperas. En
+
+00:06:04.886 --> 00:06:06.746 align:middle
+lugar de imprimirse en el centro de la página,
+
+00:06:07.216 --> 00:06:11.756 align:middle
+aparece abajo en la barra de herramientas de
+depuración de la web, bajo el icono del objetivo.
+
+00:06:12.476 --> 00:06:17.266 align:middle
+Si es demasiado pequeño, haz clic para ver
+una versión más grande en el perfilador.
+
+00:06:18.716 --> 00:06:21.046 align:middle
+También puedes utilizar este dump() en Twig.
+
+00:06:22.016 --> 00:06:23.406 align:middle
+Elimina el volcado del controlador...
+
+00:06:23.866 --> 00:06:28.776 align:middle
+y luego en la plantilla, justo
+antes del ul, dump(tracks).
+
+00:06:31.136 --> 00:06:32.116 align:middle
+Y esto...
+
+00:06:32.466 --> 00:06:34.256 align:middle
+es exactamente igual.
+
+00:06:34.596 --> 00:06:39.986 align:middle
+Excepto que cuando haces el volcado en
+Twig , lo hace justo en medio de la página
+
+00:06:41.006 --> 00:06:47.506 align:middle
+Y aún más útil, sólo en Twig ,
+puedes utilizar dump() sin argumentos.
+
+00:06:47.976 --> 00:06:51.116 align:middle
+Esto volcará todas las variables
+a las que tengamos acceso.
+
+00:06:51.836 --> 00:06:55.966 align:middle
+Así que aquí está la variable
+title, tracks y, ¡sorpresa!
+
+00:06:56.156 --> 00:06:58.956 align:middle
+Hay una tercera variable llamada app.
+
+00:06:59.446 --> 00:07:03.296 align:middle
+Esta es una variable global que
+tenemos en todas las plantillas...
+
+00:07:03.456 --> 00:07:07.366 align:middle
+y nos da acceso a cosas como la
+sesión y los datos del usuario.
+
+00:07:07.856 --> 00:07:11.536 align:middle
+Y... ¡lo hemos descubierto por curiosidad!
+
+00:07:12.166 --> 00:07:17.706 align:middle
+Así que ahora que tenemos estas increíbles herramientas
+de depuración, pasemos a nuestro siguiente trabajo...
+
+00:07:18.166 --> 00:07:21.046 align:middle
+que es hacer este sitio menos feo.
+
+00:07:21.676 --> 00:07:28.026 align:middle
+¡Es hora de añadir CSS y un diseño
+adecuado para dar vida a nuestro sitio!

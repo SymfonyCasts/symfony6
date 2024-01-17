@@ -1,0 +1,250 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:06.036 align:middle
+En un futuro tutorial, vamos a crear una base de
+datos para gestionar las canciones, los géneros
+
+00:00:06.036 --> 00:00:09.436 align:middle
+y los discos de vinilo mezclados
+que crean nuestros usuarios.
+
+00:00:10.266 --> 00:00:13.556 align:middle
+Ahora mismo, estamos trabajando
+completamente con datos codificados...
+
+00:00:13.976 --> 00:00:18.236 align:middle
+pero nuestros controladores - y -
+especialmente las plantillas no serán
+
+00:00:18.236 --> 00:00:20.896 align:middle
+muy diferentes una vez que
+hagamos todo esto dinámico.
+
+00:00:21.596 --> 00:00:26.066 align:middle
+Así que este es nuestro nuevo objetivo:
+quiero crear una ruta de la API
+
+00:00:26.066 --> 00:00:29.876 align:middle
+que devuelva los datos de
+una sola canción como JSON.
+
+00:00:30.606 --> 00:00:35.576 align:middle
+Vamos a usar esto en unos minutos para
+dar vida a este botón de reproducción.
+
+00:00:35.696 --> 00:00:40.136 align:middle
+Por el momento, ninguno de estos botones
+hace nada, pero tienen un aspecto bonito.
+
+00:00:41.016 --> 00:00:44.306 align:middle
+Los dos pasos para crear
+una ruta de la API son...
+
+00:00:44.656 --> 00:00:49.906 align:middle
+exactamente los mismos que para crear una página
+HTML: necesitamos una ruta y un controlador.
+
+00:00:49.906 --> 00:00:57.076 align:middle
+Como esta ruta de la API devolverá datos de la
+canción, en lugar de añadir otro método dentro
+
+00:00:57.076 --> 00:01:01.056 align:middle
+de VinylController, vamos a crear una
+clase de controlador totalmente nueva.
+
+00:01:01.736 --> 00:01:05.006 align:middle
+La forma en que organices este
+material depende enteramente de ti.
+
+00:01:05.726 --> 00:01:08.156 align:middle
+Crea una nueva clase PHP
+llamada SongController...
+
+00:01:08.446 --> 00:01:11.736 align:middle
+o SongApiController también
+sería un buen nombre.
+
+00:01:12.486 --> 00:01:17.846 align:middle
+En su interior, ésta comenzará como cualquier
+otro controlador, extendiendo AbstractController.
+
+00:01:18.556 --> 00:01:20.476 align:middle
+Recuerda: eso es opcional...
+
+00:01:20.566 --> 00:01:23.576 align:middle
+pero nos proporciona métodos
+abreviados sin inconvenientes.
+
+00:01:23.576 --> 00:01:28.216 align:middle
+A continuación, crea un public
+function llamado, qué tal, getSong().
+
+00:01:30.346 --> 00:01:31.826 align:middle
+Añade la ruta...
+
+00:01:31.826 --> 00:01:37.586 align:middle
+y pulsa el tabulador para autocompletarla y que PhpStorm
+añada la declaración de uso en la parte superior.
+
+00:01:38.546 --> 00:01:49.286 align:middle
+Establece la URL como /api/songs/{id}, donde id será
+finalmente el id de la base de datos de la canción.
+
+00:01:50.106 --> 00:01:56.316 align:middle
+Y como tenemos un comodín en la ruta,
+se nos permite tener un argumento $id.
+
+00:01:56.406 --> 00:02:00.226 align:middle
+Por último, aunque no necesitamos hacerlo,
+
+00:02:00.456 --> 00:02:04.646 align:middle
+como sabemos que nuestro controlador
+devolverá un objeto Response,
+
+00:02:04.906 --> 00:02:07.266 align:middle
+podemos establecerlo como tipo de retorno.
+
+00:02:07.796 --> 00:02:13.086 align:middle
+Asegúrate de autocompletar el del
+componente HttpFoundation de Symfony.
+
+00:02:14.286 --> 00:02:18.086 align:middle
+Dentro del método, para empezar, dd($id)...
+
+00:02:18.656 --> 00:02:20.626 align:middle
+para ver si todo funciona.
+
+00:02:21.616 --> 00:02:22.426 align:middle
+¡Vamos a hacerlo!
+
+00:02:23.116 --> 00:02:28.186 align:middle
+Dirígete a /api/songs/5 y...
+
+00:02:28.496 --> 00:02:31.406 align:middle
+¡lo tienes! Otra página nueva. De
+
+00:02:32.276 --> 00:02:37.666 align:middle
+vuelta a ese controlador, voy a pegar
+algunos datos de la canción: finalmente,
+
+00:02:37.666 --> 00:02:39.906 align:middle
+esto vendrá de la base de datos.
+
+00:02:40.386 --> 00:02:43.056 align:middle
+Puedes copiarlo del bloque
+de código de esta página.
+
+00:02:43.796 --> 00:02:46.806 align:middle
+Nuestro trabajo es devolver esto como JSON.
+
+00:02:47.466 --> 00:02:51.356 align:middle
+Entonces, ¿cómo devolvemos JSON en Symfony?
+
+00:02:51.356 --> 00:02:56.156 align:middle
+Devolviendo un nuevo JsonResponse
+y pasándole los datos.
+
+00:02:56.156 --> 00:02:58.846 align:middle
+Lo sé... ¡demasiado fácil!
+
+00:02:58.846 --> 00:03:01.066 align:middle
+Refresca y...
+
+00:03:01.336 --> 00:03:03.026 align:middle
+¡hola JSON!
+
+00:03:03.886 --> 00:03:06.506 align:middle
+Ahora puedes estar pensando: ¡Ryan!
+
+00:03:06.676 --> 00:03:09.556 align:middle
+Nos has estado diciendo -repetidamente-
+
+00:03:09.816 --> 00:03:13.846 align:middle
+que un controlador debe devolver
+siempre un objeto Symfony Response,
+
+00:03:14.136 --> 00:03:16.196 align:middle
+que es lo que devuelve render().
+
+00:03:16.766 --> 00:03:20.226 align:middle
+¿Ahora devuelve otro tipo de objeto Response?
+
+00:03:20.766 --> 00:03:21.836 align:middle
+Vale, es justo...
+
+00:03:22.326 --> 00:03:25.986 align:middle
+pero esto funciona porque
+JsonResponse es una Respuesta.
+
+00:03:26.416 --> 00:03:27.306 align:middle
+Deja que me explique.
+
+00:03:27.776 --> 00:03:32.616 align:middle
+A veces es útil saltar a las clases
+principales para ver cómo funcionan. Para ello
+
+00:03:33.376 --> 00:03:38.736 align:middle
+, en PHPStorm -si estás en un Mac mantén
+pulsado comando, si no, mantén pulsado control-
+
+00:03:38.916 --> 00:03:42.006 align:middle
+y luego haz clic en el nombre de
+la clase a la que quieras saltar.
+
+00:03:42.566 --> 00:03:44.596 align:middle
+Y... ¡sorpresa!
+
+00:03:44.846 --> 00:03:48.976 align:middle
+JsonResponse extiende Response.
+
+00:03:49.086 --> 00:03:52.086 align:middle
+Sí, seguimos devolviendo un Response.
+
+00:03:52.506 --> 00:03:57.636 align:middle
+Pero esta subclase está bien porque codifica
+automáticamente nuestros datos en JSON
+
+00:03:57.976 --> 00:04:02.366 align:middle
+y establece la cabecera
+Content-Type en application/json.
+
+00:04:03.296 --> 00:04:10.796 align:middle
+Ah, y de vuelta a nuestro controlador, podemos ser aún
+más perezosos diciendo return $this->json($song)...
+
+00:04:11.436 --> 00:04:16.846 align:middle
+donde json() es otro método abreviado
+que proviene de AbstractController.
+
+00:04:17.696 --> 00:04:23.886 align:middle
+Hacer esto no supone ninguna diferencia,
+porque sólo es un atajo para devolver ...
+
+00:04:24.036 --> 00:04:25.616 align:middle
+¡un JsonResponse!
+
+00:04:26.186 --> 00:04:32.576 align:middle
+Si estás construyendo una API seria, Symfony tiene
+un componente serializer que es realmente bueno
+
+00:04:32.576 --> 00:04:34.676 align:middle
+para convertir objetos en JSON...
+
+00:04:34.756 --> 00:04:37.476 align:middle
+y luego JSON de nuevo en objetos.
+
+00:04:38.186 --> 00:04:41.386 align:middle
+Hablamos mucho de él en nuestro
+tutorial de la Plataforma API,
+
+00:04:41.646 --> 00:04:46.946 align:middle
+que es una potente biblioteca
+para crear APIs en Symfony.
+
+00:04:47.036 --> 00:04:50.296 align:middle
+A continuación, vamos a aprender cómo hacer
+que nuestras rutas sean más inteligentes, por
+
+00:04:50.646 --> 00:04:56.756 align:middle
+ejemplo, haciendo que un comodín sólo coincida con
+un número, en lugar de coincidir con cualquier cosa

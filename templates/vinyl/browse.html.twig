@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1>Browse {{ genre ? genre : 'All Genres' }}</h1>
+
+    <h2 class="mt-5 mb-4">Filter by Genre</h2>
+    <ul class="genre-list ps-0 mt-2 mb-3">
+        <li class="d-inline">
+            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
+                slug: 'pop'
+            }) }}">Pop</a>
+        </li>
+        <li class="d-inline">
+            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
+                slug: 'rock'
+            }) }}">Rock</a>
+        </li>
+        <li class="d-inline">
+            <a class="btn btn-primary btn-sm" href="{{ path('app_browse', {
+                slug: 'heavy-metal'
+            }) }}">Heavy Metal</a>
+        </li>
+    </ul>
+
+    <div>
+        <h2 class="mt-5">Mixes</h2>
+        <turbo-frame id="mix-browse-list-{{ pager.currentPage }}" target="_top">
+            <div class="row">
+                {% for mix in pager %}
+                <div class="col col-md-4">
+                    <a href="{{ path('app_mix_show', {
+                        slug: mix.slug
+                    }) }}" class="mixed-vinyl-container p-3 text-center">
+                        <img src="{{ mix.getImageUrl(300) }}" alt="Mix album cover">
+                        <p class="mt-2"><strong>{{ mix.title }}</strong></p>
+                        <span>{{ mix.trackCount }} Tracks</span>
+                        |
+                        <span>{{ mix.genre }}</span>
+                        |
+                        <span>{{ mix.createdAt|ago }}</span>
+                        <br>
+                        {{ mix.votesString }} votes
+                    </a>
+                </div>
+                {% endfor %}
+
+                {% if pager.hasNextPage %}
+                    <turbo-frame id="mix-browse-list-{{ pager.nextPage }}" src="{{ pagerfanta_page_url(pager, pager.nextPage) }}" loading="lazy" target="_top"></turbo-frame>
+                {% endif %}
+            </div>
+        </turbo-frame>
+    </div>
+</div>
+{% endblock %}

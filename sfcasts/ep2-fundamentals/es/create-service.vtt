@@ -1,0 +1,294 @@
+WEBVTT
+
+00:00:01.026 --> 00:00:05.146 align:middle
+Sabemos que los bundles nos dan
+servicios y los servicios funcionan.
+
+00:00:05.586 --> 00:00:11.446 align:middle
+De acuerdo. ¿Pero qué pasa si necesitamos escribir
+nuestro propio código personalizado que sí funcione?
+
+00:00:11.956 --> 00:00:12.386 align:middle
+¿Debemos...
+
+00:00:12.646 --> 00:00:15.346 align:middle
+ponerlo en nuestra propia clase de servicio?
+
+00:00:15.906 --> 00:00:17.216 align:middle
+Por supuesto
+
+00:00:17.476 --> 00:00:20.316 align:middle
+Y es una buena forma de organizar tu código.
+
+00:00:21.116 --> 00:00:23.936 align:middle
+Ya estamos haciendo algo de
+trabajo en nuestra aplicación.
+
+00:00:24.576 --> 00:00:29.916 align:middle
+En la acción browse(): hacemos una petición
+HTTP y almacenamos en caché el resultado.
+
+00:00:30.556 --> 00:00:34.086 align:middle
+Poner esta lógica en nuestro
+controlador está bien.
+
+00:00:34.556 --> 00:00:41.516 align:middle
+Pero al trasladarla a su propia clase de servicio,
+hará que el propósito del código sea más claro,
+
+00:00:42.006 --> 00:00:44.886 align:middle
+nos permitirá reutilizarlo
+desde múltiples lugares...
+
+00:00:45.346 --> 00:00:49.086 align:middle
+e incluso nos permitirá hacer pruebas
+unitarias de ese código si queremos.
+
+00:00:49.746 --> 00:00:52.916 align:middle
+Eso suena increíble, así que ¡hagámoslo!
+
+00:00:53.636 --> 00:00:55.216 align:middle
+¿Cómo creamos un servicio?
+
+00:00:55.706 --> 00:01:00.626 align:middle
+En el directorio src/, crea una
+nueva clase PHP donde quieras.
+
+00:01:01.146 --> 00:01:05.616 align:middle
+En serio, no importa qué
+directorios o subdirectorios crees
+
+00:01:05.616 --> 00:01:08.886 align:middle
+en src/: haz lo que te parezca.
+
+00:01:09.606 --> 00:01:14.216 align:middle
+Para este ejemplo, crearé un
+directorio Service/ -aunque de nuevo,
+
+00:01:14.346 --> 00:01:21.726 align:middle
+podrías llamarlo PizzaParty o Repository
+- y dentro de él, una nueva clase PHP.
+
+00:01:22.336 --> 00:01:22.866 align:middle
+Llamémosla...
+
+00:01:23.206 --> 00:01:25.086 align:middle
+qué tal MixRepository.
+
+00:01:25.886 --> 00:01:30.696 align:middle
+"Repositorio" es un nombre bastante común
+para un servicio que devuelve datos.
+
+00:01:31.536 --> 00:01:36.656 align:middle
+Observa que cuando creo esto, PhpStorm añade
+automáticamente el espacio de nombres correcto.
+
+00:01:37.306 --> 00:01:41.346 align:middle
+No importa cómo organicemos
+nuestras clases dentro de src/...
+
+00:01:41.806 --> 00:01:45.446 align:middle
+siempre que nuestro espacio de
+nombres coincida con el directorio.
+
+00:01:46.386 --> 00:01:52.916 align:middle
+Una cosa importante sobre las clases de
+servicio: no tienen nada que ver con Symfony.
+
+00:01:53.606 --> 00:01:56.916 align:middle
+Nuestra clase controladora
+es un concepto de Symfony.
+
+00:01:57.376 --> 00:02:03.276 align:middle
+Pero MixRepository es una clase que estamos
+creando para organizar nuestro propio código.
+
+00:02:04.076 --> 00:02:04.616 align:middle
+Eso significa que...
+
+00:02:04.906 --> 00:02:06.876 align:middle
+¡que no hay reglas!
+
+00:02:07.236 --> 00:02:10.846 align:middle
+No necesitamos extender una clase
+base o implementar una interfaz.
+
+00:02:11.306 --> 00:02:15.596 align:middle
+Podemos hacer que esta clase se
+vea y se sienta como queramos.
+
+00:02:16.006 --> 00:02:16.896 align:middle
+¡El poder!
+
+00:02:17.776 --> 00:02:22.436 align:middle
+Con esto en mente, vamos a crear un
+nuevo public function llamado, qué tal,
+
+00:02:22.736 --> 00:02:28.756 align:middle
+findAll() que será return un array de
+todas las mezclas de nuestro sistema.
+
+00:02:29.636 --> 00:02:35.546 align:middle
+De vuelta en VinylController, copia toda la
+lógica que obtiene las mezclas y pégala aquí.
+
+00:02:36.236 --> 00:02:40.936 align:middle
+PhpStorm nos preguntará si queremos añadir
+una declaración use para el CacheItemInterface.
+
+00:02:41.336 --> 00:02:42.646 align:middle
+¡Lo hacemos totalmente!
+
+00:02:43.506 --> 00:02:47.286 align:middle
+Entonces, en lugar de crear una
+variable $mixes, sólo return.
+
+00:02:48.046 --> 00:02:51.596 align:middle
+Hay algunas variables no
+definidas en esta clase...
+
+00:02:52.036 --> 00:02:54.486 align:middle
+y esas serán un problema.
+
+00:02:54.816 --> 00:03:02.526 align:middle
+Pero ignóralas por un momento: Primero quiero ver si
+podemos utilizar nuestro nuevo y brillante MixRepository.
+
+00:03:03.306 --> 00:03:04.626 align:middle
+Entra en VinylController.
+
+00:03:05.416 --> 00:03:12.876 align:middle
+Pensemos: de alguna manera tenemos que informar al contenedor
+de servicios de Symfony sobre nuestro nuevo servicio para
+
+00:03:13.246 --> 00:03:19.466 align:middle
+poder autocablearlo de la misma manera que
+estamos autocableando servicios centrales
+
+00:03:19.816 --> 00:03:23.256 align:middle
+como HtttpClientInterface y CacheInterface.
+
+00:03:24.046 --> 00:03:26.126 align:middle
+Vaya, ¡tengo una sorpresa!
+
+00:03:26.486 --> 00:03:28.576 align:middle
+Dirígete a tu terminal y ejecuta:
+
+00:03:28.576 --> 00:03:36.166 align:middle
+php bin/console debug:autowiring --all
+Desplázate hasta la parte superior y...
+
+00:03:36.786 --> 00:03:41.456 align:middle
+¡sorpresa! ya es un servicio
+en el contenedor! MixRepository
+
+00:03:42.146 --> 00:03:44.156 align:middle
+Deja que te explique dos cosas.
+
+00:03:44.836 --> 00:03:49.406 align:middle
+En primer lugar, la bandera
+no es tan importante. --all
+
+00:03:49.906 --> 00:03:57.256 align:middle
+Básicamente le dice a este comando que te muestre
+los servicios principales como y , $httpClient $cache
+
+00:03:57.616 --> 00:04:01.426 align:middle
+además de nuestros propios
+servicios como MixRepository.
+
+00:04:02.396 --> 00:04:03.756 align:middle
+En segundo lugar, el contenedor...
+
+00:04:03.876 --> 00:04:10.516 align:middle
+de alguna manera ya vio nuestra clase de
+repositorio y la reconoció como un servicio.
+
+00:04:11.176 --> 00:04:13.956 align:middle
+Aprenderemos cómo ocurrió
+eso en unos minutos...
+
+00:04:14.246 --> 00:04:20.816 align:middle
+pero por ahora, basta con saber que nuestro nuevo
+ya está dentro del MixRepository contenedor
+
+00:04:21.366 --> 00:04:25.786 align:middle
+y que su id de servicio es el
+nombre completo de la clase.
+
+00:04:26.346 --> 00:04:28.736 align:middle
+¡Eso significa que podemos autoconducirlo! De
+
+00:04:29.646 --> 00:04:35.056 align:middle
+vuelta a nuestro controlador, añade un
+tercer argumento de tipo MixRepository -
+
+00:04:35.406 --> 00:04:38.436 align:middle
+pulsa el tabulador para añadir la
+declaración - y llámalo use...
+
+00:04:38.736 --> 00:04:40.526 align:middle
+¿qué tal $mixRepository?
+
+00:04:41.306 --> 00:04:46.086 align:middle
+Luego, aquí abajo, ya no necesitamos
+nada de este código $mixes.
+
+00:04:46.636 --> 00:04:51.716 align:middle
+Sustitúyelo por $mixes =
+$mixRepository->findAll()
+
+00:04:52.276 --> 00:04:53.636 align:middle
+¿Qué te parece?
+
+00:04:54.376 --> 00:04:55.446 align:middle
+¿Funcionará?
+
+00:04:56.046 --> 00:04:56.736 align:middle
+¡Averigüémoslo!
+
+00:04:57.346 --> 00:04:58.466 align:middle
+Actualiza y...
+
+00:04:58.896 --> 00:05:03.446 align:middle
+¡funciona! Vale, que funcione
+en este caso significa
+
+00:05:03.446 --> 00:05:08.916 align:middle
+que obtenemos un mensaje Undefined variable
+$cache procedente de MixRepository.
+
+00:05:09.616 --> 00:05:16.406 align:middle
+Pero el hecho de que nuestro código haya llegado hasta aquí
+significa que el autocableado de MixRepository ha funcionado:
+
+00:05:16.806 --> 00:05:20.786 align:middle
+el contenedor lo ha visto,
+ha instanciado MixRepository
+
+00:05:21.216 --> 00:05:24.316 align:middle
+y nos lo ha pasado para que podamos utilizarlo.
+
+00:05:25.146 --> 00:05:29.686 align:middle
+¡Así que hemos creado un servicio y lo
+hemos puesto a disposición del autocableado!
+
+00:05:30.186 --> 00:05:31.456 align:middle
+¡Somos geniales!
+
+00:05:32.206 --> 00:05:39.326 align:middle
+Pero nuestro nuevo servicio necesita los servicios
+y para poder hacer su trabajo. $httpClient $cache
+
+00:05:40.006 --> 00:05:41.176 align:middle
+¿Cómo los conseguimos?
+
+00:05:41.876 --> 00:05:48.706 align:middle
+La respuesta es uno de los conceptos más importantes
+de Symfony y de la codificación orientada a objetos
+
+00:05:48.706 --> 00:05:51.946 align:middle
+en general: la inyección de dependencias.
+
+00:05:52.576 --> 00:05:54.266 align:middle
+Vamos a hablar de ello a continuación

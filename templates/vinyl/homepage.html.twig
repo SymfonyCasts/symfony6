@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a new Record | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="d-inline me-3">{{ title }}</h1> <i class="fas fa-edit"></i>
+    <div class="row mt-5">
+        <div class="col-12 col-md-4">
+            {{ include('mix/_recordSvg.html.twig') }}
+        </div>
+        <div class="col-12 col-md-8 ps-5">
+            <h2 class="mb-4">10 songs (30 minutes of 60 still available)</h2>
+            {% for track in tracks %}
+            <div class="song-list" {{ stimulus_controller('song-controls', {
+                infoUrl: path('api_songs_get_one', { id: loop.index })
+            }) }}>
+                <div class="d-flex mb-3">
+                    <a href="#" {{ stimulus_action('song-controls', 'play') }}>
+                        <i class="fas fa-play me-3"></i>
+                    </a>
+                    <span class="song-details">{{ track.song }} - {{ track.artist }}</span>
+                    <a href="#">
+                        <i class="fas fa-bars mx-3"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            <button type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add a song</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

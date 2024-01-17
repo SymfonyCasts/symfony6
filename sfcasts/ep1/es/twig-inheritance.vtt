@@ -1,0 +1,396 @@
+WEBVTT
+
+00:00:01.106 --> 00:00:03.686 align:middle
+Dirígete a https://twig.symfony.com...
+
+00:00:03.926 --> 00:00:06.366 align:middle
+y haz clic para consultar su documentación.
+
+00:00:08.136 --> 00:00:09.886 align:middle
+Hay mucho material bueno aquí.
+
+00:00:10.196 --> 00:00:14.356 align:middle
+Pero lo que quiero que hagas es que te
+desplaces hasta la referencia a Twig.
+
+00:00:14.546 --> 00:00:20.886 align:middle
+¡Sí! Lo primero que debes mirar, a la
+izquierda, son estas cosas llamadas etiquetas.
+
+00:00:21.466 --> 00:00:27.626 align:middle
+Esta lista representa todas las cosas posibles
+que puedes utilizar con la sintaxis de hacer algo.
+
+00:00:28.286 --> 00:00:36.136 align:middle
+Sí, siempre será {% y luego una
+de estas cosas, como for o if.
+
+00:00:36.666 --> 00:00:42.006 align:middle
+Y sinceramente, sólo vas a utilizar
+unas 5 de ellas en el día a día.
+
+00:00:42.006 --> 00:00:47.666 align:middle
+Si quieres saber la sintaxis de alguna de ellas, sólo
+tienes que hacer clic para ver su documentación.
+
+00:00:49.436 --> 00:00:54.236 align:middle
+Además de las 20 etiquetas, Twig
+también tiene algo llamado filtros.
+
+00:00:54.426 --> 00:00:56.426 align:middle
+Estos son una maravilla.
+
+00:00:56.636 --> 00:01:02.286 align:middle
+Los filtros son básicamente funciones,
+pero con una sintaxis más moderna.
+
+00:01:02.996 --> 00:01:06.686 align:middle
+Twig también tiene funciones, pero son menos:
+
+00:01:07.196 --> 00:01:10.636 align:middle
+Twig prefiere los filtros:
+¡son mucho más chulos!
+
+00:01:10.696 --> 00:01:14.386 align:middle
+Por ejemplo, hay un filtro llamado upper.
+
+00:01:15.076 --> 00:01:19.126 align:middle
+Usar un filtro es como usar la
+tecla | en la línea de comandos.
+
+00:01:19.436 --> 00:01:25.496 align:middle
+Tienes un valor y luego lo "canalizas"
+en el filtro que quieres, como upper.
+
+00:01:26.606 --> 00:01:28.036 align:middle
+¡Vamos a probar esto!
+
+00:01:28.296 --> 00:01:33.006 align:middle
+Imprime track.artist|upper.
+
+00:01:33.006 --> 00:01:33.856 align:middle
+Y ahora...
+
+00:01:34.556 --> 00:01:35.866 align:middle
+¡está en mayúsculas!
+
+00:01:35.946 --> 00:01:42.846 align:middle
+Si quieres confundir a tus compañeros
+de trabajo, puedes canalizarlo a lower...
+
+00:01:43.206 --> 00:01:45.596 align:middle
+que devuelve las cosas a las minúsculas.
+
+00:01:46.126 --> 00:01:51.186 align:middle
+No hay ninguna razón real para hacer esto,
+pero los filtros pueden encadenarse así.
+
+00:01:52.236 --> 00:01:57.386 align:middle
+De todos modos, echa un vistazo a la lista de filtros
+porque probablemente haya algo que te resulte útil.
+
+00:01:58.156 --> 00:02:00.136 align:middle
+Y... ¡eso es todo!
+
+00:02:00.806 --> 00:02:06.586 align:middle
+Además de las funciones, también hay algo llamado
+"pruebas", que son útiles en las sentencias if:
+
+00:02:07.206 --> 00:02:13.306 align:middle
+puedes decir cosas como "si el
+número es divisible por 5".
+
+00:02:13.306 --> 00:02:17.366 align:middle
+Vale, sólo una cosa más que
+aprender sobre Twig, y es genial.
+
+00:02:18.216 --> 00:02:20.406 align:middle
+Mira el código fuente HTML de la página.
+
+00:02:21.606 --> 00:02:27.676 align:middle
+Fíjate en que no hay estructura HTML:
+no hay etiquetas html, head o body.
+
+00:02:28.146 --> 00:02:33.376 align:middle
+Literalmente el HTML que tenemos dentro
+de nuestra plantilla, es lo que obtenemos.
+
+00:02:33.636 --> 00:02:34.726 align:middle
+Nada más.
+
+00:02:34.966 --> 00:02:36.336 align:middle
+Entonces, ¿hay...
+
+00:02:36.336 --> 00:02:41.996 align:middle
+algún tipo de sistema de maquetación en Twig en el que
+podamos añadir una maquetación base a nuestro alrededor?
+
+00:02:42.646 --> 00:02:43.636 align:middle
+Por supuesto.
+
+00:02:43.926 --> 00:02:45.456 align:middle
+Y es increíble.
+
+00:02:45.806 --> 00:02:47.986 align:middle
+Se llama herencia de plantillas.
+
+00:02:48.016 --> 00:02:54.676 align:middle
+Si tienes una plantilla y quieres que utilice algún
+diseño base, en la parte superior del archivo,
+
+00:02:54.896 --> 00:02:58.396 align:middle
+utiliza una etiqueta "hacer
+algo" llamada extends.
+
+00:02:59.076 --> 00:03:03.696 align:middle
+Pásale el nombre del archivo
+de diseño: base.html.twig.
+
+00:03:04.566 --> 00:03:06.556 align:middle
+Esto se refiere a esta plantilla de aquí.
+
+00:03:07.566 --> 00:03:12.166 align:middle
+Antes de comprobarlo, si lo
+intentamos ahora, ¡vaya!
+
+00:03:12.336 --> 00:03:18.046 align:middle
+Gran error: Una plantilla que extiende otra no
+puede incluir contenido fuera de los bloques Twig.
+
+00:03:18.046 --> 00:03:22.566 align:middle
+Para saber qué significa
+esto, abre base.html.twig.
+
+00:03:24.336 --> 00:03:26.476 align:middle
+Este es tu archivo de diseño base...
+
+00:03:26.866 --> 00:03:30.756 align:middle
+y eres totalmente libre de
+personalizarlo como quieras.
+
+00:03:31.716 --> 00:03:32.476 align:middle
+Ahora mismo...
+
+00:03:32.756 --> 00:03:35.686 align:middle
+se trata principalmente de
+aburridas etiquetas HTML...
+
+00:03:36.056 --> 00:03:39.806 align:middle
+excepto por una serie de "bloques".
+
+00:03:39.806 --> 00:03:45.516 align:middle
+Los bloques son básicamente "agujeros" en los
+que una plantilla hija puede colocar contenido.
+
+00:03:46.226 --> 00:03:48.376 align:middle
+Permíteme explicarlo de otra manera.
+
+00:03:48.926 --> 00:03:54.566 align:middle
+Cuando decimos extends 'base.html.twig',
+eso dice básicamente: ¡Twig!
+
+00:03:54.876 --> 00:04:00.836 align:middle
+Cuando renderices esta plantilla, quiero
+que realmente renderices base.html.twig...
+
+00:04:01.096 --> 00:04:04.596 align:middle
+y pongas mi contenido dentro de ella.
+
+00:04:05.226 --> 00:04:08.816 align:middle
+Twig entonces responde
+amablemente: Vale, genial...
+
+00:04:08.816 --> 00:04:09.696 align:middle
+Puedo hacerlo.
+
+00:04:10.146 --> 00:04:15.506 align:middle
+Pero ¿en qué lugar de base.html.twig
+quieres que ponga todo tu contenido?
+
+00:04:15.916 --> 00:04:18.476 align:middle
+¿Quieres que lo ponga al final de la página?
+
+00:04:18.686 --> 00:04:19.356 align:middle
+¿En la parte superior?
+
+00:04:19.676 --> 00:04:21.556 align:middle
+¿En algún lugar al azar en el medio?
+
+00:04:22.416 --> 00:04:29.426 align:middle
+La forma de decirle a Twig dónde poner nuestro
+contenido dentro de base.html.twig es anulando un bloque.
+
+00:04:30.636 --> 00:04:35.136 align:middle
+Observa que base.html.twig ya
+tiene un bloque llamado body...
+
+00:04:35.536 --> 00:04:39.856 align:middle
+y es justo donde queremos poner
+el HTML de nuestra plantilla.
+
+00:04:41.106 --> 00:04:47.466 align:middle
+Para ponerlo ahí, en nuestra plantilla, rodea
+todo el contenido con {% block body %}...
+
+00:04:47.466 --> 00:04:50.206 align:middle
+y luego {% endblock %}.
+
+00:04:50.206 --> 00:04:55.026 align:middle
+[[ code('01d2fbf6f5') ]] A esto se le
+llama herencia de la plantilla porque
+
+00:04:55.026 --> 00:04:57.966 align:middle
+estamos sobrescribiendo ese bloque body con
+
+00:04:59.036 --> 00:05:02.966 align:middle
+este nuevo contenido. Así
+que ahora, cuando Twig
+
+00:05:03.456 --> 00:05:09.186 align:middle
+renderice base.html.twig... y llegue a
+esta parte block body, va a imprimir el
+
+00:05:09.256 --> 00:05:13.396 align:middle
+HTMLblock body de nuestra plantilla
+
+00:05:13.786 --> 00:05:15.646 align:middle
+Watch: refresh y... el
+
+00:05:16.606 --> 00:05:21.286 align:middle
+error ha desaparecido. Y si ves el código
+fuente de la página, ¡tenemos una
+
+00:05:22.246 --> 00:05:25.606 align:middle
+página HTML completa! Ah, y
+los nombres de estos bloques
+
+00:05:26.016 --> 00:05:31.116 align:middle
+no son importantes. Si quieres cambiarles el nombre
+por el de tu personaje favorito de una sitcom de los 90
+
+00:05:31.116 --> 00:05:36.406 align:middle
+, hazlo. Sólo recuerda
+actualizar también su nombre en
+
+00:05:36.436 --> 00:05:38.526 align:middle
+cualquier plantilla hija. También puedes
+
+00:05:38.886 --> 00:05:43.206 align:middle
+añadir más bloques. Cada
+bloque que añadas es otro
+
+00:05:44.266 --> 00:05:48.556 align:middle
+punto de anulación potencial. Ah, y te
+habrás dado cuenta de que los bloques pueden
+
+00:05:49.836 --> 00:05:53.056 align:middle
+tener contenido por defecto.
+Mira la página ahora mismo: el
+
+00:05:53.606 --> 00:05:56.996 align:middle
+título dice "Bienvenido".
+Eso es porque el bloque title
+
+00:05:57.396 --> 00:05:59.706 align:middle
+tiene contenido por defecto... y
+
+00:06:00.986 --> 00:06:03.966 align:middle
+no lo estamos anulando. Vamos a
+cambiar el título por defecto
+
+00:06:04.486 --> 00:06:08.456 align:middle
+a "Vinilo mixto". Así que ahora ese
+será el título de todas las páginas
+
+00:06:08.976 --> 00:06:11.306 align:middle
+de nuestro sitio... a menos que
+
+00:06:12.286 --> 00:06:17.746 align:middle
+lo anulemos. En nuestra plantilla, ya sea encima del
+cuerpo del bloque o debajo -el orden de los bloques no
+
+00:06:18.266 --> 00:06:25.266 align:middle
+importa-, añade {% block title %},
+{% endblock %} y, en medio, "Crear
+
+00:06:26.506 --> 00:06:27.416 align:middle
+un nuevo
+
+00:06:28.116 --> 00:06:31.046 align:middle
+disco". Y ahora... ¡sí! Esta página tiene
+
+00:06:32.006 --> 00:06:37.356 align:middle
+un título personalizado. Y puede que te
+preguntes ¿Qué pasa si no quiero sustituir
+
+00:06:37.626 --> 00:06:40.636 align:middle
+un bloque por completo....
+sino que quiero añadirlo
+
+00:06:41.166 --> 00:06:42.536 align:middle
+a un bloque?
+
+00:06:43.196 --> 00:06:48.216 align:middle
+Eso es totalmente posible. En base.html.twig,
+el bloque title está configurado
+
+00:06:48.276 --> 00:06:53.386 align:middle
+como "Vinilo mixto". Si quisiéramos
+añadirle nuestro título personalizado
+
+00:06:53.996 --> 00:06:58.816 align:middle
+, podríamos decir "Crear un
+nuevo disco" y luego utilizar la
+
+00:06:59.076 --> 00:07:01.816 align:middle
+etiqueta "decir algo" para imprimir una
+
+00:07:02.436 --> 00:07:08.486 align:middle
+función llamada parent(). Eso hace exactamente lo que
+esperarías: encuentra el contenido de la plantilla padre
+
+00:07:08.716 --> 00:07:09.966 align:middle
+para este bloque
+
+00:07:11.046 --> 00:07:12.196 align:middle
+y
+
+00:07:12.626 --> 00:07:14.446 align:middle
+lo imprime. Actualiza y...
+
+00:07:15.446 --> 00:07:21.686 align:middle
+qué bien. Si alguna vez estás confundido sobre cómo
+funciona la herencia de plantillas, es útil, al menos para
+
+00:07:21.906 --> 00:07:26.546 align:middle
+mí, pensar en ella exactamente
+
+00:07:27.226 --> 00:07:31.986 align:middle
+como en la herencia orientada a objetos. Cada
+plantilla es como una clase y cada bloque es
+
+00:07:32.066 --> 00:07:38.236 align:middle
+como un método. Así, la "clase"
+de la página de inicio extiende
+
+00:07:38.326 --> 00:07:40.876 align:middle
+la "clase" de base.html.twig, pero anula dos
+
+00:07:41.666 --> 00:07:44.506 align:middle
+de sus métodos. Si eso
+sólo te ha confundido, no
+
+00:07:44.506 --> 00:07:47.366 align:middle
+te preocupes. Así que ... eso es
+
+00:07:47.836 --> 00:07:52.976 align:middle
+todo para Twig. Básicamente eres un experto en
+Twig, lo que me han dicho que es un tema popular
+
+00:07:53.916 --> 00:07:58.336 align:middle
+en las fiestas. A continuación: una de las
+características más destacadas de Symfony son
+
+00:07:58.886 --> 00:08:01.136 align:middle
+sus herramientas de depuración.
+Vamos a instalarlas y a comprobarlas.

@@ -1,0 +1,422 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.016 align:middle
+Pongamos a prueba a Stimulus.
+
+00:00:03.746 --> 00:00:06.596 align:middle
+Éste es nuestro objetivo: cuando hagamos
+clic en el icono de reproducción, vamos a
+
+00:00:06.926 --> 00:00:10.366 align:middle
+hacer una petición Ajax a
+nuestra ruta de la API...
+
+00:00:10.716 --> 00:00:12.916 align:middle
+el que está en SongController.
+
+00:00:13.776 --> 00:00:17.396 align:middle
+Esto devuelve la URL donde se
+puede reproducir esta canción.
+
+00:00:18.106 --> 00:00:20.786 align:middle
+Luego lo utilizaremos en JavaScript para...
+
+00:00:20.936 --> 00:00:21.946 align:middle
+¡reproducir la canción!
+
+00:00:23.286 --> 00:00:30.686 align:middle
+Coge hello_controller.js y cámbiale el nombre
+a, ¿qué tal song-controls_controller.js.?
+
+00:00:32.286 --> 00:00:37.466 align:middle
+Dentro, sólo para ver si esto funciona,
+en connect(), registra un mensaje.
+
+00:00:38.086 --> 00:00:43.016 align:middle
+El método connect() se llama cada vez que Stimulus
+ve un nuevo elemento coincidente en la página.
+
+00:00:44.136 --> 00:00:48.636 align:middle
+Ahora, en la plantilla, hola ya no
+va a funcionar, así que quita eso.
+
+00:00:50.106 --> 00:00:54.776 align:middle
+Lo que quiero hacer es rodear cada fila
+de canciones con este controlador....
+
+00:00:55.086 --> 00:00:57.856 align:middle
+así que es este elemento song-list.
+
+00:00:57.856 --> 00:01:03.936 align:middle
+Después de la clase, añade {{
+stimulus_controller('song-controls') }}.
+
+00:01:03.976 --> 00:01:06.106 align:middle
+Vamos a probarlo
+
+00:01:06.486 --> 00:01:10.296 align:middle
+Refresca, comprueba la consola y...
+
+00:01:10.586 --> 00:01:13.516 align:middle
+¡sí! ¡Ha golpeado
+nuestro código seis veces!
+
+00:01:14.086 --> 00:01:16.446 align:middle
+Una vez por cada uno de estos elementos.
+
+00:01:16.966 --> 00:01:21.296 align:middle
+Y cada elemento tiene su propia
+instancia de controlador, independiente.
+
+00:01:22.206 --> 00:01:26.856 align:middle
+Bien, a continuación, cuando hagamos clic en
+reproducir, queremos ejecutar algún código.
+
+00:01:27.616 --> 00:01:30.696 align:middle
+Para ello, podemos añadir una acción. Se
+
+00:01:31.676 --> 00:01:36.896 align:middle
+parece a esto: en la etiqueta a,
+añade {{ stimulus_action() }}
+
+00:01:37.546 --> 00:01:42.866 align:middle
+-otra función de acceso directo- y pásale el nombre
+del controlador al que estás adjuntando la acción
+
+00:01:42.866 --> 00:01:48.876 align:middle
+- song-controls - y luego un método dentro
+de ese controlador que debe ser llamado
+
+00:01:48.876 --> 00:01:50.486 align:middle
+cuando alguien haga clic en este elemento.
+
+00:01:50.916 --> 00:01:52.376 align:middle
+¿Qué te parece play.
+
+00:01:53.406 --> 00:01:59.576 align:middle
+Genial, ¿no? De vuelta en el controlador de la
+canción, ya no necesitamos el método connect():
+
+00:02:00.076 --> 00:02:05.006 align:middle
+no necesitamos hacer nada cada vez
+que veamos otra fila song-list.
+
+00:02:05.526 --> 00:02:08.366 align:middle
+Pero sí necesitamos un método play().
+
+00:02:08.366 --> 00:02:12.976 align:middle
+Y al igual que con los oyentes de eventos
+normales, éste recibirá un objeto event...
+
+00:02:13.416 --> 00:02:16.526 align:middle
+y entonces podemos decir event.preventDefault()
+
+00:02:16.836 --> 00:02:20.286 align:middle
+para que nuestro navegador no
+intente seguir el clic del enlace.
+
+00:02:21.446 --> 00:02:24.206 align:middle
+Para probar, console.log('Playing!').
+
+00:02:26.576 --> 00:02:27.716 align:middle
+¡Vamos a ver qué pasa!
+
+00:02:28.196 --> 00:02:29.476 align:middle
+Refresca y...
+
+00:02:29.786 --> 00:02:32.726 align:middle
+haz clic. Ya funciona.
+
+00:02:33.126 --> 00:02:37.256 align:middle
+Así de fácil es enganchar un
+receptor de eventos en Stimulus.
+
+00:02:37.736 --> 00:02:39.746 align:middle
+Ah, y si inspeccionas este elemento...
+
+00:02:40.236 --> 00:02:44.296 align:middle
+esa función stimulus_action()
+es sólo un atajo
+
+00:02:44.296 --> 00:02:48.776 align:middle
+para añadir un atributo especial
+data-action que Stimulus entiende.
+
+00:02:50.316 --> 00:02:54.396 align:middle
+Bien, ¿cómo podemos hacer una llamada
+Ajax desde dentro del método play()?
+
+00:02:55.086 --> 00:02:58.826 align:middle
+Bueno, podríamos utilizar la función
+integrada fetch() de JavaScript.
+
+00:02:59.196 --> 00:03:03.836 align:middle
+Pero en su lugar, voy a instalar una
+biblioteca de terceros llamada Axios.
+
+00:03:04.796 --> 00:03:12.436 align:middle
+En tu terminal, instálala diciendo: yarn add
+axios --dev Ahora sabemos lo que hace esto:
+
+00:03:13.156 --> 00:03:16.756 align:middle
+descarga este paquete en
+nuestro directorio node_modules,
+
+00:03:17.376 --> 00:03:20.876 align:middle
+y añade esta línea a
+nuestro archivo package.json.
+
+00:03:21.726 --> 00:03:27.666 align:middle
+Ah, y nota al margen: puedes utilizar
+absolutamente jQuery dentro de Stimulus.
+
+00:03:28.166 --> 00:03:31.826 align:middle
+No lo haré, pero funciona
+muy bien - y puedes instalar -
+
+00:03:32.036 --> 00:03:35.246 align:middle
+e importar - jQuery como
+cualquier otro paquete.
+
+00:03:35.996 --> 00:03:38.036 align:middle
+Hablamos de ello en nuestro
+tutorial de Stimulus.
+
+00:03:38.906 --> 00:03:42.126 align:middle
+Bien, ¿cómo utilizamos la biblioteca axios?
+
+00:03:42.576 --> 00:03:45.076 align:middle
+Importándola
+
+00:03:45.076 --> 00:03:50.746 align:middle
+Al principio de este archivo, ya hemos
+importado la clase base Controller de stimulus.
+
+00:03:51.656 --> 00:03:55.176 align:middle
+Ahora import axios from 'axios'. En
+
+00:03:56.456 --> 00:04:01.506 align:middle
+cuanto lo hagamos, Webpack Encore
+cogerá el código fuente de axios
+
+00:04:01.856 --> 00:04:05.236 align:middle
+y lo incluirá en nuestros
+archivos JavaScript construidos.
+
+00:04:05.966 --> 00:04:11.086 align:middle
+Ahora, aquí abajo, podemos decir
+axios.get() para hacer una pe tición GET.
+
+00:04:11.826 --> 00:04:14.656 align:middle
+Pero... ¿qué debemos pasar para la URL?
+
+00:04:15.446 --> 00:04:19.906 align:middle
+Tiene que ser algo como /api/songs/5...
+
+00:04:20.526 --> 00:04:24.906 align:middle
+¿pero cómo sabemos cuál
+es el "id" de esta fila?
+
+00:04:26.036 --> 00:04:30.706 align:middle
+Una de las cosas más interesantes de
+Stimulus es que te permite pasar valores
+
+00:04:30.706 --> 00:04:33.816 align:middle
+de Tw ig a tu controlador Stimulus.
+
+00:04:34.896 --> 00:04:39.776 align:middle
+Para ello, declara qué valores
+quieres permitir que se pasen a
+
+00:04:39.776 --> 00:04:46.336 align:middle
+través de una propiedad estática
+especial: static values = {}.
+
+00:04:46.336 --> 00:04:52.746 align:middle
+Dentro, vamos a permitir que
+se pase un valor de infoUrl.
+
+00:04:53.616 --> 00:05:00.156 align:middle
+Me acabo de inventar ese nombre: creo que
+pasaremos la URL completa a la ruta de la API.
+
+00:05:01.026 --> 00:05:03.706 align:middle
+Establece esto como el tipo que será.
+
+00:05:04.006 --> 00:05:05.096 align:middle
+Así que, un String.
+
+00:05:07.026 --> 00:05:11.676 align:middle
+Aprenderemos cómo pasamos este valor desde
+Twig a nuestro controlador en un minuto.
+
+00:05:12.196 --> 00:05:19.816 align:middle
+Pero como tenemos esto, abajo, podemos
+referenciar el valor diciendo this.infoUrlValue.
+
+00:05:21.386 --> 00:05:23.426 align:middle
+Entonces, ¿cómo lo pasamos?
+
+00:05:24.186 --> 00:05:29.636 align:middle
+De vuelta en homepage.html.twig, añade un
+segundo argumento a stimulus_controller().
+
+00:05:30.456 --> 00:05:34.796 align:middle
+Se trata de un array con los valores
+que quieres pasar al controlador.
+
+00:05:35.296 --> 00:05:38.176 align:middle
+Pasa a infoUrl el conjunto de la URL.
+
+00:05:39.176 --> 00:05:41.796 align:middle
+Hmm, pero tenemos que generar esa URL.
+
+00:05:42.376 --> 00:05:44.186 align:middle
+¿Esa ruta tiene ya un nombre?
+
+00:05:44.766 --> 00:05:49.716 align:middle
+No Añade name: 'api_songs_get_one'.
+
+00:05:50.236 --> 00:05:52.866 align:middle
+Perfecto. Copia eso...
+
+00:05:53.196 --> 00:05:59.356 align:middle
+y de nuevo en la plantilla, pon infoURl
+a path(), el nombre de la ruta...
+
+00:05:59.826 --> 00:06:02.536 align:middle
+y luego un array con los comodines que haya.
+
+00:06:03.986 --> 00:06:06.496 align:middle
+Nuestra ruta tiene un comodín id.
+
+00:06:07.526 --> 00:06:13.276 align:middle
+En una aplicación real, estas rutas probablemente tendrían
+cada una un id de base de datos que podríamos pasar.
+
+00:06:13.926 --> 00:06:15.496 align:middle
+Nosotros aún no lo tenemos...
+
+00:06:15.496 --> 00:06:20.166 align:middle
+así que para, en cierto modo, falsear
+esto, voy a utilizar loop.index.
+
+00:06:20.316 --> 00:06:30.716 align:middle
+Esta es una variable mágica de Twig : si estás dentro
+de un bucle de Twig for , puedes acceder al índice
+
+00:06:30.846 --> 00:06:34.836 align:middle
+-como 1, 2, 3, 4- utilizando loop.index.
+
+00:06:35.336 --> 00:06:37.766 align:middle
+Así que vamos a utilizar esto
+como una identificación falsa.
+
+00:06:38.236 --> 00:06:43.536 align:middle
+Ah, y no olvides decir id: y luego loop.index.
+
+00:06:43.646 --> 00:06:44.526 align:middle
+¡Hora de probar!
+
+00:06:45.186 --> 00:06:52.566 align:middle
+Refresca. Lo primero que quiero que
+veas es que, cuando pasamos infoUrl
+
+00:06:52.566 --> 00:06:54.856 align:middle
+como segundo argumento a stimulus_controller,
+
+00:06:55.266 --> 00:07:01.766 align:middle
+lo único que hace es dar salida a un atributo
+muy especial data que Stimulus sabe leer.
+
+00:07:02.276 --> 00:07:04.996 align:middle
+Así es como se pasa un valor a un controlador.
+
+00:07:05.736 --> 00:07:07.686 align:middle
+Haz clic en uno de los
+enlaces de reproducción y...
+
+00:07:08.436 --> 00:07:13.876 align:middle
+lo tienes. ¡A cada objeto controlador
+se le pasa su URL correcta!
+
+00:07:15.216 --> 00:07:17.826 align:middle
+¡Vamos a celebrarlo haciendo
+la llamada Ajax! Hazlo
+
+00:07:18.126 --> 00:07:25.976 align:middle
+con axios.get(this.infoUrlValue)
+-sí, acabo de escribirlo-,
+
+00:07:26.216 --> 00:07:32.556 align:middle
+.then() y una devolución de llamada utilizando una
+función de flecha que recibirá un argumento response.
+
+00:07:33.386 --> 00:07:36.256 align:middle
+Esto se llamará cuando
+termine la llamada Ajax.
+
+00:07:36.926 --> 00:07:38.666 align:middle
+Registra la respuesta para empezar.
+
+00:07:40.066 --> 00:07:43.666 align:middle
+Ah, y corrige para usar this.infoUrlValue.
+
+00:07:46.106 --> 00:07:47.636 align:middle
+Muy bien, actualiza...
+
+00:07:47.786 --> 00:07:49.456 align:middle
+y haz clic en el enlace de reproducción
+
+00:07:50.196 --> 00:07:52.596 align:middle
+Sí! Se ha volcado la respuesta...
+
+00:07:53.156 --> 00:07:55.076 align:middle
+y una de sus claves es data...
+
+00:07:55.336 --> 00:07:57.756 align:middle
+¡que contiene el url!
+
+00:07:58.346 --> 00:08:00.226 align:middle
+¡Es hora de dar la vuelta de la victoria! De
+
+00:08:01.366 --> 00:08:06.696 align:middle
+vuelta a la función, podemos reproducir
+ese audio creando un nuevo objeto Audio -
+
+00:08:07.146 --> 00:08:12.286 align:middle
+es un objeto JavaScript normal -
+pasándole response.data.url...
+
+00:08:13.656 --> 00:08:16.106 align:middle
+y luego llamando a play() sobre éste.
+
+00:08:17.946 --> 00:08:18.796 align:middle
+Y ahora...
+
+00:08:19.346 --> 00:08:20.786 align:middle
+cuando le demos al play...
+
+00:08:22.936 --> 00:08:26.426 align:middle
+¡por fin! Música para mis oídos.
+
+00:08:27.656 --> 00:08:31.266 align:middle
+Si quieres saber más sobre Stimulus
+-esto ha sido un poco rápido-
+
+00:08:31.496 --> 00:08:34.026 align:middle
+tenemos un tutorial entero sobre él...
+
+00:08:34.026 --> 00:08:35.346 align:middle
+y es genial.
+
+00:08:36.226 --> 00:08:41.456 align:middle
+Para terminar este tutorial, vamos a
+instalar otra biblioteca de JavaScript.
+
+00:08:42.166 --> 00:08:47.326 align:middle
+Ésta hará que nuestra aplicación se sienta
+instantáneamente como una aplicación de una sola página.
+
+00:08:47.716 --> 00:08:48.676 align:middle
+Eso a continuación.

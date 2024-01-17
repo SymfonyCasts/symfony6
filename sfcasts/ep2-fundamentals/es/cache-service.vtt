@@ -1,0 +1,395 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:06.986 align:middle
+Ahora, cuando actualizamos la página de navegación,
+¡las mezclas provienen de un repositorio en GitHub!
+
+00:00:07.446 --> 00:00:12.966 align:middle
+Hacemos una petición HTTP a la API de
+GitHub, que obtiene este archivo de aquí,
+
+00:00:13.376 --> 00:00:19.286 align:middle
+llamamos a $response->toArray() para
+decodificar ese JSON en una matriz $mixes...
+
+00:00:19.746 --> 00:00:23.416 align:middle
+y luego lo representamos en la plantilla.
+
+00:00:23.976 --> 00:00:28.646 align:middle
+Sí, ¡este archivo de GitHub es
+nuestra falsa base de datos temporal!
+
+00:00:29.656 --> 00:00:36.036 align:middle
+Un problema práctico es que ahora cada carga
+de la página hace una petición HTTP...
+
+00:00:36.546 --> 00:00:39.786 align:middle
+y las peticiones HTTP son lentas.
+
+00:00:40.656 --> 00:00:45.986 align:middle
+Si desplegáramos esto en producción, nuestro
+sitio sería tan popular, por supuesto,
+
+00:00:46.336 --> 00:00:49.666 align:middle
+que alcanzaríamos rápidamente
+nuestro límite de la API de GitHub.
+
+00:00:50.196 --> 00:00:53.026 align:middle
+Y entonces esta página explotaría.
+
+00:00:53.476 --> 00:00:58.046 align:middle
+Así que... estoy pensando: ¿y si
+guardamos en caché el resultado?
+
+00:00:58.786 --> 00:01:05.536 align:middle
+Podríamos hacer esta petición HTTP, y luego almacenar
+los datos en caché durante 10 minutos, o incluso una hora.
+
+00:01:06.276 --> 00:01:08.076 align:middle
+¡Eso podría funcionar!
+
+00:01:08.886 --> 00:01:11.646 align:middle
+¿Cómo se almacenan las
+cosas en caché en Symfony?
+
+00:01:12.146 --> 00:01:14.916 align:middle
+Lo has adivinado: ¡con un servicio!
+
+00:01:15.476 --> 00:01:16.476 align:middle
+¿Qué servicio?
+
+00:01:16.796 --> 00:01:20.036 align:middle
+No lo sé Así que vamos a averiguarlo.
+
+00:01:20.646 --> 00:01:27.086 align:middle
+Ejecuta: php bin/console debug:autowiring cache
+para buscar servicios con "cache" en su nombre.
+
+00:01:27.816 --> 00:01:29.066 align:middle
+Y... ¡sí!
+
+00:01:29.406 --> 00:01:31.956 align:middle
+De hecho, ¡hay varios!
+
+00:01:32.576 --> 00:01:37.406 align:middle
+Hay uno llamado CacheItemPoolInterface,
+y otro llamado StoreInterface.
+
+00:01:38.016 --> 00:01:44.256 align:middle
+Algunos de ellos no son exactamente lo que buscamos,
+pero CacheItemPoolInterface, CacheInterface,
+
+00:01:44.376 --> 00:01:50.386 align:middle
+y TagAwareCacheInterface son todos servicios diferentes
+que puedes utilizar para el almacenamiento en caché.
+
+00:01:51.246 --> 00:01:53.656 align:middle
+Todos ellos hacen efectivamente lo mismo...
+
+00:01:53.956 --> 00:01:56.746 align:middle
+pero el más fácil de usar es CacheInterface.
+
+00:01:57.356 --> 00:01:58.936 align:middle
+Así que vamos a coger ese ....
+
+00:01:59.176 --> 00:02:02.816 align:middle
+¡haciendo nuestro elegante
+truco de autoconexión!
+
+00:02:03.366 --> 00:02:08.646 align:middle
+Añade otro argumento a nuestro método escrito
+con CacheInterface (asegúrate de obtener el
+
+00:02:08.646 --> 00:02:13.356 align:middle
+de Symfony\Contracts\Cache)
+y llámalo, qué tal, $cache:
+
+00:02:14.246 --> 00:02:19.426 align:middle
+Para utilizar el servicio $cache, copia
+estas dos líneas de antes, bórralas
+
+00:02:19.806 --> 00:02:25.816 align:middle
+y sustitúyelas por $mixes =
+$cache->get(), como si fueras a
+
+00:02:25.816 --> 00:02:28.846 align:middle
+sacar alguna clave de la caché.
+
+00:02:29.776 --> 00:02:35.456 align:middle
+Podemos inventar la clave de la caché
+que queramos: ¿qué tal mixes_data.
+
+00:02:36.266 --> 00:02:38.956 align:middle
+El objeto caché de Symfony
+funciona de una manera única.
+
+00:02:39.576 --> 00:02:42.956 align:middle
+Llamamos a $cache->get()
+y le pasamos esta clave.
+
+00:02:43.736 --> 00:02:49.226 align:middle
+Si ese resultado ya existe en la
+caché, se devolverá inmediatamente.
+
+00:02:49.766 --> 00:02:52.566 align:middle
+Si aún no existe en la caché,
+
+00:02:52.946 --> 00:02:58.016 align:middle
+entonces llamará a nuestro segundo
+argumento, que es una función.
+
+00:02:58.726 --> 00:03:03.716 align:middle
+Aquí, nuestro trabajo consiste en devolver los
+datos que deben ser almacenados en la caché.
+
+00:03:04.556 --> 00:03:07.116 align:middle
+Pega las dos líneas de código
+que hemos copiado antes.
+
+00:03:07.706 --> 00:03:14.826 align:middle
+Este $httpClient no está definido, así que tenemos que
+añadir use ($httpClient) para que entre en el ámbito.
+
+00:03:15.646 --> 00:03:16.156 align:middle
+Ya está
+
+00:03:16.636 --> 00:03:23.256 align:middle
+Y en lugar de establecer la variable $mixes,
+simplemente return esta línea $response->toArray():
+
+00:03:24.016 --> 00:03:29.246 align:middle
+Si no has utilizado antes el servicio de caché
+de Symfony, ¡esto puede parecer extraño!
+
+00:03:29.586 --> 00:03:30.926 align:middle
+¡Pero a mí me encanta!
+
+00:03:31.616 --> 00:03:38.376 align:middle
+La primera vez que actualicemos la página,
+aún no habrá ningún mixes_data en la caché.
+
+00:03:39.106 --> 00:03:42.446 align:middle
+Así que llamará a nuestra
+función, devolverá el resultado
+
+00:03:42.816 --> 00:03:46.426 align:middle
+y el sistema de caché lo
+almacenará en la caché. La
+
+00:03:47.266 --> 00:03:52.196 align:middle
+próxima vez que actualicemos la
+página, la clave estará en la caché
+
+00:03:52.546 --> 00:03:55.056 align:middle
+y devolverá el resultado inmediatamente.
+
+00:03:55.486 --> 00:04:00.656 align:middle
+Así que no necesitamos ninguna sentencia
+"if" para ver si algo ya está en la caché...
+
+00:04:00.976 --> 00:04:02.136 align:middle
+¡sólo esto!
+
+00:04:02.736 --> 00:04:04.356 align:middle
+Pero... ¿se mezclará?
+
+00:04:04.886 --> 00:04:05.666 align:middle
+Vamos a averiguarlo.
+
+00:04:06.276 --> 00:04:07.616 align:middle
+Refresca y...
+
+00:04:08.196 --> 00:04:08.826 align:middle
+¡guapa!
+
+00:04:09.346 --> 00:04:14.286 align:middle
+El primer refresco seguía haciendo
+la petición HTTP con normalidad.
+
+00:04:14.886 --> 00:04:17.786 align:middle
+Abajo, en la barra de herramientas
+de depuración de la web, podemos ver
+
+00:04:17.786 --> 00:04:21.886 align:middle
+que hubo tres llamadas a la caché
+y una escritura en la caché.
+
+00:04:22.646 --> 00:04:26.996 align:middle
+Abre esto en una nueva pestaña para saltar
+a la sección de caché del perfilador.
+
+00:04:27.716 --> 00:04:33.846 align:middle
+Genial: esto nos muestra que hubo una
+llamada a la caché para mixes_data,
+
+00:04:34.376 --> 00:04:37.836 align:middle
+una escritura en la caché
+y un fallo en la caché.
+
+00:04:38.676 --> 00:04:43.556 align:middle
+Un "miss" de la caché significa que se ha llamado
+a nuestra función y se ha escrito en la caché.
+
+00:04:44.366 --> 00:04:47.686 align:middle
+En la siguiente actualización,
+observa este icono de aquí.
+
+00:04:48.986 --> 00:04:50.506 align:middle
+Desaparece
+
+00:04:50.976 --> 00:04:54.486 align:middle
+Eso es porque no hubo ninguna petición HTTP.
+
+00:04:55.136 --> 00:05:01.386 align:middle
+Si vuelves a abrir el perfil de la caché,
+esta vez hubo una lectura y un acierto.
+
+00:05:02.146 --> 00:05:09.456 align:middle
+Ese acierto significa que el resultado se ha cargado
+desde la caché y no ha hecho ninguna petición HTTP.
+
+00:05:09.886 --> 00:05:12.156 align:middle
+¡Eso es exactamente lo que queríamos!
+
+00:05:12.996 --> 00:05:18.116 align:middle
+Ahora te preguntarás: ¿cuánto tiempo
+permanecerá esta información en la caché?
+
+00:05:18.706 --> 00:05:19.216 align:middle
+Ahora mismo...
+
+00:05:19.616 --> 00:05:22.246 align:middle
+para siempre. Ooooh.
+
+00:05:22.776 --> 00:05:23.866 align:middle
+Eso es lo predeterminado.
+
+00:05:24.776 --> 00:05:31.766 align:middle
+Para que caduque antes que para siempre, dale
+a la función un argumento CacheItemInterface
+
+00:05:32.316 --> 00:05:37.256 align:middle
+-asegúrate de pulsar "tab" para añadir esa
+declaración de uso- y llámala $cacheItem.
+
+00:05:38.206 --> 00:05:44.206 align:middle
+Ahora podemos decir $cacheItem->expiresAfter()
+y, para hacerlo más fácil, decir 5:
+
+00:05:45.116 --> 00:05:47.866 align:middle
+El artículo expirará después de 5 segundos.
+
+00:05:48.516 --> 00:05:56.186 align:middle
+Por desgracia, si intentamos esto, el elemento que ya
+está en la caché está configurado para no caducar nunca.
+
+00:05:56.816 --> 00:06:01.236 align:middle
+Así que... esto no funcionará
+hasta que borremos la caché.
+
+00:06:02.146 --> 00:06:04.616 align:middle
+Pero... ¿dónde se almacena la caché?
+
+00:06:05.216 --> 00:06:06.516 align:middle
+¡Otra gran pregunta!
+
+00:06:07.076 --> 00:06:08.886 align:middle
+Hablaremos más de ello en un segundo...
+
+00:06:09.156 --> 00:06:13.206 align:middle
+pero, por defecto, se
+almacena en var/cache/dev/...
+
+00:06:13.836 --> 00:06:17.586 align:middle
+junto con un montón de otros archivos de
+caché que ayudan a Symfony a hacer su trabajo.
+
+00:06:18.316 --> 00:06:22.076 align:middle
+Podríamos borrar este directorio
+manualmente para limpiar la caché...
+
+00:06:22.546 --> 00:06:24.486 align:middle
+¡pero Symfony tiene una forma mejor!
+
+00:06:25.076 --> 00:06:28.636 align:middle
+Es, por supuesto, otro comando de bin/console.
+
+00:06:29.416 --> 00:06:33.846 align:middle
+Symfony tiene un montón de diferentes
+"categorías" de caché llamadas "cache pools".
+
+00:06:34.446 --> 00:06:38.926 align:middle
+Si ejecutas: php bin/console
+cache:pool:list verás todas ellas.
+
+00:06:39.676 --> 00:06:42.926 align:middle
+La mayoría de ellas están pensadas para
+que Symfony las utilice internamente.
+
+00:06:43.546 --> 00:06:47.116 align:middle
+El pool de caché que estamos
+utilizando se llama cache.app.
+
+00:06:47.246 --> 00:06:55.066 align:middle
+Para borrarla, ejecuta: php bin/console
+cache:pool:clear cache.app ¡Eso es todo!
+
+00:06:55.736 --> 00:07:00.976 align:middle
+Esto no es algo que necesites hacer muy a
+menudo, pero es bueno saberlo, por si acaso.
+
+00:07:01.946 --> 00:07:03.296 align:middle
+Bien, comprueba esto.
+
+00:07:03.646 --> 00:07:05.016 align:middle
+Cuando refrescamos...
+
+00:07:05.376 --> 00:07:11.136 align:middle
+obtenemos un fallo en la caché y puedes
+ver que ha hecho una llamada HTTP.
+
+00:07:11.816 --> 00:07:14.346 align:middle
+Pero si volvemos a actualizar rápidamente...
+
+00:07:14.826 --> 00:07:15.906 align:middle
+ya no está
+
+00:07:16.476 --> 00:07:17.986 align:middle
+Vuelve a actualizar y...
+
+00:07:18.186 --> 00:07:19.286 align:middle
+¡ha vuelto!
+
+00:07:19.776 --> 00:07:22.686 align:middle
+Eso es porque los cinco
+segundos acaban de expirar.
+
+00:07:23.736 --> 00:07:29.686 align:middle
+Bien equipo: ahora estamos aprovechando un
+servicio de cliente HTTP y un servicio de caché...
+
+00:07:30.146 --> 00:07:36.506 align:middle
+que nos ha preparado uno de
+nuestros bundles para que podamos...
+
+00:07:36.726 --> 00:07:40.416 align:middle
+¡utilizarlos! Pero tengo una pregunta.
+
+00:07:41.016 --> 00:07:44.146 align:middle
+¿Qué pasa si necesitamos
+controlar estos servicios?
+
+00:07:44.746 --> 00:07:50.246 align:middle
+Por ejemplo, ¿cómo podríamos decirle al servicio
+de caché que, en lugar de guardar las cosas
+
+00:07:50.246 --> 00:07:56.216 align:middle
+en el sistema de archivos de este
+directorio, queremos almacenarlas en Redis...
+
+00:07:56.216 --> 00:07:57.366 align:middle
+o en memcache?
+
+00:07:58.146 --> 00:08:03.656 align:middle
+Vamos a explorar la idea de controlar
+nuestros servicios mediante la configuración

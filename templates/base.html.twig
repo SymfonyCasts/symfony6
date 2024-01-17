@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Mixed Vinyl{% endblock %}</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="mb-5">
+            <!-- Main Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #27333A;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('app_homepage') }}">
+                        <i class="fas fa-record-vinyl"></i>
+                        Mixed Vinyl
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" style="margin-top: 20px;" href="{{ path('app_browse') }}">Browse Mixes</a>
+                            </li>
+                            <!-- Not Authenticated -->
+                                <!-- <li class="nav-item"><button href="#" class="btn btn-primary btn-sm">Login</button></li> -->
+                            <!-- End Not Authenticated -->
+
+                            <!-- If Authenticated -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-astronaut p-2" style="border: solid 1px #fff; border-radius: 50px; font-size: 40px;"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">My Mixes</a></li>
+                                    <li><a class="dropdown-item" href="#">Signout</a></li>
+                                </ul>
+                            </li>
+                            <!-- End If Authenticated -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Main Navigation -->
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {% block body %}{% endblock %}
+
+        <!-- Footer -->
+        <div class="container mt-5">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <span class="me-1" style="color: red;"><i class="fas fa-heart"></i></span>
+                    <span class="text-muted me-1">The guys and gals at</span>
+                    <a target="_blank" href="https://symfonycasts.com/" style="color: #25a1dd" class="mb-3 me-2 mb-md-0 text-decoration-none lh-1">
+                        SymfonyCasts
+                    </a>
+                </div>
+
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" target="_blank" href="https://github.com/SymfonyCasts/symfony6"><i class="fab fa-github"></i></a></li>
+                </ul>
+            </footer>
+        </div>
+        <!-- End Footer -->
+
+    </body>
+</html>

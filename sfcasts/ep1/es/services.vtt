@@ -1,0 +1,303 @@
+WEBVTT
+
+00:00:00.996 --> 00:00:03.526 align:middle
+Veo a Symfony como dos grandes partes.
+
+00:00:03.976 --> 00:00:08.076 align:middle
+La primera parte es el sistema de
+rutas, controladores y respuestas.
+
+00:00:08.566 --> 00:00:10.816 align:middle
+Es muy sencillo y bueno...
+
+00:00:10.906 --> 00:00:12.986 align:middle
+¡ya eres un experto en ello!
+
+00:00:13.546 --> 00:00:19.936 align:middle
+La segunda mitad de Symfony son los numerosos
+objetos útiles que andan por ahí...
+
+00:00:20.176 --> 00:00:22.096 align:middle
+esperando a que los utilicemos
+
+00:00:22.606 --> 00:00:28.466 align:middle
+Por ejemplo, cuando renderizamos una plantilla,
+lo que estamos haciendo en realidad es aprovechar
+
+00:00:28.466 --> 00:00:32.336 align:middle
+un objeto Twig y pedirle
+que renderice una plantilla.
+
+00:00:33.096 --> 00:00:38.206 align:middle
+También hay un objeto registrador, un objeto
+caché, un objeto de conexión a la base de datos,
+
+00:00:38.476 --> 00:00:43.056 align:middle
+un objeto que ayuda a hacer peticiones
+a la API, ¡y muchos, muchos más!
+
+00:00:43.576 --> 00:00:49.016 align:middle
+Y cuando instalas un nuevo paquete,
+eso te da aún más objetos útiles.
+
+00:00:49.676 --> 00:00:53.506 align:middle
+La verdad es que todo lo que hace Symfony es...
+
+00:00:53.506 --> 00:00:56.516 align:middle
+en realidad lo hace uno
+de estos objetos útiles.
+
+00:00:56.706 --> 00:01:00.496 align:middle
+Diablos, ¡hay incluso un
+objeto router que se encarga
+
+00:01:00.496 --> 00:01:03.356 align:middle
+de encontrar la ruta adecuada
+para la página dada!
+
+00:01:04.316 --> 00:01:09.936 align:middle
+En el mundo de Symfony, y realmente en el mundo de
+la programación orientada a objetos en general,
+
+00:01:10.176 --> 00:01:15.506 align:middle
+estos "objetos que hacen trabajo"
+tienen un nombre especial: servicios.
+
+00:01:16.166 --> 00:01:17.766 align:middle
+Pero no dejes que esa palabra te confunda.
+
+00:01:18.186 --> 00:01:23.016 align:middle
+Cuando oigas servicio, piensa:
+¡es un objeto que hace trabajo!
+
+00:01:23.496 --> 00:01:26.316 align:middle
+Como un objeto de plantilla
+que representa una plantilla
+
+00:01:26.576 --> 00:01:29.906 align:middle
+o un objeto de conexión a la base
+de datos que realiza consultas.
+
+00:01:30.506 --> 00:01:34.056 align:middle
+Y como los objetos de servicio
+hacen trabajo, son básicamente...
+
+00:01:34.206 --> 00:01:36.936 align:middle
+¡herramientas que te
+ayudan a hacer tu trabajo!
+
+00:01:37.756 --> 00:01:41.356 align:middle
+La segunda mitad de Symfony
+consiste en descubrir
+
+00:01:41.356 --> 00:01:44.456 align:middle
+qué servicios están
+disponibles y cómo utilizarlos.
+
+00:01:45.346 --> 00:01:46.466 align:middle
+Vamos a probar algo.
+
+00:01:47.146 --> 00:01:50.496 align:middle
+En nuestro controlador,
+quiero registrar un mensaje...
+
+00:01:50.646 --> 00:01:53.076 align:middle
+tal vez un mensaje de depuración.
+
+00:01:53.996 --> 00:01:58.026 align:middle
+Como registrar un mensaje es un
+trabajo, lo hace un servicio.
+
+00:01:58.406 --> 00:02:01.616 align:middle
+¿Nuestra aplicación ya
+tiene un servicio de registro?
+
+00:02:02.136 --> 00:02:04.216 align:middle
+Y si es así, ¿cómo lo conseguimos?
+
+00:02:05.316 --> 00:02:09.366 align:middle
+Para averiguarlo, ve a tu terminal
+y ejecuta otro comando bin/console:
+
+00:02:09.706 --> 00:02:19.256 align:middle
+php bin/console debug:autowiring Saluda a uno
+de los comandos más potentes de bin/console.
+
+00:02:19.596 --> 00:02:20.936 align:middle
+¡Me encanta esta cosa!
+
+00:02:21.526 --> 00:02:25.186 align:middle
+Esto lista todos los servicios que
+existen en nuestra aplicación.
+
+00:02:25.716 --> 00:02:28.066 align:middle
+Vale, en realidad no es la lista completa,
+
+00:02:28.546 --> 00:02:31.776 align:middle
+pero esto muestra los servicios que
+más probablemente necesitarás.
+
+00:02:31.776 --> 00:02:35.756 align:middle
+Y aunque nuestra aplicación es
+pequeña, ¡hay muchas cosas aquí!
+
+00:02:36.316 --> 00:02:38.096 align:middle
+Hay un servicio de sistema de archivos...
+
+00:02:38.436 --> 00:02:40.686 align:middle
+y aquí abajo un servicio de caché.
+
+00:02:41.136 --> 00:02:43.096 align:middle
+¡Incluso hay un servicio Twig!
+
+00:02:43.866 --> 00:02:45.806 align:middle
+¿Hay un servicio de registro?
+
+00:02:46.486 --> 00:02:47.676 align:middle
+Puedes buscar en esta lista...
+
+00:02:48.036 --> 00:02:52.936 align:middle
+o puedes volver a ejecutar este comando
+y buscar la palabra log: ¡Excelente!
+
+00:02:53.546 --> 00:02:56.296 align:middle
+Por ahora, ignora todo
+excepto la primera línea.
+
+00:02:56.526 --> 00:03:00.026 align:middle
+Esta línea nos dice que
+existe un servicio de registro
+
+00:03:00.406 --> 00:03:06.346 align:middle
+y que este objeto implementa una
+interfaz llamada Psr\Log\LoggerInterface.
+
+00:03:07.366 --> 00:03:10.726 align:middle
+Bien, ¿por qué nos ayuda saber eso?
+
+00:03:11.546 --> 00:03:18.626 align:middle
+Porque si quieres un servicio, lo pides utilizando
+la sugerencia de tipo que se muestra en este comando.
+
+00:03:19.096 --> 00:03:20.936 align:middle
+Se llama autoconexión.
+
+00:03:21.806 --> 00:03:22.326 align:middle
+Vamos a probarlo.
+
+00:03:22.736 --> 00:03:26.066 align:middle
+Dirígete a nuestro controlador
+y añade un segundo argumento.
+
+00:03:26.516 --> 00:03:29.576 align:middle
+En realidad, el orden de
+los argumentos no importa.
+
+00:03:30.046 --> 00:03:35.756 align:middle
+Lo que importa es que el nuevo argumento
+esté indicado con LoggerInterface.
+
+00:03:36.266 --> 00:03:38.336 align:middle
+Pulsaré el tabulador para autocompletarlo...
+
+00:03:38.676 --> 00:03:42.366 align:middle
+para que PhpStorm añada la declaración
+de uso en la parte superior.
+
+00:03:42.366 --> 00:03:47.096 align:middle
+En este caso, el argumento puede
+llamarse como sea, como $logger.
+
+00:03:47.866 --> 00:03:52.876 align:middle
+Cuando Symfony ve esta sugerencia de tipo,
+busca dentro de la lista debug:autowiring...
+
+00:03:53.296 --> 00:03:57.626 align:middle
+y como hay una coincidencia, nos
+pasará el servicio de registro.
+
+00:03:58.276 --> 00:04:03.456 align:middle
+Así que ahora conocemos dos tipos diferentes de
+argumentos que podemos tener en el controlador:
+
+00:04:04.226 --> 00:04:08.446 align:middle
+puedes tener un argumento cuyo nombre
+coincida con un comodín de la ruta
+
+00:04:08.756 --> 00:04:13.796 align:middle
+o un argumento cuyo tipo-indicación coincida
+con uno de los servicios de nuestra aplicación.
+
+00:04:14.876 --> 00:04:20.786 align:middle
+Bien, ahora que sabemos que Symfony nos pasará el
+objeto de servicio logger, ¡vamos a utilizarlo!
+
+00:04:21.126 --> 00:04:24.906 align:middle
+No sé, todavía, qué métodos
+puedo llamar en él, pero...
+
+00:04:24.906 --> 00:04:26.536 align:middle
+si decimos $logger->...
+
+00:04:27.046 --> 00:04:28.226 align:middle
+PhpStorm...
+
+00:04:28.226 --> 00:04:30.056 align:middle
+¡nos lo dice! ¡Ha sido fácil!
+
+00:04:30.976 --> 00:04:34.236 align:middle
+Voy a registrar algo en un
+nivel de prioridad info().
+
+00:04:34.776 --> 00:04:39.276 align:middle
+Digamos: Devolución de la respuesta de
+la API para la canción Y luego el $id.
+
+00:04:41.346 --> 00:04:45.276 align:middle
+En realidad, podemos hacer algo aún más
+genial con este servicio de registro.
+
+00:04:46.406 --> 00:04:49.046 align:middle
+Añade {song} al mensaje...
+
+00:04:49.466 --> 00:04:52.726 align:middle
+y añade un segundo argumento, que es un array
+
+00:04:52.726 --> 00:04:56.216 align:middle
+de información extra que quieres
+adjuntar al mensaje de registro.
+
+00:04:57.036 --> 00:04:59.376 align:middle
+Pasa song ajustado a $id.
+
+00:05:01.136 --> 00:05:07.196 align:middle
+En un momento, verás que el logger
+imprimirá el id real en lugar de {song}.
+
+00:05:08.756 --> 00:05:12.196 align:middle
+En cualquier caso, este controlador
+es para nuestra ruta de la API.
+
+00:05:12.686 --> 00:05:15.966 align:middle
+Así que vamos a actualizarlo.
+
+00:05:16.966 --> 00:05:20.746 align:middle
+Um... ¡bien! Así que no
+hay error, ¡eso es bueno!
+
+00:05:21.176 --> 00:05:22.536 align:middle
+¿Pero ha funcionado?
+
+00:05:23.236 --> 00:05:24.596 align:middle
+¿Dónde se registra el servicio de registro...
+
+00:05:24.896 --> 00:05:26.436 align:middle
+¿realmente se registra?
+
+00:05:27.276 --> 00:05:33.246 align:middle
+Averigüémoslo a continuación, aprendamos un truco para
+ver el perfilador incluso para las peticiones de la API
+
+00:05:33.506 --> 00:05:36.786 align:middle
+y luego aprovechemos nuestro
+segundo servicio directamente

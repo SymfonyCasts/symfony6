@@ -1,0 +1,417 @@
+WEBVTT
+
+00:00:01.016 --> 00:00:03.286 align:middle
+Abrir config/packages/framework.yaml.
+
+00:00:03.976 --> 00:00:09.906 align:middle
+No necesitamos estar autentificados para utilizar esta parte de
+la API de GitHub que contiene el contenido bruto del usuario:
+
+00:00:10.716 --> 00:00:15.356 align:middle
+Pero si accedemos mucho a esta ruta ,
+podríamos llegar a su límite de velocidad,
+
+00:00:15.536 --> 00:00:18.516 align:middle
+que es bastante bajo para
+los usuarios anónimos.
+
+00:00:18.726 --> 00:00:21.786 align:middle
+Así que vamos a autenticar nuestra petición.
+
+00:00:22.676 --> 00:00:25.886 align:middle
+Primero, si estás codificando
+conmigo, dirígete a "github.com"
+
+00:00:25.986 --> 00:00:28.776 align:middle
+y crea tu propio token de acceso personal.
+
+00:00:29.476 --> 00:00:35.896 align:middle
+Una vez hecho esto, abre MixRepository y
+baja hasta donde hacemos la petición HTTP.
+
+00:00:36.636 --> 00:00:42.596 align:middle
+Para adjuntar el token de acceso a la petición
+pasa un tercer argumento, que es un array.
+
+00:00:43.346 --> 00:00:49.626 align:middle
+Dentro, añade una clave headers fijada en otro
+array, con una cabecera Authorization asign ada
+
+00:00:49.626 --> 00:00:52.456 align:middle
+a la palabra Token y luego el token de acceso.
+
+00:00:52.876 --> 00:00:54.846 align:middle
+Empieza utilizando un token falso:
+
+00:00:55.796 --> 00:01:00.716 align:middle
+Puedes saber que esto funciona porque, cuando
+volvemos a la página y la actualizamos...
+
+00:01:01.126 --> 00:01:02.486 align:middle
+¡estalla!
+
+00:01:02.986 --> 00:01:07.406 align:middle
+Nuestra llamada a la API ahora falla
+con un 404 porque reconoce que estamos
+
+00:01:07.406 --> 00:01:10.286 align:middle
+intentando autenticarnos con un to ken...
+
+00:01:10.536 --> 00:01:12.796 align:middle
+pero el que hemos pasado es falso.
+
+00:01:13.546 --> 00:01:15.146 align:middle
+Ahora añade tu token real.
+
+00:01:15.946 --> 00:01:17.356 align:middle
+Inténtalo de nuevo y...
+
+00:01:17.616 --> 00:01:20.356 align:middle
+¡funciona! ¡Así que esto es genial!
+
+00:01:20.906 --> 00:01:24.696 align:middle
+Pero estaría mejor si el
+servicio viniera preconfigurado
+
+00:01:24.696 --> 00:01:27.656 align:middle
+para establecer automáticamente
+esta cabecera de autorización...
+
+00:01:28.076 --> 00:01:32.906 align:middle
+especialmente si queremos utilizar este
+servicio de Cliente HTTP en varios sitios.
+
+00:01:33.546 --> 00:01:34.646 align:middle
+¿Podemos hacerlo?
+
+00:01:35.176 --> 00:01:41.386 align:middle
+Por supuesto Copia la línea Token, entra
+en framework.yaml, y después de base_uri,
+
+00:01:41.586 --> 00:01:46.456 align:middle
+pasa una clave headers con Authorization
+ajustada a nuestra cadena larga.
+
+00:01:47.346 --> 00:01:50.556 align:middle
+En realidad, déjame poner un
+token falso ahí temporalmente:
+
+00:01:51.516 --> 00:01:55.436 align:middle
+En MixRepository, elimina ese tercer argumento:
+
+00:01:58.336 --> 00:02:00.556 align:middle
+Y ahora, cuando probemos esto...
+
+00:02:01.546 --> 00:02:06.416 align:middle
+¡genial! Las cosas se rompen, lo que
+demuestra que estamos enviando esa cabecera...
+
+00:02:06.576 --> 00:02:07.986 align:middle
+sólo que con el valor equivocado.
+
+00:02:08.646 --> 00:02:10.586 align:middle
+Si cambiamos a nuestro token real...
+
+00:02:11.106 --> 00:02:11.916 align:middle
+una vez más...
+
+00:02:12.496 --> 00:02:14.486 align:middle
+¡funciona! ¡Impresionante!
+
+00:02:15.336 --> 00:02:20.006 align:middle
+Hasta aquí, esto es sólo una bonita
+característica del HttpClient.
+
+00:02:20.526 --> 00:02:23.226 align:middle
+Pero esto también ayuda a
+resaltar un problema común.
+
+00:02:23.926 --> 00:02:31.386 align:middle
+No es... genial tener nuestro token sensible
+de la API de GitHub codificado en este archivo.
+
+00:02:32.066 --> 00:02:35.916 align:middle
+Es decir, este archivo va a ser
+enviado a nuestro repositorio.
+
+00:02:36.216 --> 00:02:37.766 align:middle
+Quiero a mis compañeros de equipo...
+
+00:02:37.856 --> 00:02:43.456 align:middle
+pero no los quiero tanto como para
+compartir con ellos mi token de acceso...
+
+00:02:43.456 --> 00:02:45.556 align:middle
+o el token de acceso de nuestra empresa.
+
+00:02:46.376 --> 00:02:49.656 align:middle
+Aquí es donde las variables
+de entorno resultan útiles.
+
+00:02:50.256 --> 00:02:54.826 align:middle
+Si no estás familiarizado con las variables
+de entorno, son variables que puedes establecer
+
+00:02:54.826 --> 00:02:57.656 align:middle
+en cualquier sistema (Windows,
+Linux, lo que sea)...
+
+00:02:58.046 --> 00:03:01.746 align:middle
+y luego puedes leerlas desde dentro de PHP.
+
+00:03:01.746 --> 00:03:05.856 align:middle
+Muchas plataformas de alojamiento hacen
+que sea súper fácil establecerlas.
+
+00:03:06.556 --> 00:03:08.256 align:middle
+¿Cómo nos ayuda eso?
+
+00:03:08.716 --> 00:03:12.516 align:middle
+Porque, en teoría, podríamos
+establecer nuestro token de acceso
+
+00:03:12.516 --> 00:03:18.046 align:middle
+como una variable de entorno y
+luego simplemente leerlo en PHP.
+
+00:03:18.046 --> 00:03:22.416 align:middle
+Eso nos permitiría evitar poner ese
+valor sensible dentro de nuestro código.
+
+00:03:23.246 --> 00:03:26.656 align:middle
+Pero, antes de hablar de
+establecer variables de entorno,
+
+00:03:26.926 --> 00:03:30.016 align:middle
+¿cómo leemos las variables
+de entorno en Symfony?
+
+00:03:30.816 --> 00:03:36.486 align:middle
+Copia tu token de acceso para no perderlo, pon
+comillas simples alrededor de Token, y luego vamos a
+
+00:03:36.486 --> 00:03:40.716 align:middle
+utilizar una sintaxis muy especial
+para leer una variable de entorno.
+
+00:03:41.316 --> 00:03:43.606 align:middle
+En realidad va a parecer un parámetro.
+
+00:03:44.116 --> 00:03:51.586 align:middle
+Empieza y termina con %, y dentro, di env()
+con el nombre de la variable de entorno.
+
+00:03:51.976 --> 00:03:54.126 align:middle
+¿Qué te parece GITHUB_TOKEN.
+
+00:03:54.646 --> 00:03:56.236 align:middle
+Me acabo de inventar ese nombre:
+
+00:03:56.976 --> 00:03:58.506 align:middle
+Si volvemos atrás y refrescamos...
+
+00:03:59.146 --> 00:04:02.456 align:middle
+ahora estamos leyendo esa variable
+de entorno GITHUB_TOKEN...
+
+00:04:02.886 --> 00:04:08.066 align:middle
+pero aún no la hemos configurado, por lo que obtenemos
+este error "Variable de entorno no encontrada".
+
+00:04:08.856 --> 00:04:12.466 align:middle
+En el mundo real, establecer
+variables de entorno es...
+
+00:04:12.966 --> 00:04:14.646 align:middle
+un poco complicado.
+
+00:04:15.256 --> 00:04:18.046 align:middle
+Es diferente en Windows que en Linux.
+
+00:04:18.416 --> 00:04:24.466 align:middle
+Y aunque muchas plataformas de alojamiento hacen que
+sea súper fácil establecer variables de entorno,
+
+00:04:24.996 --> 00:04:28.456 align:middle
+no es muy sencillo hacerlo
+localmente en tu ordenador.
+
+00:04:29.036 --> 00:04:31.856 align:middle
+Por eso existe este archivo .env.
+
+00:04:32.616 --> 00:04:38.496 align:middle
+Muy sencillo, cuando Symfony arranca,
+lee el archivo .env y convierte todo
+
+00:04:38.496 --> 00:04:40.946 align:middle
+esto en variables de entorno.
+
+00:04:41.676 --> 00:04:45.556 align:middle
+Esto significa que podemos decir
+GITHUB_TOKEN= y pegar nuestro token...
+
+00:04:46.196 --> 00:04:47.036 align:middle
+y ahora...
+
+00:04:47.766 --> 00:04:54.896 align:middle
+¡funciona! Por cierto, si hubiera una
+variable de entorno real GITHUB_TOKEN
+
+00:04:54.896 --> 00:05:01.126 align:middle
+en mi sistema, esa variable de entorno real
+ganaría a lo que tenemos en este archivo.
+
+00:05:02.046 --> 00:05:03.716 align:middle
+Vale... esto es genial...
+
+00:05:04.046 --> 00:05:06.386 align:middle
+¡pero seguimos teniendo el mismo problema!
+
+00:05:06.646 --> 00:05:09.716 align:middle
+Tenemos un valor sensible que
+está dentro de un archivo...
+
+00:05:10.206 --> 00:05:12.726 align:middle
+que está comprometido en nuestro repositorio.
+
+00:05:13.496 --> 00:05:15.956 align:middle
+Bien, entonces, vamos a intentar otra cosa.
+
+00:05:16.446 --> 00:05:19.326 align:middle
+Copia el token de GitHub,
+elimina el valor de este archivo
+
+00:05:19.626 --> 00:05:23.956 align:middle
+y crea un nuevo archivo llamado .env.local.
+
+00:05:24.576 --> 00:05:27.156 align:middle
+Establece la variable de entorno aquí.
+
+00:05:27.876 --> 00:05:28.736 align:middle
+Y ahora...
+
+00:05:29.396 --> 00:05:31.156 align:middle
+¡las cosas siguen funcionando!
+
+00:05:31.916 --> 00:05:32.806 align:middle
+Esto es lo que pasa.
+
+00:05:33.326 --> 00:05:38.276 align:middle
+Cuando Symfony arranca, primero lee
+el archivo .env y convierte todo
+
+00:05:38.276 --> 00:05:40.256 align:middle
+esto en variables de entorno.
+
+00:05:40.706 --> 00:05:47.456 align:middle
+Luego lee .env.local y convierte todo lo
+que hay aquí en variables de entorno...
+
+00:05:47.676 --> 00:05:51.416 align:middle
+que anulan cualquier valor
+establecido en .env. El
+
+00:05:52.076 --> 00:05:58.856 align:middle
+resultado es que tu archivo .env está destinado a
+contener valores seguros, por defecto, que están bien
+
+00:05:58.856 --> 00:06:00.786 align:middle
+para ser consignados en tu repositorio.
+
+00:06:01.446 --> 00:06:06.386 align:middle
+Entonces, localmente (y quizás también en
+producción, dependiendo de cómo se despliegue),
+
+00:06:06.916 --> 00:06:12.886 align:middle
+creas un archivo .env.local y
+pones allí los valores sensibles.
+
+00:06:13.576 --> 00:06:19.416 align:middle
+La clave es que .env.local es ignorado por Git.
+
+00:06:20.136 --> 00:06:23.426 align:middle
+Puedes ver que ya está en
+nuestro archivo .gitignore.
+
+00:06:23.886 --> 00:06:26.876 align:middle
+Así que, aunque este archivo
+contenga valores sensibles,
+
+00:06:27.166 --> 00:06:29.556 align:middle
+no se confirmará en el repositorio.
+
+00:06:30.216 --> 00:06:33.506 align:middle
+Hay otros archivos .env que puedes crear...
+
+00:06:33.746 --> 00:06:35.686 align:middle
+y puedes verlos mencionados aquí.
+
+00:06:36.306 --> 00:06:39.416 align:middle
+No son tan importantes, pero
+si quieres leer sobre ellos,
+
+00:06:39.446 --> 00:06:41.356 align:middle
+puedes consultar la documentación.
+
+00:06:42.236 --> 00:06:46.976 align:middle
+Otra cosa genial de las variables de entorno
+es que puedes visualizarlas ejecutando:
+
+00:06:46.976 --> 00:06:50.986 align:middle
+php bin/console debug:dotenv ¡Genial!
+
+00:06:51.376 --> 00:06:53.856 align:middle
+Puedes ver el valor actual de GITHUB_TOKEN...
+
+00:06:54.226 --> 00:06:58.086 align:middle
+y que este valor también
+está fijado en .env.local . En
+
+00:06:58.926 --> 00:07:03.756 align:middle
+cambio, APP_ENV y APP_SECRET tienen n/a aquí,
+
+00:07:04.086 --> 00:07:08.156 align:middle
+lo que significa que sus valores no
+se están anulando en .env.local.
+
+00:07:08.906 --> 00:07:12.026 align:middle
+También nos dice qué
+archivos de .env ha detectado.
+
+00:07:12.916 --> 00:07:16.406 align:middle
+Hay algunos trucos que puedes utilizar
+con las variables de entorno. Por
+
+00:07:16.946 --> 00:07:22.276 align:middle
+ejemplo, hay algo que se llama "sistema de
+procesador" en el que podrías utilizar trim
+
+00:07:22.476 --> 00:07:24.856 align:middle
+para "recortar" el espacio
+en blanco en GITHUB_TOKEN.
+
+00:07:25.106 --> 00:07:30.536 align:middle
+O podrías utilizar file donde la variable
+GITHUB_TOKEN es en realidad una ruta
+
+00:07:30.776 --> 00:07:33.546 align:middle
+a un archivo que contiene el valor verdadero.
+
+00:07:34.146 --> 00:07:38.656 align:middle
+En cualquier caso, esto se llama "procesadores de
+variables de entorno" si quieres leer más sobre ellos.
+
+00:07:39.546 --> 00:07:42.676 align:middle
+A continuación, vamos a hablar
+rápidamente sobre el despliegue...
+
+00:07:43.146 --> 00:07:47.456 align:middle
+pero aún más sobre cómo podemos almacenar
+de forma segura estos valores sensibles
+
+00:07:47.606 --> 00:07:49.426 align:middle
+cuando se despliega en producción.
+
+00:07:50.016 --> 00:07:52.776 align:middle
+Una opción es la bóveda
+de secretos de Symfony

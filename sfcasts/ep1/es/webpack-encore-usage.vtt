@@ -1,0 +1,282 @@
+WEBVTT
+
+00:00:01.216 --> 00:00:06.086 align:middle
+Cuando instalamos Webpack Encore, su receta
+nos dio este nuevo directorio assets/.
+
+00:00:06.746 --> 00:00:08.836 align:middle
+Mira el archivo app.js.
+
+00:00:09.636 --> 00:00:10.376 align:middle
+Es interesante.
+
+00:00:10.746 --> 00:00:13.786 align:middle
+Observa cómo importa este archivo bootstrap.
+
+00:00:14.286 --> 00:00:18.946 align:middle
+En realidad es bootstrap.js:
+este archivo de aquí.
+
+00:00:18.946 --> 00:00:20.906 align:middle
+La extensión .js es opcional.
+
+00:00:21.646 --> 00:00:25.876 align:middle
+Esta es una de las cosas más
+importantes que nos da Webpack
+
+00:00:26.156 --> 00:00:30.846 align:middle
+la capacidad de importar un
+archivo JavaScript de otro.
+
+00:00:31.476 --> 00:00:34.066 align:middle
+Podemos importar funciones, objetos...
+
+00:00:34.326 --> 00:00:36.376 align:middle
+realmente cualquier cosa desde otro archivo.
+
+00:00:36.946 --> 00:00:41.086 align:middle
+Vamos a hablar más sobre este archivo
+bootstrap.js dentro de un rato.
+
+00:00:42.206 --> 00:00:45.156 align:middle
+Esto también importa un archivo CSS?
+
+00:00:45.686 --> 00:00:47.966 align:middle
+Si no has visto esto antes, puede parecer...
+
+00:00:47.966 --> 00:00:50.786 align:middle
+extraño: ¿JavaScript importando CSS?
+
+00:00:51.766 --> 00:00:56.536 align:middle
+Para ver cómo funciona todo esto,
+en app.js, añade un console.log().
+
+00:00:58.106 --> 00:01:01.116 align:middle
+Y app.css ya tiene un fondo de cuerpo...
+
+00:01:01.736 --> 00:01:06.966 align:middle
+pero añade un !important para que podamos
+ver definitivamente si se está cargando.
+
+00:01:07.976 --> 00:01:11.066 align:middle
+Vale... ¿entonces quién lee estos archivos?
+
+00:01:11.586 --> 00:01:12.026 align:middle
+Porque...
+
+00:01:12.136 --> 00:01:15.056 align:middle
+no viven en el directorio public/...
+
+00:01:15.336 --> 00:01:20.586 align:middle
+por lo que no podemos crear etiquetas script
+o link que apunten directamente a ellos.
+
+00:01:21.616 --> 00:01:25.376 align:middle
+Para responder a esto, abre webpack.config.js.
+
+00:01:26.176 --> 00:01:31.986 align:middle
+Webpack Encore es un binario ejecutable:
+vamos a ejecutarlo en un minuto.
+
+00:01:32.636 --> 00:01:36.796 align:middle
+Cuando lo hagamos, cargará este
+archivo para obtener su configuración.
+
+00:01:37.836 --> 00:01:43.556 align:middle
+Y aunque hay un montón de funciones dentro de
+Webpack, lo único en lo que tenemos que centrarnos
+
+00:01:43.556 --> 00:01:46.536 align:middle
+ahora es en esta: addEntry().
+
+00:01:47.426 --> 00:01:49.436 align:middle
+Este app puede ser cualquier cosa...
+
+00:01:49.646 --> 00:01:52.136 align:middle
+como dinosaur, no importa.
+
+00:01:52.616 --> 00:01:54.596 align:middle
+Te mostraré cómo se utiliza en un minuto.
+
+00:01:55.436 --> 00:02:00.846 align:middle
+Lo importante es que apunta
+al archivo assets/app.js.
+
+00:02:01.736 --> 00:02:08.946 align:middle
+Por ello, app.js será el primer y
+único archivo que Webpack analizará.
+
+00:02:09.396 --> 00:02:15.746 align:middle
+Esto es bastante bueno: Webpack leerá el
+archivo app.js y luego seguirá todas las
+
+00:02:15.746 --> 00:02:22.006 align:middle
+sentencias de import de forma recursiva hasta
+que finalmente tenga una colección gigante
+
+00:02:22.006 --> 00:02:25.926 align:middle
+de todo el JavaScript y el CSS
+que necesita nuestra aplicación.
+
+00:02:26.326 --> 00:02:30.076 align:middle
+Entonces, lo escribirá
+en el directorio public/.
+
+00:02:30.996 --> 00:02:32.156 align:middle
+Veámoslo en acción.
+
+00:02:32.436 --> 00:02:38.846 align:middle
+Busca tu terminal y ejecuta:
+yarn watch Esto es, como dice,
+
+00:02:39.126 --> 00:02:42.766 align:middle
+un atajo para ejecutar encore dev --watch.
+
+00:02:43.846 --> 00:02:49.226 align:middle
+Si miras tu archivo package.json, viene
+con una sección script con algunos atajos.
+
+00:02:51.306 --> 00:02:53.916 align:middle
+En cualquier caso, yarn watch hace dos cosas.
+
+00:02:54.296 --> 00:03:04.746 align:middle
+En primer lugar, crea un nuevo directorio
+public/build/ y, dentro, los archivos app.css y app.js
+
+00:03:05.376 --> 00:03:10.356 align:middle
+Pero no dejes que los nombres te
+engañen: app.js contiene mucho más
+
+00:03:10.356 --> 00:03:14.396 align:middle
+que lo que hay dentro de assets/app.js:
+
+00:03:14.966 --> 00:03:19.746 align:middle
+contiene todo el JavaScript de todas
+las importaciones que encuentra.
+
+00:03:20.476 --> 00:03:24.566 align:middle
+app.css contiene todo el CSS
+de todas las importaciones.
+
+00:03:25.516 --> 00:03:32.166 align:middle
+La razón por la que estos archivos se llaman
+app.css y app.js es por el nombre de la entrada.
+
+00:03:32.776 --> 00:03:38.046 align:middle
+Así que la conclusión es que, gracias a
+Encore, de repente tenemos nuevos archivos
+
+00:03:38.046 --> 00:03:45.356 align:middle
+en el directorio public/build/ que contienen todo el
+JavaScript y el CSS que necesita nuestra aplicación
+
+00:03:46.326 --> 00:03:50.236 align:middle
+Y si vas a tu página de
+inicio y la actualizas...
+
+00:03:50.756 --> 00:03:53.376 align:middle
+¡woh! Ha funcionado al instante!?
+
+00:03:54.146 --> 00:03:55.546 align:middle
+El fondo ha cambiado...
+
+00:03:55.826 --> 00:03:57.336 align:middle
+y en mi inspector...
+
+00:03:57.726 --> 00:03:59.366 align:middle
+¡está el registro de la consola!
+
+00:03:59.796 --> 00:04:01.416 align:middle
+¿Cómo diablos ha ocurrido eso?
+
+00:04:02.306 --> 00:04:07.276 align:middle
+Abre tu diseño base: templates/base.html.twig.
+
+00:04:08.016 --> 00:04:15.436 align:middle
+El secreto está en las funciones
+encore_entry_link_tags() y encore_entry_script_tags().
+
+00:04:16.266 --> 00:04:22.636 align:middle
+Apuesto a que puedes adivinar lo que hacen:
+añadir la etiqueta link a build/app.css
+
+00:04:22.846 --> 00:04:25.286 align:middle
+y la etiqueta script a build/app.js.
+
+00:04:25.286 --> 00:04:28.396 align:middle
+Puedes ver esto en tu navegador.
+
+00:04:28.756 --> 00:04:31.166 align:middle
+Mira la fuente de la página y...
+
+00:04:31.416 --> 00:04:35.486 align:middle
+¡sí! La etiqueta link para /build/app.css...
+
+00:04:35.716 --> 00:04:39.136 align:middle
+y la etiqueta script para /build/app.js.
+
+00:04:40.436 --> 00:04:43.726 align:middle
+Ah, pero también ha renderizado
+otras dos etiquetas script.
+
+00:04:44.286 --> 00:04:46.926 align:middle
+Eso es porque Webpack es muy inteligente. Por
+
+00:04:47.456 --> 00:04:53.166 align:middle
+motivos de rendimiento, en lugar de
+volcar un gigantesco archivo app.js,
+
+00:04:53.546 --> 00:04:58.396 align:middle
+a veces Webpack lo divide en
+varios archivos más pequeños.
+
+00:04:59.566 --> 00:05:04.266 align:middle
+Afortunadamente, estas funciones Twig de Encore son
+lo suficientemente inteligentes como para manejar eso:
+
+00:05:04.266 --> 00:05:08.476 align:middle
+incluirán todas las etiquetas de
+enlace o de script necesarias. Lo
+
+00:05:09.426 --> 00:05:15.606 align:middle
+más importante es que el código que
+tenemos en nuestro archivo assets/app.js
+
+00:05:16.076 --> 00:05:22.186 align:middle
+-incluyendo todo lo que importa- ¡ahora
+funciona y aparece en nuestra página!
+
+00:05:23.256 --> 00:05:27.206 align:middle
+Ah, y como hemos ejecutado yarn
+watch, Encore sigue funcionando
+
+00:05:27.206 --> 00:05:29.196 align:middle
+en segundo plano vigilando los cambios.
+
+00:05:29.196 --> 00:05:32.576 align:middle
+Compruébalo: entra en app.css...
+
+00:05:32.986 --> 00:05:34.896 align:middle
+y cambia el color de fondo.
+
+00:05:36.686 --> 00:05:39.066 align:middle
+Guarda, pasa y actualiza.
+
+00:05:39.246 --> 00:05:42.596 align:middle
+¡Se actualiza instantáneamente!
+
+00:05:43.266 --> 00:05:49.506 align:middle
+Eso es porque Encore se ha dado cuenta del cambio y
+ha recompilado el archivo construido muy rápidamente.
+
+00:05:50.906 --> 00:05:57.156 align:middle
+A continuación: vamos a trasladar nuestro CSS existente
+al nuevo sistema y a aprender cómo podemos instalar
+
+00:05:57.156 --> 00:06:00.926 align:middle
+e importar bibliotecas de
+terceros -mira Bootstrap
+
+00:06:00.926 --> 00:06:04.116 align:middle
+o FontAwesome- directamente en
+nuestra configuración de Encore

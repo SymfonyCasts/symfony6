@@ -1,0 +1,287 @@
+WEBVTT
+
+00:00:00.036 --> 00:00:05.516 align:middle
+Las clases de controlador de Symfony
+no necesitan extender una clase base.
+
+00:00:05.936 --> 00:00:10.076 align:middle
+Mientras tu función de controlador
+devuelva un objeto Response, a
+
+00:00:10.076 --> 00:00:13.426 align:middle
+Symfony no le importa el
+aspecto de tu controlador.
+
+00:00:13.926 --> 00:00:18.906 align:middle
+Pero normalmente, extenderás una
+clase llamada AbstractController.
+
+00:00:19.526 --> 00:00:23.276 align:middle
+¿Por qué? Porque nos da
+métodos de acceso directo.
+
+00:00:23.566 --> 00:00:28.516 align:middle
+Y el primer atajo es render(): el
+método para renderizar una plantilla.
+
+00:00:29.166 --> 00:00:32.926 align:middle
+Así que devuelve $this->render()
+y le pasa dos cosas.
+
+00:00:33.736 --> 00:00:35.896 align:middle
+La primera es el nombre de la plantilla.
+
+00:00:36.346 --> 00:00:40.296 align:middle
+¿Qué tal vinyl/homepage.html.twig.
+
+00:00:40.916 --> 00:00:45.606 align:middle
+No es necesario, pero es habitual tener
+un directorio con el mismo nombre que la
+
+00:00:45.606 --> 00:00:52.526 align:middle
+clase de tu controlador y un nombre de archivo igual
+al de tu método, pero puedes hacer lo que quieras.
+
+00:00:53.456 --> 00:00:59.176 align:middle
+El segundo argumento es una matriz con las
+variables que quieras pasar a la plantilla.
+
+00:01:00.006 --> 00:01:06.896 align:middle
+Vamos a pasar una variable llamada title y a ponerle
+el título de nuestra cinta de mezclas: "PB and Jams".
+
+00:01:08.576 --> 00:01:09.906 align:middle
+Hecho aquí.
+
+00:01:10.176 --> 00:01:11.876 align:middle
+Ah, pero, ¡dato sorpresa!
+
+00:01:12.206 --> 00:01:15.446 align:middle
+¿Qué crees que devuelve el método render()?
+
+00:01:16.286 --> 00:01:23.506 align:middle
+Sí, es lo que siempre repito: un controlador
+debe devolver siempre un objeto Response.
+
+00:01:23.926 --> 00:01:28.446 align:middle
+render() es sólo un atajo para renderizar
+una plantilla, obtener esa cadena
+
+00:01:28.576 --> 00:01:30.786 align:middle
+y ponerla en un objeto Response.
+
+00:01:31.186 --> 00:01:33.926 align:middle
+render() devuelve un Response.
+
+00:01:34.026 --> 00:01:37.136 align:middle
+Ya sabemos que, cuando
+renderizas una plantilla,
+
+00:01:37.356 --> 00:01:39.466 align:middle
+Twig busca en el directorio templates/.
+
+00:01:39.636 --> 00:01:42.586 align:middle
+Así que crea un nuevo subdirectorio vinyl/...
+
+00:01:43.056 --> 00:01:47.606 align:middle
+y dentro de éste, un archivo
+llamado homepage.html.twig.
+
+00:01:48.876 --> 00:01:53.956 align:middle
+Para empezar, añade un h1 y
+luego imprime la variable title
+
+00:01:54.006 --> 00:01:59.396 align:middle
+con una sintaxis especial de Twig: {{ title }}.
+
+00:01:59.476 --> 00:02:03.776 align:middle
+Y... Añadiré un texto TODO codificado.
+
+00:02:05.776 --> 00:02:07.816 align:middle
+¡Vamos a ver si esto funciona!
+
+00:02:08.486 --> 00:02:12.226 align:middle
+Estábamos trabajando en nuestra
+página web, así que ve allí y...
+
+00:02:12.546 --> 00:02:14.296 align:middle
+¡hola Twig!
+
+00:02:14.816 --> 00:02:19.556 align:middle
+Twig es una de las partes más bonitas de
+Symfony, y también una de las más fáciles.
+
+00:02:19.986 --> 00:02:22.356 align:middle
+Vamos a repasar todo lo que necesitas saber...
+
+00:02:22.536 --> 00:02:24.776 align:middle
+básicamente en los próximos diez minutos.
+
+00:02:25.556 --> 00:02:28.496 align:middle
+Twig tiene exactamente
+tres sintaxis diferentes.
+
+00:02:28.576 --> 00:02:31.336 align:middle
+Si necesitas imprimir algo, utiliza {{.
+
+00:02:31.336 --> 00:02:36.376 align:middle
+A esto lo llamo la sintaxis "decir algo".
+
+00:02:37.056 --> 00:02:42.226 align:middle
+Si digo {{ saySomething }} se imprimiría
+una variable llamada saySomething.
+
+00:02:42.776 --> 00:02:47.286 align:middle
+Una vez que estás dentro de Twig,
+se parece mucho a JavaScript.
+
+00:02:47.366 --> 00:02:53.796 align:middle
+Por ejemplo, si lo encierro entre comillas,
+ahora estoy imprimiendo la cadena saySomething.
+
+00:02:54.816 --> 00:02:56.166 align:middle
+Twig tiene funciones...
+
+00:02:56.946 --> 00:03:00.036 align:middle
+por lo que llamaría a la función
+e imprimiría el resultado.
+
+00:03:00.036 --> 00:03:08.666 align:middle
+Así que la sintaxis nº 1 -la de "decir
+algo"- es {{. La segunda sintaxis...
+
+00:03:08.696 --> 00:03:10.336 align:middle
+no cuenta realmente.
+
+00:03:10.526 --> 00:03:14.136 align:middle
+Es {# para crear un comentario...
+
+00:03:14.466 --> 00:03:17.236 align:middle
+y eso es todo.
+
+00:03:17.286 --> 00:03:21.966 align:middle
+La tercera y última sintaxis
+la llamo "hacer algo".
+
+00:03:22.186 --> 00:03:26.886 align:middle
+Esto es cuando no estás imprimiendo,
+estás haciendo algo en el lenguaje.
+
+00:03:27.446 --> 00:03:33.416 align:middle
+Ejemplos de "hacer algo" serían las sentencias if,
+los bucles for o la configuración de variables.
+
+00:03:34.146 --> 00:03:35.566 align:middle
+Probemos con un bucle for.
+
+00:03:36.256 --> 00:03:37.306 align:middle
+Vuelve al controlador.
+
+00:03:37.866 --> 00:03:40.486 align:middle
+Voy a pegar una lista de pistas...
+
+00:03:41.086 --> 00:03:46.346 align:middle
+y luego pasaré una variable tracks
+a la plantilla ajustada a esa lista.
+
+00:03:47.936 --> 00:03:51.106 align:middle
+Ahora, a diferencia de title,
+tracks es una matriz...
+
+00:03:51.426 --> 00:03:53.666 align:middle
+por lo que no podemos imprimirlo sin más.
+
+00:03:53.966 --> 00:03:55.566 align:middle
+Pero, ¡podemos intentarlo!
+
+00:03:57.076 --> 00:04:00.786 align:middle
+¡Ja! Eso nos da una
+conversión de matriz a cadena.
+
+00:04:01.406 --> 00:04:04.016 align:middle
+No, tenemos que hacer un
+bucle sobre las pistas.
+
+00:04:04.726 --> 00:04:06.726 align:middle
+Añade una cabecera y un ul.
+
+00:04:08.176 --> 00:04:16.206 align:middle
+Para hacer un bucle, utilizaremos la sintaxis
+"hacer algo", que es {% y luego la cosa que
+
+00:04:16.206 --> 00:04:19.876 align:middle
+quieras hacer, como for, if o set.
+
+00:04:22.436 --> 00:04:27.166 align:middle
+Te mostraré la lista completa de
+etiquetas "hacer algo" en un minuto.
+
+00:04:27.166 --> 00:04:33.986 align:middle
+Un bucle for tiene este aspecto: for track in tracks,
+donde pistas es la variable sobre la que hacemos el b ucle
+
+00:04:34.406 --> 00:04:37.556 align:middle
+y track será la variable dentro del bucle.
+
+00:04:37.556 --> 00:04:45.296 align:middle
+Después de esto, añade {% endfor %}: la mayoría de
+las etiquetas "hacer algo" tienen una etiqueta de fin.
+
+00:04:46.106 --> 00:04:51.836 align:middle
+Dentro del bucle, añade un li y luego utiliza
+la sintaxis de decir algo para imprimir track.
+
+00:04:53.036 --> 00:04:54.236 align:middle
+Cuando lo probemos...
+
+00:04:54.966 --> 00:04:58.056 align:middle
+¡qué bien! Pero vamos a
+ponernos más complicados. De
+
+00:04:58.286 --> 00:05:03.936 align:middle
+vuelta al controlador, en lugar de utilizar
+un simple array, lo reestructuraré
+
+00:05:03.936 --> 00:05:09.406 align:middle
+para que cada pista sea un array
+asociativo con las claves song y artist.
+
+00:05:11.536 --> 00:05:14.066 align:middle
+Pondré ese mismo cambio para el resto.
+
+00:05:15.216 --> 00:05:17.306 align:middle
+¿Qué ocurre si lo probamos?
+
+00:05:18.256 --> 00:05:21.536 align:middle
+Ah, volvemos a la conversión
+de "matriz a cadena".
+
+00:05:22.346 --> 00:05:26.106 align:middle
+Cuando hacemos un bucle, cada
+pista en sí es ahora un array.
+
+00:05:26.656 --> 00:05:30.076 align:middle
+¿Cómo podemos leer las claves song y artist?
+
+00:05:30.886 --> 00:05:34.656 align:middle
+¿Recuerdas cuando dije que Twig
+se parece mucho a JavaScript?
+
+00:05:35.316 --> 00:05:43.306 align:middle
+Pues bien, no debería sorprender que la
+respuesta sea track.song y track.artist.
+
+00:05:43.416 --> 00:05:48.956 align:middle
+Y... eso hace que nuestra lista funcione.
+
+00:05:49.946 --> 00:05:55.206 align:middle
+Ahora que ya tenemos los fundamentos
+de Tw ig, vamos a ver la lista completa
+
+00:05:55.206 --> 00:05:58.776 align:middle
+de etiquetas "hacer algo", a
+conocer los "filtros" de Twig
+
+00:05:59.066 --> 00:06:03.446 align:middle
+y abordar el importantísimo
+sistema de herencia de plantillas

@@ -1,0 +1,226 @@
+WEBVTT
+
+00:00:01.036 --> 00:00:02.946 align:middle
+¡Tenemos un nuevo comando de consola!
+
+00:00:03.286 --> 00:00:07.426 align:middle
+Pero... todavía no hace mucho,
+aparte de imprimir un mensaje.
+
+00:00:07.876 --> 00:00:09.656 align:middle
+Hagámoslo más elegante.
+
+00:00:10.016 --> 00:00:10.966 align:middle
+Desplázate hasta la parte superior.
+
+00:00:11.776 --> 00:00:15.826 align:middle
+Aquí es donde tenemos el nombre de nuestro
+comando, y también hay una descripción...
+
+00:00:16.086 --> 00:00:17.696 align:middle
+que aparece al lado del comando.
+
+00:00:18.446 --> 00:00:22.676 align:middle
+Permíteme cambiar el nuestro por Un
+comando autoconsciente que puede hacer...
+
+00:00:22.676 --> 00:00:23.716 align:middle
+sólo una cosa. Nuestro comando
+
+00:00:24.686 --> 00:00:30.116 align:middle
+se llama app:talk-to-me porque, cuando
+lo ejecutemos, quiero que sea posible
+
+00:00:30.116 --> 00:00:36.486 align:middle
+pasarle un nombre al comando -como Ryan-
+y entonces responderá con "¡Hola Ryan!".
+
+00:00:37.116 --> 00:00:43.386 align:middle
+Así que, literalmente, escribiremos bin/console
+app:talk-to-me ryan y nos responderá.
+
+00:00:44.116 --> 00:00:48.746 align:middle
+Cuando quieres pasar un valor a un
+comando, eso se conoce como argumento...
+
+00:00:49.246 --> 00:00:50.996 align:middle
+y éstos se configuran abajo en...
+
+00:00:50.996 --> 00:00:51.926 align:middle
+el método configure().
+
+00:00:52.716 --> 00:00:54.926 align:middle
+Ya hay un argumento llamado arg1...
+
+00:00:55.116 --> 00:00:57.116 align:middle
+así que vamos a cambiarlo por name.
+
+00:00:57.846 --> 00:01:03.226 align:middle
+Esta clave es completamente interna:
+nunca verás la palabra name
+
+00:01:03.336 --> 00:01:05.036 align:middle
+cuando utilices este comando.
+
+00:01:05.386 --> 00:01:09.496 align:middle
+Pero utilizaremos esta clave para leer el
+valor del argumento dentro de un minuto.
+
+00:01:10.216 --> 00:01:15.606 align:middle
+También podemos dar una descripción al argumento
+y, si quieres, puedes hacerla obligatoria.
+
+00:01:16.176 --> 00:01:17.796 align:middle
+Yo lo mantendré como opcional.
+
+00:01:18.716 --> 00:01:21.136 align:middle
+Lo siguiente que tenemos son las opciones.
+
+00:01:21.806 --> 00:01:23.196 align:middle
+Son como los argumentos...
+
+00:01:23.446 --> 00:01:27.026 align:middle
+salvo que empiezan con un
+-- cuando los utilizas.
+
+00:01:27.676 --> 00:01:34.306 align:middle
+Quiero tener una bandera opcional en la que podamos
+decir --yell para que el comando grite nuestro nombre.
+
+00:01:34.306 --> 00:01:40.916 align:middle
+En este caso, el nombre de la opción, yell,
+es importante: utilizaremos este nombre
+
+00:01:40.916 --> 00:01:43.966 align:middle
+cuando pasemos la opción en la
+línea de comandos para utilizar la.
+
+00:01:44.776 --> 00:01:49.176 align:middle
+El InputOption::VALUE_NONE significa
+que nuestra bandera será simplemente
+
+00:01:49.776 --> 00:01:54.106 align:middle
+--yell y no --yell= algún valor.
+
+00:01:54.756 --> 00:01:59.216 align:middle
+Si tu opción acepta un
+valor, lo cambiarías por
+
+00:02:00.156 --> 00:02:02.106 align:middle
+VALUE_REQUIRED. Por último, dale una
+
+00:02:03.636 --> 00:02:04.286 align:middle
+descripción.
+
+00:02:04.816 --> 00:02:07.576 align:middle
+¡Precioso! Todavía no vamos a
+utilizar este argumento y esta opción..
+
+00:02:08.006 --> 00:02:10.966 align:middle
+. pero ya podemos volver a
+ejecutar nuestro comando con
+
+00:02:11.206 --> 00:02:14.636 align:middle
+la opción --help: php
+bin/console app:talk-to-me --help
+
+00:02:14.636 --> 00:02:19.736 align:middle
+Y... ¡impresionante! Vemos la descripción
+
+00:02:20.046 --> 00:02:25.016 align:middle
+aquí arriba... junto con algunos detalles sobre
+cómo utilizar el argumento y la opción --yell.
+
+00:02:25.916 --> 00:02:30.206 align:middle
+Cuando llamemos a nuestro comando, de
+forma muy sencilla, Symfony llamará a
+
+00:02:30.706 --> 00:02:32.746 align:middle
+execute()... que es donde
+empieza la diversión.
+
+00:02:33.346 --> 00:02:36.176 align:middle
+Dentro, podemos hacer lo que
+
+00:02:36.716 --> 00:02:39.566 align:middle
+queramos. Nos pasa dos argumentos: $input y
+
+00:02:40.416 --> 00:02:45.636 align:middle
+$output. Si quieres leer alguna entrada, como
+el argumento name o la opción yell, utiliza
+
+00:02:46.276 --> 00:02:49.366 align:middle
+$input. Y si quieres dar salida a algo, utiliza
+
+00:02:50.216 --> 00:02:56.526 align:middle
+$output. Pero en Symfony, normalmente metemos
+estas dos cosas en otro objeto llamado
+
+00:02:57.276 --> 00:03:00.216 align:middle
+SymfonyStyle. Esta clase de ayuda
+hace que la lectura y la salida sean
+
+00:03:00.406 --> 00:03:01.666 align:middle
+más fáciles... y
+
+00:03:02.456 --> 00:03:06.896 align:middle
+más elegantes. Bien:
+empecemos diciendo $name =
+
+00:03:07.776 --> 00:03:11.556 align:middle
+$input->getArgument('name'). Si no tenemos
+un nombre, lo pondré por defecto en whoever you
+
+00:03:12.506 --> 00:03:17.226 align:middle
+are. A continuación, lee
+la opción: $shouldYell =
+
+00:03:18.256 --> 00:03:22.216 align:middle
+$input->getOption('yell'): Genial. Despejemos
+esto de aquí abajo y empecemos nuestro
+
+00:03:22.916 --> 00:03:27.216 align:middle
+mensaje: $message = sprintf('Hey %s!',
+
+00:03:28.246 --> 00:03:34.616 align:middle
+$name). Luego, si queremos gritar,
+ya sabes qué hacer: $message =
+
+00:03:35.556 --> 00:03:40.156 align:middle
+strtoupper($message). Abajo , utiliza
+$io->success() y pon el mensaje
+
+00:03:40.906 --> 00:03:46.386 align:middle
+ahí. Este es uno de los muchos métodos de ayuda de
+la clase SymfonyStyle que ayudan a dar formato a tu
+
+00:03:47.116 --> 00:03:51.516 align:middle
+salida. También está $io->warning(),
+$io->note(), y varios
+
+00:03:52.276 --> 00:03:52.776 align:middle
+más. Vamos a probarlo
+
+00:03:53.246 --> 00:03:58.156 align:middle
+. Gira y ejecuta: php
+bin/console app:talk-to-me ryan
+
+00:03:58.576 --> 00:03:59.836 align:middle
+Y... ¡oh, hola
+
+00:04:00.396 --> 00:04:03.606 align:middle
+! Si gritamos: ¡Eso también funciona
+
+00:04:04.326 --> 00:04:07.626 align:middle
+! Incluso podemos gritar
+a "quienquiera que sea":
+
+00:04:08.376 --> 00:04:09.856 align:middle
+¡Impresionante! Pero pongámonos
+
+00:04:10.276 --> 00:04:15.686 align:middle
+más locos... autocableando un servicio y haciendo una pregunta de
+forma interactiva en la línea de comandos . Eso a continuación...
+
+00:04:17.276 --> 00:04:19.046 align:middle
+y es lo último

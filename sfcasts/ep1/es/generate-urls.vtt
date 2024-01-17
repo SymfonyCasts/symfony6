@@ -1,0 +1,400 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:03.706 align:middle
+Hay dos formas diferentes de
+interactuar con nuestra aplicación.
+
+00:00:04.516 --> 00:00:06.826 align:middle
+La primera es a través del servidor web...
+
+00:00:07.296 --> 00:00:09.016 align:middle
+¡y eso es lo que hemos hecho!
+
+00:00:09.526 --> 00:00:11.706 align:middle
+Llegamos a una URL y...
+
+00:00:11.706 --> 00:00:17.556 align:middle
+entre bastidores, se ejecuta
+public/index.php, que arranca Symfony,
+
+00:00:17.726 --> 00:00:20.276 align:middle
+llama al enrutamiento y
+ejecuta nuestro controlador.
+
+00:00:21.556 --> 00:00:24.986 align:middle
+¿Cuál es la segunda forma de
+interactuar con nuestra aplicación?
+
+00:00:25.456 --> 00:00:31.216 align:middle
+Todavía no la hemos visto: es a través de una
+herramienta de línea de comandos llamada bin/console.
+
+00:00:32.246 --> 00:00:35.606 align:middle
+En tu terminal ejecuta: php bin/console...
+
+00:00:35.696 --> 00:00:39.626 align:middle
+para ver un montón de
+comandos dentro de este script.
+
+00:00:40.526 --> 00:00:41.976 align:middle
+Me encanta esta cosa. Está
+
+00:00:42.736 --> 00:00:48.346 align:middle
+lleno de cosas que nos ayudan a depurar, eventualmente
+tendrá comandos de generación de código,
+
+00:00:48.676 --> 00:00:51.916 align:middle
+comandos para establecer secretos:
+todo tipo de cosas buenas
+
+00:00:51.916 --> 00:00:54.316 align:middle
+que vamos a descubrir poco a poco.
+
+00:00:55.136 --> 00:00:57.276 align:middle
+Pero quiero señalar que...
+
+00:00:57.336 --> 00:01:01.286 align:middle
+¡no hay nada especial en
+este script de bin/console!
+
+00:01:01.866 --> 00:01:08.516 align:middle
+Es sólo un archivo: hay literalmente un
+directorio bin/ con un archivo console dentro.
+
+00:01:09.176 --> 00:01:14.756 align:middle
+Probablemente nunca necesitarás abrir este
+archivo ni pensar en él, pero es útil.
+
+00:01:15.446 --> 00:01:18.416 align:middle
+Ah, y en la mayoría de los sistemas,
+puedes simplemente ejecutar: ./bin/console
+
+00:01:18.416 --> 00:01:19.596 align:middle
+... que se
+
+00:01:19.706 --> 00:01:20.856 align:middle
+ve mejor. O
+
+00:01:21.576 --> 00:01:24.606 align:middle
+a veces puedes ver que ejecute:
+symfony console. .. que no es
+
+00:01:24.816 --> 00:01:28.286 align:middle
+más que otra forma de ejecutar este archivo.
+
+00:01:29.176 --> 00:01:31.876 align:middle
+Hablaremos más de esto
+en un futuro tutorial. El
+
+00:01:33.046 --> 00:01:43.096 align:middle
+primer comando que quiero comprobar dentro de
+bin/console es debug:router: Esto es impresionante.
+
+00:01:43.546 --> 00:01:51.506 align:middle
+Nos muestra todas las rutas de nuestra aplicación,
+como nuestras dos rutas de / y /browse/{slug}. ¿Qué
+
+00:01:52.486 --> 00:01:54.316 align:middle
+son estas otras rutas? Proceden
+
+00:01:55.296 --> 00:01:59.176 align:middle
+de la barra de herramientas de depuración
+web y del sistema de perfilado... y
+
+00:01:59.496 --> 00:02:02.576 align:middle
+sólo están aquí mientras
+desarrollamos localmente. Vale,
+
+00:02:03.846 --> 00:02:05.286 align:middle
+de vuelta a nuestro sitio.... en la
+
+00:02:05.696 --> 00:02:10.106 align:middle
+parte superior de la página,
+tenemos dos enlaces no funcionales a
+
+00:02:10.166 --> 00:02:12.356 align:middle
+la página de inicio y a la
+página de navegación. Vamos a
+
+00:02:12.826 --> 00:02:13.966 align:middle
+conectarlos. Abre
+
+00:02:15.316 --> 00:02:18.046 align:middle
+templates/ base.html.twig ... y busca las
+
+00:02:18.306 --> 00:02:20.406 align:middle
+etiquetas a. Ya
+
+00:02:21.836 --> 00:02:22.266 align:middle
+está. Así que
+
+00:02:22.866 --> 00:02:28.686 align:middle
+sería muy fácil hacer que esto
+funcionara con sólo href="/". Pero
+
+00:02:29.456 --> 00:02:32.846 align:middle
+en lugar de eso, cada vez que enlacemos
+una página en Symfony, vamos a
+
+00:02:33.086 --> 00:02:38.106 align:middle
+pedir al sistema de enrutamiento
+que nos genere una URL.
+
+00:02:38.836 --> 00:02:46.076 align:middle
+Diremos Por favor, genera la URL de la ruta de la página de
+inicio, o de la ruta de la página de navegación. Entonces,
+
+00:02:46.826 --> 00:02:53.526 align:middle
+si alguna vez cambiamos la URL de una ruta, todos
+nuestros enlaces se actualizarán al instante. Mágico.
+
+00:02:54.346 --> 00:02:57.636 align:middle
+Empecemos por la página de inicio. ¿Cómo
+
+00:02:58.136 --> 00:03:02.036 align:middle
+le pedimos a Symfony que genere
+una URL para esta ruta? Bueno
+
+00:03:02.926 --> 00:03:06.736 align:middle
+, primero tenemos que dar un
+nombre a la ruta. ¡Sorpresa!
+
+00:03:07.346 --> 00:03:11.626 align:middle
+Cada ruta tiene un nombre interno.
+
+00:03:11.626 --> 00:03:14.536 align:middle
+Puedes verlo en debug:router. Nuestras rutas
+
+00:03:15.946 --> 00:03:20.146 align:middle
+se llaman app_vinyl_homepage
+y app_vinyl_browse. Huh,
+
+00:03:20.516 --> 00:03:25.046 align:middle
+esos son los nombres exactos de mis tortugas
+mascota cuando era niño. ¿De dónde
+
+00:03:26.256 --> 00:03:28.066 align:middle
+vienen estos nombres? Por
+
+00:03:28.546 --> 00:03:34.016 align:middle
+defecto, Symfony nos genera automáticamente
+un nombre, lo cual está bien. El nombre no se
+
+00:03:34.346 --> 00:03:38.836 align:middle
+utiliza en absoluto hasta que
+generamos una URL con él. Y en cuanto
+
+00:03:39.406 --> 00:03:42.976 align:middle
+necesitemos generar una URL a una ruta,
+
+00:03:43.336 --> 00:03:46.596 align:middle
+recomiendo encarecidamente tomar
+el control de este nombre...
+
+00:03:46.926 --> 00:03:50.156 align:middle
+para asegurarnos de que nunca
+cambie accidentalmente. Para ello
+
+00:03:51.216 --> 00:03:58.776 align:middle
+, busca la ruta y añade un argumento:
+name ajustado a, qué tal, app_homepage.
+
+00:03:59.946 --> 00:04:05.906 align:middle
+Me gusta utilizar el prefijo app_: facilita la búsqueda
+del nombre de la ruta más adelante. Por cierto, los
+
+00:04:06.566 --> 00:04:10.936 align:middle
+atributos de PHP 8 -como
+este atributo Route - están
+
+00:04:11.076 --> 00:04:15.586 align:middle
+representados por clases
+PHP reales y físicas. Si
+
+00:04:16.406 --> 00:04:20.666 align:middle
+mantienes pulsado command o ctrl,
+puedes abrirlo y mirar dentro. Esto
+
+00:04:21.556 --> 00:04:25.426 align:middle
+es genial: el método
+__construct() muestra todas las
+
+00:04:25.426 --> 00:04:28.236 align:middle
+diferentes opciones que
+puedes pasar al atributo. Por
+
+00:04:29.176 --> 00:04:31.866 align:middle
+ejemplo, hay un argumento name... y
+
+00:04:32.156 --> 00:04:38.476 align:middle
+entonces estamos utilizando la sintaxis de argumentos
+con nombre de PHP para pasar esto al atributo. Abrir
+
+00:04:39.466 --> 00:04:43.556 align:middle
+un atributo es una buena manera de
+conocer sus opciones. De todos modos,
+
+00:04:44.576 --> 00:04:48.316 align:middle
+ahora que le hemos dado un nombre,
+vuelve a nuestro terminal y
+
+00:04:48.316 --> 00:04:52.016 align:middle
+ejecuta de nuevo debug:router:
+Esta vez... ¡sí!
+
+00:04:52.386 --> 00:04:55.996 align:middle
+¡La ruta se llama app_homepage! Cópialo
+
+00:04:56.886 --> 00:05:00.266 align:middle
+y vuelve a base.html.twig. Para
+
+00:05:01.416 --> 00:05:06.896 align:middle
+generar una URL dentro de Tw ig , di
+{{ -porque vamos a imprimir algo- y
+
+00:05:07.166 --> 00:05:10.506 align:middle
+utiliza una función Tw
+ig llamada path(). Pásale
+
+00:05:12.316 --> 00:05:14.136 align:middle
+el nombre de la ruta. Ya está
+
+00:05:15.086 --> 00:05:16.866 align:middle
+Actualiza... ¡y
+
+00:05:19.106 --> 00:05:22.516 align:middle
+el enlace de aquí arriba funciona! Falta un
+
+00:05:23.136 --> 00:05:24.496 align:middle
+enlace más.
+
+00:05:25.406 --> 00:05:30.566 align:middle
+Ya conocemos el primer paso: dar
+un nombre a la ruta. Así que
+
+00:05:30.566 --> 00:05:34.396 align:middle
+name: y, qué tal, app_browse. Copia
+
+00:05:35.396 --> 00:05:37.546 align:middle
+eso, y... desplázate
+
+00:05:37.546 --> 00:05:38.496 align:middle
+un poco hacia abajo. Aquí
+
+00:05:38.496 --> 00:05:42.926 align:middle
+está: "Examinar mezclas".
+
+00:05:43.286 --> 00:05:46.966 align:middle
+Cámbialo por {{ path('app_browse') }}. Y
+
+00:05:50.486 --> 00:05:51.646 align:middle
+ahora... ¡ese
+
+00:05:52.146 --> 00:05:53.836 align:middle
+enlace también funciona! Ah,
+
+00:05:54.696 --> 00:06:01.796 align:middle
+pero en esta página tenemos algunos enlaces rápidos para
+ir a la página de exploración de un género concreto. Y
+
+00:06:02.266 --> 00:06:04.086 align:middle
+éstos aún no funcionan. Esto
+
+00:06:04.746 --> 00:06:06.166 align:middle
+es interesante.
+
+00:06:06.606 --> 00:06:09.386 align:middle
+Queremos generar una URL como antes... pero
+
+00:06:09.646 --> 00:06:15.306 align:middle
+esta vez tenemos que pasar
+algo al comodín {slug}. Abre
+
+00:06:16.536 --> 00:06:18.576 align:middle
+browse.html.twig . Así es
+
+00:06:19.076 --> 00:06:20.526 align:middle
+como lo hacemos. La
+
+00:06:21.346 --> 00:06:27.106 align:middle
+primera parte es la misma: {{ path() }} y
+luego el nombre de la ruta: app_browse. Si
+
+00:06:28.406 --> 00:06:31.616 align:middle
+nos detuviéramos aquí,
+se generaría /browse. Para
+
+00:06:32.066 --> 00:06:37.856 align:middle
+pasar valores a cualquier comodín de una
+ruta, path() tiene un segundo argumento: una
+
+00:06:38.466 --> 00:06:41.596 align:middle
+matriz asociativa de esos valores. Y,
+
+00:06:42.176 --> 00:06:49.846 align:middle
+de nuevo, al igual que en JavaScript, para crear
+una "matriz asociativa", utilizas { y } . Voy a
+
+00:06:49.846 --> 00:06:55.086 align:middle
+pulsar intro para dividir esto
+en varias líneas... sólo
+
+00:06:55.266 --> 00:06:56.676 align:middle
+para mantener las cosas legibles. Dentro
+
+00:06:57.416 --> 00:07:00.376 align:middle
+añade una clave slug a la matriz... y
+
+00:07:01.046 --> 00:07:04.346 align:middle
+como este es el género
+"Pop", ponla en pop. ¡Genial!
+
+00:07:05.396 --> 00:07:11.376 align:middle
+Repitamos esto dos veces más: {{
+path('app_browse') }} pasar las
+
+00:07:11.896 --> 00:07:17.236 align:middle
+llaves para un array asociativo,
+con slug fijado en rock. Y
+
+00:07:18.526 --> 00:07:20.756 align:middle
+luego una vez más aquí abajo... que
+
+00:07:21.046 --> 00:07:23.376 align:middle
+haré muy rápidamente. ¡ Vamos a
+
+00:07:23.446 --> 00:07:27.226 align:middle
+ver si funciona! Actualiza.
+
+00:07:27.846 --> 00:07:29.136 align:middle
+Ah! La variable
+
+00:07:29.746 --> 00:07:31.646 align:middle
+rock no existe.
+
+00:07:32.186 --> 00:07:34.176 align:middle
+Seguro que alguno de vosotros
+me ha visto hacer eso. Me
+
+00:07:34.796 --> 00:07:37.896 align:middle
+olvidé de las comillas, así que
+esto parece una variable. Inténtalo
+
+00:07:39.806 --> 00:07:40.426 align:middle
+de nuevo. Ya está.
+
+00:07:41.806 --> 00:07:42.846 align:middle
+Y
+
+00:07:43.446 --> 00:07:44.526 align:middle
+prueba los enlaces... ¡sí!
+
+00:07:45.236 --> 00:07:46.766 align:middle
+¡Funcionan! A continuación:
+
+00:07:47.876 --> 00:07:51.146 align:middle
+hemos creado dos páginas HTML. Ahora vamos a
+
+00:07:51.566 --> 00:07:56.006 align:middle
+ver cómo queda la creación
+de una ruta de la API JSON
