@@ -1,0 +1,29 @@
+diff --git a/config/packages/monolog.yaml b/config/packages/monolog.yaml
+index 8c9efa9..9db7d8a 100644
+--- a/config/packages/monolog.yaml
++++ b/config/packages/monolog.yaml
+@@ -59,3 +59,4 @@ when@prod:
+                 type: stream
+                 channels: [deprecation]
+                 path: php://stderr
++                formatter: monolog.formatter.json
+diff --git a/symfony.lock b/symfony.lock
+index eda757e..862a7b0 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -214,12 +214,12 @@
+         "version": "v6.0.3"
+     },
+     "symfony/monolog-bundle": {
+-        "version": "3.7",
++        "version": "3.10",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+-            "branch": "master",
++            "branch": "main",
+             "version": "3.7",
+-            "ref": "213676c4ec929f046dfde5ea8e97625b81bc0578"
++            "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
+         },
+         "files": [
+             "config/packages/monolog.yaml"

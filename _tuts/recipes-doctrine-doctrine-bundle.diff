@@ -1,5 +1,5 @@
 diff --git a/.env b/.env
-index 19cd959..e922aaa 100644
+index 19cd959..19a0b35 100644
 --- a/.env
 +++ b/.env
 @@ -24,6 +24,7 @@ APP_SECRET=4777a99cd6c61ce84969bd1338737c38
@@ -10,10 +10,10 @@ index 19cd959..e922aaa 100644
 -DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
 +# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"
 +# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
-+DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=15&charset=utf8"
++DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=16&charset=utf8"
  ###< doctrine/doctrine-bundle ###
 diff --git a/config/packages/doctrine.yaml b/config/packages/doctrine.yaml
-index 9a18675..59de692 100644
+index 9a18675..f8bc722 100644
 --- a/config/packages/doctrine.yaml
 +++ b/config/packages/doctrine.yaml
 @@ -4,13 +4,18 @@ doctrine:
@@ -21,7 +21,7 @@ index 9a18675..59de692 100644
          # IMPORTANT: You MUST configure your server version,
          # either here or in the DATABASE_URL env var (see .env file)
 -        server_version: '13'
-+        server_version: '15'
++        server_version: '16'
 +        profiling_collect_backtrace: '%kernel.debug%'
      orm:
          auto_generate_proxy_classes: true
@@ -45,7 +45,7 @@ index 9a18675..59de692 100644
                  type: pool
                  pool: doctrine.system_cache_pool
 diff --git a/docker-compose.yml b/docker-compose.yml
-index a80a8cf..1067b9c 100644
+index a80a8cf..1abf6c6 100644
 --- a/docker-compose.yml
 +++ b/docker-compose.yml
 @@ -3,19 +3,19 @@ version: '3'
@@ -53,7 +53,7 @@ index a80a8cf..1067b9c 100644
  ###> doctrine/doctrine-bundle ###
    database:
 -    image: postgres:${POSTGRES_VERSION:-13}-alpine
-+    image: postgres:${POSTGRES_VERSION:-15}-alpine
++    image: postgres:${POSTGRES_VERSION:-16}-alpine
      environment:
        POSTGRES_DB: ${POSTGRES_DB:-app}
        # You should definitely change the password in production
@@ -74,7 +74,7 @@ index a80a8cf..1067b9c 100644
 +  database_data:
  ###< doctrine/doctrine-bundle ###
 diff --git a/symfony.lock b/symfony.lock
-index 24f2a78..edbded8 100644
+index 24f2a78..3814b09 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -12,12 +12,12 @@
@@ -89,7 +89,7 @@ index 24f2a78..edbded8 100644
 -            "version": "2.4",
 -            "ref": "ddddd8249dd55bbda16fa7a45bb7499ef6f8e90e"
 +            "version": "2.10",
-+            "ref": "0b4a11ee7e60b36227502ed26874edd7e8b66353"
++            "ref": "310a02a22033e35640468f48ff6bf31a25891537"
          },
          "files": [
              "config/packages/doctrine.yaml",

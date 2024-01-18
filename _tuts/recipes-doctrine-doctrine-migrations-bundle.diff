@@ -9,7 +9,7 @@ index a0a17a0..29231d9 100644
 -    enable_profiler: '%kernel.debug%'
 +    enable_profiler: false
 diff --git a/symfony.lock b/symfony.lock
-index edbded8..043233f 100644
+index 3814b09..449a954 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -38,12 +38,12 @@

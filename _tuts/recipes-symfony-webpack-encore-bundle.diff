@@ -47,7 +47,7 @@ index 9b68411..02bbfc2 100644
      },
      "license": "UNLICENSED",
 diff --git a/symfony.lock b/symfony.lock
-index 99d7cba..2a2f34e 100644
+index 674268a..d3b7e39 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -323,12 +323,12 @@

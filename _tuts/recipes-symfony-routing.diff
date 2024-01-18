@@ -10,7 +10,7 @@ index 9286e81..41ef814 100644
 +        namespace: App\Controller
      type: attribute
 diff --git a/symfony.lock b/symfony.lock
-index 7a5ab4e..f26ced9 100644
+index 862a7b0..550b41d 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -235,12 +235,12 @@

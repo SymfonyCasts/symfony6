@@ -12,7 +12,7 @@ index 7db77b2..74561b0 100644
  
      # Enables session support. Note that the session will ONLY be started if you read or write from it.
 diff --git a/symfony.lock b/symfony.lock
-index 03a3e48..745089b 100644
+index 8374037..8bf97ff 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -159,12 +159,12 @@

@@ -21,7 +21,7 @@ index 51181fd..7db77b2 100644
      #esi: true
      #fragments: true
 diff --git a/symfony.lock b/symfony.lock
-index 043233f..7a5ab4e 100644
+index 449a954..eda757e 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -171,12 +171,12 @@

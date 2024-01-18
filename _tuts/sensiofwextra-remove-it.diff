@@ -130,7 +130,7 @@ index 1821ccc..0000000
 -    router:
 -        annotations: false
 diff --git a/symfony.lock b/symfony.lock
-index 9c362a0..03a3e48 100644
+index 820af21..8374037 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -74,18 +74,6 @@

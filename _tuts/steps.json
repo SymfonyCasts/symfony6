@@ -31,6 +31,11 @@
             "description": null
         },
         {
+            "id": "recipes-symfony-monolog-bundle",
+            "name": "Recipes: symfony\/monolog-bundle",
+            "description": null
+        },
+        {
             "id": "recipes-symfony-routing",
             "name": "Recipes: symfony\/routing",
             "description": null
@@ -251,5 +256,5 @@
             "description": null
         }
     ],
-    "sha": "7d052f076aea16bf1bc64f472cb466b2c8e3dc51"
+    "sha": "83ee1fc1f2bdfd4a9fdeba7025dc4dc1b942f1fb"
 }

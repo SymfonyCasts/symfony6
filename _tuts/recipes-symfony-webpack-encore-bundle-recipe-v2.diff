@@ -1,5 +1,5 @@
 diff --git a/symfony.lock b/symfony.lock
-index 57f5e90..9c362a0 100644
+index eb638e1..820af21 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -328,18 +328,15 @@
