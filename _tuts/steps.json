@@ -111,6 +111,11 @@
             "description": null
         },
         {
+            "id": "upgrade-7-routing-recipe-7-0",
+            "name": "Upgrade 7: routing recipe 7.0",
+            "description": null
+        },
+        {
             "id": "upgrade-7-change-to-attribute-route-use",
             "name": "Upgrade 7: Change to attribute Route use",
             "description": null
@@ -256,5 +261,5 @@
             "description": null
         }
     ],
-    "sha": "83ee1fc1f2bdfd4a9fdeba7025dc4dc1b942f1fb"
+    "sha": "9f3506d1dc1c59f15777dbd915b365dd0e1a0c42"
 }

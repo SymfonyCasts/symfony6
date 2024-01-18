@@ -220,7 +220,7 @@ index 02bbfc2..0000000
 -    }
 -}
 diff --git a/symfony.lock b/symfony.lock
-index 8bf97ff..d1b8874 100644
+index 0db2e93..c4d9a21 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -315,22 +315,6 @@

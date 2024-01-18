@@ -1,0 +1,32 @@
+diff --git a/config/packages/routing.yaml b/config/packages/routing.yaml
+index 4b766ce..8166181 100644
+--- a/config/packages/routing.yaml
++++ b/config/packages/routing.yaml
+@@ -1,7 +1,5 @@
+ framework:
+     router:
+-        utf8: true
+-
+         # Configure how to generate URLs in non-HTTP contexts, such as CLI commands.
+         # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
+         #default_uri: http://localhost
+diff --git a/symfony.lock b/symfony.lock
+index 4c608ea..0db2e93 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -223,12 +223,12 @@
+         "version": "v1.24.0"
+     },
+     "symfony/routing": {
+-        "version": "6.4",
++        "version": "7.0",
+         "recipe": {
+             "repo": "github.com/symfony/recipes",
+             "branch": "main",
+-            "version": "6.2",
+-            "ref": "e0a11b4ccb8c9e70b574ff5ad3dfdcd41dec5aa6"
++            "version": "7.0",
++            "ref": "21b72649d5622d8f7da329ffb5afb232a023619d"
+         },
+         "files": [
+             "config/packages/routing.yaml",

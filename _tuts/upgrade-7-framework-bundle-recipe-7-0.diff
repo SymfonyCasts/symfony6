@@ -1,18 +1,33 @@
 diff --git a/config/packages/framework.yaml b/config/packages/framework.yaml
-index 7db77b2..74561b0 100644
+index 7db77b2..c61349d 100644
 --- a/config/packages/framework.yaml
 +++ b/config/packages/framework.yaml
-@@ -2,8 +2,6 @@
+@@ -2,21 +2,12 @@
  framework:
      secret: '%env(APP_SECRET)%'
      #csrf_protection: true
 -    annotations: false
 -    http_method_override: false
-     handle_all_throwables: true
+-    handle_all_throwables: true
  
-     # Enables session support. Note that the session will ONLY be started if you read or write from it.
+-    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+-    # Remove or comment this section to explicitly disable session support.
+-    session:
+-        handler_id: null
+-        cookie_secure: auto
+-        cookie_samesite: lax
++    # Note that the session will be started ONLY if you read or write from it.
++    session: true
+ 
+     #esi: true
+     #fragments: true
+-    php_errors:
+-        log: true
+ 
+     http_client:
+         scoped_clients:
 diff --git a/symfony.lock b/symfony.lock
-index 8374037..8bf97ff 100644
+index 8374037..4c608ea 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -159,12 +159,12 @@
@@ -27,7 +42,7 @@ index 8374037..8bf97ff 100644
 -            "version": "6.4",
 -            "ref": "a91c965766ad3ff2ae15981801643330eb42b6a5"
 +            "version": "7.0",
-+            "ref": "de6e1b3e2bbbe69e36262d72c3f3db858b1ab391"
++            "ref": "6356c19b9ae08e7763e4ba2d9ae63043efc75db5"
          },
          "files": [
              "config/packages/cache.yaml",
