@@ -244,11 +244,6 @@
             "id": "scheduler-add-cache",
             "name": "Scheduler: Add cache",
             "description": null
-        },
-        {
-            "id": "delete-me-1",
-            "name": "delete me 1",
-            "description": null
         }
     ],
     "sha": "c896a8da20f65017858790e9a9d422489a43ea54"
