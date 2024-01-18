@@ -121,6 +121,11 @@
             "description": null
         },
         {
+            "id": "assetmapper-updating-readme",
+            "name": "AssetMapper: Updating README",
+            "description": null
+        },
+        {
             "id": "assetmapper-importmap-require-bootstrap",
             "name": "AssetMapper: importmap:require bootstrap",
             "description": null
@@ -246,5 +251,5 @@
             "description": null
         }
     ],
-    "sha": "4b47671c4b956ec8a8e36488a10f360806600d3f"
+    "sha": "3b16b38cb0e3176b674780b671baa5c02c1e7d32"
 }
