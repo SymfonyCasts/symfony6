@@ -1,0 +1,37 @@
+diff --git a/src/Message/LogHello.php b/src/Message/LogHello.php
+index 16991b0..06dbc4c 100644
+--- a/src/Message/LogHello.php
++++ b/src/Message/LogHello.php
+@@ -4,7 +4,7 @@ namespace App\Message;
+ 
+ final class LogHello
+ {
+-    public function __construct()
++    public function __construct(public string $length)
+     {
+     }
+ }
+diff --git a/src/MessageHandler/LogHelloHandler.php b/src/MessageHandler/LogHelloHandler.php
+index 415d07a..49975a0 100644
+--- a/src/MessageHandler/LogHelloHandler.php
++++ b/src/MessageHandler/LogHelloHandler.php
+@@ -3,16 +3,18 @@
+ namespace App\MessageHandler;
+ 
+ use App\Message\LogHello;
++use Psr\Log\LoggerInterface;
+ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+ 
+ #[AsMessageHandler]
+ final class LogHelloHandler
+ {
+-    public function __construct()
++    public function __construct(private LoggerInterface $logger)
+     {
+     }
+ 
+     public function __invoke(LogHello $message)
+     {
++        $this->logger->warning($message->length);
+     }
+ }

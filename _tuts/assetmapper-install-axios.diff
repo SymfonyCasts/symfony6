@@ -1,0 +1,12 @@
+diff --git a/importmap.php b/importmap.php
+index d631591..dde3c13 100644
+--- a/importmap.php
++++ b/importmap.php
+@@ -45,4 +45,7 @@ return [
+         'version' => '5.0.1',
+         'type' => 'css',
+     ],
++    'axios' => [
++        'version' => '1.6.5',
++    ],
+ ];

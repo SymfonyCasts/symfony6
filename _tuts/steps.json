@@ -99,7 +99,157 @@
             "id": "upgrade-7-commit-composer-lock",
             "name": "Upgrade 7: commit composer.lock",
             "description": null
+        },
+        {
+            "id": "upgrade-7-framework-bundle-recipe-7-0",
+            "name": "Upgrade 7: framework-bundle recipe 7.0",
+            "description": null
+        },
+        {
+            "id": "upgrade-7-change-to-attribute-route-use",
+            "name": "Upgrade 7: Change to attribute Route use",
+            "description": null
+        },
+        {
+            "id": "assetmapper-remove-encore",
+            "name": "AssetMapper: Remove encore",
+            "description": null
+        },
+        {
+            "id": "assetmapper-install-it",
+            "name": "AssetMapper: Install it",
+            "description": null
+        },
+        {
+            "id": "assetmapper-importmap-require-bootstrap",
+            "name": "AssetMapper: importmap:require bootstrap",
+            "description": null
+        },
+        {
+            "id": "assetmapper-import-bootstrap-min-css",
+            "name": "AssetMapper: import bootstrap.min.css",
+            "description": null
+        },
+        {
+            "id": "assetmapper-import-font-awesome-css",
+            "name": "AssetMapper: Import font awesome CSS",
+            "description": null
+        },
+        {
+            "id": "assetmapper-roboto-font",
+            "name": "AssetMapper: Roboto font",
+            "description": null
+        },
+        {
+            "id": "assetmapper-add-js-extension",
+            "name": "AssetMapper: Add .js extension",
+            "description": null
+        },
+        {
+            "id": "assetmapper-change-to-stimulus-bundle-import",
+            "name": "AssetMapper: Change to stimulus-bundle import",
+            "description": null
+        },
+        {
+            "id": "assetmapper-install-axios",
+            "name": "AssetMapper: Install axios",
+            "description": null
+        },
+        {
+            "id": "assetmapper-downgrade-bootstrap",
+            "name": "AssetMapper: Downgrade bootstrap",
+            "description": null
+        },
+        {
+            "id": "assetmapper-remove-axios",
+            "name": "AssetMapper: Remove axios",
+            "description": null
+        },
+        {
+            "id": "assetmapper-use-async-await",
+            "name": "AssetMapper: Use async\/await",
+            "description": null
+        },
+        {
+            "id": "assetmapper-finish-fixing-controller",
+            "name": "AssetMapper: Finish fixing controller",
+            "description": null
+        },
+        {
+            "id": "autowiring-remove-bind-in-services-yaml",
+            "name": "Autowiring: Remove bind in services.yaml",
+            "description": null
+        },
+        {
+            "id": "autowiring-add-autowiring-attribute",
+            "name": "Autowiring: Add autowiring attribute",
+            "description": null
+        },
+        {
+            "id": "autowiring-autowireiterator-to-grab-commands",
+            "name": "Autowiring: AutowireIterator to grab commands",
+            "description": null
+        },
+        {
+            "id": "autowiring-remove-that",
+            "name": "Autowiring: Remove that",
+            "description": null
+        },
+        {
+            "id": "requestchanges-mapqueryparameter-for-string",
+            "name": "RequestChanges: MapQueryParameter for string",
+            "description": null
+        },
+        {
+            "id": "requestchanges-mapqueryparameter-for-int",
+            "name": "RequestChanges: MapQueryParameter for int",
+            "description": null
+        },
+        {
+            "id": "requestchanges-add-int-with-range",
+            "name": "RequestChanges: Add int with range",
+            "description": null
+        },
+        {
+            "id": "requestchanges-show-an-array",
+            "name": "RequestChanges: Show an array",
+            "description": null
+        },
+        {
+            "id": "scheduler-install-it-and-messenger",
+            "name": "Scheduler: install it & messenger",
+            "description": null
+        },
+        {
+            "id": "scheduler-make-messaeg",
+            "name": "Scheduler: make:messaeg",
+            "description": null
+        },
+        {
+            "id": "scheduler-log-from-handler",
+            "name": "Scheduler: Log from handler",
+            "description": null
+        },
+        {
+            "id": "scheduler-create-schedule",
+            "name": "Scheduler: Create Schedule",
+            "description": null
+        },
+        {
+            "id": "scheduler-add-2x-recurring-messages",
+            "name": "Scheduler: Add 2x recurring messages",
+            "description": null
+        },
+        {
+            "id": "scheduler-add-cache",
+            "name": "Scheduler: Add cache",
+            "description": null
+        },
+        {
+            "id": "delete-me-1",
+            "name": "delete me 1",
+            "description": null
         }
     ],
-    "sha": "380191cb46593d098be8db71f775bc88a604c22b"
+    "sha": "c896a8da20f65017858790e9a9d422489a43ea54"
 }

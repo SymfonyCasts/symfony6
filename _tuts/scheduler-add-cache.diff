@@ -1,0 +1,44 @@
+diff --git a/config/services.yaml b/config/services.yaml
+index 088cc7e..2f43446 100644
+--- a/config/services.yaml
++++ b/config/services.yaml
+@@ -6,10 +6,6 @@
+ parameters:
+     cache_adapter: 'cache.adapter.filesystem'
+ 
+-when@dev:
+-    parameters:
+-        cache_adapter: 'cache.adapter.array'
+-
+ services:
+     # default configuration for services in *this* file
+     _defaults:
+diff --git a/src/Scheduler/MainSchedule.php b/src/Scheduler/MainSchedule.php
+index e754a28..1d2de1b 100644
+--- a/src/Scheduler/MainSchedule.php
++++ b/src/Scheduler/MainSchedule.php
+@@ -7,15 +7,23 @@ use Symfony\Component\Scheduler\Attribute\AsSchedule;
+ use Symfony\Component\Scheduler\RecurringMessage;
+ use Symfony\Component\Scheduler\Schedule;
+ use Symfony\Component\Scheduler\ScheduleProviderInterface;
++use Symfony\Contracts\Cache\CacheInterface;
+ 
+ #[AsSchedule]
+ class MainSchedule implements ScheduleProviderInterface
+ {
++    public function __construct(
++        private CacheInterface $cache,
++    )
++    {
++
++    }
++
+     public function getSchedule(): Schedule
+     {
+         return (new Schedule())->add(
+             RecurringMessage::every('4 seconds', new LogHello('4')),
+             RecurringMessage::every('3 seconds', new LogHello('3')),
+-        );
++        )->stateful($this->cache);
+     }
+ }

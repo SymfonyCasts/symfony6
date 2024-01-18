@@ -1,0 +1,16 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 709a2fa..1424757 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -24,9 +24,10 @@ class VinylController extends AbstractController
+     #[Route('/', name: 'app_homepage')]
+     public function homepage(
+         #[MapQueryParameter] string $query = '',
++        #[MapQueryParameter] int $page = 1,
+     ): Response
+     {
+-        dump($query);
++        dump($query, $page);
+         $tracks = [
+             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+             ['song' => 'Waterfalls', 'artist' => 'TLC'],

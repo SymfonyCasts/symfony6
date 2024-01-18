@@ -1,0 +1,19 @@
+diff --git a/importmap.php b/importmap.php
+index ff7fae2..8659ad1 100644
+--- a/importmap.php
++++ b/importmap.php
+@@ -27,4 +27,14 @@ return [
+     '@hotwired/turbo' => [
+         'version' => '7.3.0',
+     ],
++    'bootstrap' => [
++        'version' => '5.3.2',
++    ],
++    '@popperjs/core' => [
++        'version' => '2.11.8',
++    ],
++    'bootstrap/dist/css/bootstrap.min.css' => [
++        'version' => '5.3.2',
++        'type' => 'css',
++    ],
+ ];

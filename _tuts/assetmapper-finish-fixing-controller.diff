@@ -1,0 +1,16 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index 1eb5d1f..833fb4c 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -9,8 +9,8 @@ export default class extends Controller {
+         event.preventDefault();
+ 
+         const response = await fetch(this.infoUrlValue);
+-        console.log(response);
+-        //const audio = new Audio(response.data.url);
+-        //audio.play();
++        const data = await response.json();
++        const audio = new Audio(data.url);
++        audio.play();
+     }
+ }

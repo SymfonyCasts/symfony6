@@ -1,0 +1,20 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index b03fd2d..f33be53 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -6,6 +6,7 @@ use App\Repository\VinylMixRepository;
+ use Pagerfanta\Doctrine\ORM\QueryAdapter;
+ use Pagerfanta\Pagerfanta;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++use Symfony\Component\DependencyInjection\Attribute\Autowire;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Attribute\Route;
+@@ -14,6 +15,7 @@ use function Symfony\Component\String\u;
+ class VinylController extends AbstractController
+ {
+     public function __construct(
++        #[Autowire('%kernel.debug%')]
+         private bool $isDebug
+     )
+     {}

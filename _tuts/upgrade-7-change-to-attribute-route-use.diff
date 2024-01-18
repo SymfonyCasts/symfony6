@@ -1,0 +1,40 @@
+diff --git a/src/Controller/MixController.php b/src/Controller/MixController.php
+index bb3a684..0ffb262 100644
+--- a/src/Controller/MixController.php
++++ b/src/Controller/MixController.php
+@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Routing\Attribute\Route;
+ 
+ class MixController extends AbstractController
+ {
+diff --git a/src/Controller/SongController.php b/src/Controller/SongController.php
+index 7cab208..9b7a7ac 100644
+--- a/src/Controller/SongController.php
++++ b/src/Controller/SongController.php
+@@ -6,7 +6,8 @@ use Psr\Log\LoggerInterface;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\JsonResponse;
+ use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Routing\Attribute\Route;
++
+ 
+ class SongController extends AbstractController
+ {
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 12f4b27..b03fd2d 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -8,7 +8,7 @@ use Pagerfanta\Pagerfanta;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+-use Symfony\Component\Routing\Annotation\Route;
++use Symfony\Component\Routing\Attribute\Route;
+ use function Symfony\Component\String\u;
+ 
+ class VinylController extends AbstractController

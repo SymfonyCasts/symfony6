@@ -1,0 +1,306 @@
+diff --git a/.gitignore b/.gitignore
+index 1506387..e930f2c 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -7,3 +7,8 @@
+ /var/
+ /vendor/
+ ###< symfony/framework-bundle ###
++
++###> symfony/asset-mapper ###
++/public/assets/
++/assets/vendor
++###< symfony/asset-mapper ###
+diff --git a/composer.json b/composer.json
+index c7a8445..adaf279 100644
+--- a/composer.json
++++ b/composer.json
+@@ -15,6 +15,7 @@
+         "pagerfanta/twig": "^4.0",
+         "stof/doctrine-extensions-bundle": "^1.7",
+         "symfony/asset": "7.0.*",
++        "symfony/asset-mapper": "7.0.*",
+         "symfony/console": "7.0.*",
+         "symfony/dotenv": "7.0.*",
+         "symfony/flex": "^2",
+@@ -64,7 +65,8 @@
+     "scripts": {
+         "auto-scripts": {
+             "cache:clear": "symfony-cmd",
+-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
++            "assets:install %PUBLIC_DIR%": "symfony-cmd",
++            "importmap:install": "symfony-cmd"
+         },
+         "post-install-cmd": [
+             "@auto-scripts"
+diff --git a/composer.lock b/composer.lock
+index 7898c8d..54df2b0 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "80651f064ea8b22970961b10d230d2d0",
++    "content-hash": "232aa3e5fdea5ef366564db4d49ef728",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -142,6 +142,87 @@
+             },
+             "time": "2022-03-30T09:27:43+00:00"
+         },
++        {
++            "name": "composer/semver",
++            "version": "3.4.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/composer/semver.git",
++                "reference": "35e8d0af4486141bc745f23a29cc2091eb624a32"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/composer/semver/zipball/35e8d0af4486141bc745f23a29cc2091eb624a32",
++                "reference": "35e8d0af4486141bc745f23a29cc2091eb624a32",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^5.3.2 || ^7.0 || ^8.0"
++            },
++            "require-dev": {
++                "phpstan/phpstan": "^1.4",
++                "symfony/phpunit-bridge": "^4.2 || ^5"
++            },
++            "type": "library",
++            "extra": {
++                "branch-alias": {
++                    "dev-main": "3.x-dev"
++                }
++            },
++            "autoload": {
++                "psr-4": {
++                    "Composer\\Semver\\": "src"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nils Adermann",
++                    "email": "naderman@naderman.de",
++                    "homepage": "http://www.naderman.de"
++                },
++                {
++                    "name": "Jordi Boggiano",
++                    "email": "j.boggiano@seld.be",
++                    "homepage": "http://seld.be"
++                },
++                {
++                    "name": "Rob Bast",
++                    "email": "rob.bast@gmail.com",
++                    "homepage": "http://robbast.nl"
++                }
++            ],
++            "description": "Semver library that offers utilities, version constraint parsing and validation.",
++            "keywords": [
++                "semantic",
++                "semver",
++                "validation",
++                "versioning"
++            ],
++            "support": {
++                "irc": "ircs://irc.libera.chat:6697/composer",
++                "issues": "https://github.com/composer/semver/issues",
++                "source": "https://github.com/composer/semver/tree/3.4.0"
++            },
++            "funding": [
++                {
++                    "url": "https://packagist.com",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/composer",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2023-08-31T09:50:34+00:00"
++        },
+         {
+             "name": "doctrine/annotations",
+             "version": "2.0.1",
+@@ -2324,6 +2405,84 @@
+             ],
+             "time": "2023-10-31T17:59:56+00:00"
+         },
++        {
++            "name": "symfony/asset-mapper",
++            "version": "v7.0.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/asset-mapper.git",
++                "reference": "e4e3a98dc279cb0d266f50c7c73bd42cb9c3a0c3"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/asset-mapper/zipball/e4e3a98dc279cb0d266f50c7c73bd42cb9c3a0c3",
++                "reference": "e4e3a98dc279cb0d266f50c7c73bd42cb9c3a0c3",
++                "shasum": ""
++            },
++            "require": {
++                "composer/semver": "^3.0",
++                "php": ">=8.2",
++                "symfony/filesystem": "^6.4|^7.0",
++                "symfony/http-client": "^6.4|^7.0"
++            },
++            "conflict": {
++                "symfony/framework-bundle": "<6.4"
++            },
++            "require-dev": {
++                "symfony/asset": "^6.4|^7.0",
++                "symfony/browser-kit": "^6.4|^7.0",
++                "symfony/console": "^6.4|^7.0",
++                "symfony/event-dispatcher-contracts": "^3.0",
++                "symfony/finder": "^6.4|^7.0",
++                "symfony/framework-bundle": "^6.4|^7.0",
++                "symfony/http-foundation": "^6.4|^7.0",
++                "symfony/http-kernel": "^6.4|^7.0",
++                "symfony/web-link": "^6.4|^7.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\AssetMapper\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Maps directories of assets & makes them available in a public directory with versioned filenames.",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/asset-mapper/tree/v7.0.2"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2023-12-27T08:42:13+00:00"
++        },
+         {
+             "name": "symfony/cache",
+             "version": "v7.0.2",
+diff --git a/config/packages/asset_mapper.yaml b/config/packages/asset_mapper.yaml
+new file mode 100644
+index 0000000..d1ac653
+--- /dev/null
++++ b/config/packages/asset_mapper.yaml
+@@ -0,0 +1,5 @@
++framework:
++    asset_mapper:
++        # The paths to make available to the asset mapper.
++        paths:
++            - assets/
+diff --git a/importmap.php b/importmap.php
+new file mode 100644
+index 0000000..ff7fae2
+--- /dev/null
++++ b/importmap.php
+@@ -0,0 +1,30 @@
++<?php
++
++/**
++ * Returns the importmap for this application.
++ *
++ * - "path" is a path inside the asset mapper system. Use the
++ *     "debug:asset-map" command to see the full list of paths.
++ *
++ * - "entrypoint" (JavaScript only) set to true for any module that will
++ *     be used as an "entrypoint" (and passed to the importmap() Twig function).
++ *
++ * The "importmap:require" command can be used to add new entries to this file.
++ *
++ * This file has been auto-generated by the importmap commands.
++ */
++return [
++    'app' => [
++        'path' => './assets/app.js',
++        'entrypoint' => true,
++    ],
++    '@hotwired/stimulus' => [
++        'version' => '3.2.2',
++    ],
++    '@symfony/stimulus-bundle' => [
++        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
++    ],
++    '@hotwired/turbo' => [
++        'version' => '7.3.0',
++    ],
++];
+diff --git a/symfony.lock b/symfony.lock
+index 409b1ea..72704b8 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -89,6 +89,21 @@
+     "symfony/asset": {
+         "version": "v6.0.3"
+     },
++    "symfony/asset-mapper": {
++        "version": "7.0",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "main",
++            "version": "6.4",
++            "ref": "568d44f71388f41f49dc382768fee20d52569359"
++        },
++        "files": [
++            "assets/app.js",
++            "assets/styles/app.css",
++            "config/packages/asset_mapper.yaml",
++            "importmap.php"
++        ]
++    },
+     "symfony/cache": {
+         "version": "v6.0.2"
+     },
+diff --git a/templates/base.html.twig b/templates/base.html.twig
+index bcb842c..4f5c105 100644
+--- a/templates/base.html.twig
++++ b/templates/base.html.twig
+@@ -11,6 +11,7 @@
+         {% endblock %}
+ 
+         {% block javascripts %}
++{% block importmap %}{{ importmap('app') }}{% endblock %}
+         {% endblock %}
+     </head>
+     <body>

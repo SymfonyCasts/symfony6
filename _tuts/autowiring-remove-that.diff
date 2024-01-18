@@ -1,0 +1,28 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index 04b1f5f..274914c 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -7,7 +7,6 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
+ use Pagerfanta\Pagerfanta;
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\DependencyInjection\Attribute\Autowire;
+-use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ use Symfony\Component\Routing\Attribute\Route;
+@@ -18,14 +17,8 @@ class VinylController extends AbstractController
+     public function __construct(
+         #[Autowire('%kernel.debug%')]
+         private bool $isDebug,
+-        #[AutowireIterator('console.command')]
+-        private iterable $commands,
+     )
+-    {
+-        foreach ($this->commands as $command) {
+-            dump($command);
+-        }
+-    }
++    {}
+ 
+     #[Route('/', name: 'app_homepage')]
+     public function homepage(): Response

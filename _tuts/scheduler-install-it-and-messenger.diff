@@ -1,0 +1,426 @@
+diff --git a/.env b/.env
+index e922aaa..cf12e0d 100644
+--- a/.env
++++ b/.env
+@@ -28,3 +28,10 @@ APP_SECRET=4777a99cd6c61ce84969bd1338737c38
+ # DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+ DATABASE_URL="postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=15&charset=utf8"
+ ###< doctrine/doctrine-bundle ###
++
++###> symfony/messenger ###
++# Choose one of the transports below
++# MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
++# MESSENGER_TRANSPORT_DSN=redis://localhost:6379/messages
++MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0
++###< symfony/messenger ###
+diff --git a/composer.json b/composer.json
+index adaf279..76e750c 100644
+--- a/composer.json
++++ b/composer.json
+@@ -21,8 +21,10 @@
+         "symfony/flex": "^2",
+         "symfony/framework-bundle": "7.0.*",
+         "symfony/http-client": "7.0.*",
++        "symfony/messenger": "7.0.*",
+         "symfony/monolog-bundle": "^3.0",
+         "symfony/runtime": "7.0.*",
++        "symfony/scheduler": "7.0.*",
+         "symfony/twig-bundle": "7.0.*",
+         "symfony/ux-turbo": "^2.0",
+         "symfony/yaml": "7.0.*",
+diff --git a/composer.lock b/composer.lock
+index 54df2b0..0dda206 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4,7 +4,7 @@
+         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+         "This file is @generated automatically"
+     ],
+-    "content-hash": "232aa3e5fdea5ef366564db4d49ef728",
++    "content-hash": "e91f9744cbbb16a10ec0ab9711c5109a",
+     "packages": [
+         {
+             "name": "babdev/pagerfanta-bundle",
+@@ -2108,6 +2108,54 @@
+             },
+             "time": "2021-02-03T23:26:27+00:00"
+         },
++        {
++            "name": "psr/clock",
++            "version": "1.0.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/php-fig/clock.git",
++                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/php-fig/clock/zipball/e41a24703d4560fd0acb709162f73b8adfc3aa0d",
++                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d",
++                "shasum": ""
++            },
++            "require": {
++                "php": "^7.0 || ^8.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Psr\\Clock\\": "src/"
++                }
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "PHP-FIG",
++                    "homepage": "https://www.php-fig.org/"
++                }
++            ],
++            "description": "Common interface for reading the clock.",
++            "homepage": "https://github.com/php-fig/clock",
++            "keywords": [
++                "clock",
++                "now",
++                "psr",
++                "psr-20",
++                "time"
++            ],
++            "support": {
++                "issues": "https://github.com/php-fig/clock/issues",
++                "source": "https://github.com/php-fig/clock/tree/1.0.0"
++            },
++            "time": "2022-11-25T14:36:26+00:00"
++        },
+         {
+             "name": "psr/container",
+             "version": "2.0.2",
+@@ -2655,6 +2703,80 @@
+             ],
+             "time": "2023-09-25T12:52:38+00:00"
+         },
++        {
++            "name": "symfony/clock",
++            "version": "v7.0.2",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/clock.git",
++                "reference": "67c5ae749ebabe7d8c84c3cab2544331eee7d2cf"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/clock/zipball/67c5ae749ebabe7d8c84c3cab2544331eee7d2cf",
++                "reference": "67c5ae749ebabe7d8c84c3cab2544331eee7d2cf",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.2",
++                "psr/clock": "^1.0",
++                "symfony/polyfill-php83": "^1.28"
++            },
++            "provide": {
++                "psr/clock-implementation": "1.0"
++            },
++            "type": "library",
++            "autoload": {
++                "files": [
++                    "Resources/now.php"
++                ],
++                "psr-4": {
++                    "Symfony\\Component\\Clock\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Nicolas Grekas",
++                    "email": "p@tchwork.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Decouples applications from the system clock",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "clock",
++                "psr20",
++                "time"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/clock/tree/v7.0.2"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2023-12-27T08:42:13+00:00"
++        },
+         {
+             "name": "symfony/config",
+             "version": "v7.0.0",
+@@ -4078,6 +4200,92 @@
+             ],
+             "time": "2023-12-30T15:41:17+00:00"
+         },
++        {
++            "name": "symfony/messenger",
++            "version": "v7.0.1",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/messenger.git",
++                "reference": "457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/messenger/zipball/457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b",
++                "reference": "457bcafd7a08e0b3ddb87b65ce83e9200a5b8b6b",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.2",
++                "psr/log": "^1|^2|^3",
++                "symfony/clock": "^6.4|^7.0"
++            },
++            "conflict": {
++                "symfony/console": "<6.4",
++                "symfony/event-dispatcher": "<6.4",
++                "symfony/event-dispatcher-contracts": "<2.5",
++                "symfony/framework-bundle": "<6.4",
++                "symfony/http-kernel": "<6.4",
++                "symfony/serializer": "<6.4"
++            },
++            "require-dev": {
++                "psr/cache": "^1.0|^2.0|^3.0",
++                "symfony/console": "^6.4|^7.0",
++                "symfony/dependency-injection": "^6.4|^7.0",
++                "symfony/event-dispatcher": "^6.4|^7.0",
++                "symfony/http-kernel": "^6.4|^7.0",
++                "symfony/process": "^6.4|^7.0",
++                "symfony/property-access": "^6.4|^7.0",
++                "symfony/rate-limiter": "^6.4|^7.0",
++                "symfony/routing": "^6.4|^7.0",
++                "symfony/serializer": "^6.4|^7.0",
++                "symfony/service-contracts": "^2.5|^3",
++                "symfony/stopwatch": "^6.4|^7.0",
++                "symfony/validator": "^6.4|^7.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Messenger\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Samuel Roze",
++                    "email": "samuel.roze@gmail.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Helps applications send and receive messages to/from other applications or via message queues",
++            "homepage": "https://symfony.com",
++            "support": {
++                "source": "https://github.com/symfony/messenger/tree/v7.0.1"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2023-11-30T11:04:23+00:00"
++        },
+         {
+             "name": "symfony/monolog-bridge",
+             "version": "v7.0.0",
+@@ -4884,6 +5092,86 @@
+             ],
+             "time": "2023-10-20T16:35:23+00:00"
+         },
++        {
++            "name": "symfony/scheduler",
++            "version": "v7.0.0",
++            "source": {
++                "type": "git",
++                "url": "https://github.com/symfony/scheduler.git",
++                "reference": "d61403ee1c93790a3fe162942017fc30521bed90"
++            },
++            "dist": {
++                "type": "zip",
++                "url": "https://api.github.com/repos/symfony/scheduler/zipball/d61403ee1c93790a3fe162942017fc30521bed90",
++                "reference": "d61403ee1c93790a3fe162942017fc30521bed90",
++                "shasum": ""
++            },
++            "require": {
++                "php": ">=8.2",
++                "symfony/clock": "^6.4|^7.0"
++            },
++            "require-dev": {
++                "dragonmantank/cron-expression": "^3.1",
++                "symfony/cache": "^6.4|^7.0",
++                "symfony/console": "^6.4|^7.0",
++                "symfony/dependency-injection": "^6.4|^7.0",
++                "symfony/event-dispatcher": "^6.4|^7.0",
++                "symfony/lock": "^6.4|^7.0",
++                "symfony/messenger": "^6.4|^7.0"
++            },
++            "type": "library",
++            "autoload": {
++                "psr-4": {
++                    "Symfony\\Component\\Scheduler\\": ""
++                },
++                "exclude-from-classmap": [
++                    "/Tests/"
++                ]
++            },
++            "notification-url": "https://packagist.org/downloads/",
++            "license": [
++                "MIT"
++            ],
++            "authors": [
++                {
++                    "name": "Sergey Rabochiy",
++                    "email": "upyx.00@gmail.com"
++                },
++                {
++                    "name": "Fabien Potencier",
++                    "email": "fabien@symfony.com"
++                },
++                {
++                    "name": "Symfony Community",
++                    "homepage": "https://symfony.com/contributors"
++                }
++            ],
++            "description": "Provides scheduling through Symfony Messenger",
++            "homepage": "https://symfony.com",
++            "keywords": [
++                "cron",
++                "schedule",
++                "scheduler"
++            ],
++            "support": {
++                "source": "https://github.com/symfony/scheduler/tree/v7.0.0"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
++            "time": "2023-11-20T16:43:42+00:00"
++        },
+         {
+             "name": "symfony/service-contracts",
+             "version": "v3.4.1",
+diff --git a/config/packages/messenger.yaml b/config/packages/messenger.yaml
+new file mode 100644
+index 0000000..672b6c4
+--- /dev/null
++++ b/config/packages/messenger.yaml
+@@ -0,0 +1,22 @@
++framework:
++    messenger:
++        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
++        # failure_transport: failed
++
++        transports:
++            # https://symfony.com/doc/current/messenger.html#transport-configuration
++            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
++            # failed: 'doctrine://default?queue_name=failed'
++            # sync: 'sync://'
++
++        routing:
++            # Route your messages to the transports
++            # 'App\Message\YourMessage': async
++
++# when@test:
++#    framework:
++#        messenger:
++#            transports:
++#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
++#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
++#                async: 'in-memory://'
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c326354..c5014e3 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -26,9 +26,10 @@ class VinylController extends AbstractController
+         #[MapQueryParameter] string $query = '',
+         #[MapQueryParameter] int $page = 1,
+         #[MapQueryParameter(options: ['min_range' => 1, 'max_range' => 10])] int $limit = 10,
++        #[MapQueryParameter] array $filters = [],
+     ): Response
+     {
+-        dump($query, $page, $limit);
++        dump($query, $page, $limit, $filters);
+         $tracks = [
+             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+             ['song' => 'Waterfalls', 'artist' => 'TLC'],
+diff --git a/symfony.lock b/symfony.lock
+index 72704b8..f144ffc 100644
+--- a/symfony.lock
++++ b/symfony.lock
+@@ -213,6 +213,18 @@
+             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+         }
+     },
++    "symfony/messenger": {
++        "version": "7.0",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "main",
++            "version": "6.0",
++            "ref": "ba1ac4e919baba5644d31b57a3284d6ba12d52ee"
++        },
++        "files": [
++            "config/packages/messenger.yaml"
++        ]
++    },
+     "symfony/monolog-bridge": {
+         "version": "v6.0.3"
+     },

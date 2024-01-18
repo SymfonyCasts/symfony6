@@ -1,0 +1,24 @@
+diff --git a/src/Scheduler/MainSchedule.php b/src/Scheduler/MainSchedule.php
+index 04682e2..e754a28 100644
+--- a/src/Scheduler/MainSchedule.php
++++ b/src/Scheduler/MainSchedule.php
+@@ -2,7 +2,9 @@
+ 
+ namespace App\Scheduler;
+ 
++use App\Message\LogHello;
+ use Symfony\Component\Scheduler\Attribute\AsSchedule;
++use Symfony\Component\Scheduler\RecurringMessage;
+ use Symfony\Component\Scheduler\Schedule;
+ use Symfony\Component\Scheduler\ScheduleProviderInterface;
+ 
+@@ -11,5 +13,9 @@ class MainSchedule implements ScheduleProviderInterface
+ {
+     public function getSchedule(): Schedule
+     {
++        return (new Schedule())->add(
++            RecurringMessage::every('4 seconds', new LogHello('4')),
++            RecurringMessage::every('3 seconds', new LogHello('3')),
++        );
+     }
+ }

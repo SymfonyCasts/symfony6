@@ -1,0 +1,44 @@
+diff --git a/assets/controllers/song-controls_controller.js b/assets/controllers/song-controls_controller.js
+index b7c97f3..f4e402d 100644
+--- a/assets/controllers/song-controls_controller.js
++++ b/assets/controllers/song-controls_controller.js
+@@ -1,16 +1,5 @@
+ import { Controller } from '@hotwired/stimulus';
+ 
+-/*
+- * This is an example Stimulus controller!
+- *
+- * Any element with a data-controller="hello" attribute will cause
+- * this controller to be executed. The name "hello" comes from the filename:
+- * hello_controller.js -> "hello"
+- *
+- * Delete this file or adapt it for your use!
+- */
+-import axios from 'axios';
+-
+ export default class extends Controller {
+     static values = {
+         infoUrl: String
+@@ -19,8 +8,9 @@ export default class extends Controller {
+     play(event) {
+         event.preventDefault();
+ 
+-        axios.get(this.infoUrlValue)
++        fetch(this.infoUrlValue)
+             .then((response) => {
++                console.log(response);
+                 const audio = new Audio(response.data.url);
+                 audio.play();
+             });
+diff --git a/importmap.php b/importmap.php
+index 8049116..7e6b09c 100644
+--- a/importmap.php
++++ b/importmap.php
+@@ -45,7 +45,4 @@ return [
+         'version' => '5.0.1',
+         'type' => 'css',
+     ],
+-    'axios' => [
+-        'version' => '1.6.5',
+-    ],
+ ];

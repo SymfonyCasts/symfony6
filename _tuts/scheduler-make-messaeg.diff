@@ -1,0 +1,40 @@
+diff --git a/src/Message/LogHello.php b/src/Message/LogHello.php
+new file mode 100644
+index 0000000..16991b0
+--- /dev/null
++++ b/src/Message/LogHello.php
+@@ -0,0 +1,10 @@
++<?php
++
++namespace App\Message;
++
++final class LogHello
++{
++    public function __construct()
++    {
++    }
++}
+diff --git a/src/MessageHandler/LogHelloHandler.php b/src/MessageHandler/LogHelloHandler.php
+new file mode 100644
+index 0000000..415d07a
+--- /dev/null
++++ b/src/MessageHandler/LogHelloHandler.php
+@@ -0,0 +1,18 @@
++<?php
++
++namespace App\MessageHandler;
++
++use App\Message\LogHello;
++use Symfony\Component\Messenger\Attribute\AsMessageHandler;
++
++#[AsMessageHandler]
++final class LogHelloHandler
++{
++    public function __construct()
++    {
++    }
++
++    public function __invoke(LogHello $message)
++    {
++    }
++}

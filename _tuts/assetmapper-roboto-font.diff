@@ -1,0 +1,40 @@
+diff --git a/assets/app.js b/assets/app.js
+index f91fdcc..50235b7 100644
+--- a/assets/app.js
++++ b/assets/app.js
+@@ -8,6 +8,7 @@
+ // any CSS you import will output into a single css file (app.css in this case)
+ import 'bootstrap/dist/css/bootstrap.min.css';
+ import '@fortawesome/fontawesome-free/css/all.css';
++import '@fontsource-variable/roboto-condensed/index.min.css';
+ import './styles/app.css';
+ 
+ // start the Stimulus application
+diff --git a/assets/styles/app.css b/assets/styles/app.css
+index aed95cb..f88bd09 100644
+--- a/assets/styles/app.css
++++ b/assets/styles/app.css
+@@ -1,9 +1,7 @@
+-@import '~@fontsource/roboto-condensed';
+-
+ body {
+     background-color: #17242C;
+     color: #fff;
+-    font-family: 'Roboto Condensed', sans-serif;
++    font-family: 'Roboto Condensed Variable', sans-serif;
+ }
+ 
+ .song-list i {
+diff --git a/importmap.php b/importmap.php
+index cb31efb..d631591 100644
+--- a/importmap.php
++++ b/importmap.php
+@@ -41,4 +41,8 @@ return [
+         'version' => '6.5.1',
+         'type' => 'css',
+     ],
++    '@fontsource-variable/roboto-condensed/index.min.css' => [
++        'version' => '5.0.1',
++        'type' => 'css',
++    ],
+ ];

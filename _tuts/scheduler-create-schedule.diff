@@ -1,0 +1,21 @@
+diff --git a/src/Scheduler/MainSchedule.php b/src/Scheduler/MainSchedule.php
+new file mode 100644
+index 0000000..04682e2
+--- /dev/null
++++ b/src/Scheduler/MainSchedule.php
+@@ -0,0 +1,15 @@
++<?php
++
++namespace App\Scheduler;
++
++use Symfony\Component\Scheduler\Attribute\AsSchedule;
++use Symfony\Component\Scheduler\Schedule;
++use Symfony\Component\Scheduler\ScheduleProviderInterface;
++
++#[AsSchedule]
++class MainSchedule implements ScheduleProviderInterface
++{
++    public function getSchedule(): Schedule
++    {
++    }
++}
