@@ -12,7 +12,7 @@ index 16991b0..06dbc4c 100644
      }
  }
 diff --git a/src/MessageHandler/LogHelloHandler.php b/src/MessageHandler/LogHelloHandler.php
-index 415d07a..49975a0 100644
+index 415d07a..b61a5f6 100644
 --- a/src/MessageHandler/LogHelloHandler.php
 +++ b/src/MessageHandler/LogHelloHandler.php
 @@ -3,16 +3,18 @@
@@ -32,6 +32,6 @@ index 415d07a..49975a0 100644
  
      public function __invoke(LogHello $message)
      {
-+        $this->logger->warning($message->length);
++        $this->logger->warning(str_repeat('🎸', $message->length).' '.$message->length);
      }
  }
