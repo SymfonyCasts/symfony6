@@ -1,12 +1,12 @@
 diff --git a/README.md b/README.md
-index c1b2590..98a2130 100644
+index 15cfe7b..98a2130 100644
 --- a/README.md
 +++ b/README.md
-@@ -46,25 +46,6 @@ Now check out the site at `https://localhost:8000`
+@@ -22,25 +22,6 @@ composer install
+ You may alternatively need to run `php composer.phar install`, depending
+ on how you installed Composer.
  
- Have fun!
- 
--**OPTIONAL: Webpack Encore Assets**
+-**Webpack Encore Assets**
 -
 -This app uses Webpack Encore for the CSS, JS and image files.
 -But, the built files are already included... so you don't need
@@ -25,6 +25,6 @@ index c1b2590..98a2130 100644
 -npm run watch
 -```
 -
- ## Have Ideas, Feedback or an Issue?
+ **Start the Symfony web server**
  
- If you have suggestions or questions, please feel free to open an issue
+ You can use Nginx or Apache, but Symfony's local web server
