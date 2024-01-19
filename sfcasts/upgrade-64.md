@@ -1,5 +1,145 @@
 # Upgrading to Symfony 6.4
 
-Coming soon...
+Hey everyone! Symfony 7 is out! Woo! Well, of course *I'm* excited - I love all things
+Symfony, Twig, related. But what does it really *mean* that Symfony 7 is out?
 
-Hey everyone! Symfony 7 is out! Woo! But of course I'm excited. I'm excited about all things Symfony tech nerd stuff related. But what does it really mean that Symfony 7 is out? To be honest, thanks to Symfony's release schedule, it's not really that big of a deal. So here's how Symfony's release schedule works. Every six months a new minor version is released, like 6.1 or 6.2. Those are the versions that actually contain new features. So it totally makes sense to get excited about Symfony 6.1 or the new stuff in Symfony 6.2. Then every time we get to the .4 of a version, like 6.4, that's released on the same day as the .0 version of the next number, like 7.0. So 6.4 and 7.0 were released on the exact same day and they are effectively identical. There's nothing in Symfony 7 that's... there are no features in Symfony 7. Symfony 6.4 has all the same features as Symfony 7.0. The only difference between the two versions is that Symfony 7.0 has all of the old deprecated code paths removed. And this is actually the core of what makes Symfony special. This release schedule and its policy of deprecating features means that we can take our applications and upgrade them forever across these major versions without it being a big deal and without breaking our applications. So in this tutorial, we're going to upgrade our application, then enjoy some of these, some of my favorite new features. Now, as always, to get the most out of this tutorial, you should download the code and code along with me. After you do and unzip the file, you'll find a start directory with the same code that you see here. This readme.md file is going to take you through all the steps to get the application running. I've run most of them already, including I have Yarn watch running over here. The last step is going to be to run symphony serve dash D to open a to start a built in web server. Oh, click that and say hello to our symphony six application mixed vinyl, which we've worked on in several tutorials, you can see down here, symphony 6.1 point two. So in composer dot JSON, near the top, I have this peak requirement required to have PHP greater than equal to 8.1.  In my applications, I also down here under config, have a config platform PHP, and set that to the specific PHP version we use in our application. This makes it so that I only get dependencies that are compatible with this version, and not newer versions that maybe we don't use on production. So the first thing I want to change is that because if I run PHP dash v, I have PHP 8.3 installed. So let me change this to just how about PHP 8.3. Then I'm a terminal, we'll run composer up. In composer dot JSON, all my dependencies, whether they're symphony or something else, they're all written in a way that only allows the last number or the second to last number to change. And when these versions update, if the package maintainers are doing their job, those updates won't contain backwards compatibility breaks. So we can change from 6.1 to 6.4, or 2.0 to 2.4. And that shouldn't break anything in our application. So running a composer up and getting all these updates, in theory should be a totally safe thing to do. Now, while we're running that over in my yarn tab, it actually started having an error, something about a controller does not exist in the package and cannot be compiled. This comes from using symphony UX with webpack Encore. When you install your dependencies, a lot of times you need to reinstall your node dependencies. So I'm gonna hit Ctrl C, and then run yarn install dash dash force, or I can do npm install dash dash force. And then I'll do my yarn watch again. And now it's happy. Over in my main tab, we run it get status. In addition to the normal stuff, there's a new controller added controllers that JSON from an update of the turbo bundle. Not a big deal, not something we're going to use. And also a new package. And then a package dot JSON. It added a new entry for stimulus bundle. This is a relatively new bundle that just got installed into our application. And we're going to talk more about it as we get deeper into upgrading webpack Encore. So we are now using PHP 8.3, we've upgraded our dependencies a bit. The next step to really upgrading symphonies to upgrade to from 6.1 to 6.4.  Because once we do that, we'll be able to see all the deprecations we have in our project. And we can start to fix them. So the easiest way to do this is just to do a find and replace for 6.1 dot star and replace it with 6.4 dot star. And I'll hit replace all. Now just be careful. Most of the time you're going to have version constraints for symphony that look like this. But it's always possible that you had a different constraint that looked like this. So make sure that you found all of the symphony packages in here that are from the main repository and update them. That can get a little bit confusing. Because as you can see, these are all from the main repository. But there are a couple packages that start with symphony that live in different packages and have their own versions. So let me change that back to 6.4 point star. Also make sure down near the bottom where are you that an extra symphony require you have this set to 6.4 point star. That's a optimization in composer that tells composer it only needs to worry about 6.4 symphony versions. Alright, so back over at the terminal, I'm gonna run composer up. And that's it. Look at that all those beautiful upgrades from 6.1 to 6.4. And over on the side, if we try it, look at that it works still 6.4 point two over here. Oh, though, you know what minor thing, check out the PHP version 8.1 dot 27. So when we originally started the symphony web server, it read the PHP 8.1 version from our composer. So that's server. It read the PHP 8.1 version from our composer dot JSON file, it found a PHP 8.1 installed on my system and started using that. So now that we're using 8.3, we need to stop the server and restart it so we can find the PHP 8.3 binary in my system and start using that instead. Small detail, but I'm gonna run symphony server stop. And then symphony serve dash D. Perfect. And you can see it found a PHP 8.3 point one of my system. And now when we try it, got it. Alright, so this is working on 6.4. So our job now is to find the deprecations and fix them. If you check on the bottom here, look, we have 22 deprecations on this page.  So our job now is to find these and eliminate these. And once we do, we'll know that we can safely upgrade to symphony seven. So let's get to work on that next by cheating. We're going to update our flex recipes.
+## Symfony's Delightfully Predictable Release Schedule
+
+Honestly... not much! Thanks to Symfony's release schedule, a new major version
+isn't much of a big deal... though we try to pretend it is for marketing.
+
+Every 6 months - in May & November - a new minor version
+is released, like 6.1 or 6.2. *Those* are the versions that contain new features.
+So it *totally* makes sense to get excited about Symfony 6.3 or fantastically amazing
+new features in Symfony 6.4. Then, each ".4" version,
+like 6.4, is released on the *same day* as the .0 version of the next major: 7.0.
+Yea, 6.4 and 7.0 were released on the *exact* same day and are, effectively, identical!
+They're twins!
+
+The only difference is that, in 7.0, all the deprecated
+code paths are removed. And this is the core of what makes Symfony special. The
+release schedule and the deprecation policy mean that as users, we can
+upgrade our apps forever across major versions... without it
+being a big deal or breaking our apps. And that's exactly what we're going
+to do in this tutorial... followed by a tour of some of my favorite new features.
+
+## Project Set Up
+
+As always, to get the most out of this tutorial, code along with me by downloading
+the course code from this page. After you unzip the file, you'll find a `start/`
+directory with the same code that you see here. The `README.md` file tells an
+inspiring tale of how to get the application up and running. I've already done
+most of the steps, including running `yarn install` and `yarn watch` in this tab.
+
+The final step is to use the `symfony` binary to run:
+
+```terminal
+symfony serve -d
+```
+
+to start a development web server. I'll click the link. Say hello to Mixed Vinyl:
+The app from several of our Symfony 6 tutorials, which is currently on 6.1.2.
+
+## Using a Newer PHP Version
+
+Open up `composer.json`. Near the top, our app requires `php` 8.1 or greater.
+In my apps, down under `config.platform.php`, I also like to set the *specific*
+PHP version that we're using on production. This guarantees that Composer
+only gives me dependencies compatible with that version.
+
+Locally, if I run `php -v`, I already have PHP 8.3 installed. I *also* have
+a second `php` binary installed for version 8.1. And thanks to the `8.1` in `composer.json`,
+when I started the `symfony` web server, it used *that* older version.
+
+Change this to, just PHP `8.3`. Then run:
+
+```terminal
+composer up
+```
+
+In `composer.json`, all my dependencies - whether they're Symfony or something else -
+are written in a way that only allows the last number or the *second* to last number
+to change. Assuming the package maintainers are doing their job, those updates *won't*
+contain backwards-compatibility breaks. We should be able to upgrade from 6.1 to
+6.4... or 2.0 to 2.4 and our app *should* keep rocking like normal!
+
+So running `composer up` to get these updates, in theory, is totally safe.
+
+## Encore & Minor Changes
+
+Over in my `yarn` tab, the update triggered an error: something about a controller
+does not exist. This is special to Symfony UX & Encore. When you update your
+PHP dependencies, you may need to reinstall your `node` dependencies. Hit
+Ctrl+C, then run:
+
+```terminal
+yarn install --force
+```
+
+Or `npm install --force` if you're using `npm`. Then
+
+```terminal
+yarn watch
+```
+
+again. It's happy! In the main tab, run:
+
+```terminal
+git status
+```
+
+Alongside the usual suspects, there's a new controller in `controllers.json`...
+which came from an update to `ux-turbo`. We won't use it, but it's fine there.
+In `package.json`, it added a new entry for stimulus bundle. This is a relatively
+new bundle that got installed during the upgrade, and we'll talk more about it soon.
+
+## Upgrading to 6.4
+
+So we are *now* using PHP 8.3 and we've upgraded our dependencies a bit. But we're
+still using Symfony 6.1. To upgrade to 7, we first need to upgrade to 6.4.
+That'll give us a chance to prep for 7.0 by finding - and fixing - all the deprecations.
+
+And... upgrading is easy! Find `6.1.*`, replace with `6.4.*` and replace all.
+
+Though, be careful. Most of the time, the Symfony version constraints look like this.
+However, they *could* look like `^6.1`. So don't miss those: the goal
+is to upgrade every `symfony` package that comes from the *main* repository.
+That... can be confusing because, mixed in with the packages that we *do* want
+to upgrade are other packages that live under `symfony`, but are independent
+and follow their own release timeline & versioning. Ignore those for now - but
+we *will* make sure *every* package is upgraded by the end.
+
+Also, near the bottom, under `extra.symfony.require`, make sure this is also updated
+to `6.4.*`. That's a composer optimization that tells it to only worry about 6.4
+Symfony versions.
+
+Back over at the terminal, let's do this!
+
+```terminal
+composer up
+```
+
+Look at those beautiful upgrades from 6.1 to 6.4! *And*... when we try the site,
+the stinkin' thing still works! 
+
+Oh, but check out the PHP version: 8.1.27. When we started the `symfony` web server,
+it read the PHP 8.1 version from `composer.json`, found that version installed on
+my machine and used it. We changed this to 8.3, but we need to restart the server
+to use it. Run:
+
+```terminal
+symfony server:stop
+```
+
+Then:
+
+```terminal
+symfony serve -d
+```
+
+Yup: it found the PHP 8.3.1 version on my system. And on the site... got it!
+
+Ok, this is working on Symfony 6.4. Our job *now* is to find every deprecation and
+fix them. On the web debug toolbar, we apparently hit 22 deprecated code
+paths on this page! To start fixing these, we'll... cheat... take a shortcut, by
+upgrading our Flex recipes.

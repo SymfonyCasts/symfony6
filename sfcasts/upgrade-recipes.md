@@ -1,3 +1,169 @@
 # Flex Recipe Updates
 
-When we install packages, many of them have recipes. These add new files, sometimes they modify existing files in a project. They do everything they need to to get that package set up and working immediately. Oftentimes, these packages over time will change. Maybe they add a new config line or change, as we'll see, a value in a configuration file. You don't need to. There is a recipe upgrade system. While you don't need to upgrade your recipes, they are the best way to keep your application looking and feeling modern, like a new application. They're also going to help us fix some of those deprecation warnings that we saw at the end of the previous chapter. Before you start upgrading recipes, make sure you've committed your changes. I already have, because the recipe upgrade system works using Git. To see your recipes, run Composer Recipes, and cool. It looks like we have about nine of them to update, so let's get to work. Composer Recipes, update. Updating recipes is one of my favorite things to do, because it gives us a chance to peek into the things that have been changing in these bundles while we've been busy, you know, doing our real job. I'll hit enter to just go down this list of one by one. So the first is from Doctrine Bundle, and this is one of the more complicated ones, and you can see it actually contains a conflict. One of my favorite features about the recipe update system is that sometimes the changes won't really make sense to us unless we can see the pull request behind them. And down here, you get a change log of all the pull requests that went into these specific things. So for example, this lazy ghosts thing, we can click here, we can actually see the pull request and some exclamation that goes behind what, why that was made. Now to see the changes, you can already see that the conflict is coming from Doctrine.yaml. And the specific thing is that this server version changed. Originally, Doctrine.yaml, Doctrine Bundle gave us configuration to work with Postgres version 13. They've now they're now shipped with Postgres version 16. You don't have to change that if your production is using Postgres 13, keep it. But I am going to change this to 16. Perfect.  And then over here, I'll run get status. I'll get add that. Then we can see all the changes by doing get diff dash dash cached. And you see most of them are exactly what I'm talking about. The MariaDB version changed. The MySQL version was changed from 5.7 to 8. The Postgres version was changed from 13 to 16. And then there are a couple other lines inside of Doctrine.yaml. And I'm not even going to go into these. These are all low level changes where you're opting into some low level change in the system. And you need to enable these. Now to opt into that new system, because these are all going to become automatic in the future. So for example, this report fields were declared, ops you into a slight change in how the mapping metadata is loaded, probably won't affect you. But you're opting into that here. And then you're going to be future proof. Same thing. In the docker-compose.yaml file, it also contains changes that go from Postgres 13 to 16. So again, you can keep these changes, or you can get rid of them. And then finally, at the bottom, we have symphony.lock, which just keeps track of what version of the recipe we have installed. So I'm going to commit these. And I'm going to use a really bad commit message just to move faster. You should do a better one. But there we go. Now to use the new version of Docker, I'm going to run docker-compose down. And then docker-compose up-d to bring to bring that back up. Cool. And that will actually start the new Postgres 16 version on your system. There's a good chance that it will have to download it. I already have that. Now to prove I'm using a brand new database over here, the homepage still works because it's not actually talking to the database. Don't forget browse mixes, all of a sudden it breaks this undefined table because we're using a brand new database. So let's fix that by running symphony-console-doctrine-migrations-migrate. Cool. And then symphony-console-doctrine-fixtures-load. Double cool. Back over here. Got it. Working. All right. Back to our terminal. And back to work. Composer recipes update. Next up is doctrine migrations bundle. I'm going to go through some of these a little bit quickly. This is very minor. It just changes. The bundle comes with a profiler integration.  It's actually this little icon right here. It's not super useful. And so it's changed to be not be enabled by default. And you can turn it back on if you want to. So let's commit that and update the next one, which is framework bundle. Framework bundle is symphony's core bundles. This is almost always one of the most important recipe updates. So I'll run git dit. But like doctrine, most of the changes here are just low level changes opting into a new system. So annotations are deprecated. So we're turning annotations off. Handle all throwables means that symphony will handle exceptions, but also errors that happen. This is a new mode that you should opt into. Storage factory ID. This is removed because that's the default value. And that's it. So it's a relatively easy one. So let's commit that. Keep going. Next one is monologue bundle. And this case is adding a little formatter key at the end of monologue.yaml. And you can see this if you follow the change log. This is just a small consistency thing. So down here for our production login configuration. The main log file for errors has this little JSON formatter there formats how and the deprecation log, this is the line that was added there just for consistency so that your logs always look the same whether it's an error or a deprecation. And we'll talk more about this deprecation error log pretty soon. So cool. So that one's easy. Welcome at that. Next is simply routing. And also a simple one, the this isn't config routes.yaml. This is the line that imports our attribute routes from our controllers. And this key is supposed to have a namespace key on it. And now we have it. So let's commit that. And on to symphony slash translation. And this is the easiest one yet. The translation.yaml comes with some providers you can use. And these were commented out before and they're just not there at all anymore. It's actually kind of a cool change. If you install these individual providers, then the configuration will be added here. But by default, just to keep your configuration file smaller. They're not there, they're empty. And that's the only change. So let's commit that down to the final two. Down to the final two.  And turns out these are both related to some changes with Webpack Encore and that new stimulus bundle, including a new Webpack Encore bundle major version. So these deserve their own chapter. So let's tackle them next.
+When we install packages, many of them have Flex recipes. These add new files and
+sometimes modify existing files. They do everything needed so the
+package works immediately. I love that!
+
+And, over time, these recipes tend to change. Maybe they decide to add a new line
+to a config file or change a default value.
+
+Fortunately, Flex has a fancy recipe *update* system. And while you don't *need*
+to update your recipes, it's a great way to keep your app looking and feeling modern.
+The updates will also help fix some of the deprecation warnings we saw at the end
+of the previous chapter.
+
+Before you start, make sure you've committed any changes to `git` -
+I already have - because the recipe update system *works* via Git.
+
+To see the recipes, run:
+
+```terminal
+composer recipes
+```
+
+Cool! It looks like we have about 8 updates. So let's get to work:
+
+```terminal
+composer recipes:update
+```
+
+Updating recipes? Yea, it's one of my *favorite* things to do: it gives us a chance
+to peek into what's been changing in these packages... while we've been busy, you
+know, doing our real job. I'll hit enter to go down the list one-by-one.
+
+## doctrine/doctrine-bundle Recipe Update
+
+First up is Doctrine Bundle: and it's a complex update. It even
+caused a conflict!
+
+Sometimes we might see that a recipe update changes something - like updating a line
+in a config file - but we don't really understand *why*. To help, the command lists
+every pull request *behind* these changes. For example, this lazy ghosts thing...
+we can click the link to see the PR and the explanation behind it.
+
+Back in my editor, woh! I guess the conflict was in `doctrine.yaml`! Specifically,
+`server_version` changed. The original recipe gave us config to work with
+Postgres 13. It now ships with code for Postgres 16.
+
+You don't need to keep the new changes. If your production database is using
+Postgres 13, keep it! But I'll update to 16.
+
+At the terminal, run:
+
+```terminal
+git status
+```
+
+Add that file to `git` to resolve it. Then see *all* the changes with:
+
+```terminal
+git diff --cached
+```
+
+Most of these are version changes: MySQL from 5.7 to 8 and Postgres from 13 to 16.
+The `doctrine.yaml` config *does* have a few new lines. These are flags where
+we're opting *into* some low-level change in the system. And there's a good chance
+that *not* having this config would trigger a deprecation. I'll let you dig
+deeper into these if you care, but they probably won't affect anything.
+
+`docker-compose.yaml` contains more changes that go from Postgres 13 to 16. So again,
+you can keep these or get rid of them.
+
+And then, lurking at the bottom, `symfony.lock` keeps track of which version of the recipe
+we have installed. So, we're good! Commit these changes... and use a better commit
+message than I am.
+
+To use the new version of Postgres from `docker-compose.yaml`, run:
+
+```terminal
+docker compose down
+```
+
+Then
+
+```terminal
+docker compose up -d
+```
+
+We now have Postgres 16 running. Watch: the homepage still works because it
+doesn't talk to the database. But when we click "browse mixes", broken! An
+undefined table because we're using a fresh database. Fix that by running:
+
+```terminal
+symfony console doctrine:migrations:migrate
+```
+
+Cool. And:
+
+```terminal
+symfony console doctrine:fixtures:load
+```
+
+Double cool. Now... we're good!
+
+## doctrine/doctrine-migrations-bundle Recipe Update
+
+Back to the terminal... and back to work:
+
+```terminal
+composer recipes:update
+```
+
+On deck is `doctrine-migrations-bundle`. This is minor. The bundle comes with
+a profiler integration: it's this little icon on the web debug toolbar. It's not
+super useful... and so it's changed to be *not* enabled by default. Let's commit
+that... and update the next one.
+
+```terminal-silent
+composer recipes:update
+```
+
+## symfony/framework-bundle Recipe Update
+
+Framework bundle! The *core* of Symfony! Run `git diff --cached` to see the
+changes. Like Doctrine, most of these are low level where we opt into a
+new behavior. For example, annotations are deprecated, so we're turning them off.
+`handle_all_throwables` means that Symfony will transform exceptions into error
+pages but *also* other types of errors. And `storage_factory_id` was removed
+because that's the default value.
+
+Easy! Commit that... then keep going:
+
+```terminal-silent
+composer recipes:update
+```
+
+## symfony/monolog-bundle Recipe Update
+
+Next up is monolog-bundle. The only change is a new `formatter` key at the end
+of `monolog.yaml`. This is a consistency change. Down here in the `prod`
+config, the main log handler already has this `formatter` key. It was added
+under `deprecations` so that everything is formatted the same. Minor,
+but nice! We'll talk more about this deprecation log soon.
+
+So, commit! And...
+
+```terminal-silent
+composer recipes:update
+```
+
+## symfony/routing Recipe Update
+
+Routing. Dead simple. The code that imports the `#[Route]` attributes,
+apparently, needs a `namespace` key. Whatever.
+
+## symfony/translation Recipe update
+
+Commit... and onto
+
+```terminal-silent
+composer recipes:update
+```
+
+symfony/translation. Another easy one: `translation.yaml` used to have
+some commented-out providers as an example... and now they're gone. But if you install
+one of these provider packages, *its* recipe will re-add the line.
+
+Commit that... and we're down to the final 2 recipes! These are both related to
+changes with Webpack Encore and a new StimulusBundle. That deserves its own
+chapter, so let's do it next!
