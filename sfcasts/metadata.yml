@@ -1,1 +1,12 @@
-chapters: []
+chapters:
+    - upgrade-64
+    - upgrade-recipes
+    - encore-upgrades
+    - sensio-framework-extra
+    - deprecations
+    - upgrade-7
+    - asset-mapper
+    - autowiring
+    - request-data
+    - command-profiler
+    - scheduler
