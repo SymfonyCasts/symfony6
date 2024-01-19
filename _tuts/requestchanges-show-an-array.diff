@@ -1,0 +1,16 @@
+diff --git a/src/Controller/VinylController.php b/src/Controller/VinylController.php
+index c326354..c5014e3 100644
+--- a/src/Controller/VinylController.php
++++ b/src/Controller/VinylController.php
+@@ -26,9 +26,10 @@ class VinylController extends AbstractController
+         #[MapQueryParameter] string $query = '',
+         #[MapQueryParameter] int $page = 1,
+         #[MapQueryParameter(options: ['min_range' => 1, 'max_range' => 10])] int $limit = 10,
++        #[MapQueryParameter] array $filters = [],
+     ): Response
+     {
+-        dump($query, $page, $limit);
++        dump($query, $page, $limit, $filters);
+         $tracks = [
+             ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+             ['song' => 'Waterfalls', 'artist' => 'TLC'],

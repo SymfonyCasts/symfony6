@@ -1,5 +1,5 @@
 diff --git a/src/Message/LogHello.php b/src/Message/LogHello.php
-index 16991b0..06dbc4c 100644
+index 16991b0..6c97d96 100644
 --- a/src/Message/LogHello.php
 +++ b/src/Message/LogHello.php
 @@ -4,7 +4,7 @@ namespace App\Message;
@@ -7,7 +7,7 @@ index 16991b0..06dbc4c 100644
  final class LogHello
  {
 -    public function __construct()
-+    public function __construct(public string $length)
++    public function __construct(public int $length)
      {
      }
  }
