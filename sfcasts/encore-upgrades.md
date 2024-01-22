@@ -1,5 +1,204 @@
-# Encore, StimulusBundle & the Recipe Changes
+# Encore, StimulusBundle & their Recipe Changes
 
-Coming soon...
+Let's keep upgrading recipes.
 
-Let's keep upgrading recipes. Next up is Twig Bundle. This does have a conflict in the one file updates, which is templates slash base.html.twig. And it's a bit odd. You can see all of our custom content here. And then here's the default content like welcome with the default favicon. Let's keep our custom stuff, though I will delete this comment right here because we don't need that. And then I'll run git add templates and then get git diff dash dash cached. This shows that symphony.lock of course, but there actually was a change to base.html.twig. It removed Encore entry link tags and Encore entry script tags. Why? So one big change that happened recently is the introduction of Stimulus Bundle. That change on its own, I'm going to talk more about that new bundle, but that on its own is not complicated. When we introduce this new bundle, various parts of recipes changed from one package to another one. For example, this line here used to be part of Twig Bundles recipe. It's now been moved to Webpack Encore Bundles recipe. So when we update the Twig Bundle recipe, when we update the Twig Bundle recipe, in the eyes of Twig Bundle, these lines are supposed to be removed. Now we don't actually want to remove these, we do need these lines, but I'm going to keep, but let's accept this change temporarily. And we'll see these get added back later when we upgrade the Webpack Encore Bundle recipe. We'll see these added back a little bit later. So commit this. And let's do our last update for Webpack Encore Bundle. Once again, we have conflicts. I'll run get status to see them in package.json. We have a number of changes here. But the core of it is that the recipe is trying to upgrade us from Symfony Webpack Encore 3 to Symfony Webpack Encore 4. The biggest difference between 3 and 4 is that in Webpack Encore 4, it's your responsibility to have a few extra packages in your package.json file. For example, in Webpack Encore 4, it's your responsibility to have Webpack in your package.json file, and that was added successfully via the recipe update. It's also your responsibility to have the Babel packages inside of here.  So what we basically want to do here is keep version four of Webpack Encore, and then keep everything else, which is a mixture of our custom packages that we've added, and the new packages we need for Webpack Encore 4. I'll run get add package json. And then to see what other changes there are, let's do get diff. There are some meaningless configuration changes. There's package.json. There's Symfony.lock. We don't care about that. And then in Webpack.config.js, there's also some minor changes. It uses a new version of core.js that's low level. That's fine. And we also don't need this plugin proposal class properties anymore. So deconfigure Babel is commented out entirely. So low level changes, but good changes. Let's commit that recipe. Because we just changed, updated our package.json file, in your other tab, hit control C to stop yarn and run yarn install so we can get the latest node dependencies, including Webpack Encore version 4. Then run yarn watch to rerun the process. And we are now building with the latest version of Webpack Encore. Okay, so the biggest change around Webpack Encore is the introduction of stimulus bundle. And related to that in composer.json, Webpack Encore bundle has a new major version. So change it to caret 2.0. And then spin over and on your main terminal tab, run composer up to get that. By the way, this is going to fail at the bottom with something related to sensual framework extra bundle, we actually broke our application in the previous chapter, when we were upgrading the framework bundle recipe. And we will fix this in the next chapter. Right now, it's not hurting anything. So just ignore it. Now, the really only one big thing changed from version one of Webpack Encore bundle to version two. That is the stimulus twig helper functions were removed and moved into the new stimulus bundle. So that's easy. No big deal. However, that new stimulus bundle also is what triggered a bunch of different recipes to be moved from one package to another package. I mentioned earlier how the Encore entry link tags was moved from twig bundle to Webpack Encore bundle recipe. And similarly, certain files like assets controllers that JSON was removed from was moved from the Webpack Encore bundle recipe to stimulus bundle recipe. Now this is all good.  It's much cleaner. The recipe files are much more related to what they actually to the package that uses them. But it makes for a bit of a mess when we're upgrading our recipes. So let's walk through that. Run composer recipes. Now, back to your terminal. Run get status. Let's commit these changes. Upgrading Encore bundle. And then run composer recipes update again, because surprise, there are two new ones. How is that possible? Well, the new version of we just upgraded stimulus bundle and Webpack Encore bundle, and their new versions have new recipe versions. So let's update symphony stimulus bundle. Now this is where confusing things are going to start to happen. Run get status, we have a conflict and assets slash controllers dot JSON. Basically, this file is already here, and it's trying to add it. That's because stimulus bundle is now responsible for adding this file. And it's a little confused because it's already here. So fix this just by keeping our controllers dot JSON file exactly how it is right now. So let's add that. And I'll run get diff so we can see the other changes. It also added an import line in app dot j s. It's also not something we really want. Because you see it up here, you already had that down here. It's another example of the recipe doing something that we already have done. So I'm going to remove that from the top. I'll add that. And then everything else is fine. It gave us gave us a new Hello controller, we can remove that if we want to. There's symphony outlock. It's good. So we'll upgrade that recipe. And then we will run the last run for webpack Encore bundle. Now this one is particularly strange. When we run get status, we have two conflicts. The problem is that many of the files you see here used to live inside of webpack Encore's recipe, but were moved out of it. So when we upgrade the recipe, it looks like a whole bunch of stuff should be deleted and removed from our project. So in assets slash app dot j s, this entire file isn't removed, but it's trying to remove the guts of our file, keep everything how they are right now. Now, at do get add assets slash app dot j s.  In package dot JSON, it's kind of the same thing. It's just trying to delete stuff. Don't let it do that. Keep our stuff right there. And then do get add package dot JSON. And then let's look at a diff of what changed. So it's trying to delete assets slash bootstrap dot j s, we don't want that. It's trying to delete controllers dot JSON, we don't want that. We don't want any of these changes inside of here, especially not the letter G that I apparently accidentally just typed inside of my package dot JSON file. If we get on here, there's only one change that we actually care about in base dot html twig. Tada, it's adding back our Encore entry link tags and Encore entry skipped script tags. So that is a good change. The last one down here in webpack dot config dot j s, it's trying to remove enable stimulus bridge. Because we're using stimulus, we do want that line. I'm going to fix this by saying get reset head dot to move everything out of the staging area of Git. And then get checkout assets and webpack dot config dot j s to undo those changes. Perfect. And then what we're left with is the changes to simply dot lock, those are good. And the change to base dot html twig. That is good as well. Let's commit that. And we are good. We're now on the latest webpack Encore bundle version with the latest webpack Encore version. And we've gone through that one time painful weird recipe update. Unfortunately, earlier, we broke our application. So next up is to remove the sensual framework extra bundle.
+## symfony/twig-bundle Recipe Update
+
+Next up is TwigBundle. This has a conflict in the one
+file it updated: `templates/base.html.twig`.
+
+And... it's odd. You can see all of our custom content here.... then the default
+title with the default favicon down here. Keep our custom stuff, and delete this
+comment we don't need.
+
+Run:
+
+```terminal
+git add templates
+```
+
+Then:
+
+```terminal
+git diff --cached
+```
+
+This shows `symfony.lock` of course, but there *was* a change to `base.html.twig`:
+it removed `encore_entry_link_tags()` and `encore_entry_script_tags()`. Why?
+
+## The Rearranging of Recipes
+
+One big recent addition to the Symfony frontend world was StimulusBundle. On
+its own, that's no big deal. *But*, when it was introduced, various recipes
+were rearranged. Certain changes that used to live in the recipe for one package
+were migrated to another.
+
+For example, these lines used to be part of TwigBundle recipe, but they've now
+been moved to the recipe for WebpackEncoreBundle. So when we update the TwigBundle
+recipe, it *looks* like these lines were *removed*.
+
+Of course, we *do* still need these lines, but accept this change temporarily.
+We'll see these get added back later when we upgrade the WebpackEncoreBundle recipe.
+
+## symfony/webpack-encore-bundle Recipe Update
+
+Ok, commit this and... let's do our last recipe update for WebpackEncoreBundle!
+
+And... more conflicts. We can't catch a break. Run:
+
+```terminal
+git status
+```
+
+Ok, in `package.json`, we have a number of changes. The recipe is trying to upgrade
+us from Encore version 3 to 4. The biggest difference between 3 and 4 is that it's
+now your responsibility to have a few packages in *your* `package.json`, like
+`webpack` itself... or the babel packages.
+
+Let's keep version 4... and keep everything else, which is a mixture of custom
+packages that we've added and the new packages needed for Encore 4.
+
+Run:
+
+```terminal
+git add package.json
+```
+
+Then check out what else changed with `git diff`. Some meaningless config,
+`package.json` and `symfony.lock`. `webpack.config.js` holds some low-level changes:
+using a newer version of core.js and the `plugin-proposal-class-properties` isn't
+needed anymore.
+
+So, good stuff! commit that recipe. And because we just updated `package.json`,
+in the other tab, hit Control+C to stop `yarn` and run
+
+```terminal
+yarn install
+```
+
+to get the latest node dependencies. Then run
+
+```terminal
+ywarn watch
+```
+
+to restart the process. We're now building  with Encore 4!
+
+## Upgrading WebpackEncoreBundle to v2
+
+The biggest change in the Encore world was really the introduction of StimulusBundle.
+Related, in `composer.json`, `symfony/webpack-encore-bundle` has a new major version.
+Change this to `^2.0`.
+
+Then spin over and, on your main terminal tab, run:
+
+```terminal
+composer up
+```
+
+By the way, this will fail at the bottom with something related to
+SensioFrameworkExtraBundle. We... kinda broke our app in the previous chapter when
+upgrading the framework bundle recipe. We'll fix this in the next chapter, but
+it's not hurting anything right now.
+
+So what changed between version 1 and 2 of WebpackEncoreBundle? Just one thing:
+the Twig `stimulus_` helper functions - like `stimulus_controller()` were removed
+and moved into the new StimulusBundle. So that's easy: no big deal.
+
+The *real* tricky part is what I mentioned earlier: as a result of the new bundle,
+a bunch of recipe parts were moved from one package to another package. In
+addition to the `encore_entry()` Twig functions moving to WebpackEncoreBundle's
+recipe, certain files - like `assets/controllers.json` - were moved from
+WebpackEncoreBundle's recipe to StimulusBundle's recipe.
+
+This is *all* good: the new situation is much cleaner with Stimulus-related files
+living in *that* bundle's recipe. But... it makes for a bit of a mess when upgrading
+the recipes.
+
+So let's walk through that. Run:
+
+```terminal
+git status
+```
+
+Commit these changes... then run
+
+```terminal
+composer recipes
+```
+
+again. Surprise! There are two new updates! Where did those come from? Well, we
+just upgraded StimulusBundle and WebpackEncoreBundle and *those* new versions have
+new recipe versions.
+
+## symfony/stimulus-bundle Recipe Update
+
+Update `symfony/stimulus-bundle`. This... is where weird things start to happen.
+Run:
+
+```terminal
+git status
+```
+
+We have a conflict i `assets/controllers.json`. This file already existed and
+the recipe tried to add it. That's because StimulusBundle is now responsible for
+adding this file... and it's confused because it's already here. Fix this by
+keeping our `controllers.json` file exactly how it was.
+
+Add that, then `git diff` to see the other changes. Ok, it added an import line
+to `app.js`. That's also not something we want because... we already have it down
+here! It's another example of the recipe doing something that's already done.
+Remove that from the top... then `git add` that file.
+
+Then... everything else is fine. It gave us gave us a new `hello_controller.js`,
+which you can keep or remove and `symfony.lock`. All good.
+
+## symfony/webpack-encore-bundle V2 Recipe Update
+
+Commit that... then onto our final update for WebpackEncoreBundle. This one is
+particularly strange. Run:
+
+```terminal
+git status
+```
+
+Two conflicts. Many of the files here *used* to live in WebpackEncore's recipe,
+but were moved out of it. So when we upgrade the recipe, it *looks* like a whole
+bunch of stuff should be *deleted*. In `assets/app.js`, this file wasn't deleted,
+but it wants to remove its guts. Keep it how it was before. Then add it to `git`.
+
+Next up is `package.json`. It's... kind of the same thing: it's trying to delete
+stuff. Don't let it get away with that! Keep our code... then add this file to
+`git` too.
+
+Ok, let's see who things look. It wants to delete `assets/bootstrap.js` - we don't
+want that - and it also wants to delete `controllers.json`. We *also* don't want
+that. We don't want any of these changes... especially not the letter "G" that I
+apparently just typed into `package.json`! There's really only one change that we
+care about: in `base.html.twig`. Tada! It's adding back
+`encore_entry_link_tags()` and `encore_entry_script_tags()`.
+
+That *is* a good change. The final file is `webpack.config.js`: it wants to
+remove `enableStimulusBridge()`. Because we *are* using Stimulus, we *do* want that
+line.
+
+Fix this by saying
+
+```terminal
+git reset HEAD
+```
+
+to move everything out of the staging area of git, then
+
+```terminal
+git checkout assets webpack.config.js
+```
+
+to undo those changes. Perfect. We're left with `symfony.lock` and `base.html.twig`.
+Commit those. 
+
+And we are good! We're running the latest version of WebpackEncoreBundle with the
+latest version of WebpackEncore and we've gone through that one-time weird recipe
+update.
+
+Unfortunately, earlier, we broke our app. So next up: remove SensioFrameworkExtraBundle.
