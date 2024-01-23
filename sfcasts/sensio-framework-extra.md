@@ -1,5 +1,67 @@
 # Goodbye SensioFrameworkExtraBundle
 
-Coming soon...
+Our app is busted: something about SensioFrameworkExtraBundle. This happened while
+we were upgrading recipes. In `framework.yaml`, it's the `annotations: false`.
 
-Our app is busted. Something about Sensio Framework Extra. This happened while we were upgrading our recipes. In Framework.yaml, it's this annotation's false. Sensio Framework Extra bundle gave us all kinds of good features like a route annotation, security annotation, and something called a param converter. These all relied on the annotation system, which has been replaced by core PHP attributes. So by changing this to false, the bundle didn't like that very much. And that's okay. All of those features I just listed now live inside of Symfony's core. So we can say a fond farewell to Sensio Framework Extra bundle. At your terminal, run composer remove Sensio slash Framework Extra bundle. So long. Thanks for all the annotation fish. When it finishes and we refresh, our site works again. But were we using any of its features anywhere? I don't know. An easy way to check is to run git grep Sensio Framework Extra. And nope, it doesn't look like I was referencing any of the use statements from it. If you were, it's just a matter of figuring out what the new attribute is from Symfony's core. And to help with that, Symfony has a really helpful documentation page called Symfony Attributes Overview. It shows you all the PHP attributes that you can use inside of Symfony. So for example, Sensio Framework Extra bundle had a security attribute, and now there is an is granted attribute that you can use instead. So if you are using something from the old system, you can find the new way to do it right here. One of the core features of Sensio Framework Extra bundle actually didn't require an annotation, and you may be using it without even realizing. If you click one of the mixes, notice we have a slug up here in the URL. The controller for this is source controller, mix controller. And down here, you can see we have the slug wildcard in the routes. But then we have a mix arguments. This vinyl mix is a doctrine entity. And what the param converter did is it automatically queried for a vinyl mix where slug equals the slug inside of the URL. So no annotation needed here. It was just something that worked. However, you can see in Symfony, it still works. This is just now part of the core of Symfony.  And in most cases, it's still going to work. If you add a extra letter on the end of the slug to hit a 404, you'll see the 404 and it tells you this is coming from something called the entity value resolver. So if you do need some extra configuration, if you're using some extra configuration to get this to work before you can look into the entity value resolver and see how to do that within your system. But in most cases, it's going to work exactly the way that it did before. So that's it easy. And now I want to upgrade to Symfony seven. But to do that safely, we need to remove all of these deprecations. That's next.
+SensioFrameworkExtraBundle gave us all kinds of features like the `@Route`
+annotation, security annotation, and something called the param converter. These all
+relied on the annotation system, which has been replaced by core PHP attributes.
+When we flipped them to false... the bundle didn't like it.
+
+But hey, that's fine! All those nifty features found a new home
+in the core of Symfony. So it's time to say a fond farewell to SensioFrameworkExtraBundle.
+
+## Uninstalling it
+
+At your terminal run:
+
+```terminal
+composer remove sensio/framework-extra-bundle
+```
+
+So long, and thanks for all the annotated fish. When it finishes... and we refresh, the
+site works again!
+
+## Checking for SensioFrameworkExtraBundle Features
+
+But... were we using any of its features? I don't know! An easy way to check
+is by running:
+
+```terminal
+git grep FrameworkExtra
+```
+
+Nope! It doesn't look like we're referencing any `use` statements directly. If
+you *are*, it's just a matter of figuring out what new attribute from Symfony
+replaces that feature.
+
+To help, Symfony has a great documentation page called
+[Symfony Attributes Overview](https://symfony.com/doc/current/reference/attributes.html).
+This shows every PHP attribute from Symfony. For example,
+SensioFrameworkExtraBundle had a `Security` annotation. Now Symfony has an `IsGranted`
+attribute that you can use instead.
+
+So if you *are* using something from the old system, find the new way and update.
+
+## The New "Param Converter"
+
+Though... there *is* one feature of SensioFrameworkExtraBundle that *didn't* require
+an annotation... so you may have been using it without realizing. Click into one
+of the mixes. Notice the URL has a `slug`. The controller for this is
+`src/Controller/MixController.php`. Down here, the route *does* have a `{slug}`
+wildcard... but then a `$mix` argument, which is a Doctrine entity.
+
+Behind the scenes, the param converter would automatically query for a
+`VinylMix` where `slug` equals the `{slug}` in the URL. No annotation needed:
+it just worked.
+
+The good news is that, as you can see, this magic *still* works!
+The feature now lives in core. And in most cases, it will silently keep
+doing its thing, just like before.
+
+If you add an extra letter to the end of the slug to get a 404, we see that the system
+behind this is `EntityValueResolver`. If you *do* need some extra control, you
+can configure this with the `#[MapEntity]` attribute.
+
+Next up: I want to upgrade to Symfony 7! But to do that, we need to remove all
+these deprecations.
