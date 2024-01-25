@@ -6,6 +6,7 @@ chapters:
     - deprecations
     - upgrade-7
     - asset-mapper
+    - asset-mapper-part2
     - autowiring
     - request-data
     - command-profiler

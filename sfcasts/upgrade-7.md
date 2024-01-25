@@ -1,5 +1,140 @@
 # Upgrading to Symfony 7
 
-Coming soon...
+All the relevant deprecations are gone: we are ready for Symfony 7.0.
 
-All the relevant deprecations are gone. We are ready for Symfony 7.0. Doing the actual upgrading is almost disappointingly easy. In composer.json, we're going to replace 6.4.star with 7.0.star. And that's it. Then spin over and run composer up. And there's a good chance that this isn't going to work. And in fact, it doesn't. We have some. The first thing I see here is Babdev PagerFontaBundle. Apparently, it works with Symfony 4, Symfony 5, and Symfony 6, but not Symfony 7. This tells me there's a good chance that I probably need to upgrade this to a new version that does support Symfony 7. Run composer outdated. And sure enough, there are three different PagerFonta related packages that all have a new major version. In composer.json, I'll search for PagerFonta. Let's change all of these to caret4.0 to get that new major version. Now, this is a major version upgrade, so I won't do it. But you should check the repository for these packages. See if they have a change log or release notes that talk about any backwards compatibility breaks when going from version 3 to version 4. In our case, I'll spin it back over, try composer up again, and still doesn't work. This time, it says root composer.json, meaning our composer.json requires Symfony proxy manager bridge 7.0.star, but it didn't find a version 7. As the error says, this is a package that we actually have in our composer.json file. Proxies are something that Doctrine uses behind the scenes to help load lazy relationships. Recently in Symfony, recently Symfony has got its own version of proxies called ghost objects. And so this proxy system isn't needed anymore. We originally got this line way back when we installed a Doctrine ORM the first time because it needed it, but it's no longer something we need, so I'm going to remove it. There is no version 7 of that package. All right, try composer up again, and it works. Look at all those beautiful Symfony 7 updates. And best of all, when we go to the site, that works too. And of course it works. We handled our deprecations correctly, so there's no surprises when we finally get to our 7.0 site. Everything works just fine. At this point, I do like to check to see what other non-Symphony packages I might have that are outdated. So run composer outdated again, and that's awesome.  It's just two of them, DoctrineLexer and a PHP parser. To find out why this didn't go to version 3, we can copy that package name, and from run composer, why not, DoctrineLexer 3.0. And it tells us that DoctrineORM requires DoctrineLexer version 2, and since we didn't see DoctrineORM as an outdated package, it means this is the latest version, and there simply isn't a version of DoctrineORM yet that requires DoctrineLexer 3. And that's fine. DoctrineLexer is a low-level thing. We don't really care if we're on version 2 or if we're on version 3, so that's fine. The other package was the PHP parser. I can tell you, without even looking at that, this is required by Maker Bundle, and in the next release of Maker Bundle, it will allow for version 5, so you should see this update really soon. But it's also not something that we really care about. Now, because we just updated some packages, if we run composer recipes, hey, we have two new recipe updates that are available for the new versions of those packages. As I mentioned, we can't upgrade our recipes until we have everything committed, so let's commit. I'll put a fancy emoji inside of mine. Oopsies. Perfect. And then run composer recipes update. These recipe updates are both really cool. I'll run git diff to see them. You see a bunch of lines removed. What you're seeing here is just these are being removed because these are now the defaults. The session key here no longer requires all this stuff. These are all the default values. You can just say session true. Same thing for PHP errors, same thing for handle all throwables. So it's just cleaning up our config file, which is really nice. So I'll commit that. We'll run recipe update one more time. And this is the exact same thing. It's removing a config option that is now the default value. So we can just commit that, and our project is a little bit cleaner. Love it. So we're on Symfony 7. Our application's working. We have our recipes updated. We're in really great shape. While we're here, there is one other change that we can make now. We don't have to. But inside of our controller, notice I have a little highlight over route here. It says, Symfony annotation namespace will be deprecated in Symfony 6.4 slash 7.0.  And if you look at the use statement, you can see that there's annotation in the namespace. This is a class that is not yet deprecated, not yet deprecated, but will be deprecated soon. And fixing it is really simple. Delete that use statement. I'll go down here. I'll hit Option Enter. Hit Import Class. And there's an identical one now in an attribute namespace. Add the attribute namespace one, and you're good to go. I'll copy that. I'm going to repeat this in our other two controller files. This is going to save us in the future from hitting that once it finally does become deprecated. All right, now that we're on Symfony 7, I'm going to do something optional but really cool next. We're going to remove Webpack Encore and replace it with AssetMapper. I'll also talk about why you might want to do this in your application or why you might not want to do it in your app.
+## Updating composer.json
+
+Doing the actual upgrade is... almost disappointingly easy in `composer.json`
+replace `6.4.*` with `7.0.*`.
+
+That's it. Spin over and run:
+
+```terminal
+composer up
+```
+
+## Finding Blocking Packages
+
+There's a good chance this won't work. Yup! Something is blocking the update!
+The first thing I see is `babdev/pagerfanta-bundle`. Apparently, it works with
+Symfony 4, 5 and 6, but not 7.
+
+There's a good chance that I probably need to upgrade this to a new version that
+*does* support Symfony 7. Run:
+
+```terminal
+composer outdated
+```
+
+Sure enough: there are three pagerfanta packages that all have a new major version.
+In `composer.json`, search for pagerfanta. Change all of these to `^4.0` to get
+that new major version.
+
+And because this *is* a major version upgrade, I won't do it, but you should check
+the repository for each package and find the changelog or release notes that talk
+about any backwards compatibility breaks when going from version 3 to 4.
+
+Ok, try the update again:
+
+```terminal
+composer up
+```
+
+And... *still* no dice! Hmm: it says that the *root* `composer.json` - meaning *our*
+`composer.json` - requires `symfony/proxy-manager-bridge` `7.0.*` but it didn't find
+a version 7.
+
+Sure enough, this package lives directly in *our* `composer.json` file. Proxies are
+something that Doctrine uses behind the scenes to load lazy relationships. Recently,
+Symfony added its *own* version of proxies called "ghost objects". They're spooky
+cool. Anyway, this proxy package isn't needed anymore. This was originally added
+to our app *way* back when we installed Doctrine: it *used* to be part of the
+`orm-package`.
+
+It's no longer something we need, so remove it.
+
+Ok, try composer up again:
+
+```terminal-silent
+composer up
+```
+
+
+And... it works! Look at all those beautiful Symfony 7 updates! And best of all,
+when we go to the site, it works too! And of course it does! We handled the
+deprecations correctly, so there are no surprises when we finally get to 7.0.
+
+## Any other Packages to Update
+
+At this point, I like to check to see what *other*, non-Symfony packages I might
+have that are outdated. Run `composer outdated` again:
+
+```terminal-silent
+composer outdated
+```
+
+Woh! Just two! `doctrine/lexer` and a `php-parser`. To find out why this didn't go
+to version 3, copy that package name, and run
+
+```terminal
+composer why-not doctrine/lexer 3.0
+```
+
+Hmm: our version of `doctrine/orm` requires `doctrine/lexer` version 2. And since
+we didn't see `doctrine/orm` as an outdated package, it means that there simply isn't
+a version of `doctrine/orm` yet that works with `doctrine/lexer` 3. And that's fine
+That's a low-level package and we're in no rush.
+
+The other package - the `php-parser` - I can tell you, without even looking, that
+this is required by `symfony/maker-bundle`, and in its next release, version 5
+will be allowed. But it's also not something that we really care about.
+
+## New Version Recipes
+
+Because we just updated some packages, if we run `composer recipes`... hey! There
+are two new recipe updates available!
+
+```terminal-silent
+composer recipes
+```
+
+We can't upgrade these until we have everything committed... so do that. I'll
+include an emoji for flare. Then run:
+
+```terminal
+composer recipes:update
+```
+
+And `git diff --cached` to see the changes. This is *cool*: a bunch of lines removed.
+These are being removed because these are now the *default* values. The `session`
+key no longer needs this stuff - they're are all the default values... and same
+`php_errors` and `handle_all_throwables`. It's cleaning up our config, which
+is nice!
+
+Commit that, then run `recipes:update` one more time:
+
+```terminal-silent
+composer recipes:update
+```
+
+This is the same thing: it removes a config option that is now the default.
+Commit that. Our project is now jsut a *little* bit cleaner.
+
+*So* we're on Symfony 7, our app is working, our recipes are updated!
+
+## Changing the Namespace for #[Route]!
+
+While we're here, inside a controller, notice it highlights the `Route` attribute:
+
+> Symfony Annotation namespace will be deprecated in Symfony 6.4 /7.0.
+
+Look at the `use` statement: it has `Annotation` in the namespace! This class
+isn't *yet* deprecated, but it will be soon. And fixing it is simple. Delete
+the `use` statement, go down here, click on the class, hit Alt+Enter, Import Class,
+then get the one from the `Attribute` namespace.
+
+Copy that... then repeat in the other two controller files. This will save us
+a deprecation in the future.
+
+Now that we're on Symfony 7, I want to do something *optional*, but really cool:
+I want to remove Webpack Encore and replace it with AssetMapper.
