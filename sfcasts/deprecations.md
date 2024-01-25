@@ -1,5 +1,126 @@
 # Finding & Eliminating Deprecations
 
-Coming soon...
+Symfony's deprecation system is probably unmatched on the internet. It's one of the
+things that makes Symfony so special and a lot of work goes into!
 
-Symfony's deprecation system is probably unmatched on the internet, and it's one of the things that makes Symfony so special, and a lot of work goes into making it work great. So here's what happens. If we in Symfony want to change something, like the name of a method, we don't just rename the method, because that would break your code. Instead, we add the new method name and keep the old one, but add a little deprecation code function inside the old method. And then we release that on a minor version, like 6.3 or 6.4. Then you upgrade to that version, and since your code is calling the old method, it hits that deprecation line and triggers what's called a deprecation warning. And the great thing about these deprecation warnings is that they're collected, and we can see them in various ways. For example, we can see them on the Web Debug Toolbar. Your job is to fix these, to read the deprecation notice, and update your code to call the new method. Then, when all the deprecations are gone, you can safely upgrade to Symfony 7.0, because the only difference between Symfony 6.4 and Symfony 7.0 is that the deprecated code paths are gone. So in our example, the old method name is finally removed in Symfony 7.0. This means that Symfony gets to change things and keep modernizing, and your app gets to keep updating in a safe and predictable way. It's awesome. So that's our job today. We're going to hunt down deprecations. To get started, I'm going to manually clear my cache directory, so that when we go over and refresh the homepage, that will actually build the cache. Those are certain deprecation warnings that only happen while your cache is being built. Down here, we can see that there are three deprecation warnings, and I will open those up. The first is something about Symfony templating being deprecated, and some helper class being deprecated, which is not something I remember using in my code. If we look at the trace, and by the way, if this doesn't open, that's a little bug with the profiler. Refresh, hit trace. You can see it's not really helpful. Here's the helper class, and here's something called a class loader. So what this does tell me is that something is trying to use this class, and this class in its entirety is deprecated.  Now what's happening here is the Symfony templating component entirely is being deprecated. It doesn't exist at all in Symfony 7.0, and there's a pretty good chance that you've never used it anyway, and I'm not using it in my application. So who is actually using this line? To find out, go to your command line and run composer y Symfony templating. Let's find out who is, why this is even in our code base. It turns out it's because of KMP time bundle. It requires this. So I'll click to open this. This will take us to the version 1.20.0 that we're using, but that's not the latest version. If I click tags, there's version 2.2. We're way behind. In this new major version 2.0 modernizes the code, and there's a good chance this is the version that we need to remove the Symfony templating. In fact, we can see it right down here. Now this is a new major version of this bundle, so you do need to check the change log for any backwards compatibility breaks, which are explained here. So in this case, the deprecated code path wasn't something that we were calling directly, but we're using a library and it was calling it. So to be ready for Symfony 7, we need to upgrade this bundle. In composer.json, I'll search for time and change this to the latest 2.2. Spin over and run composer up. It upgrades our package and it removes Symfony templating. Yes. Oh, I forgot to say earlier that we're down to just three deprecations thanks to the recipe update. All right, I'm going to clear my cache again, close some tabs, and let's actually go to the browse mixes page because that's one that connects to the database. Down here, we see two deprecations. Let's open those up and dive into them. So this first one has something to do with data fixtures. And if we look at the trace, it's not super obvious, but it's coming from doctrine fixtures bundle. This is a bit of a trickier one. I had to dive into the doctrine fixtures repository and find a conversation about this. Turns out this is a bit of a false warning. The deprecation layer that was added to this bundle wasn't done quite correctly. And so you can see down here from the maintainer, it says, actually, it's fine.  And if you upgrade to version seven, it's not going to break. So this is a little bit odd. But that's really our job with deprecations is to hunt them down and either fix them or in some very rare cases like this, I've never seen this before, we can find out actually it's okay. So in this case, this is fine, we don't need to change anything. So we can ignore this one. And then the final last deprecation here is a bit longer and follows a different format. All the deprecations so far have included which symphony package the deprecation was in and what version it was deprecated in. But you don't see that down here. And actually at the bottom, you can see an issue related that links to doctrine ORM and package doctrine slash ORM. So this deprecation is not actually coming from symphony, it's coming from doctrine slash ORM. This is telling us that we're going to need to make a change at some point to our code if we want to upgrade to the next major version of doctrine ORM. But we're just worrying about upgrading symphony today. So this is also a deprecation that we don't need to worry about. So yeah, I think we're good. Our application is pretty small. But as I click around, the only deprecations I have are those ones that we just looked at. But how can we be sure how can we share there's not a page we forgot to check or a form submit that triggers some deprecation? Excellent question. The answer is logging. In config packages, monologue dot yaml. At the bottom we have our production logging config. Now the main part of this is this nested. This is actually what logs the errors in production somewhere. It logs them to standard error, you could change that to a file to some logging service. The point is, you are hopefully on production logging your errors somewhere. At the bottom of this, there's a special section called deprecation, which is logging deprecation notices to the same place. So in your production error logs, you should be seeing deprecations in there as well. So you fix all of the deprecations that you know about, deploy to production, wait a day or two, check your production logs, see if there are any deprecations.  And if there aren't, then you know you are safe to go to symphony 7.0. We are safe in our application. So next, let's upgrade this baby to symphony seven.
+## How Symfony Changes / Deprecates Features
+
+Here's how it works. Suppose we, in Symfony, want to change something: like the name
+of a method. We don't just rename the method, because that would break your code.
+Instead, we add the new method name and keep the old one, but add a little deprecation
+code function *in* that old method. We release that on a minor version, like 6.3
+or 6.4. Then you upgrade to that version and since your code is calling the old
+method, it hits that deprecation code and triggers a deprecation warning. These
+warnings are collected and we can see them in various ways. For example, we can see
+them on the Web Debug Toolbar.
+
+Your job is to read these and update your code to call the *new* method name. Once
+all the deprecations are gone, you can safely upgrade to Symfony 7.0. Because,
+remember, the only difference between Symfony 6.4 and Symfony 7.0 is that the
+deprecated code paths are gone. In our example, it means that the old method name
+is finally removed in 7.0. This process means that Symfony can change things
+and keep modernizing *and* we can update our apps in a safe and predictable way.
+It's awesome.
+
+## Hunting Down Deprecations
+
+So that's our job today: to hunt down deprecations. To get started, let's manually
+clear my cache directory
+
+```terminal
+rm -rf var/cache/*
+```
+
+so that when we go over and refresh the homepage, this will *build* the cache. Some
+deprecation warnings only happen while your cache is being built. Ok, it looks like
+we have three deprecation warnings left after updating our recipes. Nice!
+
+## Removing symfony/templating
+
+Open those up. The first is related to some templating helper class being deprecated.
+That's not something I remember using in my code. Look at the trace: it's not
+very helpful. Here's the helper class... called by a class loader.
+
+This tells me that something is trying to use this class... and the class is
+entirely deprecated. In fact, this entire `symfony/templating` component is
+deprecated: it doesn't exist at all in Symfony 7.0. There's a pretty good chance
+you never used it anyway... and I'm *not* using it in *my* app. So who is?
+
+To find out, go to the command line and run:
+
+```terminal
+composer why symfony/templating
+```
+
+And... ah This is required by `knplabs/knp-time-bundle` Click the link to jump
+to our installed version: 1.20.0. But that's not the latest version: there's now
+a version 2.2. We're way behind! The major version 2.0 modernizes the code... and
+there's a good chance that this is version remove the dependency on the templating
+component. In fact, we see it down here.
+
+This *is* a new major version of the package, so we *do* need to check the
+changelog or release notes for any backwards compatibility breaks that might
+affect you.
+
+The interesting thing about this first deprecation is that... it wasn't something
+that *we* were calling directly: it's being called indirectly by a library we're
+using... which is pretty common. To be ready for Symfony 7, we need to upgrade this
+bundle.
+
+In composer.json, search for "time"... then change this to the latest `^2.2`.
+Spin over and run:
+
+```terminal
+composer up
+```
+
+It upgrades the package... and removes `symfony/templating`
+
+## DoctrineFixturesBundle False Deprecation
+
+Ok, clear the cache again, close some tabs, and let's go to the "browse mixes"
+page because that connects to the database. This time, we see two deprecations.
+Open those up and dive into them. The first has something to do with data fixtures.
+If we look at the trace, it's not super obvious, but it's coming from
+DoctrineFixturesBundle. This is a tricky one: I had to dive into the
+DoctrineFixturesBundle GitHub repository to find a conversation. This time, the
+deprecation is a false warning: the deprecation layer that was added to the bundle
+wasn't done *quite* correctly. The maintainer confirms that it's fine... so when
+we upgrade to Symfony 7, things won't break.
+
+This is an odd situation, but it shows that hunting deprecations *can* be tricky!
+
+## Deprecations from Doctrine
+
+The final deprecation is a longer and follows a different format. The deprecations
+so far have included which Symfony package the deprecation was in and what version
+it was deprecated in. But we don't see that down here. And, at the end, it references
+an issue from the `doctrine/orm` repository.
+
+In this case, the deprecation is *not* coming from Symfony: it's coming from
+`doctrine/orm`. This tells us that we're going to need to make a change to our
+code - at some point - before upgrading to the next major version of the package.
+We're only focused on upgrading Symfony today, so this is *also* a deprecation we
+can ignore.
+
+So... yeah I think we're good. Our app is pretty small, but as I click around, the
+only deprecations I see are those that we just looked at.
+
+## Deprecation Log on Production
+
+But... how can we be sure that there's not a page we forgot to check or a form submit
+that triggers a deprecation? Excellent question The answer is: logging.
+
+In `config/packages/monolog.yaml`, at the bottom, we have the production logging
+config. The main handler is the `nested` handler: this is what logs errors
+on production. By default, it logs them to stderr, or you could change this to
+a file.
+
+The point is: you are hopefully collecting your production errors somewhere. At the
+bottom, there's another handler called `deprecation`. This logs all deprecation
+notices to the *same* place. In your production error logs, you should *also*
+see deprecations warnings.
+
+So: fix all the deprecations you can find, deploy to production, wait a day or two,
+then check your production logs to see if there are any deprecations. Once there
+aren't, you're safe to move to Symfony 7.0. Let's do that upgrade next!
