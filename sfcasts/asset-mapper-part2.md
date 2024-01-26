@@ -52,7 +52,7 @@ from Symfony UX to make that easier.
 
 ## Adding CSS Fonts
 
-The last item in `app.css` is a font. This is trickier. If we run `importmap:reqiure`
+The last item in `app.css` is a font. This is trickier. If we run `importmap:require`
 followed by *only* a package name - no path - it will always download the package's
 main JavaScript file. You only get a CSS file if you `importmap:require` a path
 *to* a CSS file, like we just did.
@@ -85,7 +85,7 @@ php bin/console importmap:require @fontsource-variable/roboto-condensed/index.mi
 ```
 
 Copy that and hit enter. It downloads the CSS file and adds an entry to
-`ipmortmap.php`. Finally, remove the import from `app.css` and import it from
+`importmap.php`. Finally, remove the import from `app.css` and import it from
 `app.js`.
 
 Oh, and because we changed to the variable font, in `app.css`, update the font family
@@ -148,6 +148,7 @@ doesn't live in `importmap.php`. In this case, it's coming from
 `song-controls_controller.js`.
 
 And *this* time, the fix *is* to install this package! Spin over and run
+
 ```terminal
 php bin/console importmap:require axios
 ```
@@ -158,7 +159,7 @@ powered by AssetMapper! We have a performant, modern frontend all with no build 
 ## Downgrading a Dependency
 
 Oh, but look at the footer: the text is darker than it used to be. Before,
-I was using bootstrap 5.1. But when we installed `bootstrap` that with AssetMapper,
+I was using bootstrap 5.1. But when we installed `bootstrap` with AssetMapper,
 it grabbed the latest 5.3. And apparently something changed!
 
 I could figure out *what* changed and fix this... But we can also downgrade.

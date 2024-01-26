@@ -18,7 +18,7 @@ It's gone from `importmap.php`. Then delete the `import`... and this comment whi
 we're here. Replace `axios.get()` with just `fetch()`. Then, to see if this is
 working, `console.log(response)`.
 
-Over in browser-land, smash the play button to trigger the method. Cool!
+Over in browser-land, smash that play button to trigger the method. Cool!
 The last two lines aren't working, but we see the response! It *did* make an
 Ajax call.
 
@@ -31,7 +31,7 @@ In front of `fetch`, say `const response = await fetch()`. Then copy the inside 
 the callback and put it right after.
 
 This says: make the `fetch()` call, wait for it to finish, and *then* run this code.
-It's much simple to read and write.
+It's much simpler to read and write.
 
 Though, you probably noticed my angry editor:
 
@@ -57,5 +57,5 @@ Then celebrate, that sweet, sweet Rickroll. Modern code, no build system: life
 is good.
 
 Now that we're upgraded, let's take a tour into some of my favorite new features,
-starting with autowiring goodies that might mean that you'll never edit
+starting with autowiring goodies that might mean you'll never edit
 `services.yaml` again.

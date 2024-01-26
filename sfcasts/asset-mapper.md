@@ -45,7 +45,7 @@ But... it also deleted `app.js` and `app.css`. We *do* want those files, so run
 git checkout assets/
 ```
 
-to get those back. But everything else looks good! Run:
+to get them back. But everything else looks good! Run:
 
 ```terminal
 git diff
