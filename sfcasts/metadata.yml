@@ -7,6 +7,7 @@ chapters:
     - upgrade-7
     - asset-mapper
     - asset-mapper-part2
+    - fetch-await
     - autowiring
     - request-data
     - command-profiler
