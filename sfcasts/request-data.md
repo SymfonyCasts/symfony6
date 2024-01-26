@@ -1,5 +1,92 @@
-# Fancy new Ways to Grab Request Data
+# MapQueryParameter & Request Payload
 
 Coming soon...
 
-The next new stuff I want to talk about are related to how we fetch data from the request. That's normally kind of boring work, but the new features are pretty darn cool. For example, let's add a ?query="banana") to the URL. To fetch that in our controller, we would historically type in an argument with request and fetch it from there. And while that still works, we can now add a ?string="query-argument". To tell Symfony that this is something that comes off of a query parameter, we add an attribute in front of it called ?map-query-parameter. And that's it. Inside, I'll dump query to make sure that works. Back over here, we refresh. In the Web Depot toolbar, we've got it. And that's all you need to do. There are options that you can configure on here. So, for example, if your query parameter was called something else, you could put that there. But if your query parameter has the same name as your argument, you don't need any config. And beyond just grabbing this value from the request, it's also performing validation. Watch. Let's duplicate this and make a page="1-argument". And I'm actually going to make the query optional also so that we don't have to have a query parameter on the URL. Then down here, I will dump page. No surprise if we say, for example, page="3", it dumps three. And it is nice that it is giving us a true integer three, not a string three. But there's even more to that type int. If I change this to page="banana", it fails. And it fails the right way. We get a 404. The system sees we have an int type and performs validation on that. Now, this entire system is handled by something called the Query Parameter Value Resolver. So if you really want to dig in and see how things are working, you can check that class. But internally, that class is using a PHP function called FilterVar to do the validation. This is not a function that I was very familiar with before. It's incredibly powerful. We're not going to go too deep into it. But on a high level, you pass it a value, you pass it one or more filters, and it tells you whether that value passes those filters. You can also pass options to control those filters.  If you don't do anything else, the system is going to read our type int, and it's going to determine a filter. It's going to pass a filter here that's going to require this to be an int. So that is ultimately why this is failing. But we can get fancier with this. For example, let's add another one called Limit. And I'm going to set this, default this to 10. Let's dump it down here. However, in this case, I want the limit to be between 1 and 10. So to do that, the FilterVar function takes options. There's an option called Minimize. There's an option called MinRange, which we can set to 1. MaxRange, which we can set to 10. And that should do it. Back over here, I'll say limit equals 3. And that works like we expect. But if I say limit equals 13, the FilterVar fails. We get a 404, which is awesome. The MapQuery parameter can even handle arrays. So let's copy and create one more query parameter here, an array of filters. Default it to an empty array. Let's dump that. And now over here, we can use the format ?filters, left square bracket, right square bracket equals banana, and filters, bracket, bracket equals apple. And when we do that, we get the array down in the WebDebugToolbar. And it also works for associative arrays. So if I put foo and a bar between the square brackets, yeah, we get an associative array. So just a really well-designed feature for fetching query parameters. In addition to this, if you need to fetch the body of a request, in Symfony 6.3, there's a new method called request getPayload. And this says two different things. If you're building an API and your client is sending JSON in the body, requestErrorGetPayload is going to decode that JSON into an associative array for you, which is nice. But also, if your user is submitting a normal HTML form, requestGetPayload works for that as well. It's going to detect that there's a HTML form being submitted. It's going to decode it. It's going to give you an array. So no matter if you're using an API or normal form, you have one uniform method to fetch the payload on the request, which is just nice.  Now, speaking of the JSON example, a lot of times if you are handling JSON as an input, you're going to want to deserialize that into an object. So that relates to another feature called MapRequestPayload. So in this case, invoke is actually our controller. And what this says is take the JSON of the request and deserialize it into a product review DTO, which is this example class up here. So it's going to send that through the serializer, deserialize it. It's also going to perform validation on it. So just another well thought out feature. All right. That's enough for request stuff. Next up, let's dive into a brand new feature for Symfony 6.4 where we can actually profile and use Symfony's profiler on console commands.
+The next new stuffs I want to talk about are related to grabbing data from the
+request. That's normally... kind of boring work. But the new features are pretty
+darn cool.
+
+# The MapQueryParameter Attribute
+
+For example, let's add a `?query=banana` to the URL. To fetch that in our controller,
+we would historically `type-hint` an argument with `Request` then grab it from there.
+And while that still works, we can now add a `?string $query` argument. To tell
+Symfony that this is something it should grab from a query parameter, add an attribute
+in front: `#[MapQueryParameter]`.
+
+That's it Dump the query to prove it works.
+
+Back in the web browser world, refresh. In the web debug toolbar... got it!
+
+## Validation from the Type-Hint
+
+The attribute *does* also have some options. For example, if your query parameter
+was called something different than your argument, you could put that here.
+
+And beyond just grabbing the value from the request, this system *also* performs
+validation. Watch: duplicate this and add an `int $page = 1` argument. Oh, and
+I meant to make the `$query` argument optional so it doesn't *need* to be on the URL.
+going to make the query optional also so that we don't have to have that query parameter.
+Below, dump `$page`.
+
+Ok, if we add `?page=3` to the URL... no surprise: it dumps `3`. But it *is* nice
+that we get an *integer* 3: not a string. Now try `page="banana"`. We get a 404!
+The system sees we have an `int` type and performs validation.
+
+## The filter_var() Function
+
+This entire system is handled by something called the `QueryParameterValueResolver`.
+So if you really want to dig in, check that class. Internally, that class uses
+a PHP function called `filter_var()` to do the validation. This is not a function
+I'm very familiar with, bit it's quite powerful. On a high level, you pass it a value,
+pass it one or more filters... and it tells you whether that value *satisfies* those
+filters. You can also pass options to control the filters.
+
+If you don't do anything extra, the system reads our `int` type-hint, and passes
+a filter to `filter_var()` that requires it to be an `int`. That's why this fails.
+
+## Validating an int is in a Range
+
+But we can get fancier. Add argument called `$limit` that defaults to 0. Dump
+this below. But this time, I want the limit to be between 1 and 10. To force that,
+pass two options special to `filter_var`: `min_range` set to 1 and `MaxRange` set
+to 10.
+
+Let's try it! Say `?limit=3`. That works like we expect. But if we try `limit=13`,
+`filter_var()` fails and we get a 404! I love that!
+
+## Grabbing Array Query Parametrs
+
+This can even be used to handle arrays Copy and create one more argument: an
+array of `$filters` that defaults to an empty array. Dump that.
+
+At the browser, try `?filters[]` equals banana, `&filters[]` equals apple. Check
+out that array in the web debug toolbar It also works for associative arrays: add
+`foo` and `bar` between the `[]`. Yup! An associative array.
+
+It's just a really well-designed feature for fetching query parameters.
+
+## Request Body
+
+Also, if you need to fetch the *body* of a request, in Symfony 6.3, there's a new
+method called `$request->getPayload()`. If you're building an API and your client
+sends JSON in the body, `$request->getPayload()` will decode that JSON into an
+associative array for you. That's nice! But also, if your user is submitting
+a normal HTML form, `$request->getPayload()` works there too. It detects that
+an HTML form is being submitted and decodes the `$_POST` data to an array.
+So no matter if you're using an API or a normal form, you have a uniform method to
+fetch the payload of the request. Small, but nice.
+
+## MapRequestPayload
+
+Speaking of the JSON example, it's also common to use the serializer to deserialize
+the payload into an object. That relates to another new feature called
+`#[MapRequestPayload]`.
+
+In this case, `__invoke` is the controller action. This says: take the JSON from
+the request and deserialize it into a `ProductReviewDto`, which is the example class
+above. After sending the JSON through the serializer, it also performs validation.
+So another well-thought-out feature.
+
+Ok, that's enough for request stuff! Next up, time to test drive a new feature
+in 6.4: the ability to profile console commands.

@@ -1,5 +1,89 @@
 # New Autowiring Attributes
 
-Coming soon...
+So what's new in Symfony 7? Nothing! The real question is, what's new in Symfony 6.4?
+Or maybe, what's new in 6.3 or 6.2 that... maybe we missed?
 
-So what's new in Symfony 7? Nothing! The real question is, what's new in Symfony 6.4? Or maybe, what's new in 6.3 or 6.2 that's important that we may have missed? Now the best place to find this stuff, to be honest, is the Symfony blog. Javier does a great job with every single release, covering all the most important features. So I've pulled up just a couple of my favorite, the workflow profiler. So if you're using the workflow component, you can see a really cool visualization of your workflow inside of the profiler. There's also some modifications to the logout system, just to make it a little bit simpler. And then a couple of new constraints, like a password strength constraint, and another constraint that's going to prevent suspicious characters, like zero width space characters, if a hacker is trying to do something tricky on your site. If you're building an API, there's an excellent debug serializer command. So you can see all the metadata that you have for all of your properties that are going to be serialized. That's really cool. And finally, the new webhook and remote event components, which deserve their own tutorial. So let's save that for another time. These are just a few of my favorite features that I pulled up here, but you can look at everything by going to the living on the edge section of the blog, and then you can sort it by the release you want. Good way to nerd out. But I do want to show a couple of things specifically, and I want to start with some changes and improvements to the auto wiring system that have happened over the last several versions of Symfony. And these do lots of different things, but what they're ultimately going to allow us to do is probably never need to go into services.yaml ever again. So in an old tutorial, I added this bind for an is debug argument. And the reason I did that is in source controller vinyl controller, I gave this controller an is debug argument. So in services.yaml, let's remove that bind. And when we refresh, we'll see an error, which says, Hey, you have an is debug argument on a service. I have no idea what to pass to you. So that's why we added that bind in the first place.  Starting a few symphony versions ago, we now have an auto wire attributes. So when we have an argument that can't be auto wired, we can use the auto wire attribute right here and define what we want there. And define what we want there. Now this can be a service, an expression, an environment variable, a parameter. So in our case, we want a param kernel.debug. And inside here, we'll dump this error debug is debug to make sure it's working. And it is, there's our dump. So in addition to auto wire, if you hold command or control to open this class, you can double click on the attribute directory and see a whole list of cool things inside of here. Exclude is a way to exclude a service from auto registration. Auto configure and auto configure tag is a way for you to configure different properties on your service. So you can put this above your class, or you can even put this above your interface. And then these properties will automatically go onto any classes that implement that interface. There's also auto wire iterator and auto wire locator. If you have services that implement a specific tag, you can use auto wire iterator to get all of those services passed to you as an iterator or auto wire locator to get those services passed to you as a locator, which is basically an associative array. So for example, let's pretend in our vinyl controller that we want to get an iterable of all of the console commands in our application. So I'll say private iterable commands. And just to prove that this is working, let's foreach over this error commands as command. And I'm just going to dump command. If we stop right now, we will get the classic error that says, I have no idea what to pass for this commands argument. In our case, what we want past here is the iterable of all services that implement a specific tag. So we can grab those by saying auto wire iterator. And then the tag we want is console dot command. And just like that, it's passed in. We can see all 102 console commands that I have in my application. I know it's a silly example, but isn't that cool?  Back of our controller, since it is a little silly, I will undo those, but our app still works. All right. So next I want to talk about a couple of minor, but really cool ways to help us fetch request data like query parameters and the request payload.
+## Quick Tour of New Featuers
+
+The best place to find this stuff, to be honest, is the Symfony blog. Javier does
+a fantastic job with every single release, uncovering the most important features.
+
+I've pulled up just a couple of my favorite, like the workflow profiler. If you
+use the workflow component, you can now see a crazy cool visualization of your workflow
+inside the profiler.
+
+There are also some changes to the logout system - just to make life a bit simpler....
+And some new constraints, like a `PasswordStrengthConstraint` and another
+that prevents suspicious characters, like zero width space characters where someone
+might try to create a username that *looks* like someone else's username.
+
+If you're building an API, there's an excellent `debug:serializer` command to see
+all the metadata for a class.
+
+And finally, the new `Webhook` and `RemoteEvent` components, which deserve their
+own tutorial. So we'll save that for another time.
+
+These are just a few of my favorite features, but you can look at *everything* by
+going to the "Living on the Edge" section of the blog and filtering by the version.
+A good way to nerd out.
+
+## The Autowire Attribute
+
+But I *do* want to walk through a few new features together, starting with 
+improvements to the autowiring system. These happened over the last several
+version of Symfony and... they do a lot of things. But the overall effect is
+that you'll probably never need to go into `services.yaml` again. 
+
+Let me show you. In an old tutorial, I added this `bind` for an `$isDebug` argument.
+The reason I did that lives in `src/Controller/VinylController.php`: I gave this
+controller an `$isDebug` argument, which isn't autowiraable.
+
+In `services.yaml`, remove the `bind`.
+
+When we refresh, error It says:
+
+> Hey you silly person: you have an `$isDebug` argument on a service but I have no
+> idea what to pass to that.
+
+Hence why we had the `bind`. Starting a few Symfony versions ago, we now have an
+`Autowire` attribute. When we have an argument that can't be autowired, this is
+your friend. Add it before the arg and define what you want. This can be a service,
+an expression, an environment variable, a parameter, a kitten, whatever. We want a
+param: `kernel.debug`.
+
+Inside, `dump($this->isDebug)` to make sure it's working.
+
+And... it is! Autowire is my new favorite attribute, but if you hold command or
+control to open this class... then double click on the `Attribute` directory, we
+see a whole list of cool, dependency-injection related attributes. `Exclude` is a
+way to exclude a class from being auto-registered as a service. `Autoconfigure`
+and `AutoconfigureTag` are both ways to configure *options* on your service. 
+Put this above your class - or even above an interface - and the options will
+automatically apply to this service or services that implement that interface.
+
+There's also `AutowireIterator` and `AutowireLocator`. If you have a set of services
+that implement a tag, you can use `AutowireIterator` to get those services passed
+to you as an iterator, or `AutowireLocator` to get them passed to you as a locator,
+basically an associative array of services.
+
+## Trying AutowireIterator
+
+For example, let's pretend that, in `VinylController`, we want to get an iterable
+of *every* console command in our app. Say `private iterable $commands`. And to
+prove this is working, foreach over `$this->commands` as `$command`... then dump
+the object.
+
+If we stopped now, we'd get the classic error that says:
+
+> I have no idea what to pass for this `$commands` argument!
+
+We want an iterable of every services that implement a specific tag. Grab those
+with `#[AutowireIterator]`, then the tag we want: `console.command`.
+
+And just like that, we got them! We see all 102 console commands in my app.
+I know, it's a silly example, but isn't that cool?
+
+Back in the controller, undo that.
+
+Next up: let's talk about a few subtle, but powerful new ways to fetch request data
+like query parameters and the request payload.
