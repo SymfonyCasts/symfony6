@@ -1,5 +1,71 @@
 # Profiling Commands
 
-Coming soon...
+In the dev environment on our site, we get the web debug toolbar. And more
+importantly, the profiler, which is packed full of goodies. Even if our app is
+entirely an API, we can go directly to `/_profiler` to check out the profiler
+for any API request.
 
-In development mode on our site, we get the web debug toolbar, and more importantly, we get the profiler, which is packed full of awesome information. And even if we are building an API, by going directly to slash underscore profiler, we can access the profiler for any of our API requests. In Symfony 6.4, we added the ability to have a profiler for your console commands. It's pretty cool. It's intended to be used for your custom console commands that might be kind of big and complex so you can profile their performance, but we can also use it with the core console commands. So spin over and run binconsole debug and let's use, how about, debug container. Now if you run a normal command, it's not going to activate the profiler system and collect information by default. To do that, you need to run the command with dash dash profile. And even when you do that, that did activate the profiler internally. It collected information. It stored it somewhere, but there's not an easy way to see what URL I can go to to see that information. So really what you want to do is also pass a dash V. Now at the bottom, it's going to include the unique token that's going to let us get to the profile. Or you can also pass dash VVV, and in addition to the link, it's going to give you the amount of memory and the amount of time that the command took, just as an easy way of seeing it right there. Now you can, if you have your terminal set up correctly, you can just hold command and click and it doesn't work. It's almost at the right URL. It just doesn't know what port I have my local web server running on, but we can copy that token and then over here we can click to go to the profiler for any request, paste that token in and got it. Check this out. We can see information about the command. We can see information about the input and the output. And most importantly, we have our sections down here. One interesting one is the events. You can see actually what events were dispatched and what event listeners were called for your console command, which is very different than the events that will happen on the web.  Now notice a lot of these are grayed out, but if you did render a Twig template or make HTTP requests or make queries, these would be activated for your console command. But we do have the very cool performance section. This command is pretty simple, so there's not a lot interesting here, but if you did have a more complex command, you could see more information here about what is taking so long. So that's it. It's just a really cool new feature and I'd love to see how people are using this. For our final topic, let's experiment with one of Symfony's best new components, Scheduler.
+This is one of Symfony's killer features. And for 6.4, Symfony contributor
+[Jules Pietri](https://twitter.com/julespietri) wondered: why can't we have this
+for console commands?
+
+And now, we do! It's meant to be used for your custom console commands that might
+be big or complex, but we can also use it with *core* commands.
+
+## Triggering a Profile: --profile
+
+Spin over and run:
+
+```terminal
+php bin/console debug:container
+```
+
+If you run a normal command, it won't activate the profiler system and collect
+info. To trigger that, you need to run the command with `--profile`.
+
+```terminal-silent
+php bin/console debug:container --profile
+```
+
+Nothing *looks* different, but that *did* just activate the profiler... which
+collected info and stored it... somewhere. But... it's not obvious where we can go
+to see it!
+
+So what you really want to do is pass `-v`:
+
+```terminal-silent
+php bin/console debug:container --profile -v
+```
+
+Now, at the bottom, it includes the unique token that can be used in the profiler
+URL. But, really, be lazier and run with `-vvv`:
+
+```terminal-silent
+php bin/console debug:container --profile -vvv
+```
+
+This time, we get a *link* - and even details about memory and time. I'll
+click the link and... it doesn't work. It's *almost* the right URL, but my terminal
+doesn't know what port my local web server is using. Copy that token, then...
+go to the profiler for any request, paste the token in the URL and... so cool!
+
+## Exploring the Profiler
+
+We see info about the command, the input, output... and most importantly,
+we have the normal profiler sections! One interesting one is events: showing the
+actual events that were dispatched and the listeners for each one. These are
+*totally* different from the events that are triggered during a request, so it's
+cool to see them.
+
+Now, you probably noticed that most of the profiler sections are grayed out. But
+if you *did* render a Twig template... or make an HTTP request or make a database
+query, these *would* be activated.
+
+Even with this simple command, we unlock the performance section. Not a lot here
+in *this* case, but it makes me feel dangerous.
+
+So that's it! Another, cool, well-thought-out feature. I'd love to see how people
+end up using this.
+
+Ok, on to our final topic: let's experiment with one of Symfony's best new components:
+Scheduler.
