@@ -1,5 +1,167 @@
 # New Component: Scheduler
 
-Coming soon...
+One of the coolest new components is Scheduler, which came from Symfony 6.3. If you
+need to trigger a recurring task, like generate a weekly report, send some sort
+of heartbeat every 10 minutes, perform routine maintenance... or even something
+custom and weird, this component is for you. It's really neat! It deserves its
+own tutorial, but we'll worry about that later. Let's take it for a test drive.
 
-One of the coolest new components is Scheduler, which came from Symfony 6.3. If you need to trigger a recurring task, like generate a weekly report, or send some sort of heartbeat every 10 minutes, or perform some routine maintenance, or even something more custom and weird, this component is for you. It's really neat, honestly it deserves its own tutorial, we'll worry about that in the future, but let's test drive it. To install it, at your command line, run composer require Symfony slash Scheduler, and also Symfony slash Messenger. Scheduler relies on Messenger, they work together. The process looks like this. You define a Messenger message class and handler, just like you would do normally with Symfony Messenger. You then tell Symfony, hey, I want you to handle this message every seven days, or every one hour, or something more complex. So this means step one is to generate a Messenger message. I'm gonna use bin console make message for that, and let's call it log hello, because we'll just log a message to see that this is working. Over here, that created our message class, log hello, and also a message handler, whose invoke method will be called when log hello is processed. In log hello, let's give this a constructor, and have it accept a public int length argument. This is just gonna help us figure out which messages are being dispatched when. And in our handler, also add a constructor, so we can auto wire logger interface, logger, and down here, I'm gonna say this arrow, logger arrow warning, to make it really easy to see. And then we're gonna log a guitar icon, however many times our length is on the message. And then also, just to make things a little more obvious, I will render the length right there. So just a log message. All right, this one, we have a message, we have a handler. Our next step is to set up a schedule that tells Symfony, hey, I want you to handle this message every seven days, or in our case, we're gonna make it just a couple of seconds. To do that, we need a scheduler class. We need to create a schedule provider. In the source directory, I don't have to do this, but I'll create a scheduler directory.  And then outside of that, a PHP class called, how about main schedule? Make this implement schedule provider interface. You can have multiple of these schedule providers in your system, or you could just have one schedule provider that handles all of your recurring messages. It's up to you. The other thing this needs is an attribute called as schedule. And this has one optional argument called the name. It defaults to default, and you'll see how that's used in a second. I'm gonna just use that value. All right, go to code generate or command N on a Mac to implement the one method we need, which is get schedule. And the code in here is just beautifully simple and expressive. You're going to return a new schedule, and then you're just gonna add recurring messages to it. So we call this add method. And then inside of here, we'll put a recurring message, colon, colon. And there are various ways to create recurring messages. The easiest one is to use every. You could say every seven days or every five minutes. You can also pass a cron syntax, or you can pass this trigger method. And in that case, you get to define your own logic for exactly when you want your message to be triggered. You can do any kind of custom thing with that method. For us, we're gonna say every, and because we don't wanna hang out for the next week, let's just do four seconds. And this means that every four seconds, we want this new log hello message to be handled by Messenger. And let's copy that, and I'm gonna do another one for every three seconds. That's it, done. Now the result of creating one of these schedule providers is that a new Messenger transport is created. And so to get your recurring messages to process, you need to have a worker running that runs the Messenger consume command. So at your terminal, run bin console Messenger consume. I'll do dash V. And the name of this transport is going to be scheduler underscore, and then whatever the name of your schedule is. So we use the default value of default. So that's the name of our transport. And when you hit it, wait about three seconds, there it is, three, four.  And then we'll see the three one come up again, and then four, then three. After 12 seconds, they should execute, yep, at almost the exact same moment. Technically, this one was dispatched first, and then that one was dispatched immediately after. But the point is, look at this, it's working, it's beautiful. So how is it working? When this worker command starts, it calculates the next runtime of each of our recurring messages. And it uses that to create what's called a heap of the upcoming messages. Then it loops forever. And as soon as the next message in the heap hits its next runtime, it takes that message and sends it and dispatches it through Messenger. It then asks this recurring message for its next runtime and puts that inside of the heap. And this process just continues, as you can see, forever. Now there is one hiding problem here. And that is that every time we start the command, it creates the schedule from scratch, which means it waits a fresh new three seconds and four seconds before it dispatches those messages. In a real application, this becomes a problem. Imagine you have a message that runs every seven days. But for some reason, after five days, your Messenger consumer command is restarted. This means that your recurring message is now going to run seven days after the worker was restarted. So actually, it will run on day 12. That is not the behavior we want. So in reality, we're always going to make our schedules stateful. And the way to do this is to create a construct method, autowire private cache interface, the one from symphony cache, and then down here, call arrow stateful and pass in this arrow cache. That's it. Now let me go over here, restart the command. The first time, it's going to have the same behavior. It's going to wait three seconds for the first message, then four. But if I stop this and wait a few seconds, watch what happens when I restart it. Now also, open services.yaml. In earlier tutorial, I added some configuration in here that effectively disabled the cache in the dev environment. So let's remove that. So now we have a proper cache. So check this out. Let's stop our worker and restart it.  The first time we do this, it's going to have the same behavior as before. It's going to wait three seconds and four seconds. Yep, and there we go. Now I'm going to stop this, wait a couple of seconds, and watch what happens. It catches up. Those messages happened immediately. So the state keeps track of the last time that it checked for messages. So if your worker gets turned off for a bit, when it restarts, it reads that time from before and it uses that as its starting time so it can catch up with all the messages that it missed. It does mean that you may have some of your messages executed multiple times immediately, but it won't miss any of your messages. Oh, and finally, if you are planning on having multiple workers working on your schedule, you're also going to want to add a lock to the schedule. This is easy to do. It's in the documentation. You do an auto-wire the lock factory and you create a lock down here. And what that's going to do is make sure that two workers don't grab the same recurring message at the same time and both process them. It's going to make sure, it's going to prevent a single recurring message from being handled multiple times. All right, that's it. We are done. Thanks for hanging out. If you have any questions about upgrading or hit a problem we didn't mention, we're here for you down in the comments. And also, let us know what your victories are. I love hearing success stories. All right, friends. See you next time.
+## Installing Scheduler
+
+At your command line, install it with:
+
+```terminal
+composer require symfony/scheduler symfony/messenger
+```
+
+Scheduler relies on Messenger: they work together! The process looks like this. You
+create a message class and handler, like you normally would with
+Messenger. Then you tell Symfony:
+
+> Yo! I want you to send this message to be handled every seven days, or every
+> one hour... or something weirder.
+
+## Creating the Message Class & Handler
+
+This means that step one is to generate a Messenger message. Run:
+
+```terminal
+php bin/console make:message
+```
+
+Call it `LogHello`. Cool! Over here, it created the message class - `LogHello` -
+and its handler, whose `__invoke()` method will be called when `LogHello` is dispatched
+through Messenger.
+
+In `LogHello`, give it a constructor with `public int $length`. This will
+help us figure out which message is being handled and when. In the handler, *also*
+add a constructor so we can autowire `LoggerInterface $logger`.
+
+Down in the method, use `$this->logger->warning()` - just so these log entries
+are easy to see - then `str_repeat()` to log a guitar icon `$message->length`
+times. I'll also log that number at the end.
+
+Message & handler check!
+
+## Creating the Schedule
+
+Next up is to create a *schedule* that tells Symfony:
+
+> Yo, me again. Please dispatch a `LogHello` message through messenger every
+> 7 days.
+
+Or in our case, every few seconds because I don't think you want to watch this
+screencast for the next week! 
+
+In `src/`, I don't have to do this, but I'll create a `Scheduler` directory.
+And inside, a PHP class called, how about, `MainSchedule`. Make this implement
+`ScheduleProviderInterface`.
+
+You can have multiple of these schedule providers in your system... or you can
+have one class that sets up *all* your recurring messages. Your call.
+
+This class also needs an attribute called `#[AsSchedule]`. This has one optional
+argument: the schedule name, which, creatively, defaults to `default`. We'll see
+why that name is important soon. I'll use `default`.
+
+## Creating the Recurring Messages
+
+Ok, go to Code -> Generate, or command+N on a Mac - to implement the one method we
+need: `getSchedule()`. The code in here is beautifully simple and expressive.
+Return a `new Schedule()`, then add things to this it by calling `->add()`.
+Inside, for each "thing" you need to schedule, say `RecurringMessage::`.
+There are several ways to create these recurring messages. The easiest is `every()`,
+like every `7 days` or every `5 minutes`. You can also pass a `cron` syntax,
+or call `trigger()`. In that case, you would define your *own* logic
+for *exactly* when you want your weird message to be triggered.
+
+Use `every()` and pass `4 seconds`. Every 4 seconds, we want this
+new `LogHello` message to be dispatched to Messenger. Copy that, then create
+another for every `3 seconds`.
+
+We're done!
+
+## Consuming the Scheduler Transport
+
+The *result* of creating a schedule provider is that a new Messenger *transport*
+is created. To get your recurring messages to process, you need to have a worker
+that's running the `messenger:consume` command.
+
+At your terminal, run `bin/console messenger:consume` with a `-v` so we can see
+the log messages from our handler. Then pass the name of the new, automatically-added
+transport: `scheduler_default`... where `default` is the *name* we used in the
+`#[AsSchedule]` attribute.
+
+```terminal-silent
+php bin/console messenger:consume -v scheduler_default
+```
+
+Hit it, wait about 3 seconds... there it is! Four! Then the 3 one comes up again,
+and four, then three. After 12 seconds, they should execute, yep, at almost
+the exact same moment. Technically, this one was dispatched first, and *then* that
+one was dispatched immediately after.
+
+But, let me stop nerding out and back up: it's working! It's beautiful!
+
+## How does Scheduler Work?
+
+*How* is it working? I wondered that same thing. When the worker command starts,
+it loops over every `RecurringMessage`, calculates the next runtime of each,
+and uses that to create a list - called the "heap" - of upcoming messages. Then it
+loops forever. As soon as the current time matches - or is later than - the scheduled
+runtime of the next message in the heap, it takes that message and dispatches it
+through Messenger. It *then* asks this recurring message for its *next* runtime and
+puts *that* inside the heap.
+
+And this process just... continues forever.
+
+## Make your Schedule Stateful
+
+Though there is one problem hiding in plain sight: if we restart the command, it
+creates the schedule from scratch. That means that it waits a fresh *new* three
+seconds and four seconds before it dispatches the messages.
+
+In a real app, this will be a problem. Imagine you have a message that runs every
+seven days. For some reason, after 5 days, your `messenger:consume` command
+exits and is restarted. Because of this, your recurring message will now run
+seven days *after* this restart: so it will run on day 12. If it keeps getting
+restarted, your message may *never* run!
+
+This is *not* workable. And so, in the real world, we always make our schedule
+*stateful*. And this easy. Create a `__construct` method and autowire a
+`private CacheInterface`: the one from Symfony cache.
+
+Down below, call `->stateful()` and pass `$this->cache`.
+
+Also, open `services.yaml`. In an earlier tutorial, I added some config that
+effectively disabled the cache in the `dev` environment. Remove that so we have
+a proper cache.
+
+Ok, stop the worker and restart it. The first time we do this, it's
+going to have the same behavior as before: wait three seconds and four seconds.
+There we go.
+
+But now, stop this, wait a few seconds and watch what happens when I restart. It
+catches up! Those messages happened immediately!
+
+The state keeps track of the last time Scheduler checked for messages. And so,
+if your worker gets turned off for a bit, when it restarts, it *reads* that time
+and uses it as its starting time so it can catch up with all the messages that it
+missed.
+
+It does mean that you may have some messages that are executed multiple times
+immediately, but it won't miss anything.
+
+## Multiple Workers: Lock your Schedule
+
+Oh, and if you plan to have multiple workers for your scheduler transport, you'll
+also need to add a *lock* to the schedule. This is easy and covered in the docs:
+autowire the lock factory, then call `->lock()` to pass in a new lock. This will
+make sure that two workers don't grab the *same* recurring message at the same time
+and *both* process it.
+
+All right team, that's all I've got! Thanks for hanging out. If you have any questions
+about upgrading or hit a problem we didn't mention, we're here for you down in the
+comments. And let us know if you have a victory: we love hearing success.
+
+All right, friends. See you next time!
