@@ -68,7 +68,7 @@ why that name is important soon. I'll use `default`.
 
 Ok, go to Code -> Generate, or command+N on a Mac - to implement the one method we
 need: `getSchedule()`. The code in here is beautifully simple and expressive.
-Return a `new Schedule()`, then add things to this it by calling `->add()`.
+Return a `new Schedule()`, then add things to this by calling `->add()`.
 Inside, for each "thing" you need to schedule, say `RecurringMessage::`.
 There are several ways to create these recurring messages. The easiest is `every()`,
 like every `7 days` or every `5 minutes`. You can also pass a `cron` syntax,
