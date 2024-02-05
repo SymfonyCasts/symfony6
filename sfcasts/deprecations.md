@@ -118,10 +118,14 @@ In `config/packages/monolog.yaml`, at the bottom, we have the production logging
 config. The main handler is the `nested` handler: this logs errors on production.
 This logs them to stderr, or you could change that to a file.
 
+[[[ code('26b0347aeb') ]]]
+
 The point is: you're hopefully collecting your production errors somewhere. At the
 bottom, there's another handler called `deprecation`. This logs all deprecation
 notices to the *same* place. So in your production error logs, you should *also*
 see deprecations warnings.
+
+[[[ code('479545d651') ]]]
 
 So: fix all the deprecations you can find, deploy to production, wait a day or two,
 then check your logs to see if there are any deprecations. Once there
