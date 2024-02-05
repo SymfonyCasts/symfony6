@@ -7,6 +7,8 @@ All the relevant deprecations are gone. So we are ready for Symfony 7.0!
 Doing the actual upgrade is... almost disappointingly easy. In `composer.json`
 replace `6.4.*` with `7.0.*`.
 
+[[[ code('47734fbeca') ]]]
+
 That's it. Spin over and run:
 
 ```terminal
@@ -29,6 +31,8 @@ composer outdated
 Sure enough: there are three pagerfanta packages that all have a new major version.
 In `composer.json`, search for pagerfanta. Change all of these to `^4.0` to get
 that new major version.
+
+[[[ code('0248cdb609') ]]]
 
 And because this *is* a major version upgrade, I won't do it, but you should check
 the repository for each package and find the changelog or release notes that talk
