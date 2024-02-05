@@ -1,0 +1,362 @@
+WEBVTT
+
+00:00:01.076 --> 00:00:04.136 align:middle
+El sistema de deprecación de
+Symfony es un unicornio en Internet:
+
+00:00:04.586 --> 00:00:06.726 align:middle
+no hay nada que yo conozca que lo iguale.
+
+00:00:07.206 --> 00:00:11.816 align:middle
+Es una de las cosas que hacen a Symfony tan
+especial y en la que se invierte mucho trabajo
+
+00:00:12.576 --> 00:00:16.696 align:middle
+Supongamos que, en Symfony, queremos
+cambiar algo: como el nombre de un método.
+
+00:00:17.206 --> 00:00:20.336 align:middle
+No podemos simplemente cambiar el nombre del
+método, porque eso rompería tu código.
+
+00:00:20.866 --> 00:00:24.006 align:middle
+En lugar de eso, añadimos el nuevo
+nombre del método, mantenemos el antiguo,
+
+00:00:24.146 --> 00:00:28.036 align:middle
+pero añadimos una pequeña función de código
+de desaprobación en ese método antiguo.
+
+00:00:28.636 --> 00:00:32.266 align:middle
+Lanzamos eso en una versión
+menor, como la 6.3 o la 6.4.
+
+00:00:32.816 --> 00:00:37.136 align:middle
+Entonces, actualizas a esa versión y, como
+tu código está llamando al método antiguo,
+
+00:00:37.426 --> 00:00:40.896 align:middle
+se encuentra con esa desaprobación, lo que
+desencadena una advertencia de desaprobación.
+
+00:00:41.396 --> 00:00:43.506 align:middle
+Estas advertencias se
+recopilan, y podemos verlas de
+
+00:00:43.506 --> 00:00:46.036 align:middle
+varias formas, como en la Barra de
+Herramientas de Depuración Web.
+
+00:00:46.796 --> 00:00:51.136 align:middle
+Tu trabajo consiste en leerlos y actualizar tu
+código para llamar al nuevo nombre de método.
+
+00:00:51.856 --> 00:00:56.296 align:middle
+Una vez que hayan desaparecido todas las desaprobaciones,
+puedes actualizarte a Symfony 7.0 sin problemas.
+
+00:00:56.766 --> 00:01:02.226 align:middle
+Porque, recuerda, la única diferencia
+entre Symfony 6.4 y Symfony 7.0 es
+
+00:01:02.226 --> 00:01:05.466 align:middle
+que las rutas de código
+obsoletas han desaparecido.
+
+00:01:06.166 --> 00:01:10.266 align:middle
+En nuestro ejemplo, significa que el antiguo nombre
+del método se elimina definitivamente en 7.0.
+
+00:01:10.846 --> 00:01:12.516 align:middle
+Me encanta este proceso. Significa
+
+00:01:12.816 --> 00:01:15.626 align:middle
+que Symfony puede cambiar
+cosas y seguir modernizándose,
+
+00:01:15.856 --> 00:01:19.486 align:middle
+y nosotros podemos actualizar nuestras
+aplicaciones de forma segura y predecible.
+
+00:01:19.956 --> 00:01:21.336 align:middle
+Es lo mejor.
+
+00:01:21.856 --> 00:01:27.596 align:middle
+Así que hoy, somos detectives de depreciaciones:
+en una misión para cazarlas y eliminarlas.
+
+00:01:28.196 --> 00:01:34.466 align:middle
+Para empezar, borraré manualmente mi directorio de
+caché rm -rf var/cache/* para que, cuando vayamos
+
+00:01:34.466 --> 00:01:38.016 align:middle
+y actualicemos la página de
+inicio, se cree la caché.
+
+00:01:38.646 --> 00:01:41.776 align:middle
+Algunas advertencias de desaprobación sólo
+se producen mientras se construye la caché.
+
+00:01:42.536 --> 00:01:46.736 align:middle
+Vale, parece que nos quedan tres advertencias
+después de actualizar nuestras recetas.
+
+00:01:46.966 --> 00:01:48.706 align:middle
+Muy bien Ábrelas.
+
+00:01:49.416 --> 00:01:53.336 align:middle
+La primera está relacionada con una clase
+de ayuda para plantillas que está obsoleta.
+
+00:01:53.756 --> 00:01:56.866 align:middle
+No es algo que recuerde haber
+utilizado en mi código.
+
+00:01:57.536 --> 00:01:58.346 align:middle
+Mira la traza.
+
+00:01:58.986 --> 00:02:00.306 align:middle
+No es muy útil.
+
+00:02:00.896 --> 00:02:01.996 align:middle
+Aquí está la clase de ayuda...
+
+00:02:02.156 --> 00:02:03.706 align:middle
+llamada por un cargador de clases.
+
+00:02:04.326 --> 00:02:06.946 align:middle
+Esto me dice que algo está
+intentando utilizar esta clase...
+
+00:02:07.156 --> 00:02:09.466 align:middle
+y la clase está totalmente obsoleta.
+
+00:02:09.996 --> 00:02:14.176 align:middle
+De hecho, todo este componente de
+symfony/templating está obsoleto:
+
+00:02:14.556 --> 00:02:17.956 align:middle
+¡no existe en absoluto en Symfony 7.0!
+
+00:02:17.956 --> 00:02:20.336 align:middle
+De todas formas, es muy probable
+que nunca lo hayas utilizado...
+
+00:02:20.566 --> 00:02:23.466 align:middle
+y yo no lo uso en mi aplicación.
+
+00:02:24.016 --> 00:02:25.746 align:middle
+Entonces, ¿quién la utiliza?
+
+00:02:26.326 --> 00:02:32.596 align:middle
+Para averiguarlo, ve a la línea de comandos y
+ejecuta: composer why symfony/templating ¡Ah!
+
+00:02:32.596 --> 00:02:35.666 align:middle
+Esto lo necesita knplabs/knp-time-bundle.
+
+00:02:36.206 --> 00:02:41.096 align:middle
+Haz clic en el enlace para saltar a
+nuestra versión instalada: 1.20.0.
+
+00:02:41.096 --> 00:02:46.126 align:middle
+Pero esa no es la última versión:
+ahora tiene una versión 2.2.
+
+00:02:46.366 --> 00:02:47.436 align:middle
+¡Vamos muy retrasados!
+
+00:02:47.986 --> 00:02:50.966 align:middle
+La versión mayor 2.0 moderniza el código...
+
+00:02:51.296 --> 00:02:55.796 align:middle
+y es muy probable que eso incluyera la
+eliminación de la dependencia de plantillas.
+
+00:02:56.396 --> 00:02:58.346 align:middle
+De hecho, lo vemos aquí abajo. Se
+
+00:02:59.026 --> 00:03:03.966 align:middle
+trata de una nueva versión mayor del paquete, por
+lo que debemos consultar el registro de cambios
+
+00:03:03.966 --> 00:03:08.096 align:middle
+o las notas de la versión para comprobar si hay alguna interrupción
+de la compatibilidad con versiones anteriores que pueda afectarnos.
+
+00:03:08.886 --> 00:03:11.746 align:middle
+Lo interesante de esta primera
+desaprobación es que...
+
+00:03:12.026 --> 00:03:14.966 align:middle
+no es algo que hayamos llamado directamente.
+
+00:03:15.376 --> 00:03:19.206 align:middle
+Es una desaprobación indirecta: causada
+por una biblioteca que estamos utilizando.
+
+00:03:19.206 --> 00:03:20.736 align:middle
+Y eso es bastante común.
+
+00:03:21.286 --> 00:03:24.096 align:middle
+Para estar preparados para Symfony 7,
+tenemos que actualizar este bundle.
+
+00:03:24.656 --> 00:03:27.066 align:middle
+En composer.json, busca "time"...
+
+00:03:27.416 --> 00:03:30.256 align:middle
+y cámbiala por la última ^2.2.
+
+00:03:31.026 --> 00:03:35.576 align:middle
+Gira y Ejecuta: composer
+up Actualiza el paquete...
+
+00:03:35.786 --> 00:03:38.096 align:middle
+¡y elimina symfony/templating!
+
+00:03:38.796 --> 00:03:46.416 align:middle
+Vale, vuelve a borrar la caché, cierra algunas
+pestañas y vamos a la página "examinar mezclas "
+
+00:03:46.556 --> 00:03:48.256 align:middle
+, porque eso conecta con la base de datos.
+
+00:03:49.116 --> 00:03:51.596 align:middle
+Esta vez, vemos dos eliminaciones.
+
+00:03:52.106 --> 00:03:53.666 align:middle
+Ábrelas y sumérgete en ellas.
+
+00:03:54.446 --> 00:03:57.226 align:middle
+La primera tiene que ver
+con las fijaciones de datos.
+
+00:03:57.826 --> 00:04:03.026 align:middle
+Si miramos la traza, no es muy obvio,
+pero procede de DoctrineFixturesBundle.
+
+00:04:03.546 --> 00:04:06.136 align:middle
+Esto es complicado: He tenido que bucear
+
+00:04:06.136 --> 00:04:09.796 align:middle
+en el repositorio de GitHub de DoctrineFixturesBundle
+para encontrar una conversación.
+
+00:04:10.486 --> 00:04:13.096 align:middle
+Esta vez, ¡la desaprobación
+es una falsa advertencia!
+
+00:04:13.526 --> 00:04:17.426 align:middle
+La capa de desaprobación que se añadió
+al bundle no se hizo correctamente.
+
+00:04:17.956 --> 00:04:20.066 align:middle
+El mantenedor confirma que está bien...
+
+00:04:20.336 --> 00:04:23.256 align:middle
+así que cuando actualicemos a
+Symfony 7, las cosas no se romperán.
+
+00:04:23.956 --> 00:04:29.096 align:middle
+Es una situación extraña, pero demuestra
+que cazar depreciaciones puede ser complicado
+
+00:04:29.886 --> 00:04:33.656 align:middle
+La deprecación final es más
+larga y sigue un formato diferente.
+
+00:04:34.366 --> 00:04:38.456 align:middle
+Hasta ahora, cada mensaje incluía el
+paquete en el que vivía la deprecación
+
+00:04:38.856 --> 00:04:41.066 align:middle
+y la versión en la que se deprecaba.
+
+00:04:41.556 --> 00:04:43.726 align:middle
+Pero aquí no vemos eso.
+
+00:04:44.226 --> 00:04:48.596 align:middle
+Y, al final, hace referencia a una
+incidencia del repositorio doctrine/orm.
+
+00:04:49.396 --> 00:04:54.326 align:middle
+¡Ah! Esta deprecación no viene de
+Symfony: ¡viene de doctrine/orm!
+
+00:04:55.126 --> 00:04:59.946 align:middle
+Esto nos dice que vamos a tener que hacer un
+cambio en nuestro código -en algún momento-
+
+00:05:00.216 --> 00:05:03.406 align:middle
+antes de actualizar a la siguiente
+versión principal de ese paquete.
+
+00:05:03.916 --> 00:05:08.906 align:middle
+Hoy sólo estamos centrados en actualizar Symfony, así
+que esto también es una deprecación que podemos ignorar.
+
+00:05:09.606 --> 00:05:11.736 align:middle
+Así que... sí, creo que estamos bien.
+
+00:05:12.196 --> 00:05:14.836 align:middle
+Nuestra aplicación es bastante
+pequeña, pero al hacer clic,
+
+00:05:15.016 --> 00:05:17.746 align:middle
+las únicas desaprobaciones que
+veo son las que acabamos de ver.
+
+00:05:18.436 --> 00:05:22.606 align:middle
+Pero... ¿cómo podemos estar seguros de
+que no hay una página que olvidamos revisar
+
+00:05:22.756 --> 00:05:25.296 align:middle
+o un envío de formulario que
+desencadena una desaprobación?
+
+00:05:25.886 --> 00:05:27.436 align:middle
+La respuesta: registrando.
+
+00:05:28.296 --> 00:05:33.716 align:middle
+En config/packages/monolog.yaml, en la parte inferior,
+tenemos la configuración del registro de producción.
+
+00:05:34.426 --> 00:05:38.736 align:middle
+El gestor principal es el gestor nested:
+éste registra los errores en producción.
+
+00:05:39.456 --> 00:05:42.926 align:middle
+Los registra en stderr, o
+puedes cambiarlo a un archivo.
+
+00:05:43.596 --> 00:05:47.596 align:middle
+La cuestión es: es de esperar que estés recogiendo
+los errores de producción en algún sitio.
+
+00:05:48.256 --> 00:05:51.266 align:middle
+En la parte inferior, hay otro
+gestor llamado deprecation.
+
+00:05:51.756 --> 00:05:55.896 align:middle
+Éste registra todos los avisos de
+desaprobación en el mismo lugar.
+
+00:05:56.286 --> 00:06:00.456 align:middle
+Así que en tus registros de errores de producción,
+también deberías ver avisos de desaprobación.
+
+00:06:01.266 --> 00:06:06.056 align:middle
+Así que: arregla todas las imprecisiones que encuentres,
+despliega en producción, espera un día o dos y
+
+00:06:06.316 --> 00:06:09.236 align:middle
+comprueba los registros para
+ver si hay imprecisiones.
+
+00:06:09.746 --> 00:06:13.586 align:middle
+Una vez que no las haya,
+puedes pasar a Symfony 7.0.
+
+00:06:14.076 --> 00:06:15.756 align:middle
+¡Hagamos esa actualización a continuación!
