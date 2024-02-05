@@ -44,8 +44,11 @@ The app from several of our Symfony 6 tutorials, which is currently on 6.1.2.
 
 Open up `composer.json`. Near the top, our app requires `php` 8.1 or greater.
 In my apps, down under `config.platform.php`, I also like to set the *specific*
-PHP version that we're using on production. This guarantees that Composer
-only gives me dependencies compatible with that version.
+PHP version that we're using on production:
+
+[[[ code('94f233f6b4') ]]]
+
+This guarantees that Composer only gives me dependencies compatible with that version.
 
 Locally, if I run `php -v`, I already have PHP 8.3 installed. I *also* have
 a second `php` binary installed for version 8.1. And thanks to the `8.1` in `composer.json`,
@@ -100,6 +103,8 @@ still using Symfony 6.1. To upgrade to 7, we first need to upgrade to 6.4.
 That'll give us a chance to prep for 7.0 by finding - and fixing - all the deprecations.
 
 And... upgrading is easy! Find `6.1.*`, replace with `6.4.*` and replace all.
+
+[[[ code('6eb3d24aa3') ]]]
 
 Though, be careful. Most of the time, the Symfony version constraints look like this.
 However, they *could* look like `^6.1`. So don't miss those: the goal
