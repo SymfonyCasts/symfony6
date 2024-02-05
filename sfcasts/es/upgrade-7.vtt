@@ -1,0 +1,288 @@
+WEBVTT
+
+00:00:01.146 --> 00:00:03.446 align:middle
+Todas las depreciaciones
+relevantes han desaparecido.
+
+00:00:03.446 --> 00:00:07.266 align:middle
+¡Así que estamos listos para Symfony 7.0!
+
+00:00:07.986 --> 00:00:09.336 align:middle
+Hacer la actualización es...
+
+00:00:09.556 --> 00:00:11.636 align:middle
+casi decepcionantemente fácil.
+
+00:00:12.086 --> 00:00:14.976 align:middle
+En composer.json sustituye 6.4.*
+
+00:00:14.976 --> 00:00:16.406 align:middle
+por 7.0.*. Eso es
+
+00:00:16.556 --> 00:00:18.866 align:middle
+todo. Gira
+
+00:00:18.866 --> 00:00:24.606 align:middle
+y Ejecuta: composer up Preparaos porque
+puede que esto no funcione. ¡Sí! ¡ Algo
+
+00:00:25.186 --> 00:00:27.816 align:middle
+está bloqueando la
+actualización! Lo primero que
+
+00:00:28.466 --> 00:00:31.796 align:middle
+veo es babdev/pagerfanta-bundle. Aparentemente,
+
+00:00:32.246 --> 00:00:36.166 align:middle
+funciona con Symfony 4, 5
+y 6, pero no con el 7. Es
+
+00:00:36.586 --> 00:00:39.246 align:middle
+muy probable que tenga que actualizarlo a una
+
+00:00:39.246 --> 00:00:42.136 align:middle
+nueva versión que sí sea compatible
+con Symfony 7. Ejecuta: composer
+
+00:00:42.726 --> 00:00:49.456 align:middle
+outdated Efectivamente: hay
+tres paquetes pagerfanta que
+
+00:00:49.456 --> 00:00:51.306 align:middle
+tienen una nueva versión principal.
+En composer.json , busca pagerfanta.
+
+00:00:52.226 --> 00:00:55.276 align:middle
+Cámbialos todos
+
+00:00:55.986 --> 00:01:00.356 align:middle
+a ^4.0 para obtener esa
+nueva versión mayor. Y como
+
+00:01:00.356 --> 00:01:06.326 align:middle
+se trata de una actualización de una versión mayor, no lo
+haré yo, pero deberías comprobar el repositorio de cada paquete
+
+00:01:06.326 --> 00:01:09.606 align:middle
+y encontrar el registro de cambios o las
+notas de la versión que hablen de cualquier
+
+00:01:09.606 --> 00:01:13.306 align:middle
+ruptura de compatibilidad hacia atrás
+entre la versión 3 y la 4. Vale,
+
+00:01:14.106 --> 00:01:18.966 align:middle
+vuelve a intentar la actualización:
+composer up Y... ¡sigue sin funcionar
+
+00:01:18.966 --> 00:01:20.606 align:middle
+! Hmm:
+
+00:01:21.056 --> 00:01:26.436 align:middle
+dice que la raíz composer.json -es decir, nuestro
+composer.json - requiere symfony/proxy-manager-bridge
+
+00:01:26.596 --> 00:01:29.626 align:middle
+7.0.* pero no ha
+
+00:01:29.696 --> 00:01:32.036 align:middle
+encontrado una versión 7. Efectivamente , este
+
+00:01:32.756 --> 00:01:36.836 align:middle
+paquete está directamente en nuestro
+archivo composer.json. Los proxies son algo
+
+00:01:37.576 --> 00:01:42.196 align:middle
+que Doctrine utiliza entre bastidores para cargar las
+relaciones perezosas. Recientemente, Symfony ha añadido
+
+00:01:42.726 --> 00:01:47.436 align:middle
+su propia versión de proxies llamados
+"objetos fantasma". Son espeluznantes. De
+
+00:01:47.586 --> 00:01:48.736 align:middle
+todos modos, este
+
+00:01:49.366 --> 00:01:52.666 align:middle
+paquete proxy ya no es necesario.
+Se añadió originalmente
+
+00:01:53.176 --> 00:01:56.586 align:middle
+a nuestra aplicación cuando
+instalamos Doctrine: formaba
+
+00:01:56.586 --> 00:02:00.076 align:middle
+parte de orm-pack. ¡Dale la
+
+00:02:00.646 --> 00:02:01.346 align:middle
+patada! A continuación,
+vuelve a probar composer
+
+00:02:01.916 --> 00:02:05.166 align:middle
+up: Esta vez... ¡funciona! ¡
+
+00:02:05.596 --> 00:02:10.056 align:middle
+Mira todas esas bonitas actualizaciones
+de Symfony 7! Y lo mejor de todo
+
+00:02:10.546 --> 00:02:14.676 align:middle
+, cuando vamos al sitio, ¡también
+funciona! ¡ Claro que funciona
+
+00:02:14.676 --> 00:02:16.096 align:middle
+! Nos hemos ocupado de las
+
+00:02:16.386 --> 00:02:20.956 align:middle
+deprecaciones, para que no haya sorpresas cuando
+por fin lleguemos a 7.0. Llegados a este punto,
+
+00:02:21.776 --> 00:02:26.246 align:middle
+me gusta comprobar qué otros paquetes que no son de
+Symfony están obsoletos. Ejecuta de nuevo composer outdated
+
+00:02:26.756 --> 00:02:30.296 align:middle
+: ¡Woh! ¡Sólo dos! doctrine/lexer
+
+00:02:30.426 --> 00:02:33.746 align:middle
+y un php-parser. Para averiguar
+
+00:02:33.746 --> 00:02:37.916 align:middle
+por qué no ha pasado a la versión 3, copia
+el nombre de ese paquete y ejecuta composer
+
+00:02:37.916 --> 00:02:43.526 align:middle
+why-not doctrine/lexer 3.0
+Hmm: nuestra versión de
+
+00:02:43.916 --> 00:02:48.046 align:middle
+doctrine/orm requiere
+doctrine/lexer versión 2. Y como
+
+00:02:48.656 --> 00:02:52.466 align:middle
+no vimos doctrine/orm como
+paquete obsoleto, significa que
+
+00:02:52.866 --> 00:02:56.026 align:middle
+simplemente aún no existe una
+versión de doctrine/orm que funcione
+
+00:02:56.026 --> 00:02:58.366 align:middle
+con doctrine/lexer 3. ¡Y eso está bien! Es
+
+00:02:58.646 --> 00:02:59.636 align:middle
+un paquete de bajo nivel
+
+00:02:59.916 --> 00:03:03.066 align:middle
+, y no tenemos prisa. El otro paquete
+
+00:03:03.616 --> 00:03:07.756 align:middle
+- php-parser - puedo decirte,
+sin siquiera mirar, que lo
+
+00:03:07.826 --> 00:03:10.366 align:middle
+necesita symfony/maker-bundle. En su próxima
+
+00:03:10.986 --> 00:03:13.876 align:middle
+versión, se permitirá la
+versión 5. Como acabamos de
+
+00:03:14.726 --> 00:03:19.936 align:middle
+actualizar algunos paquetes,
+Ejecuta:: composer recipes ¡ Hay dos
+
+00:03:20.026 --> 00:03:22.466 align:middle
+nuevas actualizaciones de recetas
+disponibles! Para actualizar, primero
+
+00:03:23.026 --> 00:03:25.376 align:middle
+confirma nuestros cambios... con un
+
+00:03:26.556 --> 00:03:28.456 align:middle
+emoji para celebrarlo...
+y luego ejecuta: composer
+
+00:03:29.256 --> 00:03:36.806 align:middle
+recipes:update Y git diff --cached
+para ver los cambios. Esto es genial:
+
+00:03:37.216 --> 00:03:40.966 align:middle
+han desaparecido un montón
+de líneas. Se han eliminado
+
+00:03:41.556 --> 00:03:45.186 align:middle
+porque ahora son los valores
+por defecto. La clave session
+
+00:03:45.686 --> 00:03:49.556 align:middle
+ya no necesita estas cosas: son los
+valores por defecto... y lo mismo para
+
+00:03:49.856 --> 00:03:53.246 align:middle
+php_errors y
+handle_all_throwables. Es sólo una
+
+00:03:53.616 --> 00:03:55.886 align:middle
+bonita limpieza de la
+configuración. Confírmalo y
+
+00:03:56.616 --> 00:04:02.046 align:middle
+ejecuta recipes:update una vez más:
+Comprueba los cambios. Lo mismo:
+
+00:04:02.046 --> 00:04:06.346 align:middle
+elimina una opción de configuración que ahora
+es la predetermin ada. Confírmalo. Nuestro
+
+00:04:07.016 --> 00:04:07.516 align:middle
+proyecto está
+
+00:04:08.176 --> 00:04:10.626 align:middle
+ahora un poco más limpio. Así que estamos en
+
+00:04:10.626 --> 00:04:16.616 align:middle
+Symfony 7, ¡nuestra aplicación funciona y nuestras
+recetas están actualizadas! Mientras estamos aquí,
+
+00:04:17.296 --> 00:04:21.646 align:middle
+dentro de un controlador, está resaltando el atributo
+Route: El espacio de nombres Symfony Annotation
+
+00:04:21.646 --> 00:04:26.906 align:middle
+quedará obsoleto en Symfony 6.4 /7.0. Mira la
+
+00:04:27.536 --> 00:04:31.876 align:middle
+declaraciónuse: ¡tiene Annotation
+en el espacio de nombres! Esta clase
+
+00:04:32.456 --> 00:04:35.566 align:middle
+aún no está obsoleta, pero
+lo estará pronto. Y arreglarlo
+
+00:04:35.946 --> 00:04:37.466 align:middle
+es sencillo. Elimina la sentencia use
+
+00:04:38.026 --> 00:04:43.976 align:middle
+, baja aquí, haz clic en la clase, pulsa Alt+Enter,
+Importar clase, y luego coge la del espacio de nombres
+
+00:04:44.346 --> 00:04:46.976 align:middle
+Attribute. Cópiala... y
+
+00:04:47.886 --> 00:04:48.456 align:middle
+repite la operación en los
+
+00:04:49.086 --> 00:04:51.836 align:middle
+otros dos archivos del
+controlador. Esto nos ahorrará
+
+00:04:52.326 --> 00:04:54.756 align:middle
+una depreciación en el
+futuro. Ahora que estamos
+
+00:04:54.756 --> 00:05:00.496 align:middle
+en Symfony 7, quiero hacer algo
+opcional, pero realmente genial: Quiero
+
+00:05:00.766 --> 00:05:04.636 align:middle
+eliminar Webpack Encore y
+sustituirlo por AssetMapper.
