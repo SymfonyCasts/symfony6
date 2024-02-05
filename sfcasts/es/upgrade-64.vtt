@@ -1,0 +1,360 @@
+WEBVTT
+
+00:00:00.096 --> 00:00:03.636 align:middle
+¡Hola a todos!
+
+00:00:03.856 --> 00:00:06.166 align:middle
+¡Symfony 7 ha salido!
+
+00:00:06.386 --> 00:00:12.026 align:middle
+¡Guau! Bueno, por supuesto que estoy emocionada:
+me encanta todo lo relacionado con Symfony y Twig.
+
+00:00:12.026 --> 00:00:15.806 align:middle
+Pero, ¿qué significa realmente
+que Symfony 7 haya salido?
+
+00:00:16.546 --> 00:00:17.136 align:middle
+Sinceramente...
+
+00:00:17.306 --> 00:00:23.326 align:middle
+¡no mucho! Gracias al calendario de lanzamientos de
+Symfony, una nueva versión principal no es gran cosa...
+
+00:00:23.886 --> 00:00:26.566 align:middle
+aunque intentamos fingir
+que lo es para el marketing.
+
+00:00:27.316 --> 00:00:34.976 align:middle
+Cada 6 meses -en mayo y noviembre- se lanza
+una nueva versión menor, como la 6.1 o la 6.2.
+
+00:00:35.826 --> 00:00:38.826 align:middle
+Ésas son las versiones que
+contienen nuevas funciones.
+
+00:00:39.116 --> 00:00:43.226 align:middle
+Así que tiene todo el sentido del
+mundo entusiasmarse con Symfony 6 .3
+
+00:00:43.366 --> 00:00:47.566 align:middle
+o con las fantásticas nuevas
+funciones de Symfony 6.4.
+
+00:00:48.256 --> 00:00:54.166 align:middle
+Luego, cada versión ".4", como
+la 6.4, se lanza el mismo día
+
+00:00:54.166 --> 00:00:58.256 align:middle
+que la versión .0 de la
+siguiente mayor: la 7.0.
+
+00:00:58.886 --> 00:01:05.956 align:middle
+Sí, la 6.4 y la 7.0 se publicaron exactamente
+el mismo día y son, de hecho, ¡idénticas!
+
+00:01:06.356 --> 00:01:06.986 align:middle
+¡Son gemelas!
+
+00:01:07.626 --> 00:01:13.756 align:middle
+La única diferencia es que, en la 7.0, se
+eliminan todas las rutas de código obsoletas.
+
+00:01:14.316 --> 00:01:17.056 align:middle
+Y esto es lo que hace especial a Symfony.
+
+00:01:17.756 --> 00:01:21.556 align:middle
+El calendario de lanzamientos y la política
+de obsoletos significan que, como usuarios,
+
+00:01:22.026 --> 00:01:25.296 align:middle
+podemos actualizar nuestras aplicaciones para
+siempre a través de las versiones principales...
+
+00:01:25.556 --> 00:01:28.106 align:middle
+sin que sea un gran problema
+o rompa nuestras aplicaciones.
+
+00:01:28.106 --> 00:01:31.656 align:middle
+Y eso es exactamente lo que
+vamos a hacer en este tutorial...
+
+00:01:31.956 --> 00:01:35.186 align:middle
+seguido de un recorrido por algunas
+de mis nuevas funciones favoritas.
+
+00:01:35.796 --> 00:01:39.516 align:middle
+Como siempre, para sacar el máximo
+partido a este tutorial, codifica conmigo
+
+00:01:39.576 --> 00:01:41.696 align:middle
+descargando el código del
+curso desde esta página.
+
+00:01:42.146 --> 00:01:46.606 align:middle
+Después de descomprimir el archivo, encontrarás un
+directorio start/ con el mismo código que ves aquí.
+
+00:01:47.296 --> 00:01:52.966 align:middle
+El archivo README.md cuenta una historia inspiradora
+sobre cómo poner en marcha la aplicación.
+
+00:01:53.656 --> 00:01:58.566 align:middle
+Yo ya he realizado la mayoría de los pasos, incluyendo la
+ejecución de yarn install y yarn watch en esta pestaña.
+
+00:01:59.296 --> 00:02:01.946 align:middle
+El último paso consiste en utilizar
+el binario symfony para Ejecuta:
+
+00:02:01.946 --> 00:02:06.066 align:middle
+symfony serve -d para iniciar
+un servidor web de desarrollo.
+
+00:02:06.596 --> 00:02:07.626 align:middle
+Haré clic en el enlace.
+
+00:02:08.816 --> 00:02:12.226 align:middle
+Saluda a Mixed Vinyl: La aplicación de varios
+
+00:02:12.226 --> 00:02:17.056 align:middle
+de nuestros tutoriales de Symfony 6, que
+actualmente está en la versión 6.1.2.
+
+00:02:17.986 --> 00:02:19.366 align:middle
+Abre composer.json.
+
+00:02:20.396 --> 00:02:24.596 align:middle
+Cerca de la parte superior, nuestra
+aplicación requiere php 8.1 o superior.
+
+00:02:25.196 --> 00:02:32.566 align:middle
+En mis aplicaciones, debajo de config.platform.php,
+también me gusta establecer la versión específica de PHP
+
+00:02:32.566 --> 00:02:35.486 align:middle
+que estamos utilizando en
+producción: Esto garantiza
+
+00:02:35.486 --> 00:02:39.166 align:middle
+que Composer sólo me proporcione
+dependencias compatibles con esa versión.
+
+00:02:39.916 --> 00:02:45.826 align:middle
+Localmente, si ejecuto php -v,
+ya tengo instalado PHP 8.3.
+
+00:02:46.416 --> 00:02:51.056 align:middle
+También tengo instalado un segundo
+binario php para la versión 8.1.
+
+00:02:51.536 --> 00:02:54.416 align:middle
+Y gracias al 8.1 en composer.json,
+
+00:02:54.756 --> 00:02:58.886 align:middle
+cuando inicié el servidor web symfony,
+utilizó esa versión anterior.
+
+00:02:59.556 --> 00:03:02.526 align:middle
+Cambia esto por, sólo PHP 8.3.
+
+00:03:03.026 --> 00:03:09.256 align:middle
+Luego ejecuta: composer up En composer.json,
+todas mis dependencias -ya sean de Symfony
+
+00:03:09.256 --> 00:03:14.356 align:middle
+o de otra cosa- están escritas de forma que
+sólo permiten que cambie el último número
+
+00:03:14.636 --> 00:03:17.046 align:middle
+o el penúltimo.
+
+00:03:17.556 --> 00:03:20.246 align:middle
+Suponiendo que los mantenedores
+de paquetes hagan su trabajo,
+
+00:03:20.486 --> 00:03:24.496 align:middle
+esas actualizaciones no contendrán
+rupturas de retrocompatibilidad.
+
+00:03:24.886 --> 00:03:28.506 align:middle
+Deberíamos poder actualizar
+de la 6.1 a la 6.4...
+
+00:03:29.026 --> 00:03:34.426 align:middle
+o de la 2.0 a la 2.4, ¡y nuestra aplicación
+debería seguir funcionando con normalidad!
+
+00:03:34.936 --> 00:03:39.356 align:middle
+Así que ejecutar composer up para obtener estas
+actualizaciones, en teoría, es totalmente seguro.
+
+00:03:40.056 --> 00:03:43.226 align:middle
+En mi pestaña yarn, la
+actualización provocó un error:
+
+00:03:43.556 --> 00:03:46.056 align:middle
+algo sobre un controlador no existe.
+
+00:03:46.566 --> 00:03:49.166 align:middle
+Esto es especial para Symfony UX y Encore.
+
+00:03:49.806 --> 00:03:54.986 align:middle
+Cuando actualices tus dependencias de PHP, puede
+que tengas que reinstalar tus dependencias de node.
+
+00:03:55.516 --> 00:04:02.766 align:middle
+Pulsa Ctrl+C, y luego Ejecuta: yarn install --force
+O npm install --force si estás utilizando npm.
+
+00:04:03.216 --> 00:04:05.026 align:middle
+Luego yarn watch de nuevo.
+
+00:04:06.496 --> 00:04:07.186 align:middle
+¡Ya está!
+
+00:04:07.796 --> 00:04:12.986 align:middle
+En la pestaña principal, ejecuta: git status
+Junto a los sospechosos habituales, hay
+
+00:04:13.086 --> 00:04:15.856 align:middle
+un nuevo controlador en controllers.json...
+
+00:04:16.256 --> 00:04:18.856 align:middle
+que procede de una actualización de ux-turbo.
+
+00:04:19.316 --> 00:04:21.546 align:middle
+No lo utilizaremos, pero está bien ahí.
+
+00:04:22.246 --> 00:04:26.896 align:middle
+En package.json, se añadió una nueva
+entrada para el bundle Stimulus. Se trata de
+
+00:04:27.556 --> 00:04:31.096 align:middle
+un bundle relativamente nuevo que se
+instaló durante la actualización,
+
+00:04:31.276 --> 00:04:32.656 align:middle
+y del que hablaremos más adelante.
+
+00:04:33.366 --> 00:04:38.116 align:middle
+Así que ahora estamos utilizando PHP 8.3 y
+hemos actualizado un poco nuestras dependencias.
+
+00:04:38.116 --> 00:04:40.926 align:middle
+Pero seguimos usando Symfony 6.1.
+
+00:04:41.496 --> 00:04:45.156 align:middle
+Para actualizar a 7, primero
+tenemos que actualizar a 6.4.
+
+00:04:45.756 --> 00:04:51.616 align:middle
+Eso nos dará la oportunidad de prepararnos para la
+7.0 encontrando -y arreglando- todas las obsoletas.
+
+00:04:52.126 --> 00:04:53.496 align:middle
+Y... ¡actualizar es fácil!
+
+00:04:54.026 --> 00:04:58.246 align:middle
+Busca 6.1.*, sustitúyelo por 6.4.*
+
+00:04:58.696 --> 00:05:00.156 align:middle
+y sustitúyelo todo. Aunque,
+
+00:05:00.806 --> 00:05:01.826 align:middle
+ten cuidado.
+
+00:05:02.356 --> 00:05:05.956 align:middle
+La mayoría de las veces, las restricciones de
+versión de Symfony tienen este aspecto. Sin embargo,
+
+00:05:06.396 --> 00:05:09.716 align:middle
+podrían parecerse a ^6.1. Así que
+
+00:05:09.896 --> 00:05:14.376 align:middle
+no las pases por alto: el objetivo es
+actualizar todos los paquetes symfony que
+
+00:05:14.376 --> 00:05:16.696 align:middle
+procedan del repositorio principal. Eso...
+
+00:05:17.366 --> 00:05:22.326 align:middle
+puede ser confuso porque, mezclados con
+los paquetes que queremos actualizar
+
+00:05:22.326 --> 00:05:26.716 align:middle
+, hay otros paquetes que viven bajo
+symfony, pero que son independientes y
+
+00:05:26.716 --> 00:05:29.756 align:middle
+siguen su propio calendario de
+publicación y versionado. Ignóralos
+
+00:05:30.346 --> 00:05:35.866 align:middle
+por ahora, pero nos aseguraremos de que todos
+los paquetes se actualicen al final. Además,
+
+00:05:36.456 --> 00:05:39.626 align:middle
+cerca de la parte inferior, en
+extra.symfony.require , asegúrate de que
+
+00:05:40.026 --> 00:05:43.426 align:middle
+también se actualiza a 6.4.*. Se trata de
+
+00:05:44.056 --> 00:05:50.126 align:middle
+una optimización de Composer que le indica que sólo
+se preocupe de las versiones 6.4 de Symfony. De vuelta
+
+00:05:51.036 --> 00:05:53.916 align:middle
+al terminal, ¡hagamos esto! composer up
+
+00:05:54.226 --> 00:06:00.396 align:middle
+¡Mira qué bonitas actualizaciones
+de la 6.1 a la 6.4! Y... cuando
+
+00:06:01.566 --> 00:06:06.186 align:middle
+probamos el sitio, ¡la apestosa cosa
+sigue funcionando! Ah, pero fíjate
+
+00:06:06.896 --> 00:06:10.596 align:middle
+en la versión de PHP: 8.1.27. Cuando
+
+00:06:11.196 --> 00:06:17.316 align:middle
+iniciamos el servidor web symfony, leyó la
+versión PHP 8.1 de composer.json, encontró esa
+
+00:06:17.686 --> 00:06:20.766 align:middle
+versión instalada en mi máquina
+y la utilizó. La cambiamos
+
+00:06:21.396 --> 00:06:25.916 align:middle
+por la 8.3, pero necesitamos reiniciar el
+servidor para utilizarla. Ejecuta: symfony
+
+00:06:26.486 --> 00:06:31.346 align:middle
+server:stop Entonces: symfony
+serve -d Sí : encontró
+
+00:06:31.526 --> 00:06:35.426 align:middle
+la versión PHP 8.3.1 en mi sistema. Y en
+
+00:06:36.186 --> 00:06:37.046 align:middle
+el sitio... ¡ya está!
+
+00:06:38.326 --> 00:06:42.316 align:middle
+Ok, esto funciona en
+Symfony 6.4. Nuestro trabajo
+
+00:06:42.956 --> 00:06:46.936 align:middle
+ahora es encontrar cada
+deprecación y arreglarlas. En la
+
+00:06:47.426 --> 00:06:53.686 align:middle
+barra de herramientas de depuración web, ¡aparentemente encontramos 22
+rutas de código obsoletas en esta página! Para empezar a arreglarlas
+
+00:06:54.426 --> 00:06:56.086 align:middle
+, haremos... trampas... tomaremos
+
+00:06:56.246 --> 00:07:00.416 align:middle
+un atajo, actualizando nuestras recetas Flex.
