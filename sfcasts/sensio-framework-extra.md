@@ -3,6 +3,8 @@
 Our app is busted: something about SensioFrameworkExtraBundle. This happened while
 we were upgrading recipes. In `framework.yaml`, it's the `annotations: false`.
 
+[[[ code('81f3246fac') ]]]
+
 SensioFrameworkExtraBundle gave us all kinds of features like the `@Route`
 annotation, security annotation, and something called the param converter. These all
 relied on the annotation system, which has been replaced by core PHP attributes.
@@ -50,6 +52,8 @@ an annotation... so you may have been using it without realizing. Click into one
 of the mixes. Notice the URL has a `slug`. The controller for this is
 `src/Controller/MixController.php`. Down here, the route *does* have a `{slug}`
 wildcard... but then a `$mix` argument, which is a Doctrine entity.
+
+[[[ code('bed79c06c1') ]]]
 
 Behind the scenes, the param converter would automatically query for a
 `VinylMix` where `slug` equals the `{slug}` in the URL. No annotation needed:
