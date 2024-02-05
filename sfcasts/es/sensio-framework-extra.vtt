@@ -1,0 +1,167 @@
+WEBVTT
+
+00:00:01.056 --> 00:00:05.256 align:middle
+Nuestra aplicación está estropeada:
+algo sobre SensioFrameworkExtraBundle.
+
+00:00:05.746 --> 00:00:08.066 align:middle
+Esto ocurrió mientras
+actualizábamos las recetas.
+
+00:00:08.726 --> 00:00:11.896 align:middle
+En framework.yaml, es el annotations:
+false. SensioFrameworkExtraBundle
+
+00:00:12.586 --> 00:00:17.526 align:middle
+nos proporcionó todo tipo de
+funciones, como la anotación @Route, la
+
+00:00:17.716 --> 00:00:21.396 align:middle
+anotación de seguridad y algo
+llamado convertidor de parámetros.
+
+00:00:21.926 --> 00:00:27.336 align:middle
+Todas ellas dependían del sistema de anotaciones, que
+ha sido sustituido por los atributos centrales de PHP.
+
+00:00:27.796 --> 00:00:29.296 align:middle
+Cuando los cambiamos a false...
+
+00:00:29.586 --> 00:00:31.006 align:middle
+al bundle no le gustó.
+
+00:00:31.506 --> 00:00:32.556 align:middle
+Pero bueno, ¡no pasa nada!
+
+00:00:33.096 --> 00:00:36.546 align:middle
+Todas esas ingeniosas funciones encontraron
+un nuevo hogar en el núcleo de Symfony.
+
+00:00:37.026 --> 00:00:41.356 align:middle
+Así que es hora de despedirnos con
+cariño de SensioFrameworkExtraBundle.
+
+00:00:41.906 --> 00:00:47.556 align:middle
+Ejecuta: en tu terminal: composer remove
+sensio/framework-extra-bundle Hasta siempre,
+
+00:00:47.556 --> 00:00:49.796 align:middle
+y gracias por todas las anotaciones.
+
+00:00:50.516 --> 00:00:51.376 align:middle
+Cuando termine...
+
+00:00:51.826 --> 00:00:55.256 align:middle
+y refrescamos, ¡el sitio vuelve a funcionar!
+
+00:00:55.736 --> 00:00:58.526 align:middle
+Pero... ¿hemos utilizado
+alguna de sus funciones?
+
+00:00:58.956 --> 00:00:59.496 align:middle
+No lo sé
+
+00:00:59.496 --> 00:01:04.766 align:middle
+Una forma fácil de comprobarlo es
+ejecutándolo: git grep FrameworkExtra ¡No!
+
+00:01:05.166 --> 00:01:08.496 align:middle
+No parece que estemos haciendo referencia
+directa a ninguna sentencia use.
+
+00:01:09.106 --> 00:01:13.106 align:middle
+Si es así, sólo es cuestión
+de averiguar qué nuevo atributo
+
+00:01:13.106 --> 00:01:15.196 align:middle
+de Symfony sustituye a esa característica.
+
+00:01:15.926 --> 00:01:20.726 align:middle
+Para ayudarte, Symfony tiene una gran página de
+documentación llamada Symfony Attributes Overview.
+
+00:01:21.386 --> 00:01:23.796 align:middle
+Muestra todos los atributos PHP de Symfony.
+
+00:01:24.326 --> 00:01:28.596 align:middle
+Por ejemplo, SensioFrameworkExtraBundle
+tenía una anotación Security.
+
+00:01:29.126 --> 00:01:33.136 align:middle
+Ahora Symfony tiene un atributo IsGranted
+que puedes utilizar en su lugar.
+
+00:01:33.726 --> 00:01:37.826 align:middle
+Así que si estás utilizando algo del sistema
+antiguo, busca la nueva forma y actualízate.
+
+00:01:38.516 --> 00:01:42.116 align:middle
+Aunque... hay una característica
+de SensioFrameworkExtraBundle
+
+00:01:42.116 --> 00:01:44.526 align:middle
+que no requería una ano tación...
+
+00:01:44.916 --> 00:01:47.666 align:middle
+así que puede que la hayas estado
+utilizando sin darte cuenta.
+
+00:01:48.316 --> 00:01:49.806 align:middle
+Haz clic en una de las mezclas.
+
+00:01:50.496 --> 00:01:52.306 align:middle
+Observa que la URL tiene un slug.
+
+00:01:52.916 --> 00:01:56.436 align:middle
+El controlador para esto es
+src/Controller/MixController.php.
+
+00:01:57.526 --> 00:02:01.236 align:middle
+Aquí abajo, la ruta tiene
+un comodín {slug}...
+
+00:02:01.456 --> 00:02:04.526 align:middle
+pero luego un argumento $mix,
+que es una entidad Doctrine.
+
+00:02:05.166 --> 00:02:09.956 align:middle
+Entre bastidores, el convertidor de parámetros
+buscaría automáticamente un VinylMix en el
+
+00:02:10.146 --> 00:02:12.766 align:middle
+que slug fuera igual a {slug} en la URL.
+
+00:02:13.326 --> 00:02:15.706 align:middle
+No hacía falta ninguna
+anotación: simplemente funcionaba.
+
+00:02:16.526 --> 00:02:21.306 align:middle
+La buena noticia es que, como puedes
+ver, ¡esta magia sigue funcionando!
+
+00:02:21.866 --> 00:02:23.396 align:middle
+La función está ahora en el núcleo.
+
+00:02:23.756 --> 00:02:28.656 align:middle
+Y en la mayoría de los casos, seguirá
+haciendo lo suyo silenciosamente, como antes.
+
+00:02:29.456 --> 00:02:32.876 align:middle
+Si añades una letra extra al
+final del slug para obtener un 404,
+
+00:02:33.166 --> 00:02:36.566 align:middle
+vemos que el sistema que hay
+detrás es EntityValueResolver.
+
+00:02:37.376 --> 00:02:42.606 align:middle
+Si necesitas algún control extra, puedes
+configurarlo con el atributo #[MapEntity].
+
+00:02:43.466 --> 00:02:45.996 align:middle
+Siguiente paso: ¡Quiero
+actualizar a Symfony 7!
+
+00:02:46.326 --> 00:02:49.626 align:middle
+Pero para hacerlo, necesitamos
+eliminar todas estas deprecaciones.
