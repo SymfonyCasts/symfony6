@@ -1,0 +1,435 @@
+WEBVTT
+
+00:00:01.066 --> 00:00:02.936 align:middle
+Sigamos mejorando recetas.
+
+00:00:03.386 --> 00:00:05.126 align:middle
+La siguiente es TwigBundle.
+
+00:00:05.726 --> 00:00:10.266 align:middle
+Éste tiene un conflicto en el único archivo
+que actualizó: templates/base.html.twig.
+
+00:00:10.916 --> 00:00:12.236 align:middle
+Y... es extraño.
+
+00:00:12.866 --> 00:00:14.986 align:middle
+Puedes ver nuestro contenido
+personalizado aquí....
+
+00:00:15.156 --> 00:00:18.196 align:middle
+y luego el título por defecto
+con el favicon por defecto abajo.
+
+00:00:18.886 --> 00:00:21.446 align:middle
+Conserva nuestro contenido
+personalizado y borra este comentario.
+
+00:00:21.796 --> 00:00:22.786 align:middle
+No lo necesitamos.
+
+00:00:24.586 --> 00:00:31.626 align:middle
+Ejecuta: git add templates Luego: git diff
+--cached Esto muestra symfony.lock por supuesto,
+
+00:00:31.726 --> 00:00:34.806 align:middle
+pero hubo un cambio a base.html.twig:
+
+00:00:35.306 --> 00:00:39.926 align:middle
+eliminó encore_entry_link_tags()
+y encore_entry_script_tags().
+
+00:00:40.326 --> 00:00:45.586 align:middle
+¿Por qué? Una gran adición reciente al
+mundo frontend de Symfony fue StimulusBundle.
+
+00:00:46.216 --> 00:00:48.356 align:middle
+Por sí solo, no es gran cosa.
+
+00:00:48.856 --> 00:00:53.186 align:middle
+Pero, cuando se introdujo, se
+reorganizaron varias recetas.
+
+00:00:53.186 --> 00:00:58.766 align:middle
+Algunos cambios que antes vivían en la receta de un
+paquete se empaquetaron y se trasladaron a otro. Por
+
+00:00:58.766 --> 00:01:03.336 align:middle
+ejemplo, estas líneas formaban
+parte de la receta de TwigBundle,
+
+00:01:03.686 --> 00:01:06.456 align:middle
+pero se trasladaron a la
+receta de WebpackEncoreBundle.
+
+00:01:06.456 --> 00:01:12.316 align:middle
+Así que cuando actualicemos la receta de TwigBundle,
+parece que estas líneas deberían eliminarse.
+
+00:01:12.926 --> 00:01:17.836 align:middle
+Por supuesto, seguimos necesitándolas,
+pero acepta este cambio temporalmente.
+
+00:01:18.326 --> 00:01:22.566 align:middle
+Veremos cómo se vuelven a añadir más adelante,
+cuando actualicemos la receta WebpackEncoreBundle.
+
+00:01:23.376 --> 00:01:25.226 align:middle
+Vale, confirma esto y...
+
+00:01:25.316 --> 00:01:29.366 align:middle
+¡vamos a hacer nuestra última actualización
+de la receta: WebpackEncoreBundle!
+
+00:01:30.056 --> 00:01:32.266 align:middle
+Y... más conflictos.
+
+00:01:32.546 --> 00:01:33.636 align:middle
+No podemos tomarnos un respiro.
+
+00:01:34.246 --> 00:01:39.636 align:middle
+Ejecuta: git status Vale, en
+package.json, tenemos varios cambios.
+
+00:01:40.316 --> 00:01:44.396 align:middle
+La receta está intentando actualizarnos
+de la versión 3 a la 4 de Encore.
+
+00:01:45.286 --> 00:01:49.746 align:middle
+La mayor diferencia entre la 3 y la 4
+es que ahora es responsabilidad tuya
+
+00:01:49.746 --> 00:01:55.176 align:middle
+tener unos cuantos paquetes en tu
+package.json, como el propio webpack...
+
+00:01:55.176 --> 00:01:56.736 align:middle
+o los paquetes babel.
+
+00:01:57.386 --> 00:01:58.586 align:middle
+Vamos a quedarnos con la versión 4...
+
+00:01:59.046 --> 00:02:00.816 align:middle
+y conservar todo lo demás.
+
+00:02:01.156 --> 00:02:06.866 align:middle
+Esto es una mezcla de paquetes personalizados que
+hemos añadido y los nuevos necesarios para Encore 4.
+
+00:02:07.926 --> 00:02:12.846 align:middle
+Ejecuta: git add package.json Luego
+comprueba qué más ha cambiado con git diff.
+
+00:02:14.416 --> 00:02:19.706 align:middle
+Algunas configuraciones sin sentido,
+package.json y symfony.lock.
+
+00:02:20.516 --> 00:02:25.776 align:middle
+webpack.config.js contiene algunos cambios de bajo
+nivel: se utiliza una versión más reciente de core.js
+
+00:02:25.776 --> 00:02:30.786 align:middle
+y el plugin-proposal-class-properties
+ya no es necesario.
+
+00:02:30.786 --> 00:02:34.416 align:middle
+Así que, ¡aburrido, pero todo buen material!
+
+00:02:34.416 --> 00:02:35.566 align:middle
+Confirma esa receta.
+
+00:02:36.656 --> 00:02:42.096 align:middle
+Y como acabamos de actualizar package.json, en la
+otra pestaña, pulsa Control+C para detener yarn.
+
+00:02:42.846 --> 00:02:46.186 align:middle
+A continuación, ejecuta yarn install para
+obtener las últimas dependencias de nodos...
+
+00:02:48.646 --> 00:02:50.996 align:middle
+y yarn watch para reiniciar el proceso.
+
+00:02:52.056 --> 00:02:54.746 align:middle
+Eh, ¡ahora estamos construyendo con Encore 4!
+
+00:02:55.046 --> 00:03:01.376 align:middle
+¡Ánimo equipo! El mayor cambio en el mundo Encore
+fue realmente la introducción de StimulusBundle.
+
+00:03:02.046 --> 00:03:04.616 align:middle
+En relación con esto, en composer.json,
+
+00:03:04.616 --> 00:03:08.696 align:middle
+symfony/webpack-encore-bundle
+tiene una nueva versión principal.
+
+00:03:09.456 --> 00:03:11.496 align:middle
+Cámbiala a ^2.0.
+
+00:03:12.096 --> 00:03:17.696 align:middle
+A continuación, gira y, en la pestaña principal
+de tu terminal, ejecuta: composer up Por cierto,
+
+00:03:17.976 --> 00:03:22.626 align:middle
+esto fallará al final con algo
+relacionado con SensioFrameworkExtraBundle.
+
+00:03:23.366 --> 00:03:27.906 align:middle
+En el capítulo anterior... rompimos un poco nuestra
+aplicación al actualizar la receta del framework
+
+00:03:27.906 --> 00:03:28.686 align:middle
+bundle.
+
+00:03:29.416 --> 00:03:33.046 align:middle
+Lo arreglaremos en el próximo capítulo,
+pero ahora mismo no afecta a nada.
+
+00:03:33.046 --> 00:03:37.926 align:middle
+Entonces, ¿qué ha cambiado entre la
+versión 1 y la 2 de WebpackEncoreBundle?
+
+00:03:38.446 --> 00:03:45.096 align:middle
+Sólo una cosa: las funciones de ayuda de
+Twig stimulus_ -como stimulus_controller() -
+
+00:03:45.286 --> 00:03:49.196 align:middle
+se eliminaron y se trasladaron
+al nuevo StimulusBundle.
+
+00:03:49.516 --> 00:03:50.766 align:middle
+Nada del otro mundo. Lo
+
+00:03:51.526 --> 00:03:56.246 align:middle
+realmente complicado es lo que he mencionado
+antes: como resultado del nuevo bundle,
+
+00:03:56.536 --> 00:04:00.506 align:middle
+se reorganizaron un montón de partes
+de la receta entre los paquetes.
+
+00:04:01.156 --> 00:04:06.116 align:middle
+Además de que las funciones Twig de encore_entry()
+se trasladaron a la receta de WebpackEncoreBundle,
+
+00:04:06.116 --> 00:04:09.796 align:middle
+algunos archivos -como
+assets/controllers.json - se
+
+00:04:10.196 --> 00:04:14.866 align:middle
+trasladaron de la receta de
+WebpackEncoreBundle a la de StimulusBundle.
+
+00:04:15.686 --> 00:04:19.126 align:middle
+Todo esto está bien: la nueva
+situación es más limpia
+
+00:04:19.386 --> 00:04:23.406 align:middle
+, con los archivos relacionados con
+Stimulus en la receta de ese bundle.
+
+00:04:23.866 --> 00:04:27.576 align:middle
+Pero... es un poco lioso
+actualizar las recetas.
+
+00:04:27.576 --> 00:04:29.176 align:middle
+Así que vamos a verlo.
+
+00:04:29.696 --> 00:04:32.846 align:middle
+Ejecuta: git status Confirma estos cambios...
+
+00:04:35.246 --> 00:04:37.516 align:middle
+y vuelve a ejecutar composer recipes.
+
+00:04:37.516 --> 00:04:41.076 align:middle
+¡Sorpresa! ¡Hay dos nuevas actualizaciones!
+
+00:04:41.446 --> 00:04:42.996 align:middle
+¿De dónde han salido?
+
+00:04:43.516 --> 00:04:47.196 align:middle
+Bueno, acabamos de actualizar
+StimulusBundle y WebpackEncoreBundle
+
+00:04:47.476 --> 00:04:51.166 align:middle
+y esas nuevas versiones tienen
+nuevas versiones de recetas.
+
+00:04:51.856 --> 00:04:53.956 align:middle
+Actualización symfony/stimulus-bundle.
+
+00:04:54.626 --> 00:04:58.156 align:middle
+Aquí... es donde empieza lo raro.
+
+00:04:58.156 --> 00:05:03.126 align:middle
+Ejecuta: git status Tenemos un
+conflicto en assets/controllers.json.
+
+00:05:03.956 --> 00:05:08.056 align:middle
+Este archivo ya existía y
+la receta intentó añadirlo.
+
+00:05:08.686 --> 00:05:12.326 align:middle
+Esto se debe a que StimulusBundle es ahora
+responsable de añadir este archivo...
+
+00:05:12.796 --> 00:05:15.186 align:middle
+y se confunde porque ya está aquí.
+
+00:05:15.186 --> 00:05:19.776 align:middle
+Arregla esto manteniendo nuestro archivo
+controllers.json exactamente como estaba.
+
+00:05:20.846 --> 00:05:24.806 align:middle
+Añade eso, y luego git diff
+para ver los demás cambios.
+
+00:05:25.526 --> 00:05:28.676 align:middle
+Vale, ha añadido una línea
+de importación a app.js.
+
+00:05:29.266 --> 00:05:32.106 align:middle
+Eso tampoco es algo que queramos porque...
+
+00:05:32.416 --> 00:05:34.396 align:middle
+¡ya la tenemos aquí abajo!
+
+00:05:34.776 --> 00:05:38.796 align:middle
+Es otro ejemplo de que la receta
+hace algo que ya está hecho.
+
+00:05:39.556 --> 00:05:40.516 align:middle
+Quita eso de arriba...
+
+00:05:42.586 --> 00:05:44.116 align:middle
+y luego git add ese archivo.
+
+00:05:46.416 --> 00:05:48.436 align:middle
+Y... todo lo demás está bien.
+
+00:05:48.886 --> 00:05:54.646 align:middle
+Nos ha dado un nuevo hello_controller.js, que
+puedes conservar o eliminar, y symfony.lock.
+
+00:05:54.946 --> 00:05:56.976 align:middle
+Todo bien. Confirma eso...
+
+00:05:57.286 --> 00:06:00.696 align:middle
+y pasamos a la última actualización
+de WebpackEncoreBundle.
+
+00:06:01.216 --> 00:06:03.866 align:middle
+Ésta es especialmente extraña.
+
+00:06:04.426 --> 00:06:07.616 align:middle
+Ejecuta: git status Dos conflictos.
+
+00:06:07.616 --> 00:06:09.636 align:middle
+Muchos de los archivos de aquí sol ían estar
+
+00:06:09.636 --> 00:06:12.946 align:middle
+en la receta de WebpackEncoreBundle,
+pero fueron movidos fuera de ella.
+
+00:06:12.946 --> 00:06:18.346 align:middle
+Así que cuando actualizamos la receta, parece
+que hay que eliminar un montón de cosas.
+
+00:06:19.106 --> 00:06:25.346 align:middle
+En assets/app.js, este archivo no se ha borrado,
+pero está intentando eliminar sus tripas.
+
+00:06:25.726 --> 00:06:27.046 align:middle
+Mantenlo como estaba antes.
+
+00:06:29.286 --> 00:06:30.456 align:middle
+Después añádelo a git.
+
+00:06:32.816 --> 00:06:34.466 align:middle
+El siguiente es package.json.
+
+00:06:34.886 --> 00:06:38.746 align:middle
+Es... más o menos lo mismo:
+está intentando borrar cosas.
+
+00:06:38.746 --> 00:06:39.886 align:middle
+¡No dejes que se salga con la suya!
+
+00:06:40.346 --> 00:06:41.296 align:middle
+Mantén nuestro código...
+
+00:06:41.686 --> 00:06:43.736 align:middle
+y añade también este archivo a git.
+
+00:06:44.546 --> 00:06:46.296 align:middle
+Bien, veamos cómo quedan
+las cosas. Quiere borrar
+
+00:06:47.026 --> 00:06:50.986 align:middle
+assets/bootstrap.js -no queremos eso-
+
+00:06:51.346 --> 00:06:53.866 align:middle
+y también quiere borrar controllers.json.
+
+00:06:54.286 --> 00:06:55.586 align:middle
+Tampoco queremos eso.
+
+00:06:56.266 --> 00:06:57.866 align:middle
+No queremos ninguno de estos cambios...
+
+00:06:58.296 --> 00:07:03.196 align:middle
+¡especialmente la letra "G" que aparentemente
+acabo de escribir en package.json!
+
+00:07:04.096 --> 00:07:08.536 align:middle
+En realidad sólo hay un cambio
+que nos importa: en base.html.twig.
+
+00:07:09.146 --> 00:07:14.706 align:middle
+¡Tada! Vuelve a añadir encore_entry_link_tags()
+y encore_entry_script_tags().
+
+00:07:15.426 --> 00:07:17.086 align:middle
+Es un buen cambio.
+
+00:07:17.086 --> 00:07:23.586 align:middle
+Para el archivo final - webpack.config.js
+- quiere eliminar enableStimulusBridge().
+
+00:07:23.956 --> 00:07:27.376 align:middle
+Como estamos utilizando
+Stimulus, seguimos queriendo eso.
+
+00:07:28.186 --> 00:07:32.206 align:middle
+Ejecuta git reset HEAD para mover todo
+fuera del área de preparación de git,
+
+00:07:32.546 --> 00:07:37.576 align:middle
+y luego git checkout assets
+webpack.config.js para deshacer esos cambios.
+
+00:07:38.986 --> 00:07:43.536 align:middle
+Perfecto. Nos quedan
+symfony.lock y base.html.twig.
+
+00:07:44.636 --> 00:07:45.576 align:middle
+Confírmalos.
+
+00:07:46.496 --> 00:07:48.156 align:middle
+¡Y ya está! Ya tenemos
+
+00:07:48.556 --> 00:07:52.956 align:middle
+la última versión de WebpackEncoreBundle
+con la última versión
+
+00:07:52.956 --> 00:07:58.316 align:middle
+de WebpackEncore y hemos pasado por esa
+extraña actualización de receta única.
+
+00:07:58.996 --> 00:08:02.516 align:middle
+Por desgracia, antes hemos
+estropeado nuestra aplicación.
+
+00:08:02.516 --> 00:08:06.196 align:middle
+Así que lo siguiente es eliminar
+SensioFrameworkExtraBundle.
