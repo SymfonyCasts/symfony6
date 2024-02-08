@@ -38,7 +38,7 @@ Se trata de una nueva versión mayor del paquete, por lo que debemos consultar e
 
 Lo interesante de esta primera desaprobación es que... no es algo que hayamos llamado directamente. Es una desaprobación indirecta: causada por una biblioteca que estamos utilizando. Y eso es bastante común. Para estar preparados para Symfony 7, tenemos que actualizar este bundle.
 
-En composer.json, busca "time"... y cámbialo por el más reciente `^2.2`. Gira sobre él y ejecútalo:
+En composer.json, busca "time"... y cámbialo por el más reciente `^2.2`. Gira y ejecuta:
 
 ```terminal
 composer up
