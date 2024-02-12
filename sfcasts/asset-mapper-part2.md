@@ -17,6 +17,8 @@ Bootstrap is especially interesting because it grabs the JavaScript package, a
 commonly has a CSS file... so it grabbed that *too*. All three things were
 added to `importmap.php`.
 
+[[[ code('b62603ecde') ]]]
+
 We're not using the bootstrap *JavaScript* in this project. So we *could* delete
 this. But I'll leave it because it's not hurting anything. The real star, however,
 is this CSS file. Copy its path. And in `app.css`, remove the top line.
@@ -24,6 +26,8 @@ is this CSS file. Copy its path. And in `app.css`, remove the top line.
 You *can* import third party CSS with AssetMapper, but *can't* do it from inside
 another CSS file. Well, you technically can, but life is easier if we do it from
 `app.js`. Say `import`, then paste.
+
+[[[ code('456c25a78f') ]]]
 
 And now... Bootstrap springs to life!
 
@@ -44,6 +48,8 @@ That grabs this *one* CSS file, downloads it into the project and adds it to
 an `assets/vendor/` directory.
 
 Head into `app.css`, remove that line and add another import for that path.
+
+[[[ code('5286c3ca27') ]]]
 
 And *that* works! Though, on the topic of FontAwesome, I don't recommend using
 FontAwesome like this anymore. Instead, use FontAwesome kits.
@@ -85,8 +91,13 @@ php bin/console importmap:require @fontsource-variable/roboto-condensed/index.mi
 ```
 
 Copy that and hit enter. It downloads the CSS file and adds an entry to
-`importmap.php`. Finally, remove the import from `app.css` and import it from
-`app.js`.
+`importmap.php`. 
+
+[[[ code('efd28cccfb') ]]]
+
+Finally, remove the import from `app.css` and import it from `app.js`.
+
+[[[ code('977b4890a7') ]]]
 
 Oh, and because we changed to the variable font, in `app.css`, update the font family
 to `Roboto Condensed Variable`.
@@ -103,6 +114,8 @@ Now that styling is working, let's look into our JavaScript. In the console, we
 have an error: a 404 for something called `bootstrap`. That's coming from
 `app.js`: from this import line. To fix this, open `app.js` and add `.js` to the
 end.
+
+[[[ code('757ccea5ee') ]]]
 
 With Webpack Encore, we're running inside a Node environment. And Node
 lets you cheat: if the file you're importing ends in `.js`, you don't need to
@@ -133,8 +146,12 @@ this.
 But in this case, the package is specific to Webpack Encore and the fix is related
 to our migration. Change this to `@symfony/stimulus-bundle`.
 
+[[[ code('87879d7060') ]]]
+
 And lo and behold: that string *does* live inside `importmap.php`! Below, the
 next line simplifies.
+
+[[[ code('3666c1ab9c') ]]]
 
 But it does the same thing as before: starts the Stimulus app and load our controllers.
 If you start a new Symfony app, you get all this with the recipe. But since we're
@@ -164,6 +181,8 @@ it grabbed the latest 5.3. And apparently something changed!
 
 I could figure out *what* changed and fix this... But we can also downgrade.
 Update the version in `importmap.php` to 5.1.3.
+
+[[[ code('a0e54e5a0c') ]]]
 
 If we just did that and refreshed, nothing would change: the newer version is *still*
 downloaded into `assets/vendor/`. To sync that directory with `importmap.php`, run:
