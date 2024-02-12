@@ -69,16 +69,29 @@ composer require symfony/asset-mapper
 
 Its recipe does a bunch of interesting things. We won't go too deep into how
 AssetMapper works - we have other tutorials for that - but let's explore.
-In `.gitignore`, it ignores the final location of the built assets and where
+In `.gitignore`:
+
+[[[ code('93c93b545b') ]]]
+
+it ignores the final location of the built assets and where
 the vendor files live. And in `templates/base.html.twig`, it added an `importmap()`
-function that will output CSS and JavaScript. It also gave us an `importmap.php`
-file. This is, effectively, the new `package.json`: the home for 3rd party packages.
+function that will output CSS and JavaScript.
+
+[[[ code('b0b941ddae') ]]]
+
+It also gave us an `importmap.php` file. 
+
+[[[ code('668b1573ff') ]]]
+
+This is, effectively, the new `package.json`: the home for 3rd party packages.
 And hey! It already added Stimulus and Turbo! Those are two of the packages from
 `package.json` that we *do* need.
 
 Will this work? Refresh and... kinda? We don't have Bootstrap CSS... which is why
 it looks terrible. But I *can* see that `assets/styles/app.css` *is* being loaded:
 that's giving us some basic styles. But we need to fix these imports.
+
+[[[ code('0d828a4a27') ]]]
 
 Onwards we go! Let's roll up our sleeves and nail down the last few steps to get
 AssetMapper up and running next.
