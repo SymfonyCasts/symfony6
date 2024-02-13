@@ -1,0 +1,214 @@
+WEBVTT
+
+00:00:01.096 --> 00:00:04.536 align:middle
+Symfony 6.3 vino con un nuevo
+componente llamado AssetMapper...
+
+00:00:04.806 --> 00:00:06.396 align:middle
+¡y me encanta!
+
+00:00:06.856 --> 00:00:08.186 align:middle
+Vale, trabajo en él...
+
+00:00:08.186 --> 00:00:10.416 align:middle
+así que no soy en absoluto objetiva...
+
+00:00:10.726 --> 00:00:12.286 align:middle
+pero créeme, ¡es increíble!
+
+00:00:12.726 --> 00:00:16.796 align:middle
+Nos permite escribir JavaScript y css
+modernos sin sistema de compilación.
+
+00:00:17.346 --> 00:00:21.526 align:middle
+Tenemos un tutorial de Asset Mapper
+y otro más reciente de LAST Stack
+
+00:00:21.746 --> 00:00:23.446 align:middle
+donde construimos cosas chulas con él.
+
+00:00:23.976 --> 00:00:26.696 align:middle
+AssetMapper es un sustituto de Webpack Encore.
+
+00:00:27.226 --> 00:00:29.626 align:middle
+Encore no va a morir muy pronto,
+
+00:00:29.756 --> 00:00:32.886 align:middle
+¡pero definitivamente lo he pillado
+hojeando algunos folletos de jubilación!
+
+00:00:33.716 --> 00:00:36.086 align:middle
+Así que sé lo que te estás preguntando:
+¿Debería convertir mi aplicación
+
+00:00:36.086 --> 00:00:38.366 align:middle
+de Webpack Encore a AssetMapper?
+
+00:00:38.926 --> 00:00:42.156 align:middle
+La respuesta corta, pero
+no satisfactoria, es...
+
+00:00:42.456 --> 00:00:43.146 align:middle
+depende de ti.
+
+00:00:43.786 --> 00:00:48.996 align:middle
+AssetMapper es más moderno, más fácil de usar,
+y si estás frustrado por la lentitud de Encore
+
+00:00:48.996 --> 00:00:51.466 align:middle
+, es una buena razón para cambiar.
+
+00:00:52.086 --> 00:00:55.386 align:middle
+Pero si Encore funciona bien,
+no hay ninguna razón de peso
+
+00:00:55.386 --> 00:00:57.826 align:middle
+para hacer todo el trabajo
+de conversión a AssetMapper.
+
+00:00:58.496 --> 00:01:01.726 align:middle
+Además, si utilizas React o Vue,
+querrás quedarte con Enc ore, ya que
+
+00:01:01.726 --> 00:01:04.196 align:middle
+siguen necesitando un paso de compilación.
+
+00:01:04.816 --> 00:01:05.926 align:middle
+Pero, ¡convirtámoslo!
+
+00:01:06.356 --> 00:01:10.566 align:middle
+Ve a tu terminal y busca la pestaña en
+la que yarn watch está haciendo lo suyo.
+
+00:01:11.156 --> 00:01:13.796 align:middle
+Detenlo con Ctrl+C y cierra esa pestaña.
+
+00:01:14.306 --> 00:01:18.566 align:middle
+No necesitamos un sistema de compilación,
+así que esa segunda pestaña no volverá.
+
+00:01:19.186 --> 00:01:24.296 align:middle
+A continuación, Ejecuta: composer remove
+symfony/webpack-encore-bundle Esto eliminará
+
+00:01:24.296 --> 00:01:25.136 align:middle
+ese paquete...
+
+00:01:25.266 --> 00:01:29.486 align:middle
+pero lo más importante: ¡su
+receta se desinstalará sola! La
+
+00:01:30.026 --> 00:01:34.366 align:middle
+sensación es genial: package.json se
+ha ido, webpack.config.js se ha ido,
+
+00:01:34.496 --> 00:01:38.736 align:middle
+las funciones de encore_entry_
+en base.html.twig se han ido.
+
+00:01:39.356 --> 00:01:42.866 align:middle
+Pero... también ha eliminado app.js y app.css.
+
+00:01:43.656 --> 00:01:48.196 align:middle
+Queremos esos archivos, así que ejecuta
+git checkout assets/ para recuperarlos.
+
+00:01:50.116 --> 00:01:51.506 align:middle
+¡Pero todo lo demás tiene buena pinta!
+
+00:01:52.056 --> 00:01:57.176 align:middle
+Ejecuta: git diff En el antiguo package.json,
+las dependencias aquí estaban relacionadas
+
+00:01:57.176 --> 00:02:00.096 align:middle
+con Webpack Encore y no las necesitaremos.
+
+00:02:00.626 --> 00:02:06.126 align:middle
+Pero algunas de ellas son para nuestro frontend, y
+las volveremos a añadir a través de AssetMapper.
+
+00:02:06.886 --> 00:02:08.966 align:middle
+Bien, fija esos cambios con un commit...
+
+00:02:09.386 --> 00:02:14.796 align:middle
+y luego monta una fiesta eliminando node_modules,
+public/build/ y el archivo de error de yarn.
+
+00:02:15.396 --> 00:02:17.616 align:middle
+Oh, también podemos eliminar yarn.lock.
+
+00:02:18.276 --> 00:02:21.666 align:middle
+¡Estupendo! Ahora vamos
+a instalar AssetMapper:
+
+00:02:22.066 --> 00:02:27.776 align:middle
+composer require symfony/asset-mapper Su
+receta hace un montón de cosas interesantes.
+
+00:02:28.256 --> 00:02:31.166 align:middle
+No profundizaremos demasiado
+en cómo funciona AssetMapper -
+
+00:02:31.456 --> 00:02:34.796 align:middle
+para eso tenemos otros
+tutoriales - pero exploremos.
+
+00:02:35.376 --> 00:02:38.166 align:middle
+En .gitignore: ignora la ubicación final
+
+00:02:38.166 --> 00:02:40.936 align:middle
+de los activos construidos y dónde
+viven los archivos del proveedor.
+
+00:02:41.656 --> 00:02:45.826 align:middle
+Y en templates/base.html.twig,
+añadió una función importmap()
+
+00:02:45.826 --> 00:02:47.926 align:middle
+que dará salida a CSS y JavaScript.
+
+00:02:48.606 --> 00:02:50.836 align:middle
+También nos dio un archivo importmap.php.
+
+00:02:51.386 --> 00:02:57.196 align:middle
+Este es, efectivamente, el nuevo package.json:
+el hogar de los paquetes de terceros.
+
+00:02:57.636 --> 00:03:00.356 align:middle
+Y ¡eh! ¡Ya ha añadido Stimulus y Turbo!
+
+00:03:00.786 --> 00:03:04.506 align:middle
+Esos son dos de los paquetes de
+package.json que necesitamos.
+
+00:03:05.216 --> 00:03:06.336 align:middle
+¿Funcionará?
+
+00:03:06.886 --> 00:03:08.176 align:middle
+Refresca y...
+
+00:03:08.576 --> 00:03:11.486 align:middle
+kinda? No tenemos Bootstrap CSS...
+
+00:03:11.486 --> 00:03:13.466 align:middle
+por eso tiene un aspecto horrible.
+
+00:03:13.966 --> 00:03:18.196 align:middle
+Pero puedo ver que se está
+cargando assets/styles/app.css:
+
+00:03:18.696 --> 00:03:20.616 align:middle
+que nos está dando algunos estilos básicos.
+
+00:03:20.986 --> 00:03:22.726 align:middle
+Pero tenemos que arreglar estas importaciones.
+
+00:03:23.316 --> 00:03:24.696 align:middle
+¡Vamos allá! Vamos a
+
+00:03:25.206 --> 00:03:28.226 align:middle
+arremangarnos y a concretar los últimos pasos
+
+00:03:28.226 --> 00:03:30.136 align:middle
+para poner en marcha
+AssetMapper a continuación.
