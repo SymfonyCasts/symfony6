@@ -44,7 +44,7 @@ a filter to `filter_var()` that requires it to be an `int`. That's why this fail
 
 ## Validating an int is in a Range
 
-But we *can* get fancier. Add an argument called `$limit` that defaults to 0. Dump
+But we *can* get fancier. Add an argument called `$limit` that defaults to 10. Dump
 this below. But I want the limit to be between 1 and 10. To force that,
 pass two options special to `filter_var`: `min_range` set to 1 and `max_range` set
 to 10.
