@@ -1,0 +1,145 @@
+WEBVTT
+
+00:00:01.106 --> 00:00:03.396 align:middle
+Este capítulo no está relacionado
+con la actualización de Symfony.
+
+00:00:03.716 --> 00:00:08.086 align:middle
+Pero el resto de nuestro código -incluido
+JavaScript- ¡también merece ser modernizado!
+
+00:00:08.686 --> 00:00:14.236 align:middle
+Dentro de song-controls_controller.js, originalmente
+utilizaba axios para hacer llamadas Ajax.
+
+00:00:14.746 --> 00:00:16.296 align:middle
+Ya no lo hago.
+
+00:00:16.846 --> 00:00:19.166 align:middle
+En su lugar, utiliza la
+función incorporada fetch().
+
+00:00:19.796 --> 00:00:24.586 align:middle
+Elimina axios con: php bin/console
+importmap:remove axios Desaparece
+
+00:00:24.586 --> 00:00:26.726 align:middle
+de importmap.php.
+
+00:00:26.726 --> 00:00:27.706 align:middle
+Luego elimina el import...
+
+00:00:28.416 --> 00:00:29.896 align:middle
+y este comentario ya que estamos.
+
+00:00:30.636 --> 00:00:33.546 align:middle
+Sustituye axios.get() por sólo fetch().
+
+00:00:34.566 --> 00:00:37.586 align:middle
+Luego, para ver si esto
+funciona, console.log(response).
+
+00:00:38.626 --> 00:00:42.496 align:middle
+En la tierra de los navegadores, pulsa el
+botón de reproducción para activar el método.
+
+00:00:43.386 --> 00:00:47.416 align:middle
+¡Genial! Las dos últimas líneas no
+funcionan, ¡pero vemos la respuesta!
+
+00:00:47.666 --> 00:00:49.436 align:middle
+Ha hecho una llamada Ajax.
+
+00:00:50.126 --> 00:00:54.276 align:middle
+Cuando escribí esto originalmente,
+utilicé .then() para manejar la Promesa.
+
+00:00:54.786 --> 00:00:57.906 align:middle
+Ya no suelo utilizarlo para
+manejar código asíncrono.
+
+00:00:58.476 --> 00:01:00.576 align:middle
+En su lugar, utilizo el más sencillo await.
+
+00:01:01.386 --> 00:01:05.076 align:middle
+Delante de fetch, pon const
+response = await fetch().
+
+00:01:05.686 --> 00:01:08.976 align:middle
+Luego copia el interior de la llamada
+de retorno y ponlo justo después.
+
+00:01:11.116 --> 00:01:15.926 align:middle
+Esto dice: haz la llamada a fetch(), espera
+a que termine y luego ejecuta este código.
+
+00:01:16.386 --> 00:01:18.496 align:middle
+Es mucho más sencillo de leer y escribir.
+
+00:01:19.116 --> 00:01:21.956 align:middle
+Aunque, probablemente te hayas
+fijado en mi editor enfadado
+
+00:01:22.386 --> 00:01:25.856 align:middle
+el operador await sólo puede
+utilizarse en una función asíncrona.
+
+00:01:26.446 --> 00:01:31.496 align:middle
+Para utilizar await, tenemos que añadir async
+antes de la función en la que estamos directamente.
+
+00:01:32.046 --> 00:01:37.646 align:middle
+No entraré en detalles, pero esto anuncia
+que nuestra función es ahora asíncrona.
+
+00:01:38.186 --> 00:01:43.296 align:middle
+Si la llamaras y quisieras el valor de retorno,
+también necesitarías await esa llamada.
+
+00:01:43.946 --> 00:01:46.596 align:middle
+Pero en nuestro caso, Stimulus
+está llamando a este método...
+
+00:01:47.006 --> 00:01:50.276 align:middle
+y definitivamente no le importa
+nuestro valor de retorno.
+
+00:01:50.726 --> 00:01:52.796 align:middle
+Así que añadir async no cambia nada.
+
+00:01:53.526 --> 00:01:54.606 align:middle
+Cuando lo probamos...
+
+00:01:55.126 --> 00:01:57.696 align:middle
+el mismo resultado, sin
+la devolución de llamada.
+
+00:01:58.246 --> 00:02:03.116 align:middle
+Así que terminemos con esto:
+const data = await response.json().
+
+00:02:03.816 --> 00:02:08.926 align:middle
+Esto toma el JSON de la respuesta de nuestra
+ruta API y lo convierte en un objeto.
+
+00:02:09.266 --> 00:02:14.866 align:middle
+Y sí, también es una función asíncrona,
+¡así que await vuelve a ser útil!
+
+00:02:15.556 --> 00:02:18.176 align:middle
+A continuación, pasa data.url a Audio.
+
+00:02:19.126 --> 00:02:22.526 align:middle
+Luego celebra, ese dulce, dulce Rickroll.
+
+00:02:23.076 --> 00:02:27.326 align:middle
+Código moderno, sin sistema de
+compilación: la vida es buena.
+
+00:02:27.326 --> 00:02:31.076 align:middle
+Ahora que estamos actualizados, vamos a dar una
+vuelta por algunas de mis nuevas funciones favoritas,
+
+00:02:31.176 --> 00:02:36.526 align:middle
+empezando por las bondades del autocableado que podrían
+significar que nunca volverás a editar services.yaml.
