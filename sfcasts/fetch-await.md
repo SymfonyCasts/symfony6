@@ -6,7 +6,11 @@ JavaScript - deserves to be modernized too!
 ## Using fetch() instead of axios
 
 Inside `song-controls_controller.js`, I originally used `axios` to make Ajax 
-calls. I don't do that anymore. Instead, use the built-in `fetch()` function.
+calls. 
+
+[[[ code('16975e1a74') ]]]
+
+I don't do that anymore. Instead, use the built-in `fetch()` function.
 
 Remove `axios` with:
 
@@ -17,6 +21,8 @@ php bin/console importmap:remove axios
 It's gone from `importmap.php`. Then delete the `import`... and this comment while
 we're here. Replace `axios.get()` with just `fetch()`. Then, to see if this is
 working, `console.log(response)`.
+
+[[[ code('36fbd09a05') ]]]
 
 Over in browser-land, smash that play button to trigger the method. Cool!
 The last two lines aren't working, but we see the response! It *did* make an
@@ -29,6 +35,8 @@ use that anymore to handle asynchronous code. Instead, I use the simpler `await`
 
 In front of `fetch`, say `const response = await fetch()`. Then copy the inside of
 the callback and put it right after.
+
+[[[ code('d8eb83be1e') ]]]
 
 This says: make the `fetch()` call, wait for it to finish, and *then* run this code.
 It's much simpler to read and write.
@@ -52,6 +60,8 @@ So let's finish this: `const data = await response.json()`.
 This takes the JSON from the response of our API endpoint and converts it into
 an object. And yea, it's *also* an asynchronous function, so `await` comes in handy
 again! Below, pass `data.url` to `Audio`.
+
+[[[ code('7f91de49bd') ]]]
 
 Then celebrate, that sweet, sweet Rickroll. Modern code, no build system: life
 is good.
