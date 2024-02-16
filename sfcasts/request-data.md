@@ -14,6 +14,8 @@ in front: `#[MapQueryParameter]`.
 
 That's it! Dump `$query` to prove it works.
 
+[[[ code('c2c8e330d4') ]]]
+
 Back in the web browser world, refresh. In the web debug toolbar... got it!
 
 ## Validation from the Type-Hint
@@ -25,6 +27,8 @@ And beyond just grabbing the value from the request, this system *also* performs
 validation. Watch: duplicate this and add an `int $page = 1` argument. Oh, and
 I meant to make the `$query` argument optional so it doesn't *need* to be on the URL.
 Below, dump `$page`.
+
+[[[ code('c12ac0cbc0') ]]]
 
 Ok, if we add `?page=3` to the URL... no surprise: it dumps `3`. But it *is* nice
 that we get an *integer* 3: not a string. Now try `page=banana`. A 404!
@@ -49,6 +53,8 @@ this below. But I want the limit to be between 1 and 10. To force that,
 pass two options special to `filter_var`: `min_range` set to 1 and `max_range` set
 to 10.
 
+[[[ code('d9e7d8e079') ]]]
+
 Let's try it! Say `?limit=3`. That works like we expect. But when we try `limit=13`.
 `filter_var()` fails and we get a 404! I love that!
 
@@ -56,6 +62,8 @@ Let's try it! Say `?limit=3`. That works like we expect. But when we try `limit=
 
 This can even be used to handle arrays. Copy and create one more argument: an
 array of `$filters` that defaults to an empty array. Dump that.
+
+[[[ code('1a83b6b427') ]]]
 
 At the browser, add `?filters[]` equals banana, `&filters[]` equals apple. Check
 out that array in the web debug toolbar! It also works for associative arrays: add
