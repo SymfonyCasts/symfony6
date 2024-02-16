@@ -1,0 +1,152 @@
+WEBVTT
+
+00:00:01.136 --> 00:00:04.896 align:middle
+En el entorno de desarrollo de nuestro sitio,
+tenemos la barra de herramientas de depuración web.
+
+00:00:05.316 --> 00:00:10.056 align:middle
+Y lo que es más importante, el perfilador,
+que está repleto de cosas buenas.
+
+00:00:10.626 --> 00:00:16.476 align:middle
+Aunque nuestra aplicación sea enteramente una API, podemos
+ir directamente a /_profiler para consultar el perfilador
+
+00:00:16.476 --> 00:00:18.836 align:middle
+de cualquier petición de API.
+
+00:00:19.416 --> 00:00:21.666 align:middle
+Esta es una de las características
+estrella de Symfony.
+
+00:00:22.126 --> 00:00:25.956 align:middle
+Y para la 6.4, Jules Pietri,
+colaborador de Symfony, se preguntaba
+
+00:00:26.196 --> 00:00:28.316 align:middle
+¿por qué no podemos tener esto
+para los comandos de consola?
+
+00:00:28.726 --> 00:00:30.746 align:middle
+Y ahora, ¡lo tenemos! Está
+
+00:00:31.366 --> 00:00:35.626 align:middle
+pensado para tus comandos de consola
+personalizados que pueden ser grandes o complejos,
+
+00:00:35.856 --> 00:00:38.076 align:middle
+pero también podemos usarlo
+con comandos del núcleo.
+
+00:00:38.716 --> 00:00:43.426 align:middle
+Ejecuta: php bin/console debug:container
+Si ejecutas un comando normal,
+
+00:00:43.686 --> 00:00:46.956 align:middle
+no activará el sistema de perfilado
+ni recopilará información.
+
+00:00:47.496 --> 00:00:51.296 align:middle
+Para activarlo, tienes que
+ejecutar el comando con --profile.
+
+00:00:52.396 --> 00:00:55.996 align:middle
+Nada parece diferente, pero eso
+acaba de activar el perfilador...
+
+00:00:56.146 --> 00:00:58.226 align:middle
+que recogía información y la almacenaba...
+
+00:00:58.466 --> 00:00:59.176 align:middle
+en algún sitio.
+
+00:00:59.666 --> 00:01:02.376 align:middle
+Pero... ¡no es obvio
+dónde podemos ir a verla!
+
+00:01:02.996 --> 00:01:09.016 align:middle
+Así que lo que realmente quieres hacer es pasar -v:
+Ahora, en la parte inferior, incluye el token único
+
+00:01:09.016 --> 00:01:10.896 align:middle
+que se puede utilizar en la URL del perfilador.
+
+00:01:11.556 --> 00:01:18.196 align:middle
+Pero, en realidad, sé más perezoso y ejecútalo
+con -vvv: Esta vez, obtendremos un enlace,
+
+00:01:18.546 --> 00:01:20.726 align:middle
+e incluso detalles sobre
+la memoria y el tiempo.
+
+00:01:21.386 --> 00:01:23.236 align:middle
+Hago clic en el enlace y...
+
+00:01:23.406 --> 00:01:24.766 align:middle
+no funciona. Es
+
+00:01:25.126 --> 00:01:30.016 align:middle
+casi la URL correcta, pero mi terminal no sabe
+qué puerto utiliza mi servidor web local.
+
+00:01:31.156 --> 00:01:32.606 align:middle
+Copio ese token, y luego...
+
+00:01:32.606 --> 00:01:37.456 align:middle
+ve al perfilador de cualquier
+petición, pega el token en la URL y...
+
+00:01:37.816 --> 00:01:42.506 align:middle
+¡genial! Vemos información sobre
+el comando, la entrada, la salida...
+
+00:01:42.796 --> 00:01:46.556 align:middle
+y lo más importante, ¡tenemos las
+secciones normales del perfilador!
+
+00:01:47.156 --> 00:01:50.856 align:middle
+Una interesante es la de eventos:
+muestra los eventos reales
+
+00:01:50.856 --> 00:01:53.166 align:middle
+que se enviaron y los oyentes de cada uno.
+
+00:01:53.726 --> 00:01:55.666 align:middle
+Éstos son totalmente distintos de los eventos
+
+00:01:55.666 --> 00:01:58.596 align:middle
+que se activan durante una petición,
+así que está bien verlos.
+
+00:01:59.326 --> 00:02:03.566 align:middle
+Probablemente te hayas dado cuenta de que la
+mayoría de las secciones del perfil están en gris.
+
+00:02:04.026 --> 00:02:06.656 align:middle
+Pero si renderizaste una plantilla Twig...
+
+00:02:06.866 --> 00:02:12.626 align:middle
+o hicieras una petición HTTP o una consulta
+a una base de datos, se activarían.
+
+00:02:13.366 --> 00:02:16.896 align:middle
+Incluso con este sencillo comando,
+desbloqueamos la sección de rendimiento.
+
+00:02:17.356 --> 00:02:21.206 align:middle
+No es mucho en este caso,
+pero me hace sentir peligroso.
+
+00:02:21.856 --> 00:02:22.476 align:middle
+Así que ¡ya está!
+
+00:02:22.716 --> 00:02:24.936 align:middle
+Otra función genial y bien pensada.
+
+00:02:25.396 --> 00:02:27.656 align:middle
+Me encantaría ver cómo acaba
+utilizando esto la gente.
+
+00:02:28.376 --> 00:02:34.596 align:middle
+Bien, pasemos a nuestro tema final: experimentemos con uno
+de los mejores componentes nuevos de Symfony: Programador.
