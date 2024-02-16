@@ -35,8 +35,13 @@ versions of Symfony and... they do a lot of things. The overall effect is
 that you'll probably never need to go into `services.yaml` again. 
 
 Let's dive in! In an old tutorial, I added this `bind` for an `$isDebug` argument.
+
+[[[ code('3f0ef111dc') ]]]
+
 The reason I did that lives in `src/Controller/VinylController.php`: I gave this
 controller an `$isDebug` argument... which isn't autowirable.
+
+[[[ code('0d19b13543') ]]]
 
 In `services.yaml`, remove the `bind`.
 
@@ -50,6 +55,8 @@ Hence, why we had the `bind`. Starting a few Symfony versions ago, we now have a
 your friend. Add it before the arg and define what you want. This can be a service,
 an expression, an environment variable, a parameter, a kitten, whatever. We want a
 param: `kernel.debug`.
+
+[[[ code('ee9f473968') ]]]
 
 Inside, `dump($this->isDebug)` to make sure it's working.
 
@@ -73,6 +80,8 @@ of *every* console command in our app. Say `private iterable $commands`. And to
 prove this is working, foreach over `$this->commands` as `$command`... then dump
 the object.
 
+[[[ code('8b76f3cf12') ]]]
+
 If we stopped now, we'd get the classic error that says:
 
 > I have no idea what to pass for this `$commands` argument!
@@ -80,10 +89,14 @@ If we stopped now, we'd get the classic error that says:
 We want an iterable of every services that implement a specific tag. Grab those
 with `#[AutowireIterator]`, then the tag we want: `console.command`.
 
+[[[ code('518d5413e6') ]]]
+
 And just like that, we got them! We see all 102 console commands in my app.
 I know, it's a silly example, but isn't that cool?
 
 Back in the controller, undo that.
+
+[[[ code('e52ae3b5ad') ]]]
 
 Next up: let's talk about a few subtle, but powerful new ways to fetch request data
 like query parameters and the request payload.
