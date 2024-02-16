@@ -1,0 +1,272 @@
+WEBVTT
+
+00:00:01.096 --> 00:00:05.596 align:middle
+Las siguientes novedades de las que quiero hablar están
+relacionadas con la obtención de datos de la petición.
+
+00:00:06.086 --> 00:00:07.026 align:middle
+Normalmente es...
+
+00:00:07.096 --> 00:00:08.696 align:middle
+un trabajo aburrido.
+
+00:00:08.996 --> 00:00:11.106 align:middle
+Pero las nuevas funciones son bastante chulas.
+
+00:00:11.736 --> 00:00:15.866 align:middle
+Por ejemplo, añadir un ?query=banana a la URL.
+
+00:00:16.426 --> 00:00:20.166 align:middle
+Para obtenerlo en nuestro controlador,
+históricamente escribíamos un argumento
+
+00:00:20.166 --> 00:00:22.366 align:middle
+con Request y lo tomábamos de ahí.
+
+00:00:22.936 --> 00:00:28.016 align:middle
+Y aunque eso sigue funcionando, ahora
+podemos añadir un argumento ?string $query.
+
+00:00:28.626 --> 00:00:32.106 align:middle
+Para decirle a Symfony que esto es algo que
+debe obtener de un parámetro de consulta,
+
+00:00:32.356 --> 00:00:35.296 align:middle
+añade un atributo delante:
+#[MapQueryParameter].
+
+00:00:35.926 --> 00:00:36.336 align:middle
+Ya está
+
+00:00:37.036 --> 00:00:38.786 align:middle
+Vuelca $query para probar que funciona.
+
+00:00:39.496 --> 00:00:41.286 align:middle
+De vuelta al mundo del
+navegador web, actualiza.
+
+00:00:41.856 --> 00:00:43.166 align:middle
+En la barra de herramientas
+de depuración web...
+
+00:00:43.736 --> 00:00:47.256 align:middle
+¡ya está! El atributo también
+tiene algunas opciones. Por
+
+00:00:47.726 --> 00:00:50.956 align:middle
+ejemplo, si tu parámetro de
+consulta se llama de forma distinta
+
+00:00:50.956 --> 00:00:53.266 align:middle
+a tu argumento, podrías ponerlo aquí.
+
+00:00:53.986 --> 00:00:59.466 align:middle
+Y además de coger el valor de la petición,
+este sistema también realiza la validación.
+
+00:01:00.066 --> 00:01:05.026 align:middle
+Observa: duplica esto y añade
+un argumento int $page = 1.
+
+00:01:05.726 --> 00:01:10.196 align:middle
+Ah, y quería que el argumento $query fuera
+opcional para que no tenga que estar en la URL.
+
+00:01:10.866 --> 00:01:12.326 align:middle
+A continuación, vuelca $page.
+
+00:01:13.226 --> 00:01:16.446 align:middle
+Vale, si añadimos ?page=3 a la URL...
+
+00:01:16.926 --> 00:01:19.096 align:middle
+no hay sorpresa: vuelca 3.
+
+00:01:19.606 --> 00:01:23.136 align:middle
+Pero está bien que obtengamos un
+número entero 3: no una cadena.
+
+00:01:23.886 --> 00:01:26.126 align:middle
+Ahora prueba con page=banana.
+
+00:01:26.816 --> 00:01:31.966 align:middle
+¡A 404! El sistema ve que tenemos
+un tipo int y realiza la validación.
+
+00:01:32.546 --> 00:01:36.596 align:middle
+Todo este sistema lo maneja algo
+llamado QueryParameterValueResolver.
+
+00:01:37.016 --> 00:01:39.666 align:middle
+Así que si realmente quieres
+profundizar, comprueba esa clase.
+
+00:01:40.346 --> 00:01:45.166 align:middle
+Internamente, utiliza una función PHP llamada
+filter_var() para realizar la validación.
+
+00:01:45.656 --> 00:01:49.686 align:middle
+No es una función con la que esté muy
+familiarizado, pero es bastante potente.
+
+00:01:50.086 --> 00:01:52.766 align:middle
+Le pasas un valor, uno o varios filtros...
+
+00:01:52.996 --> 00:01:56.206 align:middle
+y te dice si ese valor satisface esos filtros.
+
+00:01:56.786 --> 00:01:59.046 align:middle
+También puedes pasarle opciones
+para controlar los filtros.
+
+00:01:59.656 --> 00:02:04.966 align:middle
+Si no haces nada extra, el sistema lee nuestra
+sugerencia de tipo int, y pasa un filtro
+
+00:02:04.966 --> 00:02:07.596 align:middle
+a filter_var() que requiere que sea un int.
+
+00:02:07.996 --> 00:02:09.286 align:middle
+Por eso falla.
+
+00:02:09.786 --> 00:02:11.626 align:middle
+Pero podemos ponernos más elegantes.
+
+00:02:12.776 --> 00:02:15.456 align:middle
+Añade un argumento llamado
+$limit que por defecto sea 10.
+
+00:02:16.026 --> 00:02:17.026 align:middle
+Vuelca esto abajo.
+
+00:02:17.686 --> 00:02:20.296 align:middle
+Pero quiero que el límite esté entre 1 y 10.
+
+00:02:21.066 --> 00:02:24.796 align:middle
+Para forzarlo, pasa dos opciones
+especiales a filter_var:
+
+00:02:25.156 --> 00:02:29.126 align:middle
+min_range poner a 1 y max_range poner a 10.
+
+00:02:30.346 --> 00:02:31.296 align:middle
+¡Vamos a probarlo!
+
+00:02:31.896 --> 00:02:33.596 align:middle
+Digamos ?limit=3.
+
+00:02:34.346 --> 00:02:36.016 align:middle
+Funciona como esperamos.
+
+00:02:36.016 --> 00:02:38.756 align:middle
+Pero cuando probamos limit=13.
+
+00:02:39.036 --> 00:02:41.896 align:middle
+filter_var() ¡falla y obtenemos un 404!
+
+00:02:42.386 --> 00:02:43.506 align:middle
+¡Me encanta!
+
+00:02:44.196 --> 00:02:46.616 align:middle
+Esto se puede utilizar
+incluso para manejar matrices.
+
+00:02:47.396 --> 00:02:52.826 align:middle
+Copia y crea un argumento más: una matriz de
+$filters que por defecto es una matriz vacía.
+
+00:02:53.606 --> 00:02:54.456 align:middle
+Vuelca eso.
+
+00:02:55.386 --> 00:03:01.786 align:middle
+En el navegador, añade ?filters[] igual a
+plátano, &filters[] igual a manzana.
+
+00:03:02.426 --> 00:03:05.226 align:middle
+¡Comprueba ese array en la barra
+de herramientas de depuración web!
+
+00:03:05.916 --> 00:03:10.476 align:middle
+También funciona para matrices
+asociativas: añade foo y bar entre [].
+
+00:03:11.696 --> 00:03:13.606 align:middle
+¡Sí! Una matriz asociativa.
+
+00:03:14.146 --> 00:03:17.706 align:middle
+Es una función muy bien diseñada
+para obtener parámetros de consulta.
+
+00:03:18.396 --> 00:03:22.666 align:middle
+Además, si necesitas obtener el cuerpo
+de una petición, en Symfony 6. 3 hay
+
+00:03:22.666 --> 00:03:25.426 align:middle
+un nuevo método llamado
+$request->getPayload().
+
+00:03:26.096 --> 00:03:26.866 align:middle
+¿Construyendo una API?
+
+00:03:27.416 --> 00:03:31.566 align:middle
+Cuando tu cliente envíe JSON en el
+cuerpo, utiliza $request->getPayload()
+
+00:03:31.746 --> 00:03:33.926 align:middle
+para descodificarlo en una matriz asociativa.
+
+00:03:34.516 --> 00:03:35.156 align:middle
+¡Eso está muy bien!
+
+00:03:35.526 --> 00:03:41.476 align:middle
+Pero además, si tu usuario envía un formulario HTML normal,
+$request->getPayload() también funciona en ese caso.
+
+00:03:42.046 --> 00:03:47.206 align:middle
+Detecta que se está enviando un formulario HTML
+y descodifica los datos de $_POST en una matriz.
+
+00:03:47.746 --> 00:03:52.236 align:middle
+Así que no importa si utilizas una API o un
+formulario normal, tenemos un método uniforme
+
+00:03:52.236 --> 00:03:53.976 align:middle
+para obtener la carga útil de la petición.
+
+00:03:54.416 --> 00:03:55.616 align:middle
+Pequeño, pero bonito.
+
+00:03:56.196 --> 00:04:00.156 align:middle
+Hablando de JSON, también es
+habitual utilizar el serializador
+
+00:04:00.196 --> 00:04:03.316 align:middle
+para deserializar la carga útil en un objeto.
+
+00:04:03.756 --> 00:04:06.606 align:middle
+Esto está relacionado con otra nueva
+función llamada #[MapRequestPayload].
+
+00:04:07.216 --> 00:04:09.986 align:middle
+En este caso, __invoke es
+la acción del controlador.
+
+00:04:10.596 --> 00:04:16.496 align:middle
+Esto dice: toma el JSON de la petición
+y deserialízalo en un ProductReviewDto,
+
+00:04:16.736 --> 00:04:18.906 align:middle
+que es la clase de ejemplo anterior.
+
+00:04:19.676 --> 00:04:24.026 align:middle
+Después de enviar el JSON a través del
+serializador, incluso realiza la validación.
+
+00:04:24.266 --> 00:04:26.556 align:middle
+Así que otra característica bien pensada.
+
+00:04:27.326 --> 00:04:29.366 align:middle
+Vale, ¡ya está bien de cosas de peticiones!
+
+00:04:29.986 --> 00:04:35.926 align:middle
+A continuación, vamos a probar una nueva función de
+la 6.4: la posibilidad de perfilar comandos de consola.
