@@ -29,17 +29,29 @@ This means that step one is to generate a Messenger message. Run:
 php bin/console make:message
 ```
 
-Call it `LogHello`. Cool! Over here, it created the message class - `LogHello` -
+Call it `LogHello`. Cool! Over here, it created the message class - `LogHello` 
+
+[[[ code('9fd176c05a') ]]]
+
 and its handler, whose `__invoke()` method will be called when `LogHello` is dispatched
 through Messenger.
 
-In `LogHello`, give it a constructor with `public int $length`. This will
-help us figure out which message is being handled and when. In the handler, *also*
-add a constructor so we can autowire `LoggerInterface $logger`.
+[[[ code('cd839e5361') ]]]
+
+In `LogHello`, give it a constructor with `public int $length`. 
+
+[[[ code('787cd14c73') ]]]
+
+This will help us figure out which message is being handled and when. In the handler, 
+*also* add a constructor so we can autowire `LoggerInterface $logger`.
+
+[[[ code('a3c92cd450') ]]]
 
 Down in the method, use `$this->logger->warning()` - just so these log entries
 are easy to see - then `str_repeat()` to log a guitar icon `$message->length`
 times. I'll also log that number at the end.
+
+[[[ code('5cde3a301b') ]]]
 
 Message & handler check!
 
@@ -57,6 +69,8 @@ In `src/`, I don't have to do this, but I'll create a `Scheduler` directory.
 And inside, a PHP class called, how about, `MainSchedule`. Make this implement
 `ScheduleProviderInterface`.
 
+[[[ code('0191745407') ]]]
+
 You can have multiple of these schedule providers in your system... or you can
 have one class that sets up *all* your recurring messages. Your call.
 
@@ -64,10 +78,16 @@ This class also needs an attribute called `#[AsSchedule]`. This has one optional
 argument: the schedule name, which, creatively, defaults to `default`. We'll see
 why that name is important soon. I'll use `default`.
 
+[[[ code('651134046e') ]]]
+
 ## Creating the Recurring Messages
 
 Ok, go to Code -> Generate, or command+N on a Mac - to implement the one method we
-need: `getSchedule()`. The code in here is beautifully simple and expressive.
+need: `getSchedule()`. 
+
+[[[ code('ab2732d408') ]]]
+
+The code in here is beautifully simple and expressive.
 Return a `new Schedule()`, then add things to this by calling `->add()`.
 Inside, for each "thing" you need to schedule, say `RecurringMessage::`.
 There are several ways to create these recurring messages. The easiest is `every()`,
@@ -78,6 +98,8 @@ for *exactly* when you want your weird message to be triggered.
 Use `every()` and pass `4 seconds`. Every 4 seconds, we want this
 new `LogHello` message to be dispatched to Messenger. Copy that, then create
 another for every `3 seconds`.
+
+[[[ code('e9b9ccbf5f') ]]]
 
 We're done!
 
@@ -131,7 +153,11 @@ This is *not* workable. And so, in the real world, we always make our schedule
 *stateful*. And this easy. Create a `__construct` method and autowire a
 `private CacheInterface`: the one from Symfony cache.
 
+[[[ code('ac7a77fd10') ]]]
+
 Down below, call `->stateful()` and pass `$this->cache`.
+
+[[[ code('67af97e263') ]]]
 
 Also, open `services.yaml`. In an earlier tutorial, I added some config that
 effectively disabled the cache in the `dev` environment. Remove that so we have
