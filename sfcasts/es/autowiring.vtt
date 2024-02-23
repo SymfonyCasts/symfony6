@@ -1,0 +1,265 @@
+WEBVTT
+
+00:00:01.126 --> 00:00:02.696 align:middle
+¿Qué hay de nuevo en Symfony 7?
+
+00:00:03.146 --> 00:00:07.246 align:middle
+¡Nada! La verdadera pregunta es,
+¿qué hay de nuevo en Symfony 6.4?
+
+00:00:07.556 --> 00:00:11.506 align:middle
+O quizás, ¿qué hay de
+nuevo en 6.3 o 6.2 que...
+
+00:00:11.616 --> 00:00:12.716 align:middle
+¿nos hemos perdido?
+
+00:00:13.316 --> 00:00:15.226 align:middle
+El mejor lugar para encontrar estas cosas...
+
+00:00:15.226 --> 00:00:16.536 align:middle
+es el blog de Symfony.
+
+00:00:16.916 --> 00:00:22.266 align:middle
+Javier hace un trabajo fantástico con cada lanzamiento,
+desvelando las características más importantes.
+
+00:00:22.686 --> 00:00:25.966 align:middle
+He sacado algunas de mis favoritas,
+como el perfilador del flujo de trabajo.
+
+00:00:26.596 --> 00:00:31.226 align:middle
+Si utilizas el componente de flujo de trabajo,
+ahora puedes ver una visualización muy chula
+
+00:00:31.296 --> 00:00:33.246 align:middle
+de tu flujo de trabajo dentro del perfilador.
+
+00:00:33.856 --> 00:00:37.966 align:middle
+También hay algunos cambios en el sistema de
+cierre de sesión, para simplificarte la vida...
+
+00:00:38.356 --> 00:00:42.776 align:middle
+algunas restricciones nuevas, como
+PasswordStrengthConstraint y otra
+
+00:00:42.776 --> 00:00:46.906 align:middle
+que impide caracteres sospechosos, como
+caracteres de espacio de ancho cero.
+
+00:00:47.406 --> 00:00:48.806 align:middle
+Esto puede utilizarse para evitar que alguien
+
+00:00:48.806 --> 00:00:52.076 align:middle
+cree un nombre de usuario que
+se parezca al de otra persona.
+
+00:00:52.686 --> 00:00:56.806 align:middle
+Si estás creando una API, hay un
+excelente comando debug:serializer
+
+00:00:57.086 --> 00:00:59.206 align:middle
+para ver todos los metadatos de una clase.
+
+00:00:59.766 --> 00:01:05.496 align:middle
+Y, por último, los nuevos componentes Webhook
+y RemoteEvent, que merecen su propio tutorial.
+
+00:01:05.496 --> 00:01:07.526 align:middle
+Así que lo dejaremos para otra ocasión.
+
+00:01:08.086 --> 00:01:12.616 align:middle
+Éstas son sólo algunas de mis funciones
+favoritas, pero puedes verlo todo yendo a la
+
+00:01:12.616 --> 00:01:16.466 align:middle
+sección "Vivir al límite" del
+blog y filtrando por la versión.
+
+00:01:16.816 --> 00:01:19.046 align:middle
+Una forma estupenda de flipar.
+
+00:01:19.726 --> 00:01:21.996 align:middle
+Pero quiero que recorramos juntos
+algunas de las nuevas funciones,
+
+00:01:22.126 --> 00:01:24.896 align:middle
+empezando por las mejoras en
+el sistema de autocableado.
+
+00:01:25.386 --> 00:01:28.686 align:middle
+Éstas se han producido en las
+últimas versiones de Symfony y...
+
+00:01:28.686 --> 00:01:30.206 align:middle
+hacen muchas cosas.
+
+00:01:30.686 --> 00:01:36.096 align:middle
+El efecto general es que probablemente no
+tendrás que volver a entrar en services.yaml.
+
+00:01:36.856 --> 00:01:37.536 align:middle
+¡Vamos a sumergirnos!
+
+00:01:38.056 --> 00:01:42.146 align:middle
+En un tutorial antiguo, añadí este
+bind para un argumento $isDebug.
+
+00:01:42.726 --> 00:01:47.246 align:middle
+La razón por la que lo hice está en
+src/Controller/VinylController.php:
+
+00:01:47.246 --> 00:01:49.846 align:middle
+Le di a este controlador
+un argumento $isDebug...
+
+00:01:50.056 --> 00:01:51.696 align:middle
+que no es autowirable.
+
+00:01:52.416 --> 00:01:54.906 align:middle
+En services.yaml, elimina el bind.
+
+00:01:55.886 --> 00:01:58.606 align:middle
+Cuando actualizamos, ¡error!
+
+00:01:58.906 --> 00:02:04.096 align:middle
+Dice: Oye, tonto: tienes un
+argumento $isDebug en un servicio,
+
+00:02:04.456 --> 00:02:07.046 align:middle
+pero no tengo ni idea de qué pasarle.
+
+00:02:07.416 --> 00:02:09.006 align:middle
+De ahí que tuviéramos el bind.
+
+00:02:09.726 --> 00:02:14.006 align:middle
+Desde hace unas cuantas versiones de
+Symfony, ahora tenemos un atributo Autowire.
+
+00:02:14.086 --> 00:02:18.046 align:middle
+Si tienes un argumento que no se
+puede autocablear, éste es tu amigo.
+
+00:02:18.546 --> 00:02:20.876 align:middle
+Añádelo antes del arg
+y define lo que quieras.
+
+00:02:21.426 --> 00:02:23.496 align:middle
+Puede ser un servicio, una expresión,
+
+00:02:23.626 --> 00:02:27.066 align:middle
+una variable de entorno, un
+parámetro, un gatito, lo que sea.
+
+00:02:27.526 --> 00:02:30.076 align:middle
+Queremos un parámetro: kernel.debug.
+
+00:02:31.016 --> 00:02:34.396 align:middle
+Dentro, dump($this->isDebug)
+para asegurarte de que funciona.
+
+00:02:35.326 --> 00:02:37.906 align:middle
+Y... ¡lo está!
+
+00:02:38.266 --> 00:02:40.516 align:middle
+Autowire es mi nuevo atributo favorito.
+
+00:02:41.116 --> 00:02:43.846 align:middle
+Pero si mantienes pulsado comando
+o control para abrir esta clase...
+
+00:02:44.156 --> 00:02:49.286 align:middle
+y luego haces doble clic en el directorio
+Attribute, veremos toda una lista de geniales
+
+00:02:49.286 --> 00:02:51.736 align:middle
+atributos relacionados con la
+inyección de dependencias.
+
+00:02:52.306 --> 00:02:56.306 align:middle
+Exclude es una forma de excluir una clase para
+que no se registre automáticamente como servicio.
+
+00:02:56.726 --> 00:03:01.716 align:middle
+Autoconfigure y AutoconfigureTag son formas
+de configurar opciones en tu servicio.
+
+00:03:02.346 --> 00:03:07.046 align:middle
+Pon esto encima de tu clase -o incluso encima
+de una interfaz- y las opciones se aplicarán
+
+00:03:07.046 --> 00:03:10.536 align:middle
+al servicio o servicios que
+implementen esa interfaz.
+
+00:03:11.156 --> 00:03:13.996 align:middle
+También están AutowireIterator
+y AutowireLocator.
+
+00:03:14.556 --> 00:03:19.396 align:middle
+Si tienes un conjunto de servicios que implementan
+una etiqueta, puedes utilizar AutowireIterator
+
+00:03:19.396 --> 00:03:25.746 align:middle
+para que te pasen esos servicios como un
+iterador, o AutowireLocator para que te los pasen
+
+00:03:25.746 --> 00:03:30.136 align:middle
+como un localizador, básicamente
+una matriz asociativa de servicios.
+
+00:03:30.136 --> 00:03:35.156 align:middle
+Por ejemplo, imagina que, en VinylController
+, queremos obtener un iterable
+
+00:03:35.156 --> 00:03:37.446 align:middle
+de cada comando de consola
+de nuestra aplicación.
+
+00:03:38.106 --> 00:03:40.126 align:middle
+Digamos private iterable $commands.
+
+00:03:41.046 --> 00:03:45.106 align:middle
+Y para probar que esto funciona, foreach
+sobre $this->commands como $command...
+
+00:03:46.146 --> 00:03:47.606 align:middle
+y luego volcar el objeto.
+
+00:03:48.826 --> 00:03:53.936 align:middle
+Si nos detuviéramos ahora, obtendríamos el
+clásico error que dice: ¡No tengo ni idea de qué
+
+00:03:53.936 --> 00:03:55.596 align:middle
+pasar para este argumento $commands !
+
+00:03:56.126 --> 00:04:00.016 align:middle
+Queremos un iterable de todos los servicios
+que implementan una etiqueta específica.
+
+00:04:00.656 --> 00:04:05.876 align:middle
+Cógelos con #[AutowireIterator], luego
+la etiqueta que queremos: console.command.
+
+00:04:06.766 --> 00:04:09.526 align:middle
+¡Y ya los tenemos!
+
+00:04:09.726 --> 00:04:13.376 align:middle
+Vemos los 102 comandos de
+consola de mi aplicación.
+
+00:04:14.026 --> 00:04:17.186 align:middle
+Lo sé, es un ejemplo
+tonto, pero ¿no es genial?
+
+00:04:17.886 --> 00:04:19.826 align:middle
+De vuelta al controlador,
+deshazlo. A continuación
+
+00:04:21.946 --> 00:04:27.136 align:middle
+: hablemos de algunas sutiles, pero potentes,
+nuevas formas de obtener datos de la petición
+
+00:04:27.456 --> 00:04:29.876 align:middle
+, como los parámetros de consulta
+y la carga útil de la petición.
