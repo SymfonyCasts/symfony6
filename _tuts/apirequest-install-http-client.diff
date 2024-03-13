@@ -11,7 +11,7 @@ index 6d72b5d..a7b8516 100644
          "symfony/runtime": "6.1.*",
          "symfony/twig-bundle": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index b8c7f7e..366ae4d 100644
+index 2f512e2..4b3cba9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@

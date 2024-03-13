@@ -11,7 +11,7 @@ index 08e5621..6e762ac 100644
      "require": {
          "php": ">=8.1",
 diff --git a/composer.lock b/composer.lock
-index 2c22325..9375997 100644
+index 2443fde..40e005e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -488,42 +488,7 @@ index 2c22325..9375997 100644
              },
              "funding": [
                  {
-@@ -1393,16 +1393,16 @@
-         },
-         {
-             "name": "symfony/flex",
--            "version": "v2.1.8",
-+            "version": "v2.2.2",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/symfony/flex.git",
--                "reference": "dcbe58c3fbafeaeb32f619bf94c3912c0c732b65"
-+                "reference": "78510b1be591433513c8087deec24e9fd90d110d"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/symfony/flex/zipball/dcbe58c3fbafeaeb32f619bf94c3912c0c732b65",
--                "reference": "dcbe58c3fbafeaeb32f619bf94c3912c0c732b65",
-+                "url": "https://api.github.com/repos/symfony/flex/zipball/78510b1be591433513c8087deec24e9fd90d110d",
-+                "reference": "78510b1be591433513c8087deec24e9fd90d110d",
-                 "shasum": ""
-             },
-             "require": {
-@@ -1438,7 +1438,7 @@
-             "description": "Composer plugin for Symfony",
-             "support": {
-                 "issues": "https://github.com/symfony/flex/issues",
--                "source": "https://github.com/symfony/flex/tree/v2.1.8"
-+                "source": "https://github.com/symfony/flex/tree/v2.2.2"
-             },
-             "funding": [
-                 {
-@@ -1454,20 +1454,20 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2022-05-02T10:23:41+00:00"
-+            "time": "2022-06-15T06:51:57+00:00"
+@@ -1458,16 +1458,16 @@
          },
          {
              "name": "symfony/framework-bundle",

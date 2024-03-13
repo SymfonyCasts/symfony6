@@ -17,7 +17,7 @@ index 534d522..8f15859 100644
      "config": {
          "allow-plugins": {
 diff --git a/composer.lock b/composer.lock
-index ef8e6fd..85844c9 100644
+index 8778b54..e2aa28b 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
