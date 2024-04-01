@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index a7b8516..08e5621 100644
+index 8a7a87d..205d96a 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -79,6 +79,7 @@
@@ -11,19 +11,19 @@ index a7b8516..08e5621 100644
          "symfony/web-profiler-bundle": "6.1.*"
      }
 diff --git a/composer.lock b/composer.lock
-index 4b3cba9..2443fde 100644
+index c5b21e4..ac83e62 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "e034994c8c1346235b0323f4d9de58f3",
-+    "content-hash": "e6e9b43436efa04b9f28fa19a017aea8",
+-    "content-hash": "49a03d6035da27c80c8f998f33625074",
++    "content-hash": "83c6f71891f84b4b6b7783b899f0a983",
      "packages": [
          {
              "name": "knplabs/knp-time-bundle",
-@@ -3635,6 +3635,153 @@
+@@ -3638,6 +3638,153 @@
          }
      ],
      "packages-dev": [
@@ -177,7 +177,7 @@ index 4b3cba9..2443fde 100644
          {
              "name": "symfony/debug-bundle",
              "version": "v6.1.0-RC1",
-@@ -3713,6 +3860,97 @@
+@@ -3716,6 +3863,97 @@
              ],
              "time": "2022-04-15T14:25:02+00:00"
          },

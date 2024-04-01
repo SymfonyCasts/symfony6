@@ -16,31 +16,31 @@ index a1c6e90..7ba2551 100644
      "entrypoints": []
  }
 diff --git a/composer.json b/composer.json
-index df91ca8..0d344b9 100644
+index 3a59130..0242bca 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -15,6 +15,7 @@
          "symfony/monolog-bundle": "^3.0",
-         "symfony/runtime": "6.0.*",
+         "symfony/runtime": "6.4.3",
          "symfony/twig-bundle": "6.0.*",
 +        "symfony/ux-turbo": "^2.0",
          "symfony/webpack-encore-bundle": "^1.13",
          "symfony/yaml": "6.0.*",
          "twig/extra-bundle": "^2.12|^3.0",
 diff --git a/composer.lock b/composer.lock
-index 58e2a93..9af254a 100644
+index 22a7d03..e78a209 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "2b351819c5e92217dd11facae2dd7232",
-+    "content-hash": "043cabbabcabb407237f37ba52308800",
+-    "content-hash": "838b387fb274cc860493a6bd8de71135",
++    "content-hash": "0c7f2c3e620add9bed9365267c5426bd",
      "packages": [
          {
              "name": "monolog/monolog",
-@@ -2809,6 +2809,103 @@
+@@ -2812,6 +2812,103 @@
              ],
              "time": "2022-01-02T09:55:41+00:00"
          },

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index da403ae..6d72b5d 100644
+index 095d281..32a052f 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
@@ -11,15 +11,15 @@ index da403ae..6d72b5d 100644
          "symfony/console": "6.1.*",
          "symfony/dotenv": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index 324f09e..2f512e2 100644
+index fbf876a..80dad63 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,81 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "38446830530cecfa0ddea4aefb105d66",
-+    "content-hash": "266a00c27062de83bcfd89e1e6009ea8",
+-    "content-hash": "629ead3dad96e02bd826020fcaf6688b",
++    "content-hash": "fee399b36924d6fface68be4ed637888",
      "packages": [
 +        {
 +            "name": "knplabs/knp-time-bundle",
@@ -97,7 +97,7 @@ index 324f09e..2f512e2 100644
          {
              "name": "monolog/monolog",
              "version": "3.0.0",
-@@ -2459,6 +2532,102 @@
+@@ -2462,6 +2535,102 @@
              ],
              "time": "2022-04-22T08:18:23+00:00"
          },

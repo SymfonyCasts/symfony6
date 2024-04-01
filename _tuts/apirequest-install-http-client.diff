@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 6d72b5d..a7b8516 100644
+index 32a052f..8a7a87d 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -13,6 +13,7 @@
@@ -8,18 +8,18 @@ index 6d72b5d..a7b8516 100644
          "symfony/framework-bundle": "6.1.*",
 +        "symfony/http-client": "6.1.*",
          "symfony/monolog-bundle": "^3.0",
-         "symfony/runtime": "6.1.*",
+         "symfony/runtime": "6.4.3",
          "symfony/twig-bundle": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index 2f512e2..4b3cba9 100644
+index 80dad63..c5b21e4 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "266a00c27062de83bcfd89e1e6009ea8",
-+    "content-hash": "e034994c8c1346235b0323f4d9de58f3",
+-    "content-hash": "fee399b36924d6fface68be4ed637888",
++    "content-hash": "49a03d6035da27c80c8f998f33625074",
      "packages": [
          {
              "name": "knplabs/knp-time-bundle",

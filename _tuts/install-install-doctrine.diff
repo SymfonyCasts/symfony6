@@ -16,7 +16,7 @@ index 1b734a4..19cd959 100644
 +DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index 6e762ac..c25c261 100644
+index 174fbf9..bab336d 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -6,6 +6,9 @@
@@ -34,7 +34,7 @@ index 6e762ac..c25c261 100644
          "symfony/http-client": "6.1.*",
          "symfony/monolog-bundle": "^3.0",
 +        "symfony/proxy-manager-bridge": "6.1.*",
-         "symfony/runtime": "6.1.*",
+         "symfony/runtime": "6.4.3",
          "symfony/twig-bundle": "6.1.*",
          "symfony/ux-turbo": "^2.0",
 @@ -73,7 +77,8 @@
@@ -48,15 +48,15 @@ index 6e762ac..c25c261 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index 40e005e..4f50091 100644
+index d87c741..c53c198 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,1460 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "528b011e72096e11f4ec4391571a4233",
-+    "content-hash": "f9e241cfca3ef253123ca9a73188e0ee",
+-    "content-hash": "84d66cb6376ff36e830eb30c418c5689",
++    "content-hash": "5e18f8246e4521d92eb2eef49d67d2ad",
      "packages": [
 +        {
 +            "name": "doctrine/annotations",
@@ -1860,7 +1860,7 @@ index 40e005e..4f50091 100644
          },
          {
              "name": "symfony/routing",
-@@ -2615,6 +4311,68 @@
+@@ -2618,6 +4314,68 @@
              ],
              "time": "2022-05-30T19:18:58+00:00"
          },
@@ -1929,7 +1929,7 @@ index 40e005e..4f50091 100644
          {
              "name": "symfony/string",
              "version": "v6.1.2",
-@@ -3647,97 +5405,6 @@
+@@ -3650,97 +5408,6 @@
          }
      ],
      "packages-dev": [
@@ -2027,7 +2027,7 @@ index 40e005e..4f50091 100644
          {
              "name": "nikic/php-parser",
              "version": "v4.14.0",
-@@ -3965,68 +5632,6 @@
+@@ -3968,68 +5635,6 @@
              ],
              "time": "2022-07-13T17:37:04+00:00"
          },

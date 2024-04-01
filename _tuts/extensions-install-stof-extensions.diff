@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 4372a5c..e730a53 100644
+index 3915695..ced56d5 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -11,6 +11,7 @@
@@ -20,15 +20,15 @@ index 4372a5c..e730a53 100644
              "docker": true
          }
 diff --git a/composer.lock b/composer.lock
-index c3e5219..1a69060 100644
+index 355d76a..d6740ad 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "295063329ef157ff847a8c7d2b243a90",
-+    "content-hash": "1cfa237ff7c38510bc26a021ab8f48c7",
+-    "content-hash": "c9f25a6e792139a048fa9c0802971431",
++    "content-hash": "14037f9a9390c429efc29853e360fbd3",
      "packages": [
 +        {
 +            "name": "behat/transliterator",

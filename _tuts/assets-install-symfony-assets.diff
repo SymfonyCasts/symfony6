@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index e004e1d..6539b8a 100644
+index 5d0790f..03eae1f 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -7,6 +7,7 @@
-         "php": ">=8.0.2",
+         "php": ">=8.1",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "symfony/asset": "6.0.*",
@@ -11,15 +11,15 @@ index e004e1d..6539b8a 100644
          "symfony/dotenv": "6.0.*",
          "symfony/flex": "^2",
 diff --git a/composer.lock b/composer.lock
-index 462cfc6..4590fec 100644
+index d47726d..00178c1 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "7be1842348513919c0b69fe3a4bc5740",
-+    "content-hash": "b4a1526c60f60c6f9ed96c9c39abdb5c",
+-    "content-hash": "45f04dfc71e503ae7737ffb61e5a6539",
++    "content-hash": "41fe5fa0b53266357ffd6910e18df5fe",
      "packages": [
          {
              "name": "monolog/monolog",

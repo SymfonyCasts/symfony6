@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index c25c261..4372a5c 100644
+index bab336d..3915695 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -10,6 +10,7 @@
@@ -11,15 +11,15 @@ index c25c261..4372a5c 100644
          "symfony/console": "6.1.*",
          "symfony/dotenv": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index 4f50091..c3e5219 100644
+index c53c198..355d76a 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "f9e241cfca3ef253123ca9a73188e0ee",
-+    "content-hash": "295063329ef157ff847a8c7d2b243a90",
+-    "content-hash": "5e18f8246e4521d92eb2eef49d67d2ad",
++    "content-hash": "c9f25a6e792139a048fa9c0802971431",
      "packages": [
          {
              "name": "doctrine/annotations",

@@ -1,35 +1,33 @@
 diff --git a/composer.json b/composer.json
-index 534d522..8f15859 100644
+index b80f2ea..bb16bbd 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -12,9 +12,10 @@
+@@ -12,7 +12,10 @@
          "symfony/flex": "^2",
          "symfony/framework-bundle": "6.0.*",
-         "symfony/runtime": "6.0.*",
+         "symfony/runtime": "6.4.3",
 -        "symfony/yaml": "6.0.*"
--    },
--    "require-dev": {
 +        "symfony/twig-bundle": "6.0.*",
 +        "symfony/yaml": "6.0.*",
 +        "twig/extra-bundle": "^2.12|^3.0",
 +        "twig/twig": "^2.12|^3.0"
      },
-     "config": {
-         "allow-plugins": {
+     "require-dev": {
+     },
 diff --git a/composer.lock b/composer.lock
-index 8778b54..e2aa28b 100644
+index 8c17328..93949f0 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "d602e6991d42ea499e9875fc3ea9f694",
-+    "content-hash": "00eb016a809987112ba78e7ea70374a4",
+-    "content-hash": "ae06ba9cf231cfe62c1ced91ca21f26f",
++    "content-hash": "e2ce74509cc77efbc5de70a4e0d8126c",
      "packages": [
          {
              "name": "psr/cache",
-@@ -2189,6 +2189,291 @@
+@@ -2192,6 +2192,291 @@
              ],
              "time": "2022-01-02T09:55:41+00:00"
          },
@@ -321,7 +319,7 @@ index 8778b54..e2aa28b 100644
          {
              "name": "symfony/var-dumper",
              "version": "v6.0.3",
-@@ -2422,6 +2707,161 @@
+@@ -2425,6 +2710,161 @@
                  }
              ],
              "time": "2022-01-26T17:23:29+00:00"
