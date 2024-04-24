@@ -29,7 +29,9 @@ like click events - and has other goodies.
 In more recent versions of Symfony (and, specifically, WebpackEncoreBundle v2), Stimulus is no longer
 installed with `symfony/webpack-encore-bundle`. To install it, run:
 
+```terminal
 composer require symfony/stimulus-bundle
+```
 ***
 
 In our app, when we installed Encore, it gave us a `controllers/` directory. This
