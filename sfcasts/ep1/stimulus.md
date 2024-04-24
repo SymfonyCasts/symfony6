@@ -25,6 +25,13 @@ like click events - and has other goodies.
 
 ## Stimulus Controllers in our App
 
+***TIP
+In more recent versions of Symfony (and, specifically, WebpackEncoreBundle v2), Stimulus is no longer
+installed with `symfony/webpack-encore-bundle`. To install it, run:
+
+composer require symfony/stimulus-bundle
+***
+
 In our app, when we installed Encore, it gave us a `controllers/` directory. This
 is where our Stimulus controllers will live. And in `app.js`, we import
 `bootstrap.js`. This is not a file that you'll need to look at much, but it's
