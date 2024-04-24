@@ -12,6 +12,13 @@ Tenemos un tutorial completo sobre Stimulus, pero vamos a probarlo. Ya puedes ve
 
 ## Controladores Stimulus en nuestra aplicación
 
+***TIP
+En versiones recientes de Symfony (y, especificamente, WebpackEncoreBundle v2), Stimulus ya no
+viene instalado con `symfony/webpack-encore-bundle`. Para instalarlo, ejecuta:
+
+composer require symfony/stimulus-bundle
+***
+
 En nuestra aplicación, cuando instalamos Encore, nos dio un directorio `controllers/`. Aquí es donde vivirán nuestros controladores Stimulus. Y en `app.js`, importamos`bootstrap.js`. No es un archivo que tengas que mirar mucho, pero es súper útil. Esto pone en marcha Stimulus -sí, ya está instalado- y registra todo lo que hay en el directorio `controllers/` como un controlador Stimulus. Esto significa que si quieres crear un nuevo controlador Stimulus, ¡sólo tienes que añadir un archivo a este directorio `controllers/`!
 
 Y obtenemos un controlador de Estímulos fuera de la caja llamado `hello_controller.js`. Todos los controladores de Estímulos siguen la práctica de nombrar algo con "guión bajo"`controller.js` o algo con guión `controller.js`. La parte que precede a `_controller` -por tanto, `hello` - se convierte en el nombre del controlador.
