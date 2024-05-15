@@ -20,7 +20,7 @@ index 3915695..ced56d5 100644
              "docker": true
          }
 diff --git a/composer.lock b/composer.lock
-index 355d76a..d6740ad 100644
+index 4242331..a7291ad 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
