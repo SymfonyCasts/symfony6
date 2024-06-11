@@ -65,7 +65,7 @@ array of `$filters` that defaults to an empty array. Dump that.
 
 [[[ code('1a83b6b427') ]]]
 
-At the browser, add `?filters[]` equals banana, `&filters[]` equals apple. Check
+At the browser, add `?filters[]=banana&filters[]=apple`. Check
 out that array in the web debug toolbar! It also works for associative arrays: add
 `foo` and `bar` between the `[]`. Yup! An associative array.
 
