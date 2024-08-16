@@ -36,7 +36,7 @@ index a9e59b2..7653d9f 100644
      },
      "autoload": {
 diff --git a/composer.lock b/composer.lock
-index 8915822..2ee3bf3 100644
+index d234647..a77294d 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,20 +4,20 @@
@@ -1053,58 +1053,7 @@ index 8915822..2ee3bf3 100644
          },
          {
              "name": "doctrine/sql-formatter",
-@@ -1510,22 +1539,22 @@
-         },
-         {
-             "name": "friendsofphp/proxy-manager-lts",
--            "version": "v1.0.12",
-+            "version": "v1.0.16",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/FriendsOfPHP/proxy-manager-lts.git",
--                "reference": "8419f0158715b30d4b99a5bd37c6a39671994ad7"
-+                "reference": "ecadbdc9052e4ad08c60c8a02268712e50427f7c"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/8419f0158715b30d4b99a5bd37c6a39671994ad7",
--                "reference": "8419f0158715b30d4b99a5bd37c6a39671994ad7",
-+                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/ecadbdc9052e4ad08c60c8a02268712e50427f7c",
-+                "reference": "ecadbdc9052e4ad08c60c8a02268712e50427f7c",
-                 "shasum": ""
-             },
-             "require": {
-                 "laminas/laminas-code": "~3.4.1|^4.0",
-                 "php": ">=7.1",
--                "symfony/filesystem": "^4.4.17|^5.0|^6.0"
-+                "symfony/filesystem": "^4.4.17|^5.0|^6.0|^7.0"
-             },
-             "conflict": {
-                 "laminas/laminas-stdlib": "<3.2.1",
-@@ -1536,7 +1565,7 @@
-             },
-             "require-dev": {
-                 "ext-phar": "*",
--                "symfony/phpunit-bridge": "^5.4|^6.0"
-+                "symfony/phpunit-bridge": "^5.4|^6.0|^7.0"
-             },
-             "type": "library",
-             "extra": {
-@@ -1576,7 +1605,7 @@
-             ],
-             "support": {
-                 "issues": "https://github.com/FriendsOfPHP/proxy-manager-lts/issues",
--                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.12"
-+                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.16"
-             },
-             "funding": [
-                 {
-@@ -1588,65 +1617,65 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2022-05-05T09:31:05+00:00"
-+            "time": "2023-05-24T07:17:17+00:00"
+@@ -1592,61 +1621,61 @@
          },
          {
              "name": "gedmo/doctrine-extensions",
@@ -1292,7 +1241,7 @@ index 8915822..2ee3bf3 100644
                  }
              },
              "notification-url": "https://packagist.org/downloads/",
-@@ -1766,35 +1815,35 @@
+@@ -1766,9 +1815,9 @@
              ],
              "support": {
                  "issues": "https://github.com/KnpLabs/KnpTimeBundle/issues",
@@ -1304,48 +1253,7 @@ index 8915822..2ee3bf3 100644
          },
          {
              "name": "laminas/laminas-code",
--            "version": "4.10.0",
-+            "version": "4.13.0",
-             "source": {
-                 "type": "git",
-                 "url": "https://github.com/laminas/laminas-code.git",
--                "reference": "ad8b36073f9ac792716478befadca0798cc15635"
-+                "reference": "7353d4099ad5388e84737dd16994316a04f48dbf"
-             },
-             "dist": {
-                 "type": "zip",
--                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/ad8b36073f9ac792716478befadca0798cc15635",
--                "reference": "ad8b36073f9ac792716478befadca0798cc15635",
-+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/7353d4099ad5388e84737dd16994316a04f48dbf",
-+                "reference": "7353d4099ad5388e84737dd16994316a04f48dbf",
-                 "shasum": ""
-             },
-             "require": {
--                "php": "~8.1.0 || ~8.2.0"
-+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
-             },
-             "require-dev": {
--                "doctrine/annotations": "^2.0.0",
-+                "doctrine/annotations": "^2.0.1",
-                 "ext-phar": "*",
--                "laminas/laminas-coding-standard": "^2.3.0",
--                "laminas/laminas-stdlib": "^3.6.1",
--                "phpunit/phpunit": "^10.0.9",
-+                "laminas/laminas-coding-standard": "^2.5.0",
-+                "laminas/laminas-stdlib": "^3.17.0",
-+                "phpunit/phpunit": "^10.3.3",
-                 "psalm/plugin-phpunit": "^0.18.4",
--                "vimeo/psalm": "^5.7.1"
-+                "vimeo/psalm": "^5.15.0"
-             },
-             "suggest": {
-                 "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
-@@ -1831,20 +1880,20 @@
-                     "type": "community_bridge"
-                 }
-             ],
--            "time": "2023-03-08T11:55:01+00:00"
-+            "time": "2023-10-18T10:00:55+00:00"
+@@ -1835,16 +1884,16 @@
          },
          {
              "name": "monolog/monolog",
@@ -4018,27 +3926,20 @@ index 8915822..2ee3bf3 100644
                  },
                  "thanks": {
                      "name": "symfony/polyfill",
-@@ -6627,7 +6792,68 @@
+@@ -6627,7 +6792,7 @@
                  "shim"
              ],
              "support": {
 -                "source": "https://github.com/symfony/polyfill-php81/tree/v1.26.0"
 +                "source": "https://github.com/symfony/polyfill-php81/tree/v1.28.0"
-+            },
-+            "funding": [
-+                {
-+                    "url": "https://symfony.com/sponsor",
-+                    "type": "custom"
-+                },
-+                {
-+                    "url": "https://github.com/fabpot",
-+                    "type": "github"
-+                },
-+                {
-+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-+                    "type": "tidelift"
-+                }
-+            ],
+             },
+             "funding": [
+                 {
+@@ -6643,20 +6808,81 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2022-05-24T11:49:31+00:00"
 +            "time": "2023-01-26T09:26:14+00:00"
 +        },
 +        {
@@ -4085,14 +3986,21 @@ index 8915822..2ee3bf3 100644
 +            "homepage": "https://symfony.com",
 +            "support": {
 +                "source": "https://github.com/symfony/process/tree/v6.1.11"
-             },
-             "funding": [
-                 {
-@@ -6643,20 +6869,20 @@
-                     "type": "tidelift"
-                 }
-             ],
--            "time": "2022-05-24T11:49:31+00:00"
++            },
++            "funding": [
++                {
++                    "url": "https://symfony.com/sponsor",
++                    "type": "custom"
++                },
++                {
++                    "url": "https://github.com/fabpot",
++                    "type": "github"
++                },
++                {
++                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
++                    "type": "tidelift"
++                }
++            ],
 +            "time": "2023-01-01T08:36:55+00:00"
          },
          {
@@ -4327,8 +4235,7 @@ index 8915822..2ee3bf3 100644
 -        "php": "8.1.0"
 +        "php": "8.3"
      },
--    "plugin-api-version": "2.3.0"
-+    "plugin-api-version": "2.6.0"
+     "plugin-api-version": "2.6.0"
  }
 diff --git a/package.json b/package.json
 index 84d80cf..9b68411 100644
