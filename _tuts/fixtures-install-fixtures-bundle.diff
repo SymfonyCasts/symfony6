@@ -11,7 +11,7 @@ index ced56d5..a010d77 100644
          "symfony/maker-bundle": "^1.41",
          "symfony/stopwatch": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index a7291ad..83cc46c 100644
+index e72d8d3..ef676f0 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
