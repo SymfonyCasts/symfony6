@@ -1,9 +1,9 @@
 diff --git a/composer.json b/composer.json
-index c3ca20a..cb1a080 100644
+index 45daae2..6bed890 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -6,10 +6,12 @@
-         "php": ">=8.1",
+         "php": ">=8.2",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "babdev/pagerfanta-bundle": "^3.7",
@@ -16,15 +16,15 @@ index c3ca20a..cb1a080 100644
          "stof/doctrine-extensions-bundle": "^1.7",
          "symfony/asset": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index fe2f305..95b4628 100644
+index e6b4998..836ddea 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,91 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "6a297a8ea343cdd6e523be2c23a642a3",
-+    "content-hash": "862d6545c2e96d67aac93c21ca7953c0",
+-    "content-hash": "69cf3a2e76f1144b914de0580f24e5e3",
++    "content-hash": "f958608b90110b0526f45504101b7bd1",
      "packages": [
 +        {
 +            "name": "babdev/pagerfanta-bundle",
@@ -577,7 +577,7 @@ index c86d88c..e1a3602 100644
 +    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
  ];
 diff --git a/symfony.lock b/symfony.lock
-index 45814e1..b013ca3 100644
+index bef7ad2..1e6d899 100644
 --- a/symfony.lock
 +++ b/symfony.lock
 @@ -1,4 +1,7 @@

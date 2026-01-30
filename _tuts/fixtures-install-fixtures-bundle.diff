@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index ced56d5..a010d77 100644
+index bad8299..5b440b2 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -84,6 +84,7 @@
@@ -11,15 +11,15 @@ index ced56d5..a010d77 100644
          "symfony/maker-bundle": "^1.41",
          "symfony/stopwatch": "6.1.*",
 diff --git a/composer.lock b/composer.lock
-index e72d8d3..ef676f0 100644
+index 9c9fcb9..df170a9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "14037f9a9390c429efc29853e360fbd3",
-+    "content-hash": "e9dfe3114bf261b8361cf54a07cc7995",
+-    "content-hash": "f75b2da0a76f8c1b13d5b1b64039f1a2",
++    "content-hash": "7a535b2c25c26ebffe436c7a352532d4",
      "packages": [
          {
              "name": "behat/transliterator",
@@ -229,10 +229,10 @@ index 0000000..987f6fe
 +    }
 +}
 diff --git a/symfony.lock b/symfony.lock
-index 77f6e8d..44b1d6f 100644
+index 6e727e0..2d57679 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -22,6 +22,18 @@
+@@ -31,6 +31,18 @@
              "src/Repository/.gitignore"
          ]
      },

@@ -1,5 +1,5 @@
 diff --git a/composer.json b/composer.json
-index 3915695..ced56d5 100644
+index e12fb7a..bad8299 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -11,6 +11,7 @@
@@ -20,15 +20,15 @@ index 3915695..ced56d5 100644
              "docker": true
          }
 diff --git a/composer.lock b/composer.lock
-index 58ae81d..e72d8d3 100644
+index 207ea81..9c9fcb9 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,57 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "c9f25a6e792139a048fa9c0802971431",
-+    "content-hash": "14037f9a9390c429efc29853e360fbd3",
+-    "content-hash": "8717937e01cc3c1b8bdc29ff36eb6abf",
++    "content-hash": "f75b2da0a76f8c1b13d5b1b64039f1a2",
      "packages": [
 +        {
 +            "name": "behat/transliterator",
@@ -298,10 +298,10 @@ index 0000000..b258add
 +stof_doctrine_extensions:
 +    default_locale: en_US
 diff --git a/symfony.lock b/symfony.lock
-index 1885570..77f6e8d 100644
+index 9447e4d..6e727e0 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -71,6 +71,18 @@
+@@ -80,6 +80,18 @@
              "config/packages/sensio_framework_extra.yaml"
          ]
      },

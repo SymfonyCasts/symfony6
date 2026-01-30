@@ -16,11 +16,11 @@ index 1b734a4..19cd959 100644
 +DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
 +###< doctrine/doctrine-bundle ###
 diff --git a/composer.json b/composer.json
-index 174fbf9..bab336d 100644
+index 0244a00..f31ca21 100644
 --- a/composer.json
 +++ b/composer.json
 @@ -6,6 +6,9 @@
-         "php": ">=8.1",
+         "php": ">=8.2",
          "ext-ctype": "*",
          "ext-iconv": "*",
 +        "doctrine/doctrine-bundle": "^2.7",
@@ -48,15 +48,15 @@ index 174fbf9..bab336d 100644
      },
      "require-dev": {
 diff --git a/composer.lock b/composer.lock
-index d87c741..7c8c082 100644
+index a6ae78e..f7d77ff 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,8 +4,1460 @@
          "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
          "This file is @generated automatically"
      ],
--    "content-hash": "84d66cb6376ff36e830eb30c418c5689",
-+    "content-hash": "5e18f8246e4521d92eb2eef49d67d2ad",
+-    "content-hash": "ae9acd4f56b2b12af77fde00cc0a0f7a",
++    "content-hash": "93bf04bde8792da7f9da669591fabe90",
      "packages": [
 +        {
 +            "name": "doctrine/annotations",
@@ -1519,27 +1519,27 @@ index d87c741..7c8c082 100644
          },
 +        {
 +            "name": "laminas/laminas-code",
-+            "version": "4.16.0",
++            "version": "4.17.0",
 +            "source": {
 +                "type": "git",
 +                "url": "https://github.com/laminas/laminas-code.git",
-+                "reference": "1793e78dad4108b594084d05d1fb818b85b110af"
++                "reference": "40d61e2899ec17c5d08bbc0a2d586b3ca17ab9bd"
 +            },
 +            "dist": {
 +                "type": "zip",
-+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/1793e78dad4108b594084d05d1fb818b85b110af",
-+                "reference": "1793e78dad4108b594084d05d1fb818b85b110af",
++                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/40d61e2899ec17c5d08bbc0a2d586b3ca17ab9bd",
++                "reference": "40d61e2899ec17c5d08bbc0a2d586b3ca17ab9bd",
 +                "shasum": ""
 +            },
 +            "require": {
-+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
++                "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
 +            },
 +            "require-dev": {
 +                "doctrine/annotations": "^2.0.1",
 +                "ext-phar": "*",
 +                "laminas/laminas-coding-standard": "^3.0.0",
 +                "laminas/laminas-stdlib": "^3.18.0",
-+                "phpunit/phpunit": "^10.5.37",
++                "phpunit/phpunit": "^10.5.58",
 +                "psalm/plugin-phpunit": "^0.19.0",
 +                "vimeo/psalm": "^5.15.0"
 +            },
@@ -1578,7 +1578,7 @@ index d87c741..7c8c082 100644
 +                    "type": "community_bridge"
 +                }
 +            ],
-+            "time": "2024-11-20T13:15:13+00:00"
++            "time": "2025-11-01T09:38:14+00:00"
 +        },
          {
              "name": "monolog/monolog",
@@ -2096,24 +2096,6 @@ index d87c741..7c8c082 100644
          {
              "name": "symfony/web-profiler-bundle",
              "version": "v6.1.2",
-@@ -4111,7 +5716,7 @@
-     ],
-     "aliases": [],
-     "minimum-stability": "stable",
--    "stability-flags": [],
-+    "stability-flags": {},
-     "prefer-stable": true,
-     "prefer-lowest": false,
-     "platform": {
-@@ -4119,7 +5724,7 @@
-         "ext-ctype": "*",
-         "ext-iconv": "*"
-     },
--    "platform-dev": [],
-+    "platform-dev": {},
-     "platform-overrides": {
-         "php": "8.1.0"
-     },
 diff --git a/config/bundles.php b/config/bundles.php
 index e383274..123cad6 100644
 --- a/config/bundles.php
@@ -2236,10 +2218,10 @@ diff --git a/src/Repository/.gitignore b/src/Repository/.gitignore
 new file mode 100644
 index 0000000..e69de29
 diff --git a/symfony.lock b/symfony.lock
-index e95d3f1..c945c7a 100644
+index e95d3f1..32db691 100644
 --- a/symfony.lock
 +++ b/symfony.lock
-@@ -1,4 +1,40 @@
+@@ -1,4 +1,49 @@
  {
 +    "doctrine/annotations": {
 +        "version": "1.13",
@@ -2248,6 +2230,15 @@ index e95d3f1..c945c7a 100644
 +            "branch": "main",
 +            "version": "1.10",
 +            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
++        }
++    },
++    "doctrine/deprecations": {
++        "version": "1.0",
++        "recipe": {
++            "repo": "github.com/symfony/recipes",
++            "branch": "main",
++            "version": "1.0",
++            "ref": "87424683adc81d7dc305eefec1fced883084aab9"
 +        }
 +    },
 +    "doctrine/doctrine-bundle": {

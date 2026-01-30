@@ -1,17 +1,30 @@
 diff --git a/composer.json b/composer.json
-index 205d96a..174fbf9 100644
+index 205d96a..0244a00 100644
 --- a/composer.json
 +++ b/composer.json
-@@ -1,7 +1,6 @@
+@@ -1,10 +1,9 @@
  {
      "type": "project",
      "license": "proprietary",
 -    "minimum-stability": "RC",
      "prefer-stable": true,
      "require": {
-         "php": ">=8.1",
+-        "php": ">=8.1",
++        "php": ">=8.2",
+         "ext-ctype": "*",
+         "ext-iconv": "*",
+         "knplabs/knp-time-bundle": "^1.18",
+@@ -35,7 +34,7 @@
+         },
+         "sort-packages": true,
+         "platform": {
+-            "php": "8.1.0"
++            "php": "8.2"
+         }
+     },
+     "autoload": {
 diff --git a/composer.lock b/composer.lock
-index ac83e62..d87c741 100644
+index ac83e62..a6ae78e 100644
 --- a/composer.lock
 +++ b/composer.lock
 @@ -4,7 +4,7 @@
@@ -19,7 +32,7 @@ index ac83e62..d87c741 100644
          "This file is @generated automatically"
      ],
 -    "content-hash": "83c6f71891f84b4b6b7783b899f0a983",
-+    "content-hash": "84d66cb6376ff36e830eb30c418c5689",
++    "content-hash": "ae9acd4f56b2b12af77fde00cc0a0f7a",
      "packages": [
          {
              "name": "knplabs/knp-time-bundle",
@@ -1559,7 +1572,7 @@ index ac83e62..d87c741 100644
              },
              "funding": [
                  {
-@@ -4092,11 +4106,11 @@
+@@ -4092,22 +4106,22 @@
                      "type": "tidelift"
                  }
              ],
@@ -1569,7 +1582,23 @@ index ac83e62..d87c741 100644
      ],
      "aliases": [],
 -    "minimum-stability": "RC",
+-    "stability-flags": [],
 +    "minimum-stability": "stable",
-     "stability-flags": [],
++    "stability-flags": {},
      "prefer-stable": true,
      "prefer-lowest": false,
+     "platform": {
+-        "php": ">=8.1",
++        "php": ">=8.2",
+         "ext-ctype": "*",
+         "ext-iconv": "*"
+     },
+-    "platform-dev": [],
++    "platform-dev": {},
+     "platform-overrides": {
+-        "php": "8.1.0"
++        "php": "8.2"
+     },
+-    "plugin-api-version": "2.6.0"
++    "plugin-api-version": "2.9.0"
+ }
